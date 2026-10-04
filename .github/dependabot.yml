@@ -45,3 +45,17 @@ updates:
       - "JuniorThanhBQ"
     labels:
       - "dependencies"
+
+  - package-ecosystem: "pre-commit"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "Asia/Ho_Chi_Minh"
+    assignees:
+      - "JuniorThanhBQ"
+    reviewers:
+      - "JuniorThanhBQ"
+    labels:
+      - "dependencies"
