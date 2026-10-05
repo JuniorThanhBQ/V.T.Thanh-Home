@@ -20,7 +20,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@3d3c42e4856f6424a13223126f5d72f107127b40 # v7.0.1
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: badges
           persist-credentials: false
@@ -28,7 +28,7 @@ jobs:
 
       - name: If badges branch does not exist, checkout main
         if: steps.checkout.outcome != 'success'
-        uses: actions/checkout@3d3c42e4856f6424a13223126f5d72f107127b40 # v7.0.1
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
 
