@@ -1,0 +1,40 @@
+name: GitHub Actions zizmor
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    paths:
+      - ".github/workflows/**"
+      - "action.yml"
+      - "action.yaml"
+  schedule:
+    - cron: "30 2 * * 1"
+
+permissions: {}
+
+jobs:
+  zizmor:
+    name: zizmor static analysis
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@3d3c42e4856f6424a13223126f5d72f107127b40
+        with:
+          persist-credentials: false
+
+      - name: Run zizmor
+        uses: zizmorcore/zizmor-action@cc914d7f3750a2d13d75c7f184a1060aa0e9d482
+        with:
+          persona: pedantic
+          advanced-security: true
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload SARIF results
+        uses: github/codeql-action/upload-sarif@b96794f015dfd88f77b49b1c93e0fa7110f94c63
+        with:
+          sarif_file: results.sarif

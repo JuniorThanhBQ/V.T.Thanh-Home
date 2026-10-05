@@ -1,0 +1,74 @@
+name: "Production Website Health Check"
+
+on:
+  schedule:
+    - cron: '0 * * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: health-check
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  ping:
+    name: "Check Vercel Deployment"
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e4856f6424a13223126f5d72f107127b40 # v7.0.1
+        with:
+          ref: badges
+          persist-credentials: false
+        continue-on-error: true
+
+      - name: If badges branch does not exist, checkout main
+        if: steps.checkout.outcome != 'success'
+        uses: actions/checkout@3d3c42e4856f6424a13223126f5d72f107127b40 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Probe Website Status
+        id: probe
+        run: |
+          TARGET_URL="https://vtthanh-home-angular.vercel.app/"
+          HTTP_STATUS=$(curl -s -L -o /dev/null -w "%{http_code}" --max-time 15 "$TARGET_URL" || echo "000")
+
+          if [ "$HTTP_STATUS" -eq 200 ]; then
+            COLOR="brightgreen"
+            MESSAGE="200 OK"
+          elif [ "$HTTP_STATUS" -ge 300 ] && [ "$HTTP_STATUS" -lt 400 ]; then
+            COLOR="yellow"
+            MESSAGE="${HTTP_STATUS} Redirect"
+          elif [ "$HTTP_STATUS" -eq 000 ]; then
+            COLOR="red"
+            MESSAGE="Unreachable"
+          else
+            COLOR="red"
+            MESSAGE="${HTTP_STATUS} Error"
+          fi
+
+          cat <<EOF > status.json
+          {
+            "schemaVersion": 1,
+            "label": "website",
+            "message": "${MESSAGE}",
+            "color": "${COLOR}"
+          }
+          EOF
+
+      - name: Deploy status.json to badges branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git checkout --orphan badges 2>/dev/null || git checkout badges
+          git rm -rf . >/dev/null 2>&1 || true
+
+          git add status.json
+          git commit -m "chore(uptime): update status badge [skip ci]" || exit 0
+          git push origin badges --force

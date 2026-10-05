@@ -23,7 +23,7 @@ if command -v semgrep >/dev/null 2>&1; then
   semgrep scan --config auto --error backend/ frontend/
 elif command -v docker >/dev/null 2>&1; then
   docker run --rm -v "$(pwd):/src:ro" \
-    "semgrep/semgrep:${SEMGREP_VERSION}" semgrep scan --config auto --error
+    "semgrep/semgrep:${SEMGREP_VERSION}" semgrep scan --config auto --error backend/ frontend/
 else
   echo "Notice: Semgrep CLI or Docker not found."
 fi
