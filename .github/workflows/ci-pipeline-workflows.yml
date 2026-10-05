@@ -66,8 +66,8 @@ jobs:
           npm --prefix frontend/V.T.Thanh-Home-Angular run lint
 
 
-  build-and-healthcheck:
-    name: "Build and Healthcheck"
+  build-check:
+    name: "App build check"
     needs: [lint]
     runs-on: ubuntu-latest
     timeout-minutes: 20
@@ -104,7 +104,7 @@ jobs:
 
   security-deep-scan:
     name: "Deep Security Scan"
-    needs: [build-and-healthcheck]
+    needs: [build-check]
     runs-on: ubuntu-latest
     timeout-minutes: 20
     permissions:

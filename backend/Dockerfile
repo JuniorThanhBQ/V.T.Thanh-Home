@@ -18,7 +18,7 @@ COPY backend/V.T.Thanh-Home-SpringBoot/src ./src
 RUN ./gradlew bootJar -x test --no-daemon
 
 WORKDIR /workspace/extracted
-RUN java -Djarmode=tools -jar /workspace/build/libs/*.jar extract --layers --launcher || \
+RUN java -Djarmode=tools -jar /workspace/build/libs/*.jar extract --layers --launcher --destination . || \
     java -Djarmode=layertools -jar /workspace/build/libs/*.jar extract
 
 FROM eclipse-temurin:${ESCLIPSE_TEMURIN_JRE_VERSION} AS runtime
@@ -41,7 +41,7 @@ RUN chown -R 1001:1001 /application
 USER 1001:1001
 
 EXPOSE 8080
-ENV JAVA_TOOL_OPTIONS="-XX:MaxRAMPercentage=́̀́́80.0 -XX:+UseContainerSupport"
+ENV JAVA_TOOL_OPTIONS="-XX:MaxRAMPercentage=80.0 -XX:+UseContainerSupport"
 
 HEALTHCHECK --interval=30s --timeout=5s --start-period=20s --retries=3 \
   CMD ["curl", "-f", "http://localhost:8080/actuator/health"]
