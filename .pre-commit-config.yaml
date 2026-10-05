@@ -34,6 +34,13 @@ repos:
             frontend/V\.T\.Thanh-Home-Angular/package-lock\.json
           )$
 
+      - id: ng-lint
+        name: Angular ESLint
+        language: system
+        entry: npm --prefix frontend/V.T.Thanh-Home-Angular run lint
+        files: ^frontend/V\.T\.Thanh-Home-Angular/src/.*\.(ts|html)$
+        pass_filenames: false
+
   - repo: local
     hooks:
       - id: gradle-spotless
@@ -41,6 +48,13 @@ repos:
         entry: cmd /c "cd backend\V.T.Thanh-Home-SpringBoot && gradlew.bat spotlessCheck"
         language: system
         files: ^backend/V\.T\.Thanh-Home-SpringBoot/.*\.java$
+        pass_filenames: false
+
+      - id: gradle-checkstyle
+        name: Gradle Checkstyle
+        entry: cmd /c "cd backend\V.T.Thanh-Home-SpringBoot && gradlew.bat checkstyleMain"
+        language: system
+        files: ^backend/V\.T\.Thanh-Home-SpringBoot/src/main/java/.*\.java$
         pass_filenames: false
 
   - repo: https://github.com/hadolint/hadolint
