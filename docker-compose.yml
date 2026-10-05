@@ -1,0 +1,47 @@
+services:
+  backend:
+    build:
+      context: ./backend/V.T.Thanh-Home-SpringBoot
+      dockerfile: Dockerfile
+    container_name: backend-springboot
+    restart: unless-stopped
+    environment:
+      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE?Unset variable SPRING_PROFILES_ACTIVE}
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${POSTGRES_DB?Unset variable POSTGRES_DB}
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER?Unset variable POSTGRES_USER}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD?Unset variable POSTGRES_PASSWORD}
+      SERVER_PORT: ${SERVER_PORT?Unset variable SERVER_PORT}
+    ports:
+      - "${SERVER_PORT?Unset variable SERVER_PORT}:8080"
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - default
+  db:
+    image: pgvector/pgvector:pg18@sha256:2358fcba361ed2233a5ed81b5fe4ca779ccb304120ce531a3bf51c0ed7e2bc11
+    container_name: pgvector-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB?Unset variable POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER?Unset variable POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD?Unset variable POSTGRES_PASSWORD}
+    ports:
+      - "${POSTGRES_PORT?Unset variable POSTGRES_PORT}:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - default
+
+volumes:
+  db-data:
+
+networks:
+  default:
+    name: vtthanh-home-network
+    driver: bridge

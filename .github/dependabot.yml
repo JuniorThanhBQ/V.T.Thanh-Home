@@ -22,6 +22,8 @@ updates:
       - "JuniorThanhBQ"
     labels:
       - "dependencies"
+    cooldown:
+      default-days: 7
 
   - package-ecosystem: "npm"
     directory: "/frontend/V.T.Thanh-Home-Angular"
@@ -45,6 +47,8 @@ updates:
       - "JuniorThanhBQ"
     labels:
       - "dependencies"
+    cooldown:
+      default-days: 7
 
   - package-ecosystem: "pre-commit"
     directory: "/"
@@ -59,3 +63,5 @@ updates:
       - "JuniorThanhBQ"
     labels:
       - "dependencies"
+    cooldown:
+      default-days: 7
