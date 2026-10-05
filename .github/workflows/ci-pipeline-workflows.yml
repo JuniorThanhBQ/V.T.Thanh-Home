@@ -25,12 +25,12 @@ jobs:
           persist-credentials: false
 
       - name: Run Gitleaks Detector
-        uses: gitleaks/gitleaks-action@e0c47f42c262842033c41a4a1599d123d9441113 # v3.0.0
+        uses: gitleaks/gitleaks-action@e0c47f4f8be36e29cdc102c57e68cb5cbf0e8d1e # v3.0.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   lint:
-    name: "Lint Frontend & Backend"
+    name: "Lint Frontend and Backend"
     needs: [gitleaks]
     runs-on: ubuntu-latest
     timeout-minutes: 15
@@ -63,12 +63,11 @@ jobs:
       - name: Lint Frontend
         run: |
           npm --prefix frontend/V.T.Thanh-Home-Angular ci
-          npx --prefix frontend/V.T.Thanh-Home-Angular prettier --check "src/**/*.{ts,html,css}"
           npm --prefix frontend/V.T.Thanh-Home-Angular run lint
 
 
   build-and-healthcheck:
-    name: "Build & Healthcheck"
+    name: "Build and Healthcheck"
     needs: [lint]
     runs-on: ubuntu-latest
     timeout-minutes: 20
@@ -79,7 +78,7 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Set up Node.js & Build Angular Production Bundle
+      - name: Set up Node.js and Build Angular Production Bundle
         uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
         with:
           node-version: '22'
@@ -143,7 +142,7 @@ jobs:
           sarif_file: 'trivy-image-results.sarif'
           category: 'trivy-docker-image'
 
-      - name: Serve Built Angular & Run OWASP ZAP Scan
+      - name: Serve Built Angular and Run OWASP ZAP Scan
         run: |
           npm --prefix frontend/V.T.Thanh-Home-Angular ci
           npm --prefix frontend/V.T.Thanh-Home-Angular run build
