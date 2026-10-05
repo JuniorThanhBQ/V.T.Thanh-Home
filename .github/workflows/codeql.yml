@@ -11,16 +11,17 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
-permissions:
-  contents: read
-  security-events: write
-  actions: read
+permissions: {}
 
 jobs:
   analyze:
     name: Analyze (${{ matrix.language }})
     runs-on: ubuntu-latest
     timeout-minutes: 45
+    permissions:
+      contents: read
+      security-events: write
+      actions: read
     strategy:
       fail-fast: false
       matrix:
