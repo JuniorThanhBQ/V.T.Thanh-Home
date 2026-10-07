@@ -2,7 +2,7 @@ import json
 import requests
 from pathlib import Path
 
-I18N_DIR = Path("frontend/V.T.Thanh-Home-Angular/src/assets/i18n")
+I18N_DIR = Path("frontend/V.T.Thanh-Home-Angular/public/i18n")
 SOURCE_FILE = I18N_DIR / "vi.json"
 TARGET_LANGUAGES = {"en": "English", "ja": "Japanese", "zh": "Simplified Chinese"}
 OLLAMA_API_URL = "http://localhost:11434/api/generate"

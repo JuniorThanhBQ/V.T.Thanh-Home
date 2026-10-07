@@ -1,0 +1,27 @@
+{
+  "app": {
+    "title": "Website cá nhân",
+    "Author": "Văn Trung Thành",
+    "version": "Phiên bản 0.1.0",
+    "copyright": "Bảo lưu mọi quyền"
+  },
+  "language": {
+    "vi": "Tiếng Việt",
+    "en": "Tiếng Anh",
+    "zh": "Tiếng Trung",
+    "ja": "Tiếng Nhật"
+  },
+  "loading": {
+    "subtitle": "Trang nhà của Văn Trung Thành 🏠",
+    "initializing": "Đợi tí, chủ nhà đang lấy hồ sơ nhé!",
+    "switching_language": "Đang chuyển đổi ngôn ngữ...",
+    "tech_stack": "Spring Boot 4.11 với Angular 22"
+  },
+  "navigation": {
+    "home": "Trang chủ",
+    "about": "Về bản thân",
+    "projects": "Dự án",
+    "blog": "Nhật ký",
+    "contact": "Liên hệ"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "app": {
+    "title": "个人网站",
+    "Author": "文忠诚",
+    "version": "版本 0.1.0",
+    "copyright": "保留所有权利"
+  },
+  "navigation": {
+    "home": "主页",
+    "about": "关于本人",
+    "projects": "项目",
+    "blog": "日志",
+    "contact": "联系"
+  },
+  "language": {
+    "vi": "越南语",
+    "en": "英语",
+    "zh": "中文",
+    "ja": "日语"
+  },
+  "loading": {
+    "switching_language": "正在转换语言...",
+    "subtitle": "我的主页 🏠",
+    "tech_stack": "Spring Boot 4.11 与 Angular 22",
+    "initializing": "稍等，房东正在查看资料！"
+  }
+}

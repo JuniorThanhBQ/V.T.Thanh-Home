@@ -1,0 +1,27 @@
+{
+  "app": {
+    "title": "Personal website",
+    "Author": "Van Trung Thanh",
+    "version": "Version 0.1.0",
+    "copyright": "All rights reserved"
+  },
+  "navigation": {
+    "home": "Home",
+    "about": "About Yourself",
+    "projects": "Project",
+    "blog": "Log",
+    "contact": "Contact"
+  },
+  "language": {
+    "vi": "Vietnamese",
+    "en": "English",
+    "zh": "Chinese",
+    "ja": "Japanese"
+  },
+  "loading": {
+    "subtitle": "Van Trung Thanh's homepage 🏠",
+    "switching_language": "Loading language conversion...",
+    "tech_stack": "Spring Boot 4.11 with Angular 22",
+    "initializing": "Wait a moment, the host is fetching their profile!"
+  }
+}

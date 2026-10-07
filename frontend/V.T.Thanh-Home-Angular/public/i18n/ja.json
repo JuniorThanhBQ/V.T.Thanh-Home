@@ -1,0 +1,27 @@
+{
+  "app": {
+    "title": "個人サイト",
+    "Author": "ヴァン・チュン・タイン",
+    "version": "バージョン 0.1.0",
+    "copyright": "バックアップを保存する"
+  },
+  "navigation": {
+    "home": "ホーム",
+    "about": "自己紹介",
+    "projects": "プロジェクト",
+    "blog": "日誌",
+    "contact": "連絡"
+  },
+  "language": {
+    "vi": "日本語",
+    "en": "英語",
+    "zh": "中国語",
+    "ja": "日本語"
+  },
+  "loading": {
+    "switching_language": "言語変更中...",
+    "subtitle": "文中成のポートフォリオサイト🏠",
+    "tech_stack": "Spring Boot 4.11 と Angular 22",
+    "initializing": "少々お待ちください、宿主はプロフィールを取得中です！"
+  }
+}
