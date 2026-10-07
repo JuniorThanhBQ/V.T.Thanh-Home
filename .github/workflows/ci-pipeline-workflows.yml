@@ -44,16 +44,16 @@ jobs:
       - name: Set up Java JDK 25
         uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
         with:
-          java-version: '25'
-          distribution: 'temurin'
-          cache: 'gradle'
+          java-version: "25"
+          distribution: "temurin"
+          cache: "gradle"
 
       - name: Set up Node.js
         uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 #v7.0.0
         with:
-          node-version: '22'
-          cache: 'npm'
-          cache-dependency-path: 'frontend/V.T.Thanh-Home-Angular/package-lock.json'
+          node-version: "22"
+          cache: "npm"
+          cache-dependency-path: "frontend/V.T.Thanh-Home-Angular/package-lock.json"
 
       - name: Lint Backend
         run: |
@@ -64,7 +64,6 @@ jobs:
         run: |
           npm --prefix frontend/V.T.Thanh-Home-Angular ci
           npm --prefix frontend/V.T.Thanh-Home-Angular run lint
-
 
   build-check:
     name: "App build check"
@@ -81,9 +80,9 @@ jobs:
       - name: Set up Node.js and Build Angular Production Bundle
         uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 #v7.0.0
         with:
-          node-version: '22'
-          cache: 'npm'
-          cache-dependency-path: 'frontend/V.T.Thanh-Home-Angular/package-lock.json'
+          node-version: "22"
+          cache: "npm"
+          cache-dependency-path: "frontend/V.T.Thanh-Home-Angular/package-lock.json"
       - run: |
           npm --prefix frontend/V.T.Thanh-Home-Angular ci
           npm --prefix frontend/V.T.Thanh-Home-Angular run build
@@ -132,18 +131,18 @@ jobs:
       - name: Run Trivy Deep Image Vulnerability Scan
         uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
         with:
-          image-ref: 'vtthanh-backend:test'
-          scan-type: 'image'
-          severity: 'HIGH,CRITICAL'
-          format: 'sarif'
-          output: 'trivy-image-results.sarif'
+          image-ref: "vtthanh-backend:test"
+          scan-type: "image"
+          severity: "HIGH,CRITICAL"
+          format: "sarif"
+          output: "trivy-image-results.sarif"
 
       - name: Upload Trivy Image SARIF
         if: always()
         uses: github/codeql-action/upload-sarif@2892aa5e19bbd11bc0cff5427e3b750a04d9e3c2 # v4.38.2
         with:
-          sarif_file: 'trivy-image-results.sarif'
-          category: 'trivy-docker-image'
+          sarif_file: "trivy-image-results.sarif"
+          category: "trivy-docker-image"
 
       - name: Serve Built Angular and Run OWASP ZAP Scan
         run: |
@@ -156,5 +155,5 @@ jobs:
       - name: OWASP ZAP Baseline Scan on Angular
         uses: zaproxy/action-baseline@de8ad967d3548d44ef623df22cf95c3b0baf8b25 # v0.15.0
         with:
-          target: 'http://localhost:4200'
+          target: "http://localhost:4200"
           fail_action: false

@@ -57,6 +57,10 @@ func PreCommitUpdate() error {
 	return run("bash", "scripts/pre-commit-check.sh", "--update")
 }
 
+func Translate() error {
+	return run("uv", "run", "python", "scripts/frontend/app-vi-multi-lang-translation.py")
+}
+
 func SecretGenerate() error {
 	if err := sh.RunV("bash", "scripts/app-secret-generate.sh"); err != nil {
 		return fmt.Errorf("failed to generate secrets: %w", err)

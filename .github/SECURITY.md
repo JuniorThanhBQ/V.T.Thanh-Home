@@ -28,6 +28,7 @@ Instead, please report security vulnerabilities through one of the following met
 ### What to Include
 
 Please include the following information in your report:
+
 - Description of the vulnerability
 - Steps to reproduce the issue
 - Potential impact
@@ -42,10 +43,10 @@ Please include the following information in your report:
 
 ## Supported Versions
 
-| Version | Supported          |
-| ------- | ------------------ |
-| latest  | ✅ Yes             |
-| older   | ❌ No              |
+| Version | Supported |
+| ------- | --------- |
+| latest  | ✅ Yes    |
+| older   | ❌ No     |
 
 ## Security Features
 
@@ -60,6 +61,7 @@ This repository has the following security features enabled:
 ## Security Best Practices
 
 When contributing to this project:
+
 - Never commit secrets (API keys, passwords, tokens)
 - Keep dependencies up to date
 - Follow secure coding practices

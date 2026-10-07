@@ -7,7 +7,9 @@ authors = [
     { name = "Van Trung Thanh", email = "thanh.vantrung2005@gmail.com" }
 ]
 requires-python = ">=3.14"
-dependencies = []
+dependencies = [
+    "requests>=2.34.2",
+]
 
 [project.scripts]
 v-t-thanh-home = "v_t_thanh_home:main"
