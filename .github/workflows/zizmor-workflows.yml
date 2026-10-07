@@ -11,6 +11,10 @@ on:
   schedule:
     - cron: "30 2 * * 1"
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 permissions: {}
 
 jobs:
@@ -19,6 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+      # This security scan job requires write access in order to upload SARIF results and create issues for any detected vulnerabilities.
       security-events: write
     steps:
       - name: Checkout Repository
@@ -27,7 +32,7 @@ jobs:
           persist-credentials: false
 
       - name: Run zizmor
-        uses: zizmorcore/zizmor-action@cc914d7f3750a2d13d75c7f184a1060aa0e9d482
+        uses: zizmorcore/zizmor-action@cc914d7f3750a2d13d75c7f184a1060aa0e9d482 #v0.6.4
         with:
           persona: pedantic
           advanced-security: true
