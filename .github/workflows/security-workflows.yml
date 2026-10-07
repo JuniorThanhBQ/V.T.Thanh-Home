@@ -125,13 +125,4 @@ jobs:
         uses: zaproxy/action-baseline@de8ad967d3548d44ef623df22cf95c3b0baf8b25 # v0.15.0
         with:
           target: "https://vtthanh-home-angular.vercel.app/"
-          rules_file_name: ".zap/rules.tsv"
-          cmd_options: "-a"
           fail_action: false
-
-      - name: Upload ZAP SARIF Report to GitHub Security Tab
-        if: always()
-        uses: github/codeql-action/upload-sarif@2892aa5e19bbd11bc0cff5427e3b750a04d9e3c2 # v4.38.2
-        with:
-          sarif_file: "report_sarif.json"
-          category: "zap-dast"
