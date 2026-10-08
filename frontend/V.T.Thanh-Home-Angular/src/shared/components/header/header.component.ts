@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, ElementRef, HostListener, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { TranslationService, SupportedLang } from '@/shared/services/translation.service';
@@ -19,7 +19,7 @@ export interface NavItem {
     <header
       class="sticky top-0 z-50 backdrop-blur-md bg-white/80 dark:bg-slate-900/80 border-b border-slate-200 dark:border-slate-800 transition-colors duration-300"
     >
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between">
         <div class="w-[30%] flex items-center">
           <a
             routerLink="/"
@@ -29,7 +29,7 @@ export interface NavItem {
             <img
               [src]="theme.currentTheme() === 'light' ? avatarUrls.light : avatarUrls.dark"
               alt="V.T.Thanh Logo"
-              class="w-18 h-18 object-contain transition-opacity duration-300"
+              class="w-20 h-20 object-contain transition-opacity duration-300"
             />
             <span class="text-slate-900 dark:text-white font-semibold tracking-wide">{{
               i18n.t('app.Author')
@@ -61,8 +61,9 @@ export interface NavItem {
           <div class="relative animate-stagger-item" [style.--i]="navItems.length + 1">
             <button
               type="button"
-              (click)="toggleDropdown()"
+              (click)="toggleLangDropdown($event)"
               class="flex items-center space-x-2 bg-transparent hover:bg-slate-200/50 dark:hover:bg-slate-800/50 border border-slate-300/60 dark:border-slate-700/60 text-slate-800 dark:text-slate-200 px-3 py-1.5 rounded-full text-sm backdrop-blur-sm transition-all focus:outline-none focus:ring-2 focus:ring-sky-500 cursor-pointer"
+              [attr.aria-expanded]="isLangDropdownOpen()"
             >
               @if (currentLangOption(); as opt) {
                 <img
@@ -87,14 +88,14 @@ export interface NavItem {
                 />
               </svg>
             </button>
-            @if (dropdownOpen()) {
+            @if (isLangDropdownOpen()) {
               <div
                 class="absolute right-0 mt-2 w-44 backdrop-blur-md bg-white/75 dark:bg-slate-900/75 border border-slate-200/60 dark:border-slate-700/60 rounded-lg shadow-xl py-1 z-50 transition-all"
               >
                 @for (lang of i18n.supportedLanguages; track lang.code) {
                   <button
                     type="button"
-                    (click)="selectLanguage(lang.code)"
+                    (click)="selectLanguage(lang.code); isLangDropdownOpen.set(false)"
                     class="w-full text-left px-4 py-2 text-sm flex items-center space-x-3 hover:bg-slate-100/70 dark:hover:bg-slate-800/70 transition-colors cursor-pointer"
                     [class.text-sky-600]="i18n.currentLang() === lang.code"
                     [class.dark:text-sky-400]="i18n.currentLang() === lang.code"
@@ -207,6 +208,33 @@ export class HeaderComponent {
   public theme = inject(ThemeService);
   public dropdownOpen = signal(false);
   public readonly avatarUrls = AVATAR_URLS;
+  isLangDropdownOpen = signal<boolean>(false);
+
+  constructor(private elementRef: ElementRef) {}
+
+  toggleLangDropdown(event?: MouseEvent): void {
+    if (event) {
+      event.stopPropagation();
+    }
+    this.isLangDropdownOpen.update((open) => !open);
+  }
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent): void {
+    if (this.isLangDropdownOpen()) {
+      const clickedInside = this.elementRef.nativeElement
+        .querySelector('.lang-dropdown-container')
+        ?.contains(event.target as Node);
+      if (!clickedInside) {
+        this.isLangDropdownOpen.set(false);
+      }
+    }
+  }
+  @HostListener('document:keydown.escape')
+  onEscapePress(): void {
+    if (this.isLangDropdownOpen()) {
+      this.isLangDropdownOpen.set(false);
+    }
+  }
 
   public readonly navItems: NavItem[] = [
     { path: '/', translationKey: 'navigation.home', exact: true },

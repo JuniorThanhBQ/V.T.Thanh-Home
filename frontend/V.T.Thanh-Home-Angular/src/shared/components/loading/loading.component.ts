@@ -16,15 +16,14 @@ import { TranslationService } from '@/shared/services/translation.service';
       [class.pointer-events-none]="curtainLifted()"
     >
       <div
-        class="flex items-center justify-between text-xs font-mono tracking-widest text-slate-500 dark:text-slate-400"
+        class="flex w-full items-center text-xs font-mono tracking-widest text-slate-500 dark:text-slate-400"
       >
-        <div class="flex items-center space-x-2">
-          <span class="w-2 h-2 rounded-full bg-sky-500 dark:bg-sky-400 animate-ping"></span>
+        <div class="flex">
           <span class="text-slate-800 dark:text-slate-200 uppercase font-semibold">{{
             i18n.t('loading.subtitle')
           }}</span>
         </div>
-        <span class="text-slate-400 dark:text-slate-500 uppercase hidden sm:inline">{{
+        <span class="text-slate-400 dark:text-slate-500 uppercase hidden sm:inline ml-auto">{{
           i18n.t('loading.tech_stack')
         }}</span>
       </div>

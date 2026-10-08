@@ -4,9 +4,11 @@ import { HeaderComponent } from '@/shared/components/header/header.component';
 import { FooterComponent } from '@/shared/components/footer/footer.component';
 import { LoadingComponent } from '../shared/components/loading/loading.component';
 import { LoadingService } from '../shared/services/loading.service';
+import { ColorWipeComponent } from '@/shared/components/color-wipe/color-wipe.component';
+import { ChatbotComponent } from '@/features/chat/components/chat.component';
 
 @Component({
-  imports: [RouterOutlet, HeaderComponent, FooterComponent, LoadingComponent],
+  imports: [RouterOutlet, HeaderComponent, FooterComponent, LoadingComponent, ColorWipeComponent, ChatbotComponent],
   selector: 'app-root',
   styleUrl: './app.css',
   templateUrl: './app.html',

@@ -13,16 +13,14 @@ import { TranslationService } from '../../services/translation.service';
       <div
         class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-2"
       >
-        <div>
+        <div class="animate-stagger-item">
           © {{ currentYear }}
           <span class="font-semibold text-slate-800 dark:text-slate-200">{{
             i18n.t('app.Author')
           }}</span
           >. {{ i18n.t('app.copyright') }}.
         </div>
-        <div class="flex items-center space-x-3 text-slate-500 dark:text-slate-400">
-          <span>{{ i18n.t('loading.tech_stack') }}</span>
-          <span>&bull;</span>
+        <div class="animate-stagger-item flex items-center space-x-3 text-slate-500 dark:text-slate-400">
           <span class="font-mono text-slate-700 dark:text-slate-300">{{
             i18n.t('app.version')
           }}</span>

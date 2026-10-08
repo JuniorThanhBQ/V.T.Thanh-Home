@@ -9,4 +9,5 @@ export const AVATAR_URLS = {
   linkedin: `https://res.cloudinary.com/dfolk8pz2/image/upload/v1787048698/linkedin-logo-linkedin-symbol-linkedin-icon-free-free-vector-removebg-preview_rjzexl.png`,
   cv_picture_one: `https://res.cloudinary.com/dfolk8pz2/image/upload/v1789540027/1788869795561_tzooyq.png`,
   cv_picture_two: `https://res.cloudinary.com/dfolk8pz2/image/upload/v1789540034/1788869795561_zviovw.png`,
+  contact_page_background: `https://res.cloudinary.com/dfolk8pz2/image/upload/v1791453900/Chibi_cagv9g.jpg`
 };
