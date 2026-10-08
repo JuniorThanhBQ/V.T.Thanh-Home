@@ -9,7 +9,7 @@ interface Node {
 }
 
 @Injectable()
-export class AboutShaderService {
+export class ProjectShaderService {
   private ngZone = inject(NgZone);
   private canvas!: HTMLCanvasElement;
   private ctx!: CanvasRenderingContext2D;

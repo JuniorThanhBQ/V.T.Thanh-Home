@@ -163,10 +163,7 @@ export class HomeShaderService {
     this.mouseCurrent.y += (this.mouseTarget.y - this.mouseCurrent.y) * 0.05;
 
     this.material.uniforms['u_time'].value = this.clock.getElapsedTime();
-    this.material.uniforms['u_mouse'].value.set(
-      this.mouseCurrent.x,
-      this.mouseCurrent.y
-    );
+    this.material.uniforms['u_mouse'].value.set(this.mouseCurrent.x, this.mouseCurrent.y);
 
     this.renderer.render(this.scene, this.camera);
     this.animationFrameId = requestAnimationFrame(this.animate);

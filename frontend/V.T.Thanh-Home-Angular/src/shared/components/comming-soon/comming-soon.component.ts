@@ -7,15 +7,22 @@ import { RouterLink } from '@angular/router';
   standalone: true,
   imports: [CommonModule, RouterLink],
   template: `
-    <div class="relative w-full max-w-2xl mx-auto flex flex-col items-center justify-center text-center select-none py-12 px-4">
-      <div class="absolute -top-10 left-1/2 -translate-x-1/2 w-80 h-80 rounded-full bg-sky-400/15 dark:bg-[#295770]/25 blur-[100px] pointer-events-none -z-10"></div>
+    <div
+      class="relative w-full max-w-2xl mx-auto flex flex-col items-center justify-center text-center select-none py-12 px-4"
+    >
 
-      <div class="p-8 sm:p-12 w-full rounded-2xl sm:rounded-3xl bg-white/70 dark:bg-[#0c121c]/75 border border-slate-200/70 dark:border-slate-800/80 shadow-2xl backdrop-blur-xl">
-        <h1 class="text-3xl sm:text-5xl font-black tracking-tight text-slate-900 dark:text-slate-100">
+      <div
+        class="p-8 sm:p-12 w-full rounded-2xl sm:rounded-3xl bg-white/70 dark:bg-[#0c121c]/75 border border-slate-200/70 dark:border-slate-800/80 shadow-2xl backdrop-blur-xl"
+      >
+        <h1
+          class="text-3xl sm:text-5xl font-black tracking-tight text-slate-900 dark:text-slate-100"
+        >
           {{ title }}
         </h1>
 
-        <p class="mt-4 text-sm sm:text-base text-slate-600 dark:text-slate-300 font-light leading-relaxed max-w-lg mx-auto">
+        <p
+          class="mt-4 text-sm sm:text-base text-slate-600 dark:text-slate-300 font-light leading-relaxed max-w-lg mx-auto"
+        >
           {{ subtitle }}
         </p>
 
@@ -41,5 +48,6 @@ import { RouterLink } from '@angular/router';
 })
 export class CommingSoonComponent {
   @Input() title = 'Coming Soon';
-  @Input() subtitle = 'This section is currently undergoing active engineering and will be deployed shortly.';
+  @Input() subtitle =
+    'This section is currently undergoing active engineering and will be deployed shortly.';
 }

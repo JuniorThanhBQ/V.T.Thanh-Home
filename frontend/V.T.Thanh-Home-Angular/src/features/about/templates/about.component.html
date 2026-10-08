@@ -1,20 +1,26 @@
-<div class="relative w-full overflow-hidden bg-white dark:bg-[#070e17] transition-colors duration-500">
-  <canvas
-    #bgCanvas
-    class="fixed inset-0 w-full h-full pointer-events-none z-0"
-  ></canvas>
+<div
+  class="relative w-full overflow-hidden bg-white dark:bg-[#070e17] transition-colors duration-500"
+>
+  <canvas #bgCanvas class="fixed inset-0 w-full h-full pointer-events-none z-0"></canvas>
 
   <div class="relative z-10 max-w-6xl mx-auto px-6 pt-24 pb-32 sm:pt-28">
     <div class="grid grid-cols-1 md:grid-cols-10 gap-8 lg:gap-12 items-center">
       <div class="md:col-span-7 text-left select-none">
-        <span class="text-xs uppercase tracking-[0.3em] font-mono text-slate-500 dark:text-slate-400 mb-2 block">
+        <span
+          class="text-xs uppercase tracking-[0.3em] font-mono text-slate-500 dark:text-slate-400 mb-2 block"
+        >
           Biography & Perspective
         </span>
-        <h1 class="text-4xl sm:text-6xl font-black tracking-tight text-slate-900 dark:text-slate-100">
+        <h1
+          class="text-4xl sm:text-6xl font-black tracking-tight text-slate-900 dark:text-slate-100"
+        >
           About Me
         </h1>
-        <p class="mt-4 text-base sm:text-lg text-slate-600 dark:text-slate-300 font-light leading-relaxed">
-          An engineering journey through enterprise backend systems, modern web architectures, and performance-critical creative technologies.
+        <p
+          class="mt-4 text-base sm:text-lg text-slate-600 dark:text-slate-300 font-light leading-relaxed"
+        >
+          An engineering journey through enterprise backend systems, modern web architectures, and
+          performance-critical creative technologies.
         </p>
 
         <div class="flex flex-wrap items-center gap-4 mt-6">
@@ -24,11 +30,7 @@
             rel="noopener noreferrer"
             class="inline-flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-white/70 dark:bg-[#0c121c]/80 border border-slate-200/80 dark:border-slate-800/80 text-sm font-medium text-slate-800 dark:text-slate-200 shadow-sm hover:bg-slate-100 dark:hover:bg-[#172e42]/60 hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-200"
           >
-            <img
-              [src]="avatarUrls.github"
-              alt="GitHub"
-              class="w-5 h-5 object-contain"
-            />
+            <img [src]="avatarUrls.github" alt="GitHub" class="w-5 h-5 object-contain" />
             <span>GitHub</span>
           </a>
 
@@ -38,11 +40,7 @@
             rel="noopener noreferrer"
             class="inline-flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-white/70 dark:bg-[#0c121c]/80 border border-slate-200/80 dark:border-slate-800/80 text-sm font-medium text-slate-800 dark:text-slate-200 shadow-sm hover:bg-slate-100 dark:hover:bg-[#172e42]/60 hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-200"
           >
-            <img
-              [src]="avatarUrls.linkedin"
-              alt="LinkedIn"
-              class="w-5 h-5 object-contain"
-            />
+            <img [src]="avatarUrls.linkedin" alt="LinkedIn" class="w-5 h-5 object-contain" />
             <span>LinkedIn</span>
           </a>
 
@@ -52,36 +50,34 @@
             rel="noopener noreferrer"
             class="inline-flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-white/70 dark:bg-[#0c121c]/80 border border-slate-200/80 dark:border-slate-800/80 text-sm font-medium text-slate-800 dark:text-slate-200 shadow-sm hover:bg-slate-100 dark:hover:bg-[#172e42]/60 hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-200"
           >
-            <img
-              [src]="avatarUrls.ouhcmc"
-              alt="OU.EDU.VN"
-              class="w-5 h-5 object-contain"
-            />
+            <img [src]="avatarUrls.ouhcmc" alt="OU.EDU.VN" class="w-5 h-5 object-contain" />
             <span>ou.edu.vn</span>
           </a>
         </div>
       </div>
 
       <div class="md:col-span-3 flex justify-center md:justify-end">
-        <div
-          class="relative group cursor-pointer"
-          (click)="openCvViewer()"
-        >
-          <div class="absolute -inset-1 rounded-full bg-gradient-to-tr from-sky-400/30 to-[#295770]/40 blur-md group-hover:blur-lg transition-all duration-300"></div>
+        <div class="relative group cursor-pointer" (click)="openCvViewer()">
+          <div
+            class="absolute -inset-1 rounded-full bg-gradient-to-tr from-sky-400/30 to-[#295770]/40 blur-md group-hover:blur-lg transition-all duration-300"
+          ></div>
           <img
             [src]="avatarUrls.avatar"
             alt="V.T.Thanh Avatar"
             class="relative w-48 h-48 sm:w-56 sm:h-56 md:w-60 md:h-60 rounded-full object-cover shadow-2xl ring-4 ring-slate-200/70 dark:ring-slate-800/80 group-hover:scale-[1.02] transition-transform duration-300"
           />
-          <div class="absolute inset-0 rounded-full bg-slate-950/45 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center backdrop-blur-[2px]">
-            <span class="text-xs uppercase tracking-widest font-mono text-white font-semibold px-3.5 py-1.5 rounded-full bg-white/20 border border-white/30 shadow-lg">
+          <div
+            class="absolute inset-0 rounded-full bg-slate-950/45 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center backdrop-blur-[2px]"
+          >
+            <span
+              class="text-xs uppercase tracking-widest font-mono text-white font-semibold px-3.5 py-1.5 rounded-full bg-white/20 border border-white/30 shadow-lg"
+            >
               View CV
             </span>
           </div>
         </div>
       </div>
     </div>
-
   </div>
 
   <div
@@ -94,7 +90,9 @@
       (click)="$event.stopPropagation()"
     >
       <div class="flex-1 flex flex-col min-w-0 h-full">
-        <div class="flex items-center justify-between pb-3 sm:pb-4 border-b border-slate-200/60 dark:border-slate-800/60">
+        <div
+          class="flex items-center justify-between pb-3 sm:pb-4 border-b border-slate-200/60 dark:border-slate-800/60"
+        >
           <div class="flex items-center gap-2">
             <button
               (click)="prevPage()"
@@ -133,7 +131,9 @@
           </div>
         </div>
 
-        <div class="flex-1 relative overflow-auto flex items-center justify-center p-2 sm:p-6 bg-slate-100/50 dark:bg-black/40 rounded-xl my-3">
+        <div
+          class="flex-1 relative overflow-auto flex items-center justify-center p-2 sm:p-6 bg-slate-100/50 dark:bg-black/40 rounded-xl my-3"
+        >
           <div
             class="transition-transform duration-300 ease-out origin-center flex items-center justify-center max-w-full"
             [style.transform]="'scale(' + zoomLevel + ')'"
@@ -147,7 +147,9 @@
         </div>
       </div>
 
-      <div class="w-full lg:w-96 flex flex-col justify-between border-t lg:border-t-0 lg:border-l border-slate-200/60 dark:border-slate-800/60 pt-4 lg:pt-0 lg:pl-6">
+      <div
+        class="w-full lg:w-96 flex flex-col justify-between border-t lg:border-t-0 lg:border-l border-slate-200/60 dark:border-slate-800/60 pt-4 lg:pt-0 lg:pl-6"
+      >
         <div>
           <div class="flex items-center justify-between pb-4">
             <div class="flex items-center gap-3">
@@ -171,7 +173,15 @@
               class="p-2 rounded-xl text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-colors"
               aria-label="Close CV Viewer"
             >
-              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <svg
+                class="w-5 h-5"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
                 <line x1="18" y1="6" x2="6" y2="18"></line>
                 <line x1="6" y1="6" x2="18" y2="18"></line>
               </svg>
@@ -179,40 +189,61 @@
           </div>
 
           <div class="space-y-4 mt-2">
-            <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-[#0c121c] border border-slate-200/50 dark:border-slate-800/50">
-              <span class="text-[10px] font-mono uppercase tracking-widest text-slate-400 block mb-1">
+            <div
+              class="p-3.5 rounded-xl bg-slate-50 dark:bg-[#0c121c] border border-slate-200/50 dark:border-slate-800/50"
+            >
+              <span
+                class="text-[10px] font-mono uppercase tracking-widest text-slate-400 block mb-1"
+              >
                 Document Overview
               </span>
               <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-light">
-                {{ currentPage === 1 
-                  ? 'Page 1 outlines career milestones, academic standing at HCMCOU, AI research competition credentials, and foundational coursework.' 
-                  : 'Page 2 covers key enterprise and web applications, end-to-end architecture blueprints, and GitHub source links.' 
+                {{
+                  currentPage === 1
+                    ? 'Page 1 outlines career milestones, academic standing at HCMCOU, AI research competition credentials, and foundational coursework.'
+                    : 'Page 2 covers key enterprise and web applications, end-to-end architecture blueprints, and GitHub source links.'
                 }}
               </p>
             </div>
 
             <div class="space-y-2">
-              <div class="flex justify-between items-center text-xs py-1 border-b border-slate-100 dark:border-slate-800/50">
+              <div
+                class="flex justify-between items-center text-xs py-1 border-b border-slate-100 dark:border-slate-800/50"
+              >
                 <span class="text-slate-400 font-mono">Academic Track</span>
-                <span class="text-slate-800 dark:text-slate-200 font-medium">HCMCOU (IT Major)</span>
+                <span class="text-slate-800 dark:text-slate-200 font-medium"
+                  >HCMCOU (IT Major)</span
+                >
               </div>
-              <div class="flex justify-between items-center text-xs py-1 border-b border-slate-100 dark:border-slate-800/50">
+              <div
+                class="flex justify-between items-center text-xs py-1 border-b border-slate-100 dark:border-slate-800/50"
+              >
                 <span class="text-slate-400 font-mono">Verified GPA</span>
                 <span class="text-sky-600 dark:text-sky-400 font-bold font-mono">3.67 / 4.00</span>
               </div>
-              <div class="flex justify-between items-center text-xs py-1 border-b border-slate-100 dark:border-slate-800/50">
+              <div
+                class="flex justify-between items-center text-xs py-1 border-b border-slate-100 dark:border-slate-800/50"
+              >
                 <span class="text-slate-400 font-mono">Primary Stack</span>
-                <span class="text-slate-800 dark:text-slate-200 font-medium">Spring Boot 4.11 & JDK 25</span>
+                <span class="text-slate-800 dark:text-slate-200 font-medium"
+                  >Spring Boot 4.11 & JDK 25</span
+                >
               </div>
-              <div class="flex justify-between items-center text-xs py-1 border-b border-slate-100 dark:border-slate-800/50">
+              <div
+                class="flex justify-between items-center text-xs py-1 border-b border-slate-100 dark:border-slate-800/50"
+              >
                 <span class="text-slate-400 font-mono">Frontend Systems</span>
-                <span class="text-slate-800 dark:text-slate-200 font-medium">Angular & Three.js</span>
+                <span class="text-slate-800 dark:text-slate-200 font-medium"
+                  >Angular & Three.js</span
+                >
               </div>
             </div>
           </div>
         </div>
 
-        <div class="pt-4 mt-4 border-t border-slate-200/60 dark:border-slate-800/60 flex flex-col gap-2">
+        <div
+          class="pt-4 mt-4 border-t border-slate-200/60 dark:border-slate-800/60 flex flex-col gap-2"
+        >
           <a
             href="https://www.linkedin.com/in/juniorthanh09/"
             target="_blank"

@@ -20,7 +20,9 @@ import { TranslationService } from '../../services/translation.service';
           }}</span
           >. {{ i18n.t('app.copyright') }}.
         </div>
-        <div class="animate-stagger-item flex items-center space-x-3 text-slate-500 dark:text-slate-400">
+        <div
+          class="animate-stagger-item flex items-center space-x-3 text-slate-500 dark:text-slate-400"
+        >
           <span class="font-mono text-slate-700 dark:text-slate-300">{{
             i18n.t('app.version')
           }}</span>

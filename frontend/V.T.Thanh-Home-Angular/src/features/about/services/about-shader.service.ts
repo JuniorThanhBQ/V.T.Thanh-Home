@@ -102,14 +102,7 @@ export class AboutShaderService {
     this.positionBuffer = buf;
 
     this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.positionBuffer);
-    const positions = new Float32Array([
-      -1, -1,
-       1, -1,
-      -1,  1,
-      -1,  1,
-       1, -1,
-       1,  1,
-    ]);
+    const positions = new Float32Array([-1, -1, 1, -1, -1, 1, -1, 1, 1, -1, 1, 1]);
     this.gl.bufferData(this.gl.ARRAY_BUFFER, positions, this.gl.STATIC_DRAW);
 
     this.targetDarkMode = document.documentElement.classList.contains('dark') ? 1.0 : 0.0;

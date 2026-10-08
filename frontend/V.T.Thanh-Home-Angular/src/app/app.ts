@@ -8,7 +8,14 @@ import { ColorWipeComponent } from '@/shared/components/color-wipe/color-wipe.co
 import { ChatbotComponent } from '@/features/chat/components/chat.component';
 
 @Component({
-  imports: [RouterOutlet, HeaderComponent, FooterComponent, LoadingComponent, ColorWipeComponent, ChatbotComponent],
+  imports: [
+    RouterOutlet,
+    HeaderComponent,
+    FooterComponent,
+    LoadingComponent,
+    ColorWipeComponent,
+    ChatbotComponent,
+  ],
   selector: 'app-root',
   styleUrl: './app.css',
   templateUrl: './app.html',

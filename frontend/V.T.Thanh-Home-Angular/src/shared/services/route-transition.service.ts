@@ -29,7 +29,7 @@ export class RouteTransitionService {
     });
   }
 
-    private triggerWipe(): void {
+  private triggerWipe(): void {
     this.isWiping.set(true);
     setTimeout(() => {
       this.isWiping.set(false);

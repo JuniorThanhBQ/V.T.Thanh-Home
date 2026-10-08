@@ -10,7 +10,9 @@ import { AVATAR_URLS } from '@/assets/cloudinaryUrl';
   template: `
     @if (transition.isWiping()) {
       <div class="fixed inset-0 z-[99998] pointer-events-none overflow-hidden">
-        <div class="absolute inset-0 z-40 bg-[#e7f3ff]/90 dark:bg-[#172f43]/90 backdrop-blur-xs flex items-center justify-center pointer-events-none animate-smooth-fade">
+        <div
+          class="absolute inset-0 z-40 bg-[#e7f3ff]/90 dark:bg-[#172f43]/90 backdrop-blur-xs flex items-center justify-center pointer-events-none animate-smooth-fade"
+        >
           <div class="relative w-32 h-32 md:w-48 md:h-48 flex items-center justify-center">
             <div
               class="absolute -inset-3 rounded-full blur-xl opacity-80 animate-pulse bg-sky-300/70 dark:bg-[#295770]/80"
@@ -35,35 +37,35 @@ import { AVATAR_URLS } from '@/assets/cloudinaryUrl';
     }
   `,
   styles: [
-  `
-    @keyframes smoothFade {
-      0% {
-        opacity: 0;
-        transform: scale(0.98);
+    `
+      @keyframes smoothFade {
+        0% {
+          opacity: 0;
+          transform: scale(0.98);
+        }
+        35% {
+          opacity: 1;
+          transform: scale(1);
+        }
+        65% {
+          opacity: 1;
+          transform: scale(1);
+        }
+        100% {
+          opacity: 0;
+          transform: scale(1.02);
+        }
       }
-      35% {
-        opacity: 1;
-        transform: scale(1);
-      }
-      65% {
-        opacity: 1;
-        transform: scale(1);
-      }
-      100% {
-        opacity: 0;
-        transform: scale(1.02);
-      }
-    }
 
-    .animate-smooth-fade {
-      animation: smoothFade 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-      will-change: opacity, transform;
-    }
-  `,
-],
+      .animate-smooth-fade {
+        animation: smoothFade 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        will-change: opacity, transform;
+      }
+    `,
+  ],
 })
 export class ColorWipeComponent {
   public transition = inject(RouteTransitionService);
   readonly avatarLightUrl = AVATAR_URLS.light;
-readonly avatarDarkUrl = AVATAR_URLS.dark;
+  readonly avatarDarkUrl = AVATAR_URLS.dark;
 }
