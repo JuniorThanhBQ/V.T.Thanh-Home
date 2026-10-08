@@ -9,18 +9,17 @@
         <span
           class="text-xs uppercase tracking-[0.3em] font-mono text-slate-500 dark:text-slate-400 mb-2 block"
         >
-          Biography & Perspective
+          {{ i18n.t('about.hero.tag') }}
         </span>
         <h1
           class="text-4xl sm:text-6xl font-black tracking-tight text-slate-900 dark:text-slate-100"
         >
-          About Me
+          {{ i18n.t('about.hero.title') }}
         </h1>
         <p
           class="mt-4 text-base sm:text-lg text-slate-600 dark:text-slate-300 font-light leading-relaxed"
         >
-          An engineering journey through enterprise backend systems, modern web architectures, and
-          performance-critical creative technologies.
+          {{ i18n.t('about.hero.description') }}
         </p>
 
         <div class="flex flex-wrap items-center gap-4 mt-6">
@@ -51,13 +50,20 @@
             class="inline-flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-white/70 dark:bg-[#0c121c]/80 border border-slate-200/80 dark:border-slate-800/80 text-sm font-medium text-slate-800 dark:text-slate-200 shadow-sm hover:bg-slate-100 dark:hover:bg-[#172e42]/60 hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-200"
           >
             <img [src]="avatarUrls.ouhcmc" alt="OU.EDU.VN" class="w-5 h-5 object-contain" />
-            <span>ou.edu.vn</span>
+            <span>HCMC-OU</span>
           </a>
         </div>
       </div>
 
       <div class="md:col-span-3 flex justify-center md:justify-end">
-        <div class="relative group cursor-pointer" (click)="openCvViewer()">
+        <div
+          class="relative group cursor-pointer focus:outline-none"
+          (click)="openCvViewer()"
+          (keydown.enter)="openCvViewer()"
+          tabindex="0"
+          role="button"
+          aria-label="View Curriculum Vitae"
+        >
           <div
             class="absolute -inset-1 rounded-full bg-gradient-to-tr from-sky-400/30 to-[#295770]/40 blur-md group-hover:blur-lg transition-all duration-300"
           ></div>
@@ -72,7 +78,7 @@
             <span
               class="text-xs uppercase tracking-widest font-mono text-white font-semibold px-3.5 py-1.5 rounded-full bg-white/20 border border-white/30 shadow-lg"
             >
-              View CV
+              {{ i18n.t('about.hero.view_cv') }}
             </span>
           </div>
         </div>
@@ -80,186 +86,198 @@
     </div>
   </div>
 
-  <div
-    *ngIf="isCvOpen"
-    class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-slate-950/80 backdrop-blur-xl animate-fade-in"
-    (click)="closeCvViewer()"
-  >
-    <div
-      class="relative w-full max-w-7xl h-[92vh] flex flex-col lg:flex-row gap-4 lg:gap-6 bg-white/90 dark:bg-[#090f19]/95 border border-slate-200/70 dark:border-slate-800/80 rounded-2xl lg:rounded-3xl p-4 sm:p-6 shadow-2xl overflow-hidden"
-      (click)="$event.stopPropagation()"
-    >
-      <div class="flex-1 flex flex-col min-w-0 h-full">
-        <div
-          class="flex items-center justify-between pb-3 sm:pb-4 border-b border-slate-200/60 dark:border-slate-800/60"
-        >
-          <div class="flex items-center gap-2">
-            <button
-              (click)="prevPage()"
-              [disabled]="currentPage === 1"
-              class="px-3 py-1.5 rounded-lg text-xs font-mono font-medium border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0c121c] text-slate-700 dark:text-slate-300 disabled:opacity-40 hover:bg-slate-100 dark:hover:bg-[#172e42]/60 transition-colors"
-            >
-              Previous
-            </button>
-            <span class="text-xs font-mono text-slate-500 dark:text-slate-400 px-2">
-              Page {{ currentPage }} of 2
-            </span>
-            <button
-              (click)="nextPage()"
-              [disabled]="currentPage === 2"
-              class="px-3 py-1.5 rounded-lg text-xs font-mono font-medium border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0c121c] text-slate-700 dark:text-slate-300 disabled:opacity-40 hover:bg-slate-100 dark:hover:bg-[#172e42]/60 transition-colors"
-            >
-              Next
-            </button>
-          </div>
-
-          <div class="flex items-center gap-2">
-            <button
-              (click)="toggleZoom()"
-              class="px-3 py-1.5 rounded-lg text-xs font-mono font-medium border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0c121c] text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[#172e42]/60 transition-colors"
-            >
-              {{ zoomLevel === 1.0 ? 'Zoom In' : 'Reset Zoom' }}
-            </button>
-            <a
-              [href]="currentPage === 1 ? avatarUrls.cv_picture_one : avatarUrls.cv_picture_two"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="px-3 py-1.5 rounded-lg text-xs font-mono font-medium border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0c121c] text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[#172e42]/60 transition-colors"
-            >
-              Open Original
-            </a>
-          </div>
-        </div>
-
-        <div
-          class="flex-1 relative overflow-auto flex items-center justify-center p-2 sm:p-6 bg-slate-100/50 dark:bg-black/40 rounded-xl my-3"
-        >
-          <div
-            class="transition-transform duration-300 ease-out origin-center flex items-center justify-center max-w-full"
-            [style.transform]="'scale(' + zoomLevel + ')'"
-          >
-            <img
-              [src]="currentPage === 1 ? avatarUrls.cv_picture_one : avatarUrls.cv_picture_two"
-              alt="Curriculum Vitae Page"
-              class="max-h-[72vh] w-auto object-contain rounded shadow-2xl border border-slate-200/50 dark:border-slate-800/80 select-none"
-            />
-          </div>
-        </div>
-      </div>
+  @if (isCvOpen) {
+    <div class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 animate-fade-in">
+      <div
+        class="fixed inset-0 bg-slate-950/80 backdrop-blur-xl cursor-pointer"
+        (click)="closeCvViewer()"
+        (keydown.escape)="closeCvViewer()"
+        tabindex="0"
+        role="button"
+        aria-label="Close CV Viewer Backdrop"
+      ></div>
 
       <div
-        class="w-full lg:w-96 flex flex-col justify-between border-t lg:border-t-0 lg:border-l border-slate-200/60 dark:border-slate-800/60 pt-4 lg:pt-0 lg:pl-6"
+        class="relative z-10 w-full max-w-7xl h-[92vh] flex flex-col lg:flex-row gap-4 lg:gap-6 bg-white/90 dark:bg-[#090f19]/95 border border-slate-200/70 dark:border-slate-800/80 rounded-2xl lg:rounded-3xl p-4 sm:p-6 shadow-2xl overflow-hidden"
       >
-        <div>
-          <div class="flex items-center justify-between pb-4">
-            <div class="flex items-center gap-3">
-              <img
-                [src]="avatarUrls.avatar"
-                alt="Avatar Thumbnail"
-                class="w-10 h-10 rounded-full object-cover ring-2 ring-sky-400/40"
-              />
-              <div>
-                <h4 class="text-sm font-bold text-slate-900 dark:text-slate-100">
-                  Van Trung Thanh
-                </h4>
-                <p class="text-xs text-sky-600 dark:text-sky-400 font-medium">
-                  Software & GenAI Engineer
-                </p>
-              </div>
+        <div class="flex-1 flex flex-col min-w-0 h-full">
+          <div
+            class="flex items-center justify-between pb-3 sm:pb-4 border-b border-slate-200/60 dark:border-slate-800/60"
+          >
+            <div class="flex items-center gap-2">
+              <button
+                (click)="prevPage()"
+                [disabled]="currentPage === 1"
+                class="px-3 py-1.5 rounded-lg text-xs font-mono font-medium border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0c121c] text-slate-700 dark:text-slate-300 disabled:opacity-40 hover:bg-slate-100 dark:hover:bg-[#172e42]/60 transition-colors"
+              >
+                {{ i18n.t('about.cv.prev') }}
+              </button>
+              <span class="text-xs font-mono text-slate-500 dark:text-slate-400 px-2">
+                {{ i18n.t('about.cv.page') }} {{ currentPage }} / 2
+              </span>
+              <button
+                (click)="nextPage()"
+                [disabled]="currentPage === 2"
+                class="px-3 py-1.5 rounded-lg text-xs font-mono font-medium border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0c121c] text-slate-700 dark:text-slate-300 disabled:opacity-40 hover:bg-slate-100 dark:hover:bg-[#172e42]/60 transition-colors"
+              >
+                {{ i18n.t('about.cv.next') }}
+              </button>
             </div>
 
-            <button
-              (click)="closeCvViewer()"
-              class="p-2 rounded-xl text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-colors"
-              aria-label="Close CV Viewer"
-            >
-              <svg
-                class="w-5 h-5"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+            <div class="flex items-center gap-2">
+              <button
+                (click)="toggleZoom()"
+                class="px-3 py-1.5 rounded-lg text-xs font-mono font-medium border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0c121c] text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[#172e42]/60 transition-colors"
               >
-                <line x1="18" y1="6" x2="6" y2="18"></line>
-                <line x1="6" y1="6" x2="18" y2="18"></line>
-              </svg>
-            </button>
+                {{ zoomLevel === 1.0 ? i18n.t('about.cv.zoom_in') : i18n.t('about.cv.reset_zoom') }}
+              </button>
+              <a
+                [href]="currentPage === 1 ? avatarUrls.cv_picture_one : avatarUrls.cv_picture_two"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="px-3 py-1.5 rounded-lg text-xs font-mono font-medium border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0c121c] text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[#172e42]/60 transition-colors"
+              >
+                {{ i18n.t('about.cv.open_original') }}
+              </a>
+            </div>
           </div>
 
-          <div class="space-y-4 mt-2">
+          <div
+            class="flex-1 relative overflow-auto flex items-center justify-center p-2 sm:p-6 bg-slate-100/50 dark:bg-black/40 rounded-xl my-3"
+          >
             <div
-              class="p-3.5 rounded-xl bg-slate-50 dark:bg-[#0c121c] border border-slate-200/50 dark:border-slate-800/50"
+              class="transition-transform duration-300 ease-out origin-center flex items-center justify-center max-w-full"
+              [style.transform]="'scale(' + zoomLevel + ')'"
             >
-              <span
-                class="text-[10px] font-mono uppercase tracking-widest text-slate-400 block mb-1"
-              >
-                Document Overview
-              </span>
-              <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-light">
-                {{
-                  currentPage === 1
-                    ? 'Page 1 outlines career milestones, academic standing at HCMCOU, AI research competition credentials, and foundational coursework.'
-                    : 'Page 2 covers key enterprise and web applications, end-to-end architecture blueprints, and GitHub source links.'
-                }}
-              </p>
-            </div>
-
-            <div class="space-y-2">
-              <div
-                class="flex justify-between items-center text-xs py-1 border-b border-slate-100 dark:border-slate-800/50"
-              >
-                <span class="text-slate-400 font-mono">Academic Track</span>
-                <span class="text-slate-800 dark:text-slate-200 font-medium"
-                  >HCMCOU (IT Major)</span
-                >
-              </div>
-              <div
-                class="flex justify-between items-center text-xs py-1 border-b border-slate-100 dark:border-slate-800/50"
-              >
-                <span class="text-slate-400 font-mono">Verified GPA</span>
-                <span class="text-sky-600 dark:text-sky-400 font-bold font-mono">3.67 / 4.00</span>
-              </div>
-              <div
-                class="flex justify-between items-center text-xs py-1 border-b border-slate-100 dark:border-slate-800/50"
-              >
-                <span class="text-slate-400 font-mono">Primary Stack</span>
-                <span class="text-slate-800 dark:text-slate-200 font-medium"
-                  >Spring Boot 4.11 & JDK 25</span
-                >
-              </div>
-              <div
-                class="flex justify-between items-center text-xs py-1 border-b border-slate-100 dark:border-slate-800/50"
-              >
-                <span class="text-slate-400 font-mono">Frontend Systems</span>
-                <span class="text-slate-800 dark:text-slate-200 font-medium"
-                  >Angular & Three.js</span
-                >
-              </div>
+              <img
+                [src]="currentPage === 1 ? avatarUrls.cv_picture_one : avatarUrls.cv_picture_two"
+                alt="Curriculum Vitae Page"
+                class="max-h-[72vh] w-auto object-contain rounded shadow-2xl border border-slate-200/50 dark:border-slate-800/80 select-none"
+              />
             </div>
           </div>
         </div>
 
         <div
-          class="pt-4 mt-4 border-t border-slate-200/60 dark:border-slate-800/60 flex flex-col gap-2"
+          class="w-full lg:w-96 flex flex-col justify-between border-t lg:border-t-0 lg:border-l border-slate-200/60 dark:border-slate-800/60 pt-4 lg:pt-0 lg:pl-6"
         >
-          <a
-            href="https://www.linkedin.com/in/juniorthanh09/"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="w-full py-2.5 px-4 rounded-xl text-xs font-semibold text-center text-white bg-sky-600 hover:bg-sky-500 transition-colors shadow-lg shadow-sky-600/20"
+          <div>
+            <div class="flex items-center justify-between pb-4">
+              <div class="flex items-center gap-3">
+                <img
+                  [src]="avatarUrls.avatar"
+                  alt="Avatar Thumbnail"
+                  class="w-10 h-10 rounded-full object-cover ring-2 ring-sky-400/40"
+                />
+                <div>
+                  <h4 class="text-sm font-bold text-slate-900 dark:text-slate-100">
+                    Van Trung Thanh
+                  </h4>
+                  <p class="text-xs text-sky-600 dark:text-sky-400 font-medium">
+                    {{ i18n.t('about.cv.role') }}
+                  </p>
+                </div>
+              </div>
+
+              <button
+                (click)="closeCvViewer()"
+                class="p-2 rounded-xl text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-colors"
+                aria-label="Close CV Viewer"
+              >
+                <svg
+                  class="w-5 h-5"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+              </button>
+            </div>
+
+            <div class="space-y-4 mt-2">
+              <div
+                class="p-3.5 rounded-xl bg-slate-50 dark:bg-[#0c121c] border border-slate-200/50 dark:border-slate-800/50"
+              >
+                <span
+                  class="text-[10px] font-mono uppercase tracking-widest text-slate-400 block mb-1"
+                >
+                  {{ i18n.t('about.cv.overview_title') }}
+                </span>
+                <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-light">
+                  {{
+                    currentPage === 1
+                      ? i18n.t('about.cv.overview_page_1')
+                      : i18n.t('about.cv.overview_page_2')
+                  }}
+                </p>
+              </div>
+
+              <div class="space-y-2">
+                <div
+                  class="flex justify-between items-center text-xs py-1 border-b border-slate-100 dark:border-slate-800/50"
+                >
+                  <span class="text-slate-400 font-mono">{{
+                    i18n.t('about.cv.academic_track_label')
+                  }}</span>
+                  <span class="text-slate-800 dark:text-slate-200 font-medium">{{
+                    i18n.t('about.cv.academic_track_value')
+                  }}</span>
+                </div>
+                <div
+                  class="flex justify-between items-center text-xs py-1 border-b border-slate-100 dark:border-slate-800/50"
+                >
+                  <span class="text-slate-400 font-mono">{{ i18n.t('about.cv.gpa_label') }}</span>
+                  <span class="text-sky-600 dark:text-sky-400 font-bold font-mono"
+                    >3.67 / 4.00</span
+                  >
+                </div>
+                <div
+                  class="flex justify-between items-center text-xs py-1 border-b border-slate-100 dark:border-slate-800/50"
+                >
+                  <span class="text-slate-400 font-mono">{{ i18n.t('about.cv.stack_label') }}</span>
+                  <span class="text-slate-800 dark:text-slate-200 font-medium">{{
+                    i18n.t('about.cv.stack_content')
+                  }}</span>
+                </div>
+                <div
+                  class="flex justify-between items-center text-xs py-1 border-b border-slate-100 dark:border-slate-800/50"
+                >
+                  <span class="text-slate-400 font-mono">{{
+                    i18n.t('about.cv.additional_label')
+                  }}</span>
+                  <span class="text-slate-800 dark:text-slate-200 font-medium">{{
+                    i18n.t('about.cv.additional_content')
+                  }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="pt-4 mt-4 border-t border-slate-200/60 dark:border-slate-800/60 flex flex-col gap-2"
           >
-            Connect on LinkedIn
-          </a>
-          <button
-            (click)="closeCvViewer()"
-            class="w-full py-2 px-4 rounded-xl text-xs font-medium text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-colors"
-          >
-            Return to Portfolio
-          </button>
+            <a
+              href="https://www.linkedin.com/in/juniorthanh09/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="w-full py-2.5 px-4 rounded-xl text-xs font-semibold text-center text-white bg-sky-600 hover:bg-sky-500 transition-colors shadow-lg shadow-sky-600/20"
+            >
+              {{ i18n.t('about.cv.connect_linkedin') }}
+            </a>
+            <button
+              (click)="closeCvViewer()"
+              class="w-full py-2 px-4 rounded-xl text-xs font-medium text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-colors"
+            >
+              {{ i18n.t('about.cv.return_portfolio') }}
+            </button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  }
 </div>

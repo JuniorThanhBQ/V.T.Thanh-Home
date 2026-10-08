@@ -1,11 +1,4 @@
-import {
-  Component,
-  inject,
-  ElementRef,
-  ViewChild,
-  AfterViewInit,
-  OnDestroy,
-} from '@angular/core';
+import { Component, inject, ElementRef, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslationService } from '@/shared/services/translation.service';
 import { CommingSoonComponent } from '@/shared/components/comming-soon/comming-soon.component';
@@ -20,10 +13,7 @@ import { BlogShaderService } from '../services/blog-shader.service';
     <section class="relative min-h-[75vh] flex items-center justify-center py-12 overflow-hidden">
       <canvas #bgCanvas class="fixed inset-0 w-full h-full pointer-events-none z-0"></canvas>
       <div class="relative z-10 w-full max-w-4xl mx-auto">
-        <app-comming-soon
-          title="Blog Comming Soon"
-          subtitle="Deep-dive articles exploring modern enterprise architectures, JDK 25 concurrency models, and GPU-accelerated web experiences will be published here."
-        />
+        <app-comming-soon [title]="i18n.t('blog.title')" [subtitle]="i18n.t('blog.subtitle')" />
       </div>
     </section>
   `,

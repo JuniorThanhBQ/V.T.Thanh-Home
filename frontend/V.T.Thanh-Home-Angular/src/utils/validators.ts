@@ -14,10 +14,9 @@ const DISPOSABLE_EMAIL_DOMAINS = new Set([
 const STRICT_EMAIL_REGEX =
   /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/;
 
-const PHONE_REGEX =
-  /^[+]?[(]?[0-9]{1,4}[)]?[-\s./0-9]*$/;
+const PHONE_REGEX = /^[+]?[(]?[0-9]{1,4}[)]?[-\s./0-9]*$/;
 
-  const XSS_PATTERNS = [
+const XSS_PATTERNS = [
   /<[^>]*script.*?>/i,
   /<\s*img[^>]+onerror\s*=/i,
   /<\s*iframe.*?>/i,

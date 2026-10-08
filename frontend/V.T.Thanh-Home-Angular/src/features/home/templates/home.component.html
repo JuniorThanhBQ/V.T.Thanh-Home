@@ -9,18 +9,17 @@
     <span
       class="text-xs uppercase tracking-[0.3em] font-mono text-slate-500 dark:text-slate-400 mb-3"
     >
-      Software Engineer & Creative Technologist
+      {{ i18n.t('home.role') }}
     </span>
     <h1
       class="text-4xl sm:text-6xl md:text-7xl font-black tracking-tight text-slate-900 dark:text-slate-100 max-w-4xl"
     >
-      V.T.Thanh
+      {{ i18n.t('home.name') }}
     </h1>
     <p
-      class="mt-4 text-sm sm:text-base md:text-lg text-slate-600 dark:text-slate-300 max-w-xl font-light"
+      class="mt-4 text-sm sm:text-base md:text-lg text-slate-600 dark:text-slate-300 max-w-3xl font-light"
     >
-      Crafting high-performance digital architectures, reactive user interfaces, and immersive web
-      experiences.
+      {{ i18n.t('home.tagline') }}
     </p>
   </div>
   <div class="relative z-10 w-full max-w-6xl mx-auto px-6 mt-8 sm:mt-8 pb-12">
@@ -48,11 +47,10 @@
         <h3
           class="text-base sm:text-lg font-bold tracking-tight text-slate-900 dark:text-slate-100 mb-3"
         >
-          Scalable Systems
+          {{ i18n.t('home.features.scalable_systems.title') }}
         </h3>
         <p class="text-sm leading-relaxed text-slate-600 dark:text-slate-400 font-light">
-          High-throughput backend architectures using Spring Boot and JDK 25 with enterprise-grade
-          data structures and reliable API workflows.
+          {{ i18n.t('home.features.scalable_systems.desc') }}
         </p>
       </div>
 
@@ -76,11 +74,10 @@
         <h3
           class="text-base sm:text-lg font-bold tracking-tight text-slate-900 dark:text-slate-100 mb-3"
         >
-          Zero-Trust Security
+          {{ i18n.t('home.features.zero_trust.title') }}
         </h3>
         <p class="text-sm leading-relaxed text-slate-600 dark:text-slate-400 font-light">
-          Granular payload protection, resilient authorization pipelines, and frictionless
-          privacy-first verification layers against malicious abuse.
+          {{ i18n.t('home.features.zero_trust.desc') }}
         </p>
       </div>
 
@@ -105,11 +102,10 @@
         <h3
           class="text-base sm:text-lg font-bold tracking-tight text-slate-900 dark:text-slate-100 mb-3"
         >
-          Creative Interactions
+          {{ i18n.t('home.features.creative_interactions.title') }}
         </h3>
         <p class="text-sm leading-relaxed text-slate-600 dark:text-slate-400 font-light">
-          Fluid WebGL shaders, GPU-accelerated motion choreography, and reactive Angular frontends
-          delivering immersive digital storytelling.
+          {{ i18n.t('home.features.creative_interactions.desc') }}
         </p>
       </div>
       <div class="flex flex-col items-start text-left md:px-8 first:pl-0 last:pr-0">
@@ -125,19 +121,17 @@
             stroke-linecap="round"
             stroke-linejoin="round"
           >
-            <circle cx="12" cy="12" r="10" />
-            <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
-            <path d="M2 12h20" />
+            <path d="M12 12c-2-2.67-4-4-6-4a4 4 0 1 0 0 8c2 0 4-1.33 6-4Z" />
+            <path d="M12 12c2 2.67 4 4 6 4a4 4 0 0 0 0-8c-2 0-4 1.33-6 4Z" />
           </svg>
         </div>
         <h3
           class="text-base sm:text-lg font-bold tracking-tight text-slate-900 dark:text-slate-100 mb-3"
         >
-          Creative Interactions
+          {{ i18n.t('home.features.devops.title') }}
         </h3>
         <p class="text-sm leading-relaxed text-slate-600 dark:text-slate-400 font-light">
-          Fluid WebGL shaders, GPU-accelerated motion choreography, and reactive Angular frontends
-          delivering immersive digital storytelling.
+          {{ i18n.t('home.features.devops.desc') }}
         </p>
       </div>
     </div>

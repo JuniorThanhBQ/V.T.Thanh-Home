@@ -158,12 +158,7 @@ export class BlogShaderService {
     const positionBuffer = this.gl.createBuffer();
     this.gl.bindBuffer(this.gl.ARRAY_BUFFER, positionBuffer);
     const positions = new Float32Array([
-      -1.0, -1.0,
-       1.0, -1.0,
-      -1.0,  1.0,
-      -1.0,  1.0,
-       1.0, -1.0,
-       1.0,  1.0,
+      -1.0, -1.0, 1.0, -1.0, -1.0, 1.0, -1.0, 1.0, 1.0, -1.0, 1.0, 1.0,
     ]);
     this.gl.bufferData(this.gl.ARRAY_BUFFER, positions, this.gl.STATIC_DRAW);
 
@@ -190,7 +185,11 @@ export class BlogShaderService {
 
     this.gl.uniform1f(this.timeUniformLocation, elapsedSeconds);
     this.gl.uniform2f(this.resolutionUniformLocation, this.canvas.width, this.canvas.height);
-    this.gl.uniform2f(this.mouseUniformLocation, this.currentMouse.x * dpr, this.currentMouse.y * dpr);
+    this.gl.uniform2f(
+      this.mouseUniformLocation,
+      this.currentMouse.x * dpr,
+      this.currentMouse.y * dpr,
+    );
     this.gl.uniform1f(this.darkModeUniformLocation, this.currentDarkMode);
 
     this.gl.drawArrays(this.gl.TRIANGLES, 0, 6);

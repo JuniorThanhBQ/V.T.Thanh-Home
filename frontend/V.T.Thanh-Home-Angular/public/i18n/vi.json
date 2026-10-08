@@ -2,7 +2,7 @@
   "app": {
     "title": "Website cá nhân",
     "Author": "Văn Trung Thành",
-    "version": "Phiên bản 0.1.0",
+    "version": "Phiên bản 0.2.1",
     "copyright": "Bảo lưu mọi quyền"
   },
   "language": {
@@ -14,7 +14,7 @@
   "loading": {
     "subtitle": "Trang nhà của Văn Trung Thành 🏠",
     "initializing": "Đợi tí, chủ nhà đang lấy hồ sơ nhé!",
-    "switching_language": "Đang chuyển đổi ngôn ngữ...",
+    "switching_language": "Đang chuyển đổi ngôn ngữ!",
     "tech_stack": "Spring Boot 4.11 với Angular 22"
   },
   "navigation": {
@@ -23,5 +23,146 @@
     "projects": "Dự án",
     "blog": "Nhật ký",
     "contact": "Liên hệ"
+  },
+  "home": {
+    "role": "Kỹ sư phát triển phần mềm tích hợp AI",
+    "name": "Văn Trung Thành",
+    "tagline": "Đối với mình, ngành CNTT chưa bao giờ là một lĩnh vực dễ dàng để theo đuổi và nó cũng không tự nhiên mà đến như một món quà hời hợt. Đã có những lúc mình phải lựa chọn hy sinh giữa cuộc sống cá nhân và công việc. Dù thế nào đi nữa, mình vẫn sẽ cố gắng đạt được ước mơ của mình.",
+    "features": {
+      "scalable_systems": {
+        "title": "Kiến trúc phần mềm",
+        "desc": "Có khả năng đọc hiểu, thiết kế, cập nhật và xác minh các tài liệu kiến trúc và kỹ thuật. Đam mê trong phát triển sản phẩm hướng Agentic Coding"
+      },
+      "zero_trust": {
+        "title": "Đảm bảo chất lượng",
+        "desc": "Thiết kế các quy trình kiểm thử SAST và DAST trong quy trình SDLC. Ghi nhận và khắc phục Bug/Incident thông qua tài liệu hóa Test Case."
+      },
+      "creative_interactions": {
+        "title": "Kết nối và cập nhật",
+        "desc": "Theo dõi xu hướng công nghệ và bảo mật qua từng thời kỳ. Nghiên cứu khả năng tính hợp tính mới trong giải quyết bài toán cụ thể."
+      },
+      "devops": {
+        "title": "Tự động hóa DevOps",
+        "desc": "Xây dựng các Pipeline CI/CD tự động như automation testing, container hóa Docker và triển khai liên tục đảm bảo độ ổn định hệ thống."
+      }
+    }
+  },
+  "about": {
+    "hero": {
+      "tag": "Nhất Chỉ Lam Hồ Vọng Thế Giới",
+      "title": "Giới thiệu bản thân",
+      "description": "Xin chào mọi người, mình tên là Văn Trung Thành, sinh viên trường Đại học Mở TP.HCM. Chuyên ngành của mình là công nghệ thông tin với định hướng chuyên môn là kỹ thuật phần mềm. Ngoài ra, mình cũng có ấn tượng với việc huấn luyện và phát triển các mô hình AI. Tuy dễ bị kiệt sức trong công việc nhưng mình luôn kiên trì và hoàn thành khá tốt công việc của mình.",
+      "view_cv": "Xem CV"
+    },
+    "cv": {
+      "prev": "Trang trước",
+      "next": "Trang sau",
+      "page": "Trang",
+      "zoom_in": "Phóng to",
+      "reset_zoom": "Đặt lại thu phóng",
+      "open_original": "Mở ảnh gốc",
+      "role": "Kỹ sư phát triển phần mềm tích hợp AI",
+      "overview_title": "Tổng quan nội dung trang",
+      "overview_page_1": "Trang 1 tóm lược các cột mốc kế hoạch cho sự nghiệp, thành tích học tập tại trường Đại học Mở TP.Hồ Chí Mnih, chứng nhận nghiên cứu khoa học về AI và các học phần nền tảng.",
+      "overview_page_2": "Trang 2 trình bày ba kinh nghiệm và dự án đã thực hiện, các kỹ năng hiện có và đã thực hành qua, sở thích và các công việc trong thời gian rảnh.",
+      "academic_track_label": "Chuyên ngành",
+      "academic_track_value": "HCMC-OU (FCS)",
+      "gpa_label": "Điểm GPA tổng",
+      "stack_label": "Lĩnh vực cốt lõi",
+      "stack_content": "Full-stack Developer và DevOps",
+      "additional_label": "Lĩnh vực phụ",
+      "additional_content": "Nghiên cứu tích hợp AI",
+      "connect_linkedin": "Kết nối qua LinkedIn",
+      "return_portfolio": "Quay lại Portfolio"
+    }
+  },
+  "projects": {
+    "header": {
+      "badge": "Hồ Sơ Dự Án",
+      "title": "Các Dự Án Kỹ Thuật Tiêu Biểu",
+      "subtitle": "Hệ thống AI Agent, kiến trúc phân tán backend, mô hình học máy ngôn ngữ tự nhiên và nền tảng thời gian thực."
+    },
+    "buttons": {
+      "source": "Mã nguồn",
+      "website": "Trang web"
+    },
+    "items": {
+      "aijmc": {
+        "title": "AI IT Job Market Consultant (AIJMC)",
+        "category": "AI Agent & Thị Trường Tuyển Dụng",
+        "summary": "Nền tảng phân tích thị trường việc làm IT và tư vấn hướng nghiệp dựa trên ReAct AI Agent và RAG đa tầng.",
+        "description": "Hệ thống thu thập và phân tích dữ liệu tuyển dụng từ ITViec, TopDev, VietnamWorks bằng Celery và Crawlee; ứng dụng kỹ thuật Hybrid Retrieval với pgvector kết hợp tìm kiếm ngữ nghĩa và mô hình ngôn ngữ lớn để tư vấn lộ trình nghề nghiệp cá nhân hóa."
+      },
+      "aijmc_jpra": {
+        "title": "AIJMC-JPRA: Đánh Giá Độ Tin Cậy Tuyển Dụng",
+        "category": "Nghiên Cứu Khoa Học & AI Agent",
+        "summary": "Nghiên cứu khoa học theo chuẩn IEEE Conference phát hiện tin tuyển dụng gian lận và kiểm chứng tính xác thực.",
+        "description": "Mô hình phân loại nhị phân đánh giá độ tin cậy của bài đăng tuyển dụng qua URL; tích hợp PydanticAI Agent kết hợp truy xuất web thời gian thực bằng Playwright để đối soát bằng chứng, tính toán tỷ lệ tin cậy và lập luận chi tiết."
+      },
+      "mbms": {
+        "title": "Medical Booking Management System (MBMS)",
+        "category": "Y Tế & Đặt Lịch Thời Gian Thực",
+        "summary": "Nền tảng quản lý và đặt lịch khám bệnh trực tuyến cho phòng khám, phát triển theo mô hình PWA & Native App.",
+        "description": "Giải pháp số hóa quy trình đặt hẹn khám chữa bệnh tại các cơ sở y tế; tối ưu hóa trải nghiệm bệnh nhân và bác sĩ theo phương pháp phát triển định hướng AI (AIDD) và Scrum, đóng gói triển khai hoàn chỉnh qua Docker."
+      },
+      "ai_writing_indicator": {
+        "title": "Chỉ Số Nhận Diện Văn Bản AI",
+        "category": "Machine Learning & Xử Lý Ngôn Ngữ Tự Nhiên",
+        "summary": "Mô hình học máy phân loại nhị phân phát hiện văn bản tiếng Việt do trí tuệ nhân tạo tạo sinh trong báo chí.",
+        "description": "Nghiên cứu và huấn luyện pipeline NLP chuyên biệt cho tiếng Việt nhằm phân biệt chính xác bài báo do con người chắp bút hay do các mô hình ngôn ngữ lớn (LLM) tổng hợp, phục vụ kiểm định tính nguyên bản trong xuất bản số."
+      },
+      "elearning_lcms": {
+        "title": "Hệ Thống Quản Lý Học Liệu Số (LCMS)",
+        "category": "EdTech & Quản Lý Nội Dung Giáo Dục",
+        "summary": "Hệ thống LCMS toàn diện quản lý, lưu trữ và tái sử dụng tài nguyên học tập số trên nền tảng Django REST Framework.",
+        "description": "Kiến trúc backend xử lý nội dung học tập số kết hợp cơ sở dữ liệu MySQL, bảo mật phân quyền token OAuth2, bảng điều khiển thống kê cho quản trị viên và tích hợp Google GenAI cá nhân hóa đề xuất tài liệu học tập."
+      },
+      "sports_field_booking": {
+        "title": "Ứng Dụng Đặt Sân Thể Thao & Kiểm Thử Tự Động",
+        "category": "Thể Thao & Đảm Bảo Chất Lượng Phần Mềm",
+        "summary": "Hệ thống đặt sân bóng đá, cầu lông, tennis theo khung giờ với quy trình kiểm thử tự động toàn diện.",
+        "description": "Ứng dụng web xây dựng bằng Flask và MySQL phục vụ tìm kiếm và đặt lịch sân thể thao thời gian thực; áp dụng quy trình kiểm thử chất lượng nghiêm ngặt từ Unit, Integration, System đến Acceptance Testing sử dụng Selenium 3."
+      }
+    }
+  },
+  "blog": {
+    "title": "Đang Phát Triển",
+    "subtitle": "Chức năng này tốn nhiều thời gian hơn mình tưởng, có gì mọi người quạy lại sau nhen."
+  },
+  "contact": {
+    "info": {
+      "title_part1": "Kết nối",
+      "title_part2": "với mình",
+      "description": "Bạn có những thắc mắc, câu chuyện hoặc mong muốn trao đổi thêm với mình về dự án? Hãy liên hệ với mình qua email, mạng xã hội hoặc điền form nhé.",
+      "office_title": "Văn Phòng",
+      "office_value": "Trường Đại học Mở TP.HCM, Cơ sở Võ Văn Tần, Thành phố Hồ Chí Minh, Việt Nam",
+      "hours_title": "Giờ Làm Việc (Remote)",
+      "hours_days": "Thứ Hai – Thứ Sáu:",
+      "hours_time": "10:00 – 19:00 (UTC+7)",
+      "inquiries_title": "Liên Hệ Trực Tiếp"
+    },
+    "form": {
+      "first_name_label": "Tên *",
+      "first_name_placeholder": "Tên của bạn",
+      "first_name_error": "Tên phải tối thiểu 2 ký tự và không chứa ký tự không hợp lệ.",
+      "last_name_label": "Họ*",
+      "last_name_placeholder": "Họ và tên đệm",
+      "last_name_error": "Họ phải tối thiểu 2 ký tự và không chứa ký tự không hợp lệ.",
+      "phone_label": "Số Điện Thoại",
+      "phone_placeholder": "Số điện thoại liên hệ",
+      "phone_error": "Vui lòng nhập số điện thoại hợp lệ.",
+      "email_label": "Email *",
+      "email_placeholder": "Địa chỉ email",
+      "email_disposable_error": "Tên miền email tạm thời không được chấp nhận.",
+      "email_invalid_error": "Vui lòng nhập địa chỉ email doanh nghiệp hoặc cá nhân hợp lệ.",
+      "subject_label": "Tiêu Đề*",
+      "subject_placeholder": "Nội dung cần trao đổi (ngắn gọn)",
+      "subject_error": "Chủ đề không hợp lệ.",
+      "message_label": "Tin Nhắn *",
+      "message_placeholder": "Nội dung tin nhắn...",
+      "message_error": "Tin nhắn phải có ít nhất 10 ký tự và không chứa ký tự không hợp lệ.",
+      "submit_button": "Gửi Tin Nhắn",
+      "success_message": "Đã nhận được tin nhắn!"
+    }
   }
 }

@@ -1,22 +1,10 @@
-import {
-  Component,
-  inject,
-  ElementRef,
-  ViewChild,
-  AfterViewInit,
-  OnDestroy,
-} from '@angular/core';
+import { Component, inject, ElementRef, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslationService } from '@/shared/services/translation.service';
-import { CommingSoonComponent } from '@/shared/components/comming-soon/comming-soon.component';
 import { ProjectShaderService } from '../services/project-shader.service';
 
 export interface ProjectItem {
   id: string;
-  title: string;
-  category: string;
-  summary: string;
-  description: string;
   imageUrl: string;
   techStack: string[];
   sourceUrl: string;
@@ -26,9 +14,9 @@ export interface ProjectItem {
 @Component({
   selector: 'app-project',
   standalone: true,
-  imports: [CommonModule, CommingSoonComponent],
+  imports: [CommonModule],
   providers: [ProjectShaderService],
-  templateUrl: "../templates/project.component.html"
+  templateUrl: '../templates/project.component.html',
 })
 export class ProjectComponent implements AfterViewInit, OnDestroy {
   public i18n = inject(TranslationService);
@@ -36,27 +24,71 @@ export class ProjectComponent implements AfterViewInit, OnDestroy {
 
   @ViewChild('bgCanvas') private canvasRef!: ElementRef<HTMLCanvasElement>;
 
-  public projects: ProjectItem[] = [
+  public readonly projects: ProjectItem[] = [
     {
-      id: 'vtthanh-home',
-      title: 'V.T.Thanh-Home Architecture',
-      category: 'Fullstack Platform',
-      summary: 'Reactive portfolio engine powered by Spring Boot 4.11 and Angular 18/19.',
-      description: 'Distributed microservice architecture with JDK 25 virtual concurrency, real-time WebGL fluid shaders, and bilingual internationalization.',
-      imageUrl: 'https://res.cloudinary.com/dwyx97d6i/image/upload/v1728283592/portfolio_sample1.png',
-      techStack: ['Spring Boot 4.11', 'JDK 25', 'Angular', 'WebGL', 'TailwindCSS'],
-      sourceUrl: 'https://github.com/JuniorThanhBQ/V.T.Thanh-Home',
-      websiteUrl: 'https://vtthanh.com',
+      id: 'aijmc',
+      imageUrl:
+        'https://res.cloudinary.com/dfolk8pz2/image/upload/v1786036926/AIJ-modified_1_xzw6dh.png',
+      techStack: [
+        'FastAPI',
+        'Next.js 16',
+        'PostgreSQL',
+        'pgvector',
+        'LangChain',
+        'Celery',
+        'Gemini',
+      ],
+      sourceUrl: 'https://github.com/JuniorThanhBQ/AI-IT-Job-Market-Consultant',
     },
     {
-      id: 'high-throughput-core',
-      title: 'High-Throughput Concurrency Core',
-      category: 'Backend Engine',
-      summary: 'Benchmarked asynchronous execution runtime using Loom virtual threads.',
-      description: 'High-volume asynchronous dispatch engine benchmarked against reactive Netty, demonstrating low memory footprint under high connection concurrency.',
-      imageUrl: 'https://res.cloudinary.com/dwyx97d6i/image/upload/v1728283592/portfolio_sample2.png',
-      techStack: ['Java 25', 'Virtual Threads', 'PostgreSQL', 'Docker'],
-      sourceUrl: 'https://github.com/JuniorThanhBQ/concurrency-benchmarks',
+      id: 'aijmc_jpra',
+      imageUrl:
+        'https://res.cloudinary.com/dfolk8pz2/image/upload/v1790424345/AIJ_1_-modified_1_afzibo.png',
+      techStack: [
+        'Python',
+        'Streamlit',
+        'PydanticAI',
+        'Playwright',
+        'Google GenAI',
+        'Groq',
+        'Supabase',
+      ],
+      sourceUrl: 'https://github.com/JuniorThanhBQ/AIJMC-JPRA',
+    },
+    {
+      id: 'mbms',
+      imageUrl:
+        'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1200&q=80',
+      techStack: ['JavaScript', 'PostgreSQL', 'Docker', 'Docker Compose', 'PWA'],
+      sourceUrl: 'https://github.com/JuniorThanhBQ/Medical-Booking-Management-System',
+    },
+    {
+      id: 'ai_writing_indicator',
+      imageUrl:
+        'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1200&q=80',
+      techStack: ['Python', 'Jupyter Notebook', 'Machine Learning', 'NLP', 'Vietnamese Text'],
+      sourceUrl: 'https://github.com/JuniorThanhBQ/AIWritingIndicator-13',
+    },
+    {
+      id: 'elearning_lcms',
+      imageUrl:
+        'https://images.unsplash.com/photo-1501504905252-473c47e087f8?auto=format&fit=crop&w=1200&q=80',
+      techStack: [
+        'Python 3.13',
+        'Django',
+        'Django Rest Framework',
+        'MySQL',
+        'OAuth2',
+        'Google GenAI',
+      ],
+      sourceUrl: 'https://github.com/JuniorThanhBQ/elearning-resources-managerment',
+    },
+    {
+      id: 'sports_field_booking',
+      imageUrl:
+        'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1200&q=80',
+      techStack: ['Python', 'Flask', 'MySQL', 'Selenium 3', 'CI/CD'],
+      sourceUrl: 'https://github.com/JuniorThanhBQ/sports-field-booking-app',
     },
   ];
 

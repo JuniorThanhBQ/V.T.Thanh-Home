@@ -209,8 +209,7 @@ export class HeaderComponent {
   public dropdownOpen = signal(false);
   public readonly avatarUrls = AVATAR_URLS;
   isLangDropdownOpen = signal<boolean>(false);
-
-  constructor(private elementRef: ElementRef) {}
+  private elementRef = inject(ElementRef);
 
   toggleLangDropdown(event?: MouseEvent): void {
     if (event) {

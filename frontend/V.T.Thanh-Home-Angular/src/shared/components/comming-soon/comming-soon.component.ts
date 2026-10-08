@@ -10,7 +10,6 @@ import { RouterLink } from '@angular/router';
     <div
       class="relative w-full max-w-2xl mx-auto flex flex-col items-center justify-center text-center select-none py-12 px-4"
     >
-
       <div
         class="p-8 sm:p-12 w-full rounded-2xl sm:rounded-3xl bg-white/70 dark:bg-[#0c121c]/75 border border-slate-200/70 dark:border-slate-800/80 shadow-2xl backdrop-blur-xl"
       >

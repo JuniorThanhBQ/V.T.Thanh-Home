@@ -1,27 +1,168 @@
 {
   "app": {
     "title": "個人サイト",
-    "Author": "ヴァン・チュン・タイン",
-    "version": "バージョン 0.1.0",
-    "copyright": "バックアップを保存する"
-  },
-  "navigation": {
-    "home": "ホーム",
-    "about": "自己紹介",
-    "projects": "プロジェクト",
-    "blog": "日誌",
-    "contact": "連絡"
+    "Author": "キスネ・カネルド",
+    "version": "バージョン 0.2.1",
+    "copyright": "すべての権利を保有します"
   },
   "language": {
-    "vi": "日本語",
+    "vi": "ベトナム語",
     "en": "英語",
     "zh": "中国語",
     "ja": "日本語"
   },
   "loading": {
-    "switching_language": "言語変更中...",
-    "subtitle": "文中成のポートフォリオサイト🏠",
-    "tech_stack": "Spring Boot 4.11 と Angular 22",
-    "initializing": "少々お待ちください、宿主はプロフィールを取得中です！"
+    "subtitle": "キスネ・カネルドのホームページ 🏠",
+    "initializing": "少々お待ちください。サイトの主がプロフィールを準備中です！",
+    "switching_language": "言語を切り替えています！",
+    "tech_stack": "Spring Boot 4.11 と Angular 22"
+  },
+  "navigation": {
+    "home": "ホーム",
+    "about": "自己紹介",
+    "projects": "プロジェクト",
+    "blog": "ブログ",
+    "contact": "お問い合わせ"
+  },
+  "home": {
+    "role": "AI統合ソフトウェアエンジニア",
+    "name": "キスネ・カネルド",
+    "tagline": "私にとって、ITの道は決して簡単なものではなく、成功も自然に与えられるものではありません。これまで、私生活と仕事のどちらかを選ばなければならない時もありました。それでも、自分の夢を実現するために、これからも努力を続けていきます。",
+    "features": {
+      "scalable_systems": {
+        "title": "ソフトウェアアーキテクチャ",
+        "desc": "ソフトウェアの設計資料や技術文書を理解し、設計・更新・検証することができます。AIエージェントを活用したコーディング（Agentic Coding）による製品開発に情熱を持っています。"
+      },
+      "zero_trust": {
+        "title": "品質保証",
+        "desc": "ソフトウェア開発ライフサイクル（SDLC）における SAST・DAST のテストプロセスを設計します。テストケースの文書化を通じて、バグやインシデントを記録・修正します。"
+      },
+      "creative_interactions": {
+        "title": "継続的な学習と技術探求",
+        "desc": "技術やセキュリティの最新動向を常に学んでいます。新しい技術や機能を取り入れ、具体的な課題を解決する方法を研究しています。"
+      },
+      "devops": {
+        "title": "DevOps自動化",
+        "desc": "自動テスト、Dockerによるコンテナ化、継続的デプロイを含む CI/CD パイプラインを構築し、システムの安定稼働を支えます。"
+      }
+    }
+  },
+  "about": {
+    "hero": {
+      "tag": "一匹の青い狐、世界を見つめる",
+      "title": "自己紹介",
+      "description": "皆さん、こんにちは！キスネ・カネルドと申します。ホーチミン市オープン大学で情報技術を学んでいる学生で、ソフトウェア工学を専門分野としています。また、AIモデルの学習や開発にも興味があります。仕事で疲れ切ってしまうこともありますが、いつも粘り強く取り組み、任された仕事をしっかりやり遂げるよう努力しています。",
+      "view_cv": "CVを見る"
+    },
+    "cv": {
+      "prev": "前のページ",
+      "next": "次のページ",
+      "page": "ページ",
+      "zoom_in": "拡大",
+      "reset_zoom": "ズームをリセット",
+      "open_original": "元の画像を開く",
+      "role": "AI統合ソフトウェアエンジニア",
+      "overview_title": "ページ内容の概要",
+      "overview_page_1": "1ページ目では、キャリアプランと今後の目標、ホーチミン市オープン大学での学業成績、AIに関する研究活動の認定証、および基礎科目についてまとめています。",
+      "overview_page_2": "2ページ目では、これまでに経験した3つの業務やプロジェクト、学習・実践してきたスキル、趣味、そして自由時間に取り組んでいる活動を紹介しています。",
+      "academic_track_label": "専門分野",
+      "academic_track_value": "HCMC-OU (FCS)",
+      "gpa_label": "総合GPA",
+      "stack_label": "主要分野",
+      "stack_content": "フルスタック開発とDevOps",
+      "additional_label": "関連分野",
+      "additional_content": "AI統合に関する研究",
+      "connect_linkedin": "LinkedInでつながる",
+      "return_portfolio": "ポートフォリオに戻る"
+    }
+  },
+  "projects": {
+    "header": {
+      "badge": "プロジェクト実績",
+      "title": "主な技術プロジェクト",
+      "subtitle": "AIエージェントシステム、分散バックエンドアーキテクチャ、自然言語処理モデル、リアルタイムプラットフォーム。"
+    },
+    "buttons": {
+      "source": "ソースコード",
+      "website": "ウェブサイト"
+    },
+    "items": {
+      "aijmc": {
+        "title": "AI IT Job Market Consultant (AIJMC)",
+        "category": "AIエージェント・求人市場",
+        "summary": "ReAct AIエージェントと多層RAGを活用し、IT求人市場の分析とキャリア相談を行うプラットフォームです。",
+        "description": "CeleryとCrawleeを使用し、ITViec、TopDev、VietnamWorksから求人データを収集・分析します。pgvectorによるハイブリッド検索（Hybrid Retrieval）を導入し、意味検索と大規模言語モデル（LLM）を組み合わせて、一人ひとりに合ったキャリアプランを提案します。"
+      },
+      "aijmc_jpra": {
+        "title": "AIJMC-JPRA：求人情報の信頼性分析",
+        "category": "学術研究・AIエージェント",
+        "summary": "IEEE国際会議の論文形式に基づき、偽の求人情報の検出と信頼性の検証を目的とした研究プロジェクトです。",
+        "description": "求人情報のURLをもとに、二値分類モデルで信頼性を評価します。PydanticAIエージェントとPlaywrightによるリアルタイムのWeb情報取得を組み合わせ、証拠の照合、信頼性スコアの算出、詳細な判断理由の生成を行います。"
+      },
+      "mbms": {
+        "title": "Medical Booking Management System (MBMS)",
+        "category": "医療・リアルタイム予約",
+        "summary": "クリニック向けのオンライン診療予約・管理プラットフォームです。PWAとネイティブアプリとして開発しました。",
+        "description": "医療機関の診療予約業務をデジタル化するソリューションです。AI駆動開発（AIDD）とScrumを活用して患者と医師の利便性を高め、Dockerによるコンテナ化でアプリケーション全体のデプロイ環境を構築しました。"
+      },
+      "ai_writing_indicator": {
+        "title": "AI生成文章の検出指標",
+        "category": "機械学習・自然言語処理",
+        "summary": "ベトナム語のニュース記事を対象に、生成AIによって作成された文章を検出する二値分類の機械学習モデルです。",
+        "description": "ベトナム語に特化した自然言語処理（NLP）パイプラインを研究・学習させ、人間が執筆したニュース記事と大規模言語モデル（LLM）が生成した文章を判別します。デジタル出版におけるコンテンツの独自性確認を支援します。"
+      },
+      "elearning_lcms": {
+        "title": "学習コンテンツ管理システム（LCMS）",
+        "category": "教育テクノロジー・教材管理",
+        "summary": "Django REST Frameworkを使用し、デジタル教材の管理・保存・再利用を実現する総合的なLCMSプラットフォームです。",
+        "description": "MySQLを利用したデジタル教材管理のバックエンドを構築しました。OAuth2トークンによるアクセス権限管理、管理者向けの統計ダッシュボード、Google GenAIを活用した個別の学習教材推薦機能を実装しています。"
+      },
+      "sports_field_booking": {
+        "title": "スポーツ施設予約・自動テストアプリ",
+        "category": "スポーツ・ソフトウェア品質保証",
+        "summary": "サッカー、バドミントン、テニスの施設を時間帯ごとに予約できるシステムです。包括的な自動テストにも対応しています。",
+        "description": "FlaskとMySQLで構築したWebアプリケーションで、スポーツ施設のリアルタイム検索と予約を提供します。Selenium 3を使用し、単体テスト、結合テスト、システムテスト、受け入れテストまで、厳格な品質保証プロセスを実施しました。"
+      }
+    }
+  },
+  "blog": {
+    "title": "開発中",
+    "subtitle": "思っていたより開発に時間がかかっています。よかったら、また後で見に来てくださいね！"
+  },
+  "contact": {
+    "info": {
+      "title_part1": "お気軽に",
+      "title_part2": "ご連絡ください",
+      "description": "ご質問や共有したいお話、プロジェクトについて詳しく聞いてみたいことはありますか？メールやSNS、下記のフォームからお気軽にご連絡ください！",
+      "office_title": "所在地",
+      "office_value": "ベトナム・ホーチミン市、ホーチミン市オープン大学（Võ Văn Tầnキャンパス）",
+      "hours_title": "対応時間（リモート）",
+      "hours_days": "月曜日～金曜日：",
+      "hours_time": "10:00 – 19:00 (UTC+7)",
+      "inquiries_title": "直接のお問い合わせ"
+    },
+    "form": {
+      "first_name_label": "名 *",
+      "first_name_placeholder": "お名前（名）",
+      "first_name_error": "名前は2文字以上で入力し、無効な文字を含めないでください。",
+      "last_name_label": "姓 *",
+      "last_name_placeholder": "姓とミドルネーム",
+      "last_name_error": "姓は2文字以上で入力し、無効な文字を含めないでください。",
+      "phone_label": "電話番号",
+      "phone_placeholder": "連絡先の電話番号",
+      "phone_error": "有効な電話番号を入力してください。",
+      "email_label": "メールアドレス *",
+      "email_placeholder": "メールアドレスを入力",
+      "email_disposable_error": "一時的なメールアドレスは使用できません。",
+      "email_invalid_error": "有効な個人用またはビジネス用のメールアドレスを入力してください。",
+      "subject_label": "件名 *",
+      "subject_placeholder": "お問い合わせ内容を簡潔に入力",
+      "subject_error": "有効な件名を入力してください。",
+      "message_label": "メッセージ *",
+      "message_placeholder": "メッセージをご入力ください...",
+      "message_error": "メッセージは10文字以上で入力し、無効な文字を含めないでください。",
+      "submit_button": "メッセージを送信",
+      "success_message": "メッセージを受け付けました！"
+    }
   }
 }

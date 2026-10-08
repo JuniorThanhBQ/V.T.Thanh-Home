@@ -5,7 +5,6 @@ import { TranslationService } from '@/shared/services/translation.service';
 import { AVATAR_URLS } from '@/assets/cloudinaryUrl';
 import { AppValidators, SecurityValidators } from '@/utils/validators';
 
-
 @Component({
   selector: 'app-contact',
   standalone: true,
@@ -19,13 +18,19 @@ export class ContactComponent {
   public isSubmitted = false;
 
   public contactForm: FormGroup = this.fb.group({
-  firstName: ['', [Validators.required, AppValidators.textLength(2, 100), SecurityValidators.sanitizeInput()]],
-  lastName: ['', [AppValidators.textLength(1, 50), SecurityValidators.sanitizeInput()]],
-  phone: ['', [AppValidators.phoneNumber()]],
-  email: ['', [Validators.required, AppValidators.strictEmail()]],
-  service: ['', [AppValidators.textLength(2, 100), SecurityValidators.sanitizeInput()]],
-  message: ['', [Validators.required, AppValidators.textLength(10, 1000), SecurityValidators.sanitizeInput()]],
-});
+    firstName: [
+      '',
+      [Validators.required, AppValidators.textLength(2, 100), SecurityValidators.sanitizeInput()],
+    ],
+    lastName: ['', [AppValidators.textLength(1, 50), SecurityValidators.sanitizeInput()]],
+    phone: ['', [AppValidators.phoneNumber()]],
+    email: ['', [Validators.required, AppValidators.strictEmail()]],
+    service: ['', [AppValidators.textLength(2, 100), SecurityValidators.sanitizeInput()]],
+    message: [
+      '',
+      [Validators.required, AppValidators.textLength(10, 1000), SecurityValidators.sanitizeInput()],
+    ],
+  });
 
   public isFieldInvalid(field: string): boolean {
     const control = this.contactForm.get(field);
