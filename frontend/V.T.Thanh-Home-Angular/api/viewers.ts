@@ -37,8 +37,14 @@ export default async function handler(req: Request) {
       });
     }
 
-    const data = await response.json();
-    const count = typeof data?.count === 'number' ? data.count : 0;
+    const data = (await response.json()) as {
+      data?: {
+        visitors?: number;
+        pageviews?: number;
+      };
+    };
+
+    const count = typeof data.data?.visitors === 'number' ? data.data.visitors : null;
 
     return new Response(JSON.stringify({ viewers: count }), {
       status: 200,
