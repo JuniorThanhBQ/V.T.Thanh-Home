@@ -1,26 +1,28 @@
 <header
-  class="sticky top-0 z-50 backdrop-blur-md bg-white/90 dark:bg-slate-900/80 border-b border-slate-200 dark:border-slate-800 transition-colors duration-300"
+  class="sticky top-0 z-50 bg-white/90 dark:bg-slate-900/80 border-b border-slate-200 dark:border-slate-800 transition-colors duration-300"
+  [class.backdrop-blur-md]="!isMobileMenuOpen()"
 >
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between">
-    <div class="w-[30%] flex items-center">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-[72px] flex items-center justify-between">
+    <div class="lg:w-[30%] flex items-center shrink-0">
       <a
         routerLink="/"
-        class="animate-stagger-item flex items-center space-x-2 text-sky-600 dark:text-sky-400 font-bold text-xl tracking-tight hover:opacity-80 transition-opacity"
+        (click)="closeMobileMenu()"
+        class="animate-stagger-item flex items-center space-x-2 text-sky-600 dark:text-sky-400 font-bold text-lg sm:text-xl tracking-tight hover:opacity-80 transition-opacity"
         style="--i: 0"
       >
         <img
           [src]="theme.currentTheme() === 'light' ? avatarUrls.light : avatarUrls.dark"
           alt="V.T.Thanh Logo"
-          class="w-20 h-20 object-contain transition-opacity duration-300"
+          class="w-16 h-16 sm:w-20 sm:h-20 object-contain transition-opacity duration-300"
         />
-        <span class="text-slate-900 dark:text-white font-semibold tracking-wide">{{
+        <span class="text-slate-900 dark:text-white font-semibold tracking-wide truncate">{{
           i18n.t('app.Author')
         }}</span>
       </a>
     </div>
 
-    <div class="w-[70%] flex items-center justify-end space-x-6 sm:space-x-8">
-      <nav class="hidden md:flex items-center space-x-8 text-sm font-medium">
+    <div class="lg:w-[70%] flex items-center justify-end space-x-3 sm:space-x-6 lg:space-x-8">
+      <nav class="hidden lg:flex items-center space-x-8 text-sm font-medium">
         @for (item of navItems; track item.path; let idx = $index) {
           <a
             [routerLink]="item.path"
@@ -40,7 +42,7 @@
         }
       </nav>
 
-      <div class="relative animate-stagger-item" [style.--i]="navItems.length + 1">
+      <div class="relative animate-stagger-item hidden sm:block" [style.--i]="navItems.length + 1">
         <button
           type="button"
           (click)="toggleLangDropdown($event)"
@@ -57,7 +59,7 @@
           }
           <svg
             class="w-4 h-4 text-slate-500 dark:text-slate-400 transition-transform duration-200"
-            [class.rotate-180]="dropdownOpen()"
+            [class.rotate-180]="isLangDropdownOpen()"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -180,6 +182,110 @@
           </span>
         </button>
       </div>
+
+      <div class="lg:hidden flex items-center">
+        <button
+          type="button"
+          (click)="toggleMobileMenu()"
+          class="w-10 h-10 rounded-full flex flex-col items-center justify-center gap-1.5 bg-slate-100/80 hover:bg-slate-200/80 dark:bg-slate-800/80 dark:hover:bg-slate-700/80 border border-slate-300/60 dark:border-slate-700/60 transition-colors focus:outline-none focus:ring-2 focus:ring-sky-500 cursor-pointer"
+          [attr.aria-expanded]="isMobileMenuOpen()"
+          aria-label="Toggle navigation menu"
+        >
+          <span
+            class="w-5 h-0.5 bg-slate-800 dark:bg-slate-200 rounded-full transition-transform duration-300 ease-in-out"
+            [class.rotate-45]="isMobileMenuOpen()"
+            [class.translate-y-2]="isMobileMenuOpen()"
+          ></span>
+          <span
+            class="w-5 h-0.5 bg-slate-800 dark:bg-slate-200 rounded-full transition-opacity duration-200"
+            [class.opacity-0]="isMobileMenuOpen()"
+          ></span>
+          <span
+            class="w-5 h-0.5 bg-slate-800 dark:bg-slate-200 rounded-full transition-transform duration-300 ease-in-out"
+            [class.-rotate-45]="isMobileMenuOpen()"
+            [class.-translate-y-2]="isMobileMenuOpen()"
+          ></span>
+        </button>
+      </div>
     </div>
   </div>
+
+  @if (isMobileMenuOpen()) {
+    <div
+      class="lg:hidden fixed inset-x-0 top-[72px] h-[calc(100dvh-72px)] z-50 bg-white/95 dark:bg-slate-950/95 backdrop-blur-2xl flex flex-col justify-between p-6 sm:p-10 border-t border-slate-200/70 dark:border-slate-800/70 overflow-y-auto"
+    >
+      <div class="space-y-1">
+        <span
+          class="text-[10px] font-mono uppercase tracking-[0.25em] text-slate-400 dark:text-slate-500 block mb-4"
+        >
+          Navigation
+        </span>
+
+        @for (item of navItems; track item.path; let idx = $index) {
+          <a
+            [routerLink]="item.path"
+            (click)="closeMobileMenu()"
+            routerLinkActive="!text-sky-600 dark:!text-sky-400 font-bold"
+            [routerLinkActiveOptions]="{ exact: item.exact ?? false }"
+            class="group flex items-center justify-between py-3.5 sm:py-4 border-b border-slate-200/60 dark:border-slate-800/60 text-xl sm:text-2xl font-mono tracking-tight text-slate-800 dark:text-slate-200 hover:text-sky-600 dark:hover:text-sky-400 transition-colors"
+          >
+            <span class="flex items-center gap-4">
+              <span class="text-xs font-mono text-slate-400 dark:text-slate-500"
+                >0{{ idx + 1 }}</span
+              >
+              <span>{{ i18n.t(item.translationKey) }}</span>
+            </span>
+            <span
+              class="text-xs font-mono text-slate-400 dark:text-slate-500 group-hover:translate-x-1 transition-transform"
+              >→</span
+            >
+          </a>
+        }
+      </div>
+
+      <div class="pt-6 mt-6 border-t border-slate-200/60 dark:border-slate-800/60 space-y-4">
+        <div class="sm:hidden">
+          <span
+            class="text-[10px] font-mono uppercase tracking-[0.25em] text-slate-400 dark:text-slate-500 block mb-3"
+          >
+            Language
+          </span>
+          <div class="grid grid-cols-3 gap-2">
+            @for (lang of i18n.supportedLanguages; track lang.code) {
+              <button
+                type="button"
+                (click)="selectLanguage(lang.code); closeMobileMenu()"
+                class="flex items-center justify-center gap-2 px-3 py-2 rounded-lg text-xs font-mono border transition-all cursor-pointer"
+                [class.bg-sky-50]="i18n.currentLang() === lang.code"
+                [class.dark:bg-sky-950/60]="i18n.currentLang() === lang.code"
+                [class.border-sky-500]="i18n.currentLang() === lang.code"
+                [class.text-sky-600]="i18n.currentLang() === lang.code"
+                [class.dark:text-sky-400]="i18n.currentLang() === lang.code"
+                [class.bg-slate-100/60]="i18n.currentLang() !== lang.code"
+                [class.dark:bg-slate-900/60]="i18n.currentLang() !== lang.code"
+                [class.border-slate-200]="i18n.currentLang() !== lang.code"
+                [class.dark:border-slate-800]="i18n.currentLang() !== lang.code"
+                [class.text-slate-700]="i18n.currentLang() !== lang.code"
+                [class.dark:text-slate-300]="i18n.currentLang() !== lang.code"
+              >
+                <img
+                  [src]="flagUrls[lang.code]"
+                  [alt]="i18n.t(lang.labelKey)"
+                  class="w-4 h-3 object-cover rounded-xs"
+                />
+                <span class="uppercase font-semibold">{{ lang.code }}</span>
+              </button>
+            }
+          </div>
+        </div>
+
+        <div
+          class="pt-2 flex items-center justify-between text-[11px] font-mono text-slate-400 dark:text-slate-500"
+        >
+          <span>V.T.Thanh Portfolio</span>
+          <span>Version 1.0</span>
+        </div>
+      </div>
+    </div>
+  }
 </header>

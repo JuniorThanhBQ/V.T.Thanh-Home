@@ -1,20 +1,21 @@
 <footer
-  class="border-t border-slate-200 dark:border-slate-800 bg-white/85 dark:bg-slate-900/75 backdrop-blur-md py-3.5 text-xs text-slate-600 dark:text-slate-400 transition-colors duration-300"
+  class="border-t border-slate-200 dark:border-slate-800 bg-white/85 dark:bg-slate-900/75 backdrop-blur-md py-4 sm:py-3.5 text-xs text-slate-600 dark:text-slate-400 transition-colors duration-300"
 >
   <div
-    class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-2"
+    class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-2.5 sm:gap-2"
   >
-    <div class="animate-stagger-item">
+    <div class="animate-stagger-item text-center md:text-left text-[11px] sm:text-xs">
       © {{ currentYear }}
       <span class="font-semibold text-slate-800 dark:text-slate-200">{{
         i18n.t('app.Author')
       }}</span
       >. {{ i18n.t('app.copyright') }}.
     </div>
+
     <div
-      class="animate-stagger-item flex items-center space-x-2.5 text-xs text-slate-500 dark:text-slate-400"
+      class="animate-stagger-item flex flex-wrap items-center justify-center md:justify-end gap-x-2.5 gap-y-1 text-[11px] sm:text-xs text-slate-500 dark:text-slate-400"
     >
-      <span class="font-mono text-slate-700 dark:text-slate-300">
+      <span class="font-mono text-slate-700 dark:text-slate-300 tabular-nums">
         {{ currentTime() | date: 'yyyy-MM-dd HH:mm:ss' }} (UTC+7)
       </span>
 

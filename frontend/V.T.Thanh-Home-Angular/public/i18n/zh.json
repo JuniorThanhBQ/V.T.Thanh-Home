@@ -2,7 +2,7 @@
   "app": {
     "title": "个人网站",
     "Author": "文忠诚",
-    "version": "版本 1.0.0",
+    "version": "版本 1.0.2",
     "copyright": "保留所有权利"
   },
   "language": {
@@ -14,7 +14,7 @@
     "de": "德语"
   },
   "loading": {
-    "subtitle": "文忠诚 的个人主页 🏠",
+    "subtitle": "文忠诚的个人主页 🏠",
     "initializing": "请稍等，站长正在准备个人资料！",
     "switching_language": "正在切换语言！",
     "tech_stack": "Spring Boot 4.11 与 Angular 22"
@@ -23,25 +23,25 @@
     "home": "首页",
     "about": "关于我",
     "projects": "项目",
-    "blog": "博客",
+    "blog": "日志",
     "contact": "联系我"
   },
   "home": {
-    "role": "AI 集成软件开发工程师",
+    "role": "软件开发工程师与 AI 智能体协调员",
     "name": "文忠诚",
-    "tagline": "对我来说，信息技术从来都不是一条容易走的道路，成功也不会像一份礼物一样轻易到来。有时候，我不得不在个人生活和工作之间做出取舍。即便如此，我仍会继续努力，实现自己的梦想。",
+    "tagline": "对我来说，信息技术从来都不是一个容易追求的领域，也从来不是一个可以轻松应对的挑战。很多时候，我不得不在个人生活与工作之间作出取舍和牺牲。无论如何，我都会继续努力，去实现自己真正渴望的目标。",
     "features": {
       "scalable_systems": {
         "title": "软件架构",
-        "desc": "能够阅读、设计、更新和审核软件架构及技术文档。热衷于利用智能体编程（Agentic Coding）开发软件产品。"
+        "desc": "能够阅读、理解、设计、更新并验证软件架构文档和技术文档。热衷于通过智能体编程（Agentic Coding）开发软件产品。"
       },
       "zero_trust": {
         "title": "质量保证",
-        "desc": "在软件开发生命周期（SDLC）中设计 SAST 和 DAST 测试流程。通过规范化的测试用例记录和修复缺陷及系统事件。"
+        "desc": "在软件开发生命周期（SDLC）中设计 SAST 和 DAST 测试流程。通过规范化的测试用例记录、报告并修复缺陷和系统事件。"
       },
       "creative_interactions": {
-        "title": "持续学习与技术探索",
-        "desc": "持续关注技术与网络安全的发展趋势。研究如何整合新技术和新功能，以解决具体问题。"
+        "title": "连接与持续更新",
+        "desc": "持续关注不同时期的技术与安全趋势。研究如何集成新功能，以解决具体问题。"
       },
       "devops": {
         "title": "DevOps 自动化",
@@ -53,118 +53,152 @@
     "hero": {
       "tag": "一只蓝狐望世界",
       "title": "关于我",
-      "description": "大家好！我叫文忠诚，是胡志明市开放大学信息技术专业的学生，主要学习方向是软件工程。此外，我也对人工智能模型的训练与开发很感兴趣。虽然工作有时会让我感到疲惫，甚至精疲力尽，但我始终坚持不懈，并努力把自己的工作做好。",
+      "description": "大家好，我叫文忠诚，是胡志明市开放大学的学生。我的专业是信息技术，主要方向为软件开发。此外，我也对人工智能模型的训练与开发很感兴趣。虽然工作有时会让我感到疲惫甚至精疲力尽，但我始终坚持不懈，并努力认真完成自己的职责。",
       "view_cv": "查看简历"
     },
     "cv": {
       "prev": "上一页",
       "next": "下一页",
-      "page": "第",
+      "page": "页",
       "zoom_in": "放大",
       "reset_zoom": "重置缩放",
       "open_original": "打开原图",
       "role": "AI 集成软件开发工程师",
       "overview_title": "页面内容概览",
-      "overview_page_1": "第 1 页概述了我的职业规划与发展目标、在胡志明市开放大学取得的学业成绩、人工智能科研相关证书以及基础课程。",
-      "overview_page_2": "第 2 页介绍了我参与过的三项工作经历与项目、已经学习并实践的技能、个人兴趣以及业余时间的活动。",
-      "academic_track_label": "专业方向",
-      "academic_track_value": "HCMC-OU (FCS)",
+      "overview_page_1": "第 1 页概述了我在毕业前规划的职业目标、在胡志明市开放大学取得的学业成绩、参与人工智能主题科学研究的证明以及基础课程。",
+      "overview_page_2": "第 2 页介绍了我参与过的三项工作经历与项目、已经掌握并实践过的技能、个人兴趣以及业余时间从事的活动。",
+      "academic_track_label": "专业",
+      "academic_track_value": "信息技术",
       "gpa_label": "总平均绩点（GPA）",
       "stack_label": "核心领域",
       "stack_content": "全栈开发与 DevOps",
-      "additional_label": "辅助研究领域",
-      "additional_content": "AI 集成研究",
+      "additional_label": "扩展领域",
+      "additional_content": "智能体编程研究",
       "connect_linkedin": "通过 LinkedIn 建立联系",
-      "return_portfolio": "返回作品集"
+      "return_portfolio": "返回作品集",
+      "overall": "能力自我评估",
+      "overall_content": "7 / 10"
     }
   },
   "projects": {
+    "flag": "专业项目",
     "header": {
-      "badge": "项目档案",
-      "title": "代表性技术项目",
-      "subtitle": "AI 智能体系统、分布式后端架构、自然语言处理模型及实时交互平台。"
+      "badge": "已开发项目组合",
+      "title": "GitHub 置顶项目",
+      "subtitle": "越南信息技术招聘信息采集与分析系统（AIJMC）、招聘信息可信度评估工具（AIJMC-JPRA）、医疗预约管理系统（MBMS）、AI 生成文本检测工具（AI-Indicator）、数字学习资源管理系统（ERM），以及体育场地预约应用。"
     },
     "buttons": {
       "source": "源代码",
-      "website": "项目网站"
+      "website": "网站"
     },
     "items": {
       "aijmc": {
         "title": "AI IT Job Market Consultant (AIJMC)",
-        "category": "AI 智能体与招聘市场",
-        "summary": "基于 ReAct AI 智能体和多层 RAG 技术的 IT 就业市场分析与职业规划咨询平台。",
-        "description": "系统通过 Celery 和 Crawlee 采集并分析来自 ITViec、TopDev 和 VietnamWorks 的招聘数据。结合 pgvector、语义搜索和大语言模型（LLM）实现混合检索（Hybrid Retrieval），为用户提供个性化的职业发展建议。"
+        "category": "AI 智能体与自适应爬虫",
+        "summary": "基于 ReAct AI 智能体和混合 RAG 技术的 IT 就业市场分析与职业规划咨询平台。",
+        "description": "系统通过 Celery 和 Crawlee 采集并分析来自 ITViec、TopDev 和 VietnamWorks 的招聘数据。利用基于 pgvector 数据库的混合检索技术扩展语义搜索，并在 ReAct 框架中使用 Gemini 3.8 Flash 模型，为用户提供个性化的职业发展路线。"
       },
       "aijmc_jpra": {
-        "title": "AIJMC-JPRA：招聘信息可信度分析",
-        "category": "科学研究与 AI 智能体",
-        "summary": "按照 IEEE 学术会议论文规范开展的科学研究项目，旨在识别虚假招聘信息并验证其真实性。",
-        "description": "通过二分类模型分析招聘信息的 URL 并评估其可信度。系统集成 PydanticAI 智能体与 Playwright 实时网页检索功能，对相关证据进行交叉验证，计算可信度评分，并生成详细的分析依据。"
+        "title": "AIJMC-JPRA：招聘信息可信度评估",
+        "category": "扩展科学研究",
+        "summary": "按照 IEEE 学术会议标准开展的科学研究项目，旨在识别欺诈性招聘信息并验证其真实性。",
+        "description": "二分类模型通过招聘信息的 URL 评估其可信度。系统集成 PydanticAI 智能体与 Playwright 实时网页检索功能，对相关证据进行交叉核验、计算可信度评分，并生成详细的判断依据。"
       },
       "mbms": {
         "title": "Medical Booking Management System (MBMS)",
-        "category": "医疗健康与实时预约",
-        "summary": "面向诊所的在线医疗预约与管理平台，采用渐进式 Web 应用（PWA）和原生应用架构。",
-        "description": "为医疗机构提供数字化预约管理解决方案，优化患者与医生的使用体验。项目采用 AI 驱动开发（AIDD）和 Scrum 敏捷开发方法，并通过 Docker 实现完整的容器化部署。"
+        "category": "实时医疗预约管理",
+        "summary": "面向诊所的在线医疗预约与管理平台，采用渐进式 Web 应用（PWA）和原生应用形式开发。",
+        "description": "为医疗机构提供数字化诊疗预约流程的解决方案。项目通过 AI 驱动开发（AIDD）和 Scrum 优化患者与医生的使用体验，并使用 Docker 完成整体容器化部署。"
       },
       "ai_writing_indicator": {
-        "title": "AI 生成文本检测指标",
+        "title": "AI 生成文本检测工具",
         "category": "机器学习与自然语言处理",
-        "summary": "基于二分类机器学习模型，识别新闻领域中由生成式人工智能撰写的越南语文本。",
-        "description": "研究并训练面向越南语的专用自然语言处理（NLP）流水线，用于区分人类撰写的新闻文章与大语言模型（LLM）生成的内容，为数字出版领域的内容原创性审核提供技术支持。"
+        "summary": "一种二分类机器学习模型，用于检测新闻领域中的越南语文本是由生成式人工智能生成，还是由人类撰写。",
+        "description": "研究并训练面向越南语的专用自然语言处理（NLP）流水线，以准确区分人类撰写的新闻文章与大型语言模型（LLM）生成的内容，为数字出版领域的内容原创性审核提供技术支持。"
       },
       "elearning_lcms": {
-        "title": "学习内容管理系统（LCMS）",
+        "title": "数字学习资源管理系统（ERM）",
         "category": "教育科技与教学内容管理",
-        "summary": "基于 Django REST Framework 构建的综合性学习内容管理平台，支持数字学习资源的管理、存储与重复利用。",
-        "description": "构建基于 MySQL 的数字学习内容管理后端架构，采用 OAuth2 令牌进行访问权限控制，提供管理员数据统计仪表板，并集成 Google GenAI，为用户推荐个性化学习资料。"
+        "summary": "基于 Django REST Framework 和 React Native 构建的综合性 ERM 系统，支持数字学习资源的管理、存储和重复利用。",
+        "description": "后端架构通过 MySQL 数据库处理数字学习内容，并提供基于 OAuth2 令牌的访问权限控制、面向管理员的统计仪表板，以及 Google GenAI 集成，为用户提供个性化的学习资料推荐。"
       },
       "sports_field_booking": {
-        "title": "体育场地预约与自动化测试应用",
-        "category": "体育服务与软件质量保证",
-        "summary": "支持足球场、羽毛球场和网球场按时段预约的系统，并配备完整的自动化测试流程。",
-        "description": "基于 Flask 和 MySQL 开发的 Web 应用，支持实时搜索和预约体育场地。采用严格的软件质量测试流程，使用 Selenium 3 完成单元测试、集成测试、系统测试和验收测试。"
+        "title": "体育场地预约与管理应用",
+        "category": "体育服务与软件测试",
+        "summary": "支持用户或管理员按照指定时段预约和管理足球场、羽毛球场与网球场的系统。",
+        "description": "基于 Flask 和 MySQL 构建的 Web 应用，支持实时搜索与预约体育场地。项目采用严格的质量保证流程，并使用 Selenium 3 完成单元测试、集成测试、系统测试和验收测试。"
       }
     }
   },
   "blog": {
-    "title": "正在开发中",
-    "subtitle": "这个功能花的时间比我想象中还要长。大家过段时间再来看看吧！"
+    "badge": "个人印记",
+    "title": "我的日志",
+    "subtitle": "我希望 AI 能帮助我追逐自己的梦想和热爱，而不是夺走或取代它们。灵感来自 Joanna Maciejewska。",
+    "chapter_label": "章节",
+    "journal_label": "日志",
+    "actions": {
+      "back_to_journal": "← 返回日志",
+      "return_to_journal": "← 回到日志",
+      "open_story": "阅读文章",
+      "previous": "← 上一页",
+      "next": "下一页 →",
+      "go_to_story": "前往文章"
+    },
+    "empty": {
+      "title": "暂无文章",
+      "description": "目前还没有发布任何文章。这可能是后端出现了错误，也可能只是我懒得写文章。请稍后再来看看。"
+    }
   },
   "contact": {
     "info": {
       "title_part1": "与我",
       "title_part2": "联系",
-      "description": "你有什么疑问、想分享的故事，或者想进一步交流我的项目吗？欢迎通过电子邮件、社交媒体或下方的表单与我联系！",
+      "description": "你有什么疑问、想分享的故事，或者希望进一步交流我的项目吗？欢迎通过电子邮件、社交媒体或填写表单与我联系。",
       "office_title": "办公地点",
-      "office_value": "越南胡志明市，胡志明市开放大学 Vo Van Tan 校区",
+      "office_value": "越南胡志明市，胡志明市开放大学 Võ Văn Tần 校区",
       "hours_title": "工作时间（远程）",
       "hours_days": "周一至周五：",
-      "hours_time": "10:00 – 19:00 (UTC+7)",
+      "hours_time": "10:00–19:00（UTC+7）",
       "inquiries_title": "直接联系"
     },
     "form": {
       "first_name_label": "名字 *",
-      "first_name_placeholder": "请输入您的名字",
+      "first_name_placeholder": "您的名字",
       "first_name_error": "名字至少需要 2 个字符，且不能包含无效字符。",
       "last_name_label": "姓氏 *",
-      "last_name_placeholder": "请输入您的姓氏及中间名",
+      "last_name_placeholder": "您的姓氏和中间名",
       "last_name_error": "姓氏至少需要 2 个字符，且不能包含无效字符。",
       "phone_label": "电话号码",
-      "phone_placeholder": "请输入联系电话",
+      "phone_placeholder": "您的联系电话",
       "phone_error": "请输入有效的电话号码。",
       "email_label": "电子邮箱 *",
-      "email_placeholder": "请输入电子邮箱地址",
-      "email_disposable_error": "不接受临时邮箱域名。",
+      "email_placeholder": "您的电子邮箱地址",
+      "email_disposable_error": "不接受临时电子邮箱域名。",
       "email_invalid_error": "请输入有效的个人或企业电子邮箱地址。",
       "subject_label": "主题 *",
       "subject_placeholder": "请简要说明您想交流的内容",
-      "subject_error": "请输入有效的主题。",
-      "message_label": "留言内容 *",
+      "subject_error": "主题无效。",
+      "message_label": "留言 *",
       "message_placeholder": "请输入您的留言内容...",
-      "message_error": "留言内容至少需要 10 个字符，且不能包含无效字符。",
+      "message_error": "留言至少需要 10 个字符，且不能包含无效字符。",
       "submit_button": "发送消息",
       "success_message": "已收到您的消息！"
     }
+  },
+  "chat": {
+    "open_tooltip": "打开虚拟助手",
+    "close_button": "关闭虚拟助手",
+    "title": "V.T.Thanh 虚拟助手",
+    "status_active": "运行中",
+    "greeting": "你好！我是文忠诚的虚拟助手。今天有什么可以帮助你的吗？",
+    "suggested_topics_title": "推荐主题",
+    "topics": {
+      "tech_stack": "技术栈包括哪些技术？",
+      "projects": "探索代表性项目",
+      "contact": "如何与我联系？"
+    },
+    "input_placeholder": "向我提问...",
+    "send_button": "发送消息",
+    "disclaimer": "⚠️ 此内容由人工智能生成。相关回复不构成任何法律、财务、医疗或生活方面的建议。对于因使用本聊天机器人而作出的决定或产生的后果，网站所有者不承担任何责任。请谨慎参考和使用。"
   }
 }

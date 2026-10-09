@@ -2,7 +2,7 @@
   "app": {
     "title": "Personal Website",
     "Author": "Van Trung Thanh",
-    "version": "Version 1.0.0",
+    "version": "Version 1.0.2",
     "copyright": "All rights reserved"
   },
   "language": {
@@ -14,8 +14,8 @@
     "de": "German"
   },
   "loading": {
-    "subtitle": "Van Trung Thanh's Home 🏠",
-    "initializing": "Just a moment, the host is getting his profile ready!",
+    "subtitle": "Van Trung Thanh's homepage 🏠",
+    "initializing": "Just a moment—the host is retrieving his profile!",
     "switching_language": "Switching language!",
     "tech_stack": "Spring Boot 4.11 with Angular 22"
   },
@@ -23,37 +23,37 @@
     "home": "Home",
     "about": "About Me",
     "projects": "Projects",
-    "blog": "Blog",
+    "blog": "Journal",
     "contact": "Contact"
   },
   "home": {
-    "role": "Software Engineer with AI Integration",
+    "role": "Software Development Engineer and AI Agent Coordinator",
     "name": "Van Trung Thanh",
-    "tagline": "For me, IT has never been an easy field to follow, and success does not come as a free gift. There have been times when I had to choose between my personal life and work. Even so, I will keep doing my best to achieve my dream.",
+    "tagline": "For me, information technology has never been an easy field to pursue, nor has it ever presented itself as a trivial challenge. There have been many times when I had to make sacrifices between my personal life and work. No matter what happens, I will continue striving to achieve what I truly want.",
     "features": {
       "scalable_systems": {
         "title": "Software Architecture",
-        "desc": "Able to read, design, update, and review software architecture and technical documents. Passionate about building products with Agentic Coding."
+        "desc": "Capable of understanding, designing, updating, and verifying software architecture and technical documentation. Passionate about developing products through Agentic Coding."
       },
       "zero_trust": {
         "title": "Quality Assurance",
-        "desc": "Design SAST and DAST testing processes within the SDLC. Track and fix bugs and incidents through documented test cases."
+        "desc": "Designing SAST and DAST testing processes within the software development life cycle. Recording, reporting, and resolving bugs and incidents through documented test cases."
       },
       "creative_interactions": {
-        "title": "Learning and Staying Updated",
-        "desc": "Keep up with technology and security trends. Explore how new technologies and features can help solve specific problems."
+        "title": "Connection and Continuous Improvement",
+        "desc": "Keeping up with technology and security trends over time. Researching how new features can be integrated to solve specific problems."
       },
       "devops": {
         "title": "DevOps Automation",
-        "desc": "Build automated CI/CD pipelines for testing, Docker containerization, and continuous deployment to keep systems stable."
+        "desc": "Building automated CI/CD pipelines for automated testing, Docker containerization, and continuous deployment to ensure system stability."
       }
     }
   },
   "about": {
     "hero": {
-      "tag": "One Blue Fox Gazes at the World",
+      "tag": "A Lone Blue Fox Gazing at the World",
       "title": "About Me",
-      "description": "Hello everyone! My name is Văn Trung Thành, and I am an Information Technology student at Ho Chi Minh City Open University, focusing on Software Engineering. I am also interested in training and developing AI models. Although I sometimes feel burned out from work, I always stay determined and do my best to complete my tasks well.",
+      "description": "Hello everyone, my name is Van Trung Thanh, and I am a student at Ho Chi Minh City Open University. I major in Information Technology with a professional focus on software development. I am also inspired by the training and development of AI models. Although I can become exhausted by work, I always remain persistent and do my best to complete my responsibilities well.",
       "view_cv": "View CV"
     },
     "cv": {
@@ -63,26 +63,29 @@
       "zoom_in": "Zoom In",
       "reset_zoom": "Reset Zoom",
       "open_original": "Open Original Image",
-      "role": "Software Engineer with AI Integration",
-      "overview_title": "Page Overview",
-      "overview_page_1": "Page 1 summarizes my career plans and milestones, academic achievements at Ho Chi Minh City Open University, a certificate in AI research, and foundational courses.",
-      "overview_page_2": "Page 2 presents three work experiences and projects, skills I have learned and practiced, personal interests, and activities I enjoy in my free time.",
+      "role": "AI-Integrated Software Development Engineer",
+      "overview_title": "Page Content Overview",
+      "overview_page_1": "Page 1 summarizes my planned career goals before graduation, academic achievements at Ho Chi Minh City Open University, certification of participation in scientific research on AI, and foundational coursework.",
+      "overview_page_2": "Page 2 presents three experiences and completed projects, the skills I have acquired and practiced, my interests, and the activities I pursue in my free time.",
       "academic_track_label": "Major",
-      "academic_track_value": "HCMC-OU (FCS)",
+      "academic_track_value": "Information Technology",
       "gpa_label": "Overall GPA",
-      "stack_label": "Core Focus",
-      "stack_content": "Full-stack Development and DevOps",
-      "additional_label": "Additional Focus",
-      "additional_content": "AI Integration Research",
+      "stack_label": "Core Fields",
+      "stack_content": "Full-Stack Development and DevOps",
+      "additional_label": "Extended Field",
+      "additional_content": "Agentic Coding Research",
       "connect_linkedin": "Connect on LinkedIn",
-      "return_portfolio": "Back to Portfolio"
+      "return_portfolio": "Return to Portfolio",
+      "overall": "Self-Assessed Proficiency",
+      "overall_content": "7 / 10"
     }
   },
   "projects": {
+    "flag": "Major Project",
     "header": {
-      "badge": "Project Portfolio",
-      "title": "Featured Technical Projects",
-      "subtitle": "AI Agent systems, distributed backend architecture, natural language processing models, and real-time platforms."
+      "badge": "Developed Project Portfolio",
+      "title": "Top Projects Pinned on GitHub",
+      "subtitle": "A system for collecting and analyzing IT job postings in Vietnam (AIJMC), a tool for evaluating the trustworthiness of job postings (AIJMC-JPRA), a medical appointment management system (MBMS), an AI-generated text detector (AI-Indicator), an educational resource management system (ERM), and a sports venue booking application."
     },
     "buttons": {
       "source": "Source Code",
@@ -91,80 +94,111 @@
     "items": {
       "aijmc": {
         "title": "AI IT Job Market Consultant (AIJMC)",
-        "category": "AI Agents & Job Market",
-        "summary": "An AI-powered platform for analyzing the IT job market and providing career advice using ReAct AI Agents and multi-layer RAG.",
-        "description": "The system collects and analyzes job data from ITViec, TopDev, and VietnamWorks using Celery and Crawlee. It uses Hybrid Retrieval with pgvector, combining semantic search and large language models to provide personalized career guidance."
+        "category": "AI Agent and Adaptive Crawler",
+        "summary": "A platform for IT job market analysis and career consulting based on a ReAct AI Agent and Hybrid RAG.",
+        "description": "The system collects and analyzes recruitment data from ITViec, TopDev, and VietnamWorks using Celery and Crawlee. It applies Hybrid Retrieval with a pgvector database to enhance semantic search. The Gemini 3.8 Flash model operates within the ReAct framework to provide personalized career roadmaps."
       },
       "aijmc_jpra": {
-        "title": "AIJMC-JPRA: Job Posting Reliability Analysis",
-        "category": "Scientific Research & AI Agents",
-        "summary": "A scientific research project following the IEEE conference format to detect fake job postings and verify their authenticity.",
-        "description": "A binary classification model evaluates the reliability of job postings through their URLs. It uses PydanticAI Agents and real-time web retrieval with Playwright to check evidence, calculate reliability scores, and provide detailed explanations."
+        "title": "AIJMC-JPRA: Job Posting Trustworthiness Assessment",
+        "category": "Extended Scientific Research",
+        "summary": "An IEEE conference-standard research project for detecting fraudulent job postings and verifying their authenticity.",
+        "description": "A binary classification model evaluates the trustworthiness of a job posting through its URL. It integrates a PydanticAI Agent with real-time web retrieval through Playwright to cross-check evidence, calculate a confidence score, and produce detailed reasoning."
       },
       "mbms": {
         "title": "Medical Booking Management System (MBMS)",
-        "category": "Healthcare & Real-Time Booking",
-        "summary": "An online medical appointment booking and management platform for clinics, developed as a PWA and native app.",
-        "description": "A digital solution for managing medical appointments at healthcare facilities. It improves the experience of patients and doctors through AI-Driven Development (AIDD) and Scrum, with complete deployment using Docker."
+        "category": "Real-Time Medical Appointment Management",
+        "summary": "An online medical appointment booking and management platform for clinics, developed as both a PWA and a native application.",
+        "description": "A solution that digitizes medical appointment booking workflows at healthcare facilities. It optimizes the experience of patients and doctors through AI-Driven Development (AIDD) and Scrum, with complete containerized deployment through Docker."
       },
       "ai_writing_indicator": {
-        "title": "AI-Generated Text Detection Indicator",
-        "category": "Machine Learning & Natural Language Processing",
-        "summary": "A binary machine learning model designed to detect AI-generated Vietnamese text in journalism.",
-        "description": "Research and training of a specialized Vietnamese NLP pipeline to distinguish human-written news articles from content generated by large language models (LLMs), supporting originality checks in digital publishing."
+        "title": "AI-Generated Text Detector",
+        "category": "Machine Learning and Natural Language Processing",
+        "summary": "A binary machine-learning classification model that detects whether Vietnamese journalistic text was generated by artificial intelligence or written by a person.",
+        "description": "A specialized Vietnamese NLP pipeline is researched and trained to accurately distinguish news articles written by people from content synthesized by large language models (LLMs), supporting originality verification in digital publishing."
       },
       "elearning_lcms": {
-        "title": "Learning Content Management System (LCMS)",
-        "category": "EdTech & Educational Content Management",
-        "summary": "A complete LCMS platform for managing, storing, and reusing digital learning resources, built with Django REST Framework.",
-        "description": "A backend architecture for managing digital learning content using MySQL, OAuth2 token-based access control, an admin statistics dashboard, and Google GenAI integration for personalized learning material recommendations."
+        "title": "Educational Resource Management System (ERM)",
+        "category": "EdTech and Educational Content Management",
+        "summary": "A comprehensive ERM system for managing, storing, and reusing digital learning resources, built with Django REST Framework and React Native.",
+        "description": "The backend architecture processes digital learning content using a MySQL database, OAuth2 token-based access control, an administrative analytics dashboard, and Google GenAI integration for personalized learning-resource recommendations."
       },
       "sports_field_booking": {
-        "title": "Sports Field Booking & Automated Testing",
-        "category": "Sports & Software Quality Assurance",
-        "summary": "A time-slot booking system for football, badminton, and tennis courts with a complete automated testing process.",
-        "description": "A web application built with Flask and MySQL for searching and booking sports facilities in real time. It follows a strict quality testing process, covering Unit, Integration, System, and Acceptance Testing with Selenium 3."
+        "title": "Sports Venue Booking and Management Application",
+        "category": "Sports and Software Testing",
+        "summary": "A system that allows users and administrators to book and manage football, badminton, and tennis venues within specified time slots.",
+        "description": "A web application built with Flask and MySQL for real-time sports venue searches and reservations. It applies a rigorous quality-assurance process covering unit, integration, system, and acceptance testing with Selenium 3."
       }
     }
   },
   "blog": {
-    "title": "Work in Progress",
-    "subtitle": "This feature is taking longer than I expected. Feel free to come back and check it out later!"
+    "badge": "Personal Milestones",
+    "title": "My Journal",
+    "subtitle": "I want AI to help me pursue my dreams and passions, not steal or replace them. Inspired by Joanna Maciejewska.",
+    "chapter_label": "Chapter",
+    "journal_label": "Journal",
+    "actions": {
+      "back_to_journal": "← Back to Journal",
+      "return_to_journal": "← Return to Journal",
+      "open_story": "READ ARTICLE",
+      "previous": "← Previous Page",
+      "next": "Next Page →",
+      "go_to_story": "Go to Article"
+    },
+    "empty": {
+      "title": "No Articles",
+      "description": "No articles have been published yet. This may be due to a backend error, or I may have been too lazy to write one. Please come back later."
+    }
   },
   "contact": {
     "info": {
       "title_part1": "Connect",
       "title_part2": "with Me",
-      "description": "Have a question, a story to share, or want to talk more about my projects? Feel free to contact me by email, social media, or the form below.",
+      "description": "Do you have any questions, stories to share, or would you like to discuss my projects further? Feel free to contact me by email, through social media, or by completing the form.",
       "office_title": "Office",
       "office_value": "Ho Chi Minh City Open University, Vo Van Tan Campus, Ho Chi Minh City, Vietnam",
       "hours_title": "Working Hours (Remote)",
-      "hours_days": "Monday – Friday:",
-      "hours_time": "10:00 – 19:00 (UTC+7)",
-      "inquiries_title": "Direct Contact"
+      "hours_days": "Monday–Friday:",
+      "hours_time": "10:00–19:00 (UTC+7)",
+      "inquiries_title": "Direct Inquiries"
     },
     "form": {
       "first_name_label": "First Name *",
       "first_name_placeholder": "Your first name",
-      "first_name_error": "First name must be at least 2 characters and contain no invalid characters.",
+      "first_name_error": "The first name must contain at least 2 characters and no invalid characters.",
       "last_name_label": "Last Name *",
-      "last_name_placeholder": "Your family and middle name",
-      "last_name_error": "Last name must be at least 2 characters and contain no invalid characters.",
+      "last_name_placeholder": "Your last name and middle name",
+      "last_name_error": "The last name must contain at least 2 characters and no invalid characters.",
       "phone_label": "Phone Number",
       "phone_placeholder": "Your contact number",
       "phone_error": "Please enter a valid phone number.",
       "email_label": "Email *",
       "email_placeholder": "Your email address",
-      "email_disposable_error": "Temporary email domains are not accepted.",
+      "email_disposable_error": "Disposable email domains are not accepted.",
       "email_invalid_error": "Please enter a valid personal or business email address.",
       "subject_label": "Subject *",
-      "subject_placeholder": "What would you like to discuss?",
-      "subject_error": "Please enter a valid subject.",
+      "subject_placeholder": "Briefly describe what you would like to discuss",
+      "subject_error": "The subject is invalid.",
       "message_label": "Message *",
-      "message_placeholder": "Write your message here...",
-      "message_error": "Message must be at least 10 characters and contain no invalid characters.",
+      "message_placeholder": "Enter your message...",
+      "message_error": "The message must contain at least 10 characters and no invalid characters.",
       "submit_button": "Send Message",
       "success_message": "Your message has been received!"
     }
+  },
+  "chat": {
+    "open_tooltip": "Open Virtual Assistant",
+    "close_button": "Close Virtual Assistant",
+    "title": "V.T.Thanh Virtual Assistant",
+    "status_active": "Active",
+    "greeting": "Hello! I am the virtual assistant version of Van Trung Thanh. How can I help you today?",
+    "suggested_topics_title": "Suggested Topics",
+    "topics": {
+      "tech_stack": "What technologies are included in the tech stack?",
+      "projects": "Explore featured projects",
+      "contact": "How can I get in touch?"
+    },
+    "input_placeholder": "Ask me a question...",
+    "send_button": "Send Message",
+    "disclaimer": "⚠️ This content is generated by AI. Responses do not constitute legal, financial, medical, or personal advice. The website owner accepts no responsibility for decisions made or consequences arising from the use of this chatbot. Please use it with discretion."
   }
 }

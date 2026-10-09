@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, inject, signal } from '@angular/core';
+import { Component, ElementRef, HostListener, OnDestroy, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { TranslationService, SupportedLang } from '@/shared/services/translation.service';
@@ -17,22 +17,40 @@ export interface NavItem {
   imports: [CommonModule, RouterLink, RouterLinkActive],
   templateUrl: './header.component.html',
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnDestroy {
   public i18n = inject(TranslationService);
   public theme = inject(ThemeService);
   public dropdownOpen = signal(false);
   public readonly avatarUrls = AVATAR_URLS;
-  isLangDropdownOpen = signal<boolean>(false);
+  public isLangDropdownOpen = signal<boolean>(false);
+  public isMobileMenuOpen = signal<boolean>(false);
   private elementRef = inject(ElementRef);
 
-  toggleLangDropdown(event?: MouseEvent): void {
+  public toggleMobileMenu(): void {
+    const nextState = !this.isMobileMenuOpen();
+    this.isMobileMenuOpen.set(nextState);
+    if (nextState) {
+      document.body.style.overflow = 'hidden';
+      this.isLangDropdownOpen.set(false);
+    } else {
+      document.body.style.overflow = '';
+    }
+  }
+
+  public closeMobileMenu(): void {
+    this.isMobileMenuOpen.set(false);
+    document.body.style.overflow = '';
+  }
+
+  public toggleLangDropdown(event?: MouseEvent): void {
     if (event) {
       event.stopPropagation();
     }
     this.isLangDropdownOpen.update((open) => !open);
   }
+
   @HostListener('document:click', ['$event'])
-  onDocumentClick(event: MouseEvent): void {
+  public onDocumentClick(event: MouseEvent): void {
     if (this.isLangDropdownOpen()) {
       const clickedInside = this.elementRef.nativeElement
         .querySelector('.lang-dropdown-container')
@@ -42,10 +60,14 @@ export class HeaderComponent {
       }
     }
   }
+
   @HostListener('document:keydown.escape')
-  onEscapePress(): void {
+  public onEscapePress(): void {
     if (this.isLangDropdownOpen()) {
       this.isLangDropdownOpen.set(false);
+    }
+    if (this.isMobileMenuOpen()) {
+      this.closeMobileMenu();
     }
   }
 
@@ -76,5 +98,9 @@ export class HeaderComponent {
   public selectLanguage(code: SupportedLang): void {
     this.i18n.setLanguage(code);
     this.dropdownOpen.set(false);
+  }
+
+  ngOnDestroy(): void {
+    document.body.style.overflow = '';
   }
 }

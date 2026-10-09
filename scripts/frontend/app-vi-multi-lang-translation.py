@@ -4,9 +4,15 @@ from pathlib import Path
 
 I18N_DIR = Path("frontend/V.T.Thanh-Home-Angular/public/i18n")
 SOURCE_FILE = I18N_DIR / "vi.json"
-TARGET_LANGUAGES = {"en": "English", "ja": "Japanese", "zh": "Simplified Chinese"}
+TARGET_LANGUAGES = {
+    "en": "English",
+    "ja": "Japanese",
+    "zh": "Simplified Chinese",
+    "fr": "French",
+    "de": "German",
+}
 OLLAMA_API_URL = "http://localhost:11434/api/generate"
-MODEL_NAME = "qwen2.5:7b"
+MODEL_NAME = "gemma2:9b"
 
 
 def translate_text(text: str, target_lang_name: str) -> str:
@@ -30,7 +36,7 @@ def translate_text(text: str, target_lang_name: str) -> str:
         f'- "Bảng điều khiển" means "Dashboard" in a software UI.\n'
         f'- "Thao tác nhanh" means "Quick Actions".\n'
         f'- "Công việc" in a task-management context should normally mean "Tasks".\n\n'
-        f'- "Công việc đang chờ" means "Pending tasks" (NOT "work in progress").\n'
+        f'- "Công việc đang chờ" means "Pending tasks".\n'
         f'- "Quên mật khẩu?" in Japanese must be "パスワードをお忘れですか？".\n'
         f'- Metric card labels must be concise noun phrases, not full conversational sentences.\n'
         f"Vietnamese text:\n{text}\n\n"
@@ -42,9 +48,9 @@ def translate_text(text: str, target_lang_name: str) -> str:
         "prompt": prompt,
         "stream": False,
         "options": {
-            "temperature": 0.2,
-            "top_p": 0.8,
-            "repeat_penalty": 1.05,
+            "temperature": 0.1,
+            "top_p": 0.9,
+            "repeat_penalty": 1.08,
         },
     }
 
@@ -53,6 +59,8 @@ def translate_text(text: str, target_lang_name: str) -> str:
         response.raise_for_status()
         result = response.json().get("response", "").strip()
         if result.startswith('"') and result.endswith('"') and len(result) > 1:
+            result = result[1:-1]
+        if result.startswith("'") and result.endswith("'") and len(result) > 1:
             result = result[1:-1]
         return result
     except requests.exceptions.RequestException as e:
@@ -100,7 +108,7 @@ def run_translation():
                 except json.JSONDecodeError:
                     target_data = {}
 
-        print(f"\n Synchronizing locale: [{lang_code}] --- ({lang_name})")
+        print(f"\nSynchronizing locale: [{lang_code}] --- ({lang_name})")
         updated_data, has_changes = sync_and_translate_node(source_data, target_data, lang_name)
         if has_changes:
             with open(target_file, "w", encoding="utf-8") as f:
@@ -108,6 +116,7 @@ def run_translation():
             print(f"Successfully updated: {target_file}")
         else:
             print(f"Locale [{lang_code}] is already up to date.")
+
 
 if __name__ == "__main__":
     run_translation()

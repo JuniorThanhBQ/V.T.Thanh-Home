@@ -1,8 +1,8 @@
 {
   "app": {
-    "title": "Site web personnel",
+    "title": "Site personnel",
     "Author": "Van Trung Thanh",
-    "version": "Version 1.0.0",
+    "version": "Version 1.0.2",
     "copyright": "Tous droits réservés"
   },
   "language": {
@@ -14,47 +14,47 @@
     "de": "Allemand"
   },
   "loading": {
-    "subtitle": "La page d’accueil de Van Trung Thanh 🏠",
-    "initializing": "Un instant, votre hôte va chercher son dossier !",
+    "subtitle": "La page d'accueil de Van Trung Thanh 🏠",
+    "initializing": "Un instant, le propriétaire prépare son profil !",
     "switching_language": "Changement de langue en cours !",
     "tech_stack": "Spring Boot 4.11 avec Angular 22"
   },
   "navigation": {
     "home": "Accueil",
-    "about": "À propos de moi",
+    "about": "À propos",
     "projects": "Projets",
     "blog": "Journal",
     "contact": "Contact"
   },
   "home": {
-    "role": "Ingénieur en développement logiciel et intégration de l’IA",
+    "role": "Ingénieur en développement logiciel et coordinateur d'agents IA",
     "name": "Van Trung Thanh",
-    "tagline": "Pour moi, l’informatique n’a jamais été un domaine facile à poursuivre, ni quelque chose qui m’aurait été offert sans effort. Il m’est arrivé de devoir faire des sacrifices et de choisir entre ma vie personnelle et mon travail. Quoi qu’il arrive, je continuerai à faire de mon mieux pour réaliser mon rêve.",
+    "tagline": "Pour moi, l'informatique n'a jamais été un domaine facile à poursuivre, et elle ne s'est jamais présentée comme un défi superficiel. À de nombreuses reprises, j'ai dû faire des sacrifices entre ma vie personnelle et mon travail. Quoi qu'il arrive, je continuerai à faire de mon mieux pour atteindre ce que je désire réellement.",
     "features": {
       "scalable_systems": {
         "title": "Architecture logicielle",
-        "desc": "Je sais lire, concevoir, mettre à jour et valider des documents d’architecture et des spécifications techniques. Je suis passionné par le développement de produits s’appuyant sur l’Agentic Coding."
+        "desc": "Capacité à comprendre, concevoir, mettre à jour et vérifier des documents d'architecture et des documents techniques logiciels. Passionné par le développement de produits fondé sur l'Agentic Coding."
       },
       "zero_trust": {
         "title": "Assurance qualité",
-        "desc": "Je conçois des processus d’analyse de sécurité SAST et DAST intégrés au cycle de développement logiciel (SDLC). Je documente les cas de test pour suivre et corriger les bogues et les incidents."
+        "desc": "Conception de processus de test SAST et DAST au sein du cycle de vie du développement logiciel. Enregistrement, signalement et résolution des bogues et incidents au moyen de cas de test documentés."
       },
       "creative_interactions": {
-        "title": "Échanges et veille technologique",
-        "desc": "Je suis l’évolution des tendances technologiques et de la cybersécurité. J’étudie les possibilités d’intégrer de nouvelles technologies pour résoudre des problèmes concrets."
+        "title": "Connexion et amélioration continue",
+        "desc": "Suivi continu des tendances technologiques et de sécurité. Recherche sur l'intégration de nouvelles fonctionnalités afin de résoudre des problèmes concrets."
       },
       "devops": {
         "title": "Automatisation DevOps",
-        "desc": "Je mets en place des pipelines CI/CD automatisés, comprenant les tests automatiques, la conteneurisation avec Docker et le déploiement continu, afin de garantir la stabilité des systèmes."
+        "desc": "Création de pipelines CI/CD automatisés comprenant les tests automatisés, la conteneurisation avec Docker et le déploiement continu afin de garantir la stabilité du système."
       }
     }
   },
   "about": {
     "hero": {
-      "tag": "Un renard bleu contemple le monde",
+      "tag": "Un renard bleu solitaire contemple le monde",
       "title": "À propos de moi",
-      "description": "Bonjour à toutes et à tous ! Je m’appelle Van Trung Thanh et je suis étudiant à la Ho Chi Minh City Open University. J’étudie l’informatique avec une orientation vers le génie logiciel. Je m’intéresse également à l’entraînement et au développement de modèles d’intelligence artificielle. Même s’il m’arrive de m’épuiser au travail, je reste persévérant et parviens généralement à mener mes tâches à bien.",
-      "view_cv": "Voir mon CV"
+      "description": "Bonjour à toutes et à tous, je m'appelle Van Trung Thanh et je suis étudiant à l'Université ouverte de Hô Chi Minh-Ville. J'étudie les technologies de l'information avec une spécialisation en développement logiciel. Je m'intéresse également à l'entraînement et au développement de modèles d'intelligence artificielle. Même si le travail peut parfois m'épuiser, je reste toujours persévérant et je m'efforce d'accomplir correctement mes responsabilités.",
+      "view_cv": "Voir le CV"
     },
     "cv": {
       "prev": "Page précédente",
@@ -62,27 +62,30 @@
       "page": "Page",
       "zoom_in": "Agrandir",
       "reset_zoom": "Réinitialiser le zoom",
-      "open_original": "Ouvrir l’image d’origine",
-      "role": "Ingénieur en développement logiciel et intégration de l’IA",
-      "overview_title": "Aperçu du contenu",
-      "overview_page_1": "La page 1 résume les grandes étapes de mon projet professionnel, mes résultats universitaires à la Ho Chi Minh City Open University, une attestation de recherche scientifique en IA et les enseignements fondamentaux de mon cursus.",
-      "overview_page_2": "La page 2 présente trois expériences et projets réalisés, mes compétences acquises et mises en pratique, ainsi que mes centres d’intérêt et mes activités pendant mon temps libre.",
-      "academic_track_label": "Spécialisation",
-      "academic_track_value": "HCMC-OU (FCS)",
+      "open_original": "Ouvrir l'image originale",
+      "role": "Ingénieur en développement logiciel avec intégration de l'IA",
+      "overview_title": "Aperçu du contenu des pages",
+      "overview_page_1": "La page 1 résume mes objectifs professionnels prévus avant l'obtention de mon diplôme, mes résultats universitaires à l'Université ouverte de Hô Chi Minh-Ville, mon certificat de participation à des travaux de recherche scientifique sur l'IA ainsi que les matières fondamentales de mon cursus.",
+      "overview_page_2": "La page 2 présente trois expériences et projets réalisés, les compétences que j'ai acquises et mises en pratique, mes centres d'intérêt ainsi que les activités auxquelles je me consacre pendant mon temps libre.",
+      "academic_track_label": "Filière",
+      "academic_track_value": "Technologies de l'information",
       "gpa_label": "Moyenne générale (GPA)",
       "stack_label": "Domaines principaux",
       "stack_content": "Développement full-stack et DevOps",
       "additional_label": "Domaine complémentaire",
-      "additional_content": "Recherche sur l’intégration de l’IA",
+      "additional_content": "Recherche sur l'Agentic Coding",
       "connect_linkedin": "Se connecter sur LinkedIn",
-      "return_portfolio": "Retour au portfolio"
+      "return_portfolio": "Retourner au portfolio",
+      "overall": "Auto-évaluation des compétences",
+      "overall_content": "7 / 10"
     }
   },
   "projects": {
+    "flag": "Projet de spécialité",
     "header": {
-      "badge": "Portfolio de projets",
-      "title": "Projets techniques phares",
-      "subtitle": "Systèmes d’agents IA, architectures backend distribuées, modèles d’apprentissage automatique pour le traitement du langage naturel et plateformes en temps réel."
+      "badge": "Portfolio des projets développés",
+      "title": "Principaux projets épinglés sur GitHub",
+      "subtitle": "Un système de collecte et d'analyse des offres d'emploi informatiques au Vietnam (AIJMC), un outil d'évaluation de la fiabilité des offres d'emploi (AIJMC-JPRA), un système de gestion des rendez-vous médicaux (MBMS), un détecteur de textes générés par l'IA (AI-Indicator), un système de gestion des ressources pédagogiques (ERM) et une application de réservation de terrains de sport."
     },
     "buttons": {
       "source": "Code source",
@@ -91,80 +94,111 @@
     "items": {
       "aijmc": {
         "title": "AI IT Job Market Consultant (AIJMC)",
-        "category": "Agents IA et marché de l’emploi",
-        "summary": "Plateforme d’analyse du marché de l’emploi informatique et de conseil en orientation professionnelle, fondée sur un agent IA ReAct et une architecture RAG multicouche.",
-        "description": "Le système collecte et analyse des offres d’emploi issues d’ITViec, de TopDev et de VietnamWorks à l’aide de Celery et Crawlee. Il combine une recherche hybride (Hybrid Retrieval) avec pgvector, la recherche sémantique et de grands modèles de langage pour proposer des parcours professionnels personnalisés."
+        "category": "Agent IA et crawler adaptatif",
+        "summary": "Une plateforme d'analyse du marché de l'emploi informatique et d'orientation professionnelle fondée sur un agent IA ReAct et une architecture RAG hybride.",
+        "description": "Le système collecte et analyse les données de recrutement provenant d'ITViec, de TopDev et de VietnamWorks à l'aide de Celery et de Crawlee. Il applique une recherche hybride avec une base de données pgvector afin d'améliorer la recherche sémantique. Le modèle Gemini 3.8 Flash est utilisé dans le cadre ReAct pour proposer des parcours professionnels personnalisés."
       },
       "aijmc_jpra": {
-        "title": "AIJMC-JPRA : Évaluation de la fiabilité des offres d’emploi",
-        "category": "Recherche scientifique et agents IA",
-        "summary": "Projet de recherche scientifique rédigé selon le format des conférences IEEE, consacré à la détection des offres d’emploi frauduleuses et à la vérification de leur authenticité.",
-        "description": "Un modèle de classification binaire évalue la fiabilité d’une offre d’emploi à partir de son URL. Un agent PydanticAI, associé à une recherche web en temps réel avec Playwright, recoupe les éléments de preuve, calcule un score de fiabilité et fournit une argumentation détaillée."
+        "title": "AIJMC-JPRA : évaluation de la fiabilité des offres d'emploi",
+        "category": "Recherche scientifique approfondie",
+        "summary": "Un projet de recherche scientifique conforme aux normes des conférences IEEE pour détecter les offres d'emploi frauduleuses et vérifier leur authenticité.",
+        "description": "Un modèle de classification binaire évalue la fiabilité d'une offre d'emploi à partir de son URL. Il intègre un agent PydanticAI à une recherche web en temps réel avec Playwright afin de recouper les preuves, calculer un indice de confiance et produire un raisonnement détaillé."
       },
       "mbms": {
         "title": "Medical Booking Management System (MBMS)",
-        "category": "Santé et prise de rendez-vous en temps réel",
-        "summary": "Plateforme de gestion et de prise de rendez-vous médicaux en ligne pour les cliniques, développée sous forme de PWA et d’application native.",
-        "description": "Cette solution numérise le processus de prise de rendez-vous dans les établissements de santé et améliore l’expérience des patients et des médecins. Son développement suit une approche pilotée par l’IA (AIDD) et la méthode Scrum, avec un déploiement entièrement conteneurisé à l’aide de Docker."
+        "category": "Gestion des rendez-vous médicaux en temps réel",
+        "summary": "Une plateforme de gestion et de réservation en ligne des rendez-vous médicaux destinée aux cliniques, développée sous forme de PWA et d'application native.",
+        "description": "Une solution permettant de numériser le processus de prise de rendez-vous médicaux dans les établissements de santé. Elle optimise l'expérience des patients et des médecins grâce au développement piloté par l'IA (AIDD) et à Scrum, avec un déploiement entièrement conteneurisé au moyen de Docker."
       },
       "ai_writing_indicator": {
-        "title": "Indicateur de détection des textes générés par l’IA",
-        "category": "Apprentissage automatique et traitement du langage naturel",
-        "summary": "Modèle d’apprentissage automatique de classification binaire visant à détecter les textes journalistiques en vietnamien générés par l’intelligence artificielle.",
-        "description": "Recherche et entraînement d’un pipeline NLP spécialisé dans le vietnamien afin de distinguer les articles rédigés par des humains de ceux produits par de grands modèles de langage (LLM), dans le but de contribuer à la vérification de l’originalité des contenus publiés en ligne."
+        "title": "Détecteur de textes générés par l'IA",
+        "category": "Apprentissage automatique et traitement automatique du langage naturel",
+        "summary": "Un modèle de classification binaire fondé sur l'apprentissage automatique qui détermine si un texte journalistique vietnamien a été généré par une intelligence artificielle ou rédigé par une personne.",
+        "description": "Un pipeline de traitement automatique du langage naturel spécialement conçu pour le vietnamien est étudié et entraîné afin de distinguer avec précision les articles rédigés par des humains des contenus synthétisés par de grands modèles de langage (LLM), contribuant ainsi à la vérification de l'originalité dans l'édition numérique."
       },
       "elearning_lcms": {
-        "title": "Système de gestion des contenus pédagogiques numériques (LCMS)",
-        "category": "EdTech et gestion des contenus éducatifs",
-        "summary": "Système LCMS complet permettant de gérer, stocker et réutiliser des ressources pédagogiques numériques, développé avec Django REST Framework.",
-        "description": "L’architecture backend gère les contenus pédagogiques numériques avec une base de données MySQL, un contrôle d’accès sécurisé par jetons OAuth2 et un tableau de bord statistique pour les administrateurs. Google GenAI est intégré pour personnaliser les recommandations de ressources pédagogiques."
+        "title": "Système de gestion des ressources pédagogiques numériques (ERM)",
+        "category": "Technologies éducatives et gestion des contenus pédagogiques",
+        "summary": "Un système ERM complet destiné à gérer, stocker et réutiliser des ressources pédagogiques numériques, développé avec Django REST Framework et React Native.",
+        "description": "L'architecture backend traite les contenus pédagogiques numériques au moyen d'une base de données MySQL. Elle intègre un contrôle d'accès par jetons OAuth2, un tableau de bord statistique destiné aux administrateurs et Google GenAI pour fournir des recommandations personnalisées de ressources pédagogiques."
       },
       "sports_field_booking": {
-        "title": "Application de réservation de terrains de sport et tests automatisés",
-        "category": "Sport et assurance qualité logicielle",
-        "summary": "Système de réservation de terrains de football, de badminton et de tennis par créneau horaire, accompagné d’un processus complet de tests automatisés.",
-        "description": "Application web développée avec Flask et MySQL pour rechercher et réserver des terrains de sport en temps réel. Elle applique une démarche rigoureuse d’assurance qualité, des tests unitaires et d’intégration jusqu’aux tests système et d’acceptation, à l’aide de Selenium 3."
+        "title": "Application de réservation et de gestion de terrains de sport",
+        "category": "Sport et tests logiciels",
+        "summary": "Un système permettant aux utilisateurs et aux administrateurs de réserver et de gérer des terrains de football, de badminton et de tennis selon des créneaux horaires déterminés.",
+        "description": "Une application web développée avec Flask et MySQL pour rechercher et réserver des terrains de sport en temps réel. Elle applique un processus rigoureux d'assurance qualité comprenant des tests unitaires, d'intégration, système et d'acceptation avec Selenium 3."
       }
     }
   },
   "blog": {
-    "title": "En cours de développement",
-    "subtitle": "Cette fonctionnalité me prend plus de temps que prévu. Repassez un peu plus tard !"
+    "badge": "Moments marquants personnels",
+    "title": "Mon journal",
+    "subtitle": "Je veux que l'IA m'aide à poursuivre mes rêves et mes passions, et non qu'elle me les vole ou les remplace. Inspiré par Joanna Maciejewska.",
+    "chapter_label": "Chapitre",
+    "journal_label": "Journal",
+    "actions": {
+      "back_to_journal": "← Retour au journal",
+      "return_to_journal": "← Revenir au journal",
+      "open_story": "LIRE L'ARTICLE",
+      "previous": "← Page précédente",
+      "next": "Page suivante →",
+      "go_to_story": "Accéder à l'article"
+    },
+    "empty": {
+      "title": "Aucun article",
+      "description": "Aucun article n'a encore été publié. Cela peut être dû à une erreur du backend ou au fait que j'ai été trop paresseux pour écrire. Veuillez revenir plus tard."
+    }
   },
   "contact": {
     "info": {
-      "title_part1": "Entrons",
-      "title_part2": "en contact",
-      "description": "Vous avez une question, une idée à partager ou envie d’échanger au sujet de mes projets ? Contactez-moi par e-mail, via les réseaux sociaux ou à l’aide du formulaire.",
+      "title_part1": "Prenez",
+      "title_part2": "contact avec moi",
+      "description": "Avez-vous des questions, une histoire à partager ou souhaitez-vous discuter davantage de mes projets ? N'hésitez pas à me contacter par e-mail, sur les réseaux sociaux ou en remplissant le formulaire.",
       "office_title": "Bureau",
-      "office_value": "Ho Chi Minh City Open University, campus de Võ Văn Tần, Hô Chi Minh-Ville, Viêt Nam",
+      "office_value": "Université ouverte de Hô Chi Minh-Ville, campus Võ Văn Tần, Hô Chi Minh-Ville, Vietnam",
       "hours_title": "Horaires de travail (à distance)",
       "hours_days": "Du lundi au vendredi :",
-      "hours_time": "10:00 – 19:00 (UTC+7)",
+      "hours_time": "10:00–19:00 (UTC+7)",
       "inquiries_title": "Contact direct"
     },
     "form": {
       "first_name_label": "Prénom *",
       "first_name_placeholder": "Votre prénom",
-      "first_name_error": "Le prénom doit comporter au moins 2 caractères et ne contenir aucun caractère non autorisé.",
+      "first_name_error": "Le prénom doit comporter au moins 2 caractères et ne contenir aucun caractère non valide.",
       "last_name_label": "Nom *",
-      "last_name_placeholder": "Nom de famille et autres prénoms",
-      "last_name_error": "Le nom doit comporter au moins 2 caractères et ne contenir aucun caractère non autorisé.",
+      "last_name_placeholder": "Votre nom et vos autres prénoms",
+      "last_name_error": "Le nom doit comporter au moins 2 caractères et ne contenir aucun caractère non valide.",
       "phone_label": "Numéro de téléphone",
       "phone_placeholder": "Votre numéro de téléphone",
       "phone_error": "Veuillez saisir un numéro de téléphone valide.",
-      "email_label": "E-mail *",
+      "email_label": "Adresse e-mail *",
       "email_placeholder": "Votre adresse e-mail",
-      "email_disposable_error": "Les domaines d’adresses e-mail temporaires ne sont pas acceptés.",
+      "email_disposable_error": "Les domaines de messagerie temporaires ne sont pas acceptés.",
       "email_invalid_error": "Veuillez saisir une adresse e-mail personnelle ou professionnelle valide.",
       "subject_label": "Objet *",
-      "subject_placeholder": "Motif de votre message (en quelques mots)",
-      "subject_error": "L’objet du message n’est pas valide.",
+      "subject_placeholder": "Décrivez brièvement le sujet de votre message",
+      "subject_error": "L'objet n'est pas valide.",
       "message_label": "Message *",
-      "message_placeholder": "Votre message...",
-      "message_error": "Le message doit comporter au moins 10 caractères et ne contenir aucun caractère non autorisé.",
+      "message_placeholder": "Saisissez votre message...",
+      "message_error": "Le message doit comporter au moins 10 caractères et ne contenir aucun caractère non valide.",
       "submit_button": "Envoyer le message",
       "success_message": "Votre message a bien été reçu !"
     }
+  },
+  "chat": {
+    "open_tooltip": "Ouvrir l'assistant virtuel",
+    "close_button": "Fermer l'assistant virtuel",
+    "title": "Assistant virtuel de V.T.Thanh",
+    "status_active": "Actif",
+    "greeting": "Bonjour ! Je suis la version virtuelle de l'assistant de Van Trung Thanh. Comment puis-je vous aider aujourd'hui ?",
+    "suggested_topics_title": "Sujets suggérés",
+    "topics": {
+      "tech_stack": "Quelles technologies composent la stack technique ?",
+      "projects": "Découvrir les projets principaux",
+      "contact": "Comment puis-je prendre contact ?"
+    },
+    "input_placeholder": "Posez-moi une question...",
+    "send_button": "Envoyer le message",
+    "disclaimer": "⚠️ Ce contenu est généré par une intelligence artificielle. Les réponses ne constituent aucun conseil juridique, financier, médical ou personnel. Le propriétaire du site décline toute responsabilité concernant les décisions prises ou les conséquences résultant de l'utilisation de ce chatbot. Veuillez l'utiliser avec discernement."
   }
 }

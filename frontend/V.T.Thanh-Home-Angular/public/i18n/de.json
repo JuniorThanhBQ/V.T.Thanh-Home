@@ -2,7 +2,7 @@
   "app": {
     "title": "Persönliche Website",
     "Author": "Van Trung Thanh",
-    "version": "Version 1.0.0",
+    "version": "Version 1.0.2",
     "copyright": "Alle Rechte vorbehalten"
   },
   "language": {
@@ -14,9 +14,9 @@
     "de": "Deutsch"
   },
   "loading": {
-    "subtitle": "Die Startseite von Van Trung Thanh 🏠",
-    "initializing": "Einen Moment, der Gastgeber holt gerade seine Unterlagen!",
-    "switching_language": "Sprache wird gewechselt!",
+    "subtitle": "Die Homepage von Van Trung Thanh 🏠",
+    "initializing": "Einen Moment bitte, der Gastgeber lädt gerade sein Profil!",
+    "switching_language": "Die Sprache wird gewechselt!",
     "tech_stack": "Spring Boot 4.11 mit Angular 22"
   },
   "navigation": {
@@ -27,33 +27,33 @@
     "contact": "Kontakt"
   },
   "home": {
-    "role": "Softwareentwicklungsingenieur mit Schwerpunkt KI-Integration",
+    "role": "Softwareentwickler und Koordinator von KI-Agenten",
     "name": "Van Trung Thanh",
-    "tagline": "Für mich war die Informatik nie ein einfaches Fachgebiet, und sie ist mir auch nicht wie ein Geschenk ohne jede Anstrengung in den Schoß gefallen. Es gab Zeiten, in denen ich Opfer bringen und zwischen meinem Privatleben und meiner Arbeit abwägen musste. Dennoch werde ich weiterhin alles daransetzen, meinen Traum zu verwirklichen.",
+    "tagline": "Für mich war die Informationstechnologie nie ein einfaches Berufsfeld, und sie hat sich auch nie wie eine oberflächliche Herausforderung ergeben. Oft musste ich mich zwischen meinem Privatleben und meiner Arbeit entscheiden und Opfer bringen. Trotzdem werde ich weiterhin mein Bestes geben, um das zu erreichen, was ich mir wirklich wünsche.",
     "features": {
       "scalable_systems": {
         "title": "Softwarearchitektur",
-        "desc": "Ich kann Architektur- und technische Dokumentationen lesen, entwerfen, aktualisieren und überprüfen. Besonders begeistert mich die Produktentwicklung auf Basis von Agentic Coding."
+        "desc": "Fähigkeit, Architektur- und technische Softwaredokumente zu verstehen, zu entwerfen, zu aktualisieren und zu überprüfen. Begeisterung für die Entwicklung von Produkten mithilfe von Agentic Coding."
       },
       "zero_trust": {
         "title": "Qualitätssicherung",
-        "desc": "Ich konzipiere SAST- und DAST-Sicherheitsprüfungen als Teil des Softwareentwicklungslebenszyklus (SDLC). Mit dokumentierten Testfällen erfasse und behebe ich Bugs und Incidents."
+        "desc": "Entwicklung von SAST- und DAST-Testprozessen innerhalb des Softwareentwicklungslebenszyklus. Erfassung, Dokumentation und Behebung von Fehlern und Vorfällen mithilfe dokumentierter Testfälle."
       },
       "creative_interactions": {
-        "title": "Vernetzung und Technologiebeobachtung",
-        "desc": "Ich verfolge technologische Entwicklungen und Trends in der IT-Sicherheit. Außerdem untersuche ich, wie sich neue Technologien zur Lösung konkreter Probleme integrieren lassen."
+        "title": "Vernetzung und kontinuierliche Weiterentwicklung",
+        "desc": "Kontinuierliche Beobachtung technologischer Entwicklungen und Sicherheitstrends. Untersuchung, wie neue Funktionen zur Lösung konkreter Problemstellungen integriert werden können."
       },
       "devops": {
         "title": "DevOps-Automatisierung",
-        "desc": "Ich entwickle automatisierte CI/CD-Pipelines für automatisierte Tests, die Containerisierung mit Docker und Continuous Deployment, um die Systemstabilität sicherzustellen."
+        "desc": "Aufbau automatisierter CI/CD-Pipelines mit automatisierten Tests, Docker-Containerisierung und kontinuierlicher Bereitstellung, um die Stabilität des Systems sicherzustellen."
       }
     }
   },
   "about": {
     "hero": {
-      "tag": "Ein blauer Fuchs betrachtet die Welt",
+      "tag": "Ein blauer Fuchs blickt auf die Welt",
       "title": "Über mich",
-      "description": "Hallo zusammen! Ich heiße Van Trung Thanh und studiere an der Ho Chi Minh City Open University. Mein Studienfach ist Informatik, mit fachlicher Ausrichtung auf Softwaretechnik. Außerdem interessiere ich mich für das Training und die Entwicklung von KI-Modellen. Auch wenn ich bei der Arbeit manchmal an meine Belastungsgrenzen stoße, bleibe ich beharrlich und bringe meine Aufgaben in der Regel erfolgreich zu Ende.",
+      "description": "Hallo zusammen, mein Name ist Van Trung Thanh und ich studiere an der Ho-Chi-Minh-Stadt Open University. Mein Studienfach ist Informationstechnologie mit dem Schwerpunkt Softwareentwicklung. Darüber hinaus interessiere ich mich für das Training und die Entwicklung von KI-Modellen. Obwohl ich bei der Arbeit manchmal schnell erschöpft bin, bleibe ich beharrlich und erledige meine Aufgaben stets gewissenhaft.",
       "view_cv": "Lebenslauf ansehen"
     },
     "cv": {
@@ -63,108 +63,142 @@
       "zoom_in": "Vergrößern",
       "reset_zoom": "Zoom zurücksetzen",
       "open_original": "Originalbild öffnen",
-      "role": "Softwareentwicklungsingenieur mit Schwerpunkt KI-Integration",
-      "overview_title": "Inhaltsübersicht",
-      "overview_page_1": "Seite 1 fasst die wichtigsten Stationen meiner Karriereplanung, meine Studienleistungen an der Ho Chi Minh City Open University, eine Bescheinigung über wissenschaftliche Forschung im Bereich KI sowie die Grundlagenfächer meines Studiums zusammen.",
-      "overview_page_2": "Seite 2 stellt drei bisherige Erfahrungen und Projekte, meine erworbenen und praktisch angewandten Fähigkeiten sowie meine Interessen und Freizeitaktivitäten vor.",
+      "role": "Softwareentwickler mit KI-Integration",
+      "overview_title": "Übersicht des Seiteninhalts",
+      "overview_page_1": "Seite 1 fasst die geplanten beruflichen Ziele vor dem Studienabschluss, die akademischen Leistungen an der Ho-Chi-Minh-Stadt Open University, die Bescheinigung über die Teilnahme an wissenschaftlicher Forschung zum Thema KI sowie die grundlegenden Studienfächer zusammen.",
+      "overview_page_2": "Seite 2 stellt drei bisherige Erfahrungen und Projekte, erworbene und praktisch angewandte Fähigkeiten, persönliche Interessen sowie Tätigkeiten in der Freizeit vor.",
       "academic_track_label": "Studienrichtung",
-      "academic_track_value": "HCMC-OU (FCS)",
-      "gpa_label": "Gesamtnotendurchschnitt (GPA)",
-      "stack_label": "Kernkompetenzen",
+      "academic_track_value": "Informationstechnologie",
+      "gpa_label": "Gesamtnote (GPA)",
+      "stack_label": "Kernbereiche",
       "stack_content": "Full-Stack-Entwicklung und DevOps",
-      "additional_label": "Ergänzender Schwerpunkt",
-      "additional_content": "Forschung zur KI-Integration",
+      "additional_label": "Erweiterter Bereich",
+      "additional_content": "Forschung zu Agentic Coding",
       "connect_linkedin": "Auf LinkedIn vernetzen",
-      "return_portfolio": "Zurück zum Portfolio"
+      "return_portfolio": "Zurück zum Portfolio",
+      "overall": "Selbsteinschätzung der Fähigkeiten",
+      "overall_content": "7 / 10"
     }
   },
   "projects": {
+    "flag": "Studienprojekt",
     "header": {
-      "badge": "Projektportfolio",
-      "title": "Ausgewählte technische Projekte",
-      "subtitle": "KI-Agentensysteme, verteilte Backend-Architekturen, Machine-Learning-Modelle für die natürliche Sprachverarbeitung und Echtzeitplattformen."
+      "badge": "Entwickelte Projektlandschaft",
+      "title": "Hervorgehobene Projekte auf GitHub",
+      "subtitle": "Ein System zur Erfassung und Analyse von IT-Stellenanzeigen in Vietnam (AIJMC), ein Werkzeug zur Bewertung der Vertrauenswürdigkeit von Stellenanzeigen (AIJMC-JPRA), ein System zur Verwaltung medizinischer Termine (MBMS), eine Erkennung für KI-generierte Texte (AI-Indicator), ein System zur Verwaltung digitaler Lernmaterialien (ERM) und eine Anwendung zur Buchung von Sportplätzen."
     },
     "buttons": {
       "source": "Quellcode",
-      "website": "Webseite"
+      "website": "Website"
     },
     "items": {
       "aijmc": {
         "title": "AI IT Job Market Consultant (AIJMC)",
-        "category": "KI-Agenten und IT-Arbeitsmarkt",
-        "summary": "Plattform zur Analyse des IT-Arbeitsmarkts und zur Karriereberatung auf Basis eines ReAct-KI-Agenten und einer mehrschichtigen RAG-Architektur.",
-        "description": "Das System erfasst und analysiert Stellenangebote von ITViec, TopDev und VietnamWorks mithilfe von Celery und Crawlee. Es verbindet hybrides Retrieval mit pgvector, semantischer Suche und großen Sprachmodellen, um personalisierte Karrierewege zu empfehlen."
+        "category": "KI-Agent und adaptiver Crawler",
+        "summary": "Eine Plattform zur Analyse des IT-Arbeitsmarktes und zur Karriereberatung auf Grundlage eines ReAct-KI-Agenten und hybrider RAG-Technologie.",
+        "description": "Das System erfasst und analysiert mit Celery und Crawlee Stellenanzeigen von ITViec, TopDev und VietnamWorks. Hybride Suchtechniken mit einer pgvector-Datenbank erweitern die semantische Suche. Das Modell Gemini 3.8 Flash wird im ReAct-Framework eingesetzt, um personalisierte Karrierewege zu empfehlen."
       },
       "aijmc_jpra": {
         "title": "AIJMC-JPRA: Bewertung der Vertrauenswürdigkeit von Stellenanzeigen",
-        "category": "Wissenschaftliche Forschung und KI-Agenten",
-        "summary": "Wissenschaftliches Forschungsprojekt im Format einer IEEE-Konferenzarbeit zur Erkennung betrügerischer Stellenanzeigen und Überprüfung ihrer Echtheit.",
-        "description": "Ein binäres Klassifikationsmodell bewertet die Vertrauenswürdigkeit einer Stellenanzeige anhand ihrer URL. Ein PydanticAI-Agent nutzt zusammen mit Playwright eine Echtzeit-Webrecherche, um Belege abzugleichen, einen Vertrauenswert zu berechnen und eine detaillierte Begründung zu liefern."
+        "category": "Erweiterte wissenschaftliche Forschung",
+        "summary": "Eine wissenschaftliche Untersuchung nach dem IEEE-Konferenzstandard zur Erkennung betrügerischer Stellenanzeigen und zur Überprüfung ihrer Authentizität.",
+        "description": "Ein binäres Klassifikationsmodell bewertet die Vertrauenswürdigkeit einer Stellenanzeige anhand ihrer URL. Ein PydanticAI-Agent wird mit einer Echtzeit-Websuche über Playwright kombiniert, um Nachweise abzugleichen, einen Vertrauenswert zu berechnen und eine ausführliche Begründung zu erstellen."
       },
       "mbms": {
         "title": "Medical Booking Management System (MBMS)",
-        "category": "Gesundheitswesen und Echtzeit-Terminbuchung",
-        "summary": "Onlineplattform zur Verwaltung und Buchung von Arztterminen für Kliniken, entwickelt als Progressive Web App (PWA) und native App.",
-        "description": "Die Lösung digitalisiert die Terminvereinbarung in Gesundheitseinrichtungen und verbessert die Nutzungserfahrung für Patienten und Ärzte. Die Entwicklung orientiert sich an AI-Driven Development (AIDD) und Scrum; für die vollständige Bereitstellung wird Docker eingesetzt."
+        "category": "Medizinische Terminverwaltung in Echtzeit",
+        "summary": "Eine Plattform zur Verwaltung und Online-Buchung medizinischer Termine für Kliniken, die als PWA und native App entwickelt wurde.",
+        "description": "Eine Lösung zur Digitalisierung der medizinischen Terminbuchung in Gesundheitseinrichtungen. Die Benutzererfahrung für Patienten und Ärzte wird mithilfe KI-orientierter Entwicklung (AIDD) und Scrum optimiert. Die vollständige Bereitstellung erfolgt containerisiert über Docker."
       },
       "ai_writing_indicator": {
-        "title": "Indikator zur Erkennung KI-generierter Texte",
-        "category": "Maschinelles Lernen und natürliche Sprachverarbeitung",
-        "summary": "Binäres Machine-Learning-Klassifikationsmodell zur Erkennung KI-generierter vietnamesischsprachiger journalistischer Texte.",
-        "description": "Forschung und Training einer speziell auf Vietnamesisch zugeschnittenen NLP-Pipeline, die von Menschen verfasste Zeitungsartikel von Texten unterscheidet, die durch große Sprachmodelle (LLMs) erzeugt wurden. Ziel ist es, die Überprüfung der Originalität digital veröffentlichter Inhalte zu unterstützen."
+        "title": "Erkennung KI-generierter Texte",
+        "category": "Maschinelles Lernen und Verarbeitung natürlicher Sprache",
+        "summary": "Ein binäres Klassifikationsmodell, das erkennt, ob vietnamesische journalistische Texte von generativer künstlicher Intelligenz oder von Menschen verfasst wurden.",
+        "description": "Eine speziell auf Vietnamesisch ausgerichtete NLP-Pipeline wird erforscht und trainiert, um von Menschen verfasste Artikel zuverlässig von Inhalten zu unterscheiden, die durch große Sprachmodelle (LLMs) erzeugt wurden. Das System unterstützt die Prüfung der Originalität digitaler Veröffentlichungen."
       },
       "elearning_lcms": {
-        "title": "Lerninhaltsmanagementsystem (LCMS)",
-        "category": "EdTech und Verwaltung digitaler Lerninhalte",
-        "summary": "Umfassendes LCMS zur Verwaltung, Speicherung und Wiederverwendung digitaler Lernressourcen auf Basis des Django REST Frameworks.",
-        "description": "Die Backend-Architektur verwaltet digitale Lerninhalte mit einer MySQL-Datenbank, tokenbasierter OAuth2-Zugriffskontrolle und einem Statistik-Dashboard für Administratoren. Google GenAI wird integriert, um Lernmaterialien personalisiert zu empfehlen."
+        "title": "System zur Verwaltung digitaler Lernressourcen (ERM)",
+        "category": "Bildungstechnologie und Verwaltung von Lerninhalten",
+        "summary": "Ein umfassendes ERM-System zur Verwaltung, Speicherung und Wiederverwendung digitaler Lernressourcen auf Basis von Django REST Framework und React Native.",
+        "description": "Die Backend-Architektur verarbeitet digitale Lerninhalte mithilfe einer MySQL-Datenbank. Das System bietet OAuth2-Token-basierte Zugriffskontrolle, ein statistisches Administrations-Dashboard und eine Integration von Google GenAI zur personalisierten Empfehlung von Lernmaterialien."
       },
       "sports_field_booking": {
-        "title": "Sportstätten-Buchungs-App und automatisierte Tests",
-        "category": "Sport und Softwarequalitätssicherung",
-        "summary": "System zur zeitfensterbasierten Buchung von Fußball-, Badminton- und Tennisplätzen mit einem umfassenden automatisierten Testprozess.",
-        "description": "Mit Flask und MySQL entwickelte Webanwendung zur Suche und Buchung von Sportplätzen in Echtzeit. Zur Qualitätssicherung werden Unit-, Integrations-, System- und Abnahmetests mit Selenium 3 durchgeführt."
+        "title": "Anwendung zur Buchung und Verwaltung von Sportplätzen",
+        "category": "Sport und Softwaretests",
+        "summary": "Ein System, mit dem Benutzer und Administratoren Fußball-, Badminton- und Tennisplätze für bestimmte Zeitfenster buchen und verwalten können.",
+        "description": "Eine mit Flask und MySQL entwickelte Webanwendung zur Echtzeitsuche und Buchung von Sportplätzen. Das Projekt verwendet einen umfassenden Qualitätssicherungsprozess mit Unit-, Integrations-, System- und Abnahmetests unter Verwendung von Selenium 3."
       }
     }
   },
   "blog": {
-    "title": "In Entwicklung",
-    "subtitle": "Diese Funktion braucht mehr Zeit als gedacht. Schau gerne später noch einmal vorbei!"
+    "badge": "Persönliche Meilensteine",
+    "title": "Mein Tagebuch",
+    "subtitle": "Ich möchte, dass KI mir hilft, meine Träume und Leidenschaften zu verfolgen, anstatt sie mir wegzunehmen oder zu ersetzen. Inspiriert von Joanna Maciejewska.",
+    "chapter_label": "Kapitel",
+    "journal_label": "Tagebuch",
+    "actions": {
+      "back_to_journal": "← Zurück zum Tagebuch",
+      "return_to_journal": "← Zum Tagebuch zurückkehren",
+      "open_story": "BEITRAG LESEN",
+      "previous": "← Vorherige Seite",
+      "next": "Nächste Seite →",
+      "go_to_story": "Zum Beitrag"
+    },
+    "empty": {
+      "title": "Keine Beiträge vorhanden",
+      "description": "Es wurden noch keine Beiträge veröffentlicht. Möglicherweise liegt ein Backend-Fehler vor oder ich war einfach zu faul, etwas zu schreiben. Bitte schauen Sie später noch einmal vorbei."
+    }
   },
   "contact": {
     "info": {
-      "title_part1": "Kontakt",
-      "title_part2": "aufnehmen",
-      "description": "Hast du Fragen, Ideen oder möchtest du mehr über meine Projekte erfahren? Du kannst mich per E-Mail, über soziale Netzwerke oder über das Kontaktformular erreichen.",
-      "office_title": "Büro",
-      "office_value": "Ho Chi Minh City Open University, Campus Võ Văn Tần, Ho-Chi-Minh-Stadt, Vietnam",
-      "hours_title": "Arbeitszeiten (remote)",
-      "hours_days": "Montag – Freitag:",
-      "hours_time": "10:00 – 19:00 (UTC+7)",
-      "inquiries_title": "Direkter Kontakt"
+      "title_part1": "Nehmen Sie",
+      "title_part2": "Kontakt mit mir auf",
+      "description": "Haben Sie Fragen, eine Geschichte, die Sie teilen möchten, oder möchten Sie mehr über meine Projekte erfahren? Kontaktieren Sie mich gern per E-Mail, über soziale Medien oder über das Formular.",
+      "office_title": "Standort",
+      "office_value": "Ho-Chi-Minh-Stadt Open University, Campus Võ Văn Tần, Ho-Chi-Minh-Stadt, Vietnam",
+      "hours_title": "Arbeitszeiten (Remote)",
+      "hours_days": "Montag bis Freitag:",
+      "hours_time": "10:00–19:00 Uhr (UTC+7)",
+      "inquiries_title": "Direkte Kontaktaufnahme"
     },
     "form": {
       "first_name_label": "Vorname *",
-      "first_name_placeholder": "Dein Vorname",
-      "first_name_error": "Der Vorname muss mindestens 2 Zeichen lang sein und darf keine unzulässigen Zeichen enthalten.",
+      "first_name_placeholder": "Ihr Vorname",
+      "first_name_error": "Der Vorname muss mindestens 2 Zeichen lang sein und darf keine ungültigen Zeichen enthalten.",
       "last_name_label": "Nachname *",
-      "last_name_placeholder": "Nachname und weitere Vornamen",
-      "last_name_error": "Der Nachname muss mindestens 2 Zeichen lang sein und darf keine unzulässigen Zeichen enthalten.",
+      "last_name_placeholder": "Nachname und weitere Namen",
+      "last_name_error": "Der Nachname muss mindestens 2 Zeichen lang sein und darf keine ungültigen Zeichen enthalten.",
       "phone_label": "Telefonnummer",
-      "phone_placeholder": "Deine Telefonnummer",
-      "phone_error": "Bitte gib eine gültige Telefonnummer ein.",
-      "email_label": "E-Mail *",
-      "email_placeholder": "Deine E-Mail-Adresse",
-      "email_disposable_error": "Domains für temporäre E-Mail-Adressen werden nicht akzeptiert.",
-      "email_invalid_error": "Bitte gib eine gültige geschäftliche oder private E-Mail-Adresse ein.",
+      "phone_placeholder": "Ihre Telefonnummer",
+      "phone_error": "Bitte geben Sie eine gültige Telefonnummer ein.",
+      "email_label": "E-Mail-Adresse *",
+      "email_placeholder": "Ihre E-Mail-Adresse",
+      "email_disposable_error": "Temporäre E-Mail-Domains werden nicht akzeptiert.",
+      "email_invalid_error": "Bitte geben Sie eine gültige private oder geschäftliche E-Mail-Adresse ein.",
       "subject_label": "Betreff *",
-      "subject_placeholder": "Anliegen kurz zusammenfassen",
+      "subject_placeholder": "Kurze Zusammenfassung Ihres Anliegens",
       "subject_error": "Der Betreff ist ungültig.",
       "message_label": "Nachricht *",
-      "message_placeholder": "Deine Nachricht...",
-      "message_error": "Die Nachricht muss mindestens 10 Zeichen lang sein und darf keine unzulässigen Zeichen enthalten.",
+      "message_placeholder": "Geben Sie Ihre Nachricht ein...",
+      "message_error": "Die Nachricht muss mindestens 10 Zeichen lang sein und darf keine ungültigen Zeichen enthalten.",
       "submit_button": "Nachricht senden",
-      "success_message": "Deine Nachricht ist angekommen!"
+      "success_message": "Ihre Nachricht ist eingegangen!"
     }
+  },
+  "chat": {
+    "open_tooltip": "Virtuellen Assistenten öffnen",
+    "close_button": "Virtuellen Assistenten schließen",
+    "title": "Virtueller Assistent von V.T.Thanh",
+    "status_active": "Aktiv",
+    "greeting": "Hallo! Ich bin die virtuelle Assistentenversion von Van Trung Thanh. Wie kann ich Ihnen heute helfen?",
+    "suggested_topics_title": "Vorgeschlagene Themen",
+    "topics": {
+      "tech_stack": "Welche Technologien umfasst der Tech-Stack?",
+      "projects": "Ausgewählte Projekte entdecken",
+      "contact": "Wie kann ich Kontakt aufnehmen?"
+    },
+    "input_placeholder": "Stellen Sie mir eine Frage...",
+    "send_button": "Nachricht senden",
+    "disclaimer": "⚠️ Dieser Inhalt wurde von KI erstellt. Die Antworten stellen keine rechtliche, finanzielle, medizinische oder persönliche Beratung dar. Der Betreiber dieser Website übernimmt keine Verantwortung für Entscheidungen oder Folgen, die sich aus der Nutzung dieses Chatbots ergeben. Bitte verwenden Sie ihn mit Bedacht."
   }
 }

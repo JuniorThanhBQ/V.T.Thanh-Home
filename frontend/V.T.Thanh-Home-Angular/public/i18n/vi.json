@@ -2,7 +2,7 @@
   "app": {
     "title": "Website cá nhân",
     "Author": "Văn Trung Thành",
-    "version": "Phiên bản 1.0.0",
+    "version": "Phiên bản 1.0.2",
     "copyright": "Bảo lưu mọi quyền"
   },
   "language": {
@@ -15,7 +15,7 @@
   },
   "loading": {
     "subtitle": "Trang nhà của Văn Trung Thành 🏠",
-    "initializing": "Đợi tí, chủ nhà đang lấy hồ sơ nhé!",
+    "initializing": "Đợi tí, chủ nhà đang lấy hồ sơ nhen!",
     "switching_language": "Đang chuyển đổi ngôn ngữ!",
     "tech_stack": "Spring Boot 4.11 với Angular 22"
   },
@@ -27,21 +27,21 @@
     "contact": "Liên hệ"
   },
   "home": {
-    "role": "Kỹ sư phát triển phần mềm tích hợp AI",
+    "role": "Kỹ sư phát triển phần mềm và điều phối AI Agent",
     "name": "Văn Trung Thành",
-    "tagline": "Đối với mình, ngành CNTT chưa bao giờ là một lĩnh vực dễ dàng để theo đuổi và nó cũng không tự nhiên mà đến như một món quà hời hợt. Đã có những lúc mình phải lựa chọn hy sinh giữa cuộc sống cá nhân và công việc. Dù thế nào đi nữa, mình vẫn sẽ cố gắng đạt được ước mơ của mình.",
+    "tagline": "Đối với mình, ngành CNTT chưa bao giờ là một lĩnh vực dễ dàng để theo đuổi và nó cũng không tự nhiên mà đến như một thử thách hời hợt. Đã có nhiều lúc mình phải lựa chọn hy sinh giữa cuộc sống cá nhân và công việc. Dù thế nào đi nữa, mình vẫn sẽ cố gắng để đạt được điều mình thật sự mong muốn.",
     "features": {
       "scalable_systems": {
         "title": "Kiến trúc phần mềm",
-        "desc": "Có khả năng đọc hiểu, thiết kế, cập nhật và xác minh các tài liệu kiến trúc và kỹ thuật. Đam mê trong phát triển sản phẩm hướng Agentic Coding"
+        "desc": "Có khả năng đọc hiểu, thiết kế, cập nhật và xác minh các tài liệu kiến trúc và kỹ thuật phần mềm. Đam mê trong phát triển sản phẩm hướng Agentic Coding"
       },
       "zero_trust": {
         "title": "Đảm bảo chất lượng",
-        "desc": "Thiết kế các quy trình kiểm thử SAST và DAST trong quy trình SDLC. Ghi nhận và khắc phục Bug/Incident thông qua tài liệu hóa Test Case."
+        "desc": "Thiết kế các quy trình kiểm thử SAST và DAST trong SDLC. Ghi nhận, báo cáo và khắc phục các Bug/Incident thông qua tài liệu hóa Test Case."
       },
       "creative_interactions": {
         "title": "Kết nối và cập nhật",
-        "desc": "Theo dõi xu hướng công nghệ và bảo mật qua từng thời kỳ. Nghiên cứu khả năng tính hợp tính mới trong giải quyết bài toán cụ thể."
+        "desc": "Theo dõi xu hướng công nghệ và bảo mật qua từng thời kỳ. Nghiên cứu khả năng tính hợp tính năng mới trong giải quyết bài toán cụ thể."
       },
       "devops": {
         "title": "Tự động hóa DevOps",
@@ -53,7 +53,7 @@
     "hero": {
       "tag": "Nhất Chỉ Lam Hồ Vọng Thế Giới",
       "title": "Giới thiệu bản thân",
-      "description": "Xin chào mọi người, mình tên là Văn Trung Thành, sinh viên trường Đại học Mở TP.HCM. Chuyên ngành của mình là công nghệ thông tin với định hướng chuyên môn là kỹ thuật phần mềm. Ngoài ra, mình cũng có ấn tượng với việc huấn luyện và phát triển các mô hình AI. Tuy dễ bị kiệt sức trong công việc nhưng mình luôn kiên trì và hoàn thành khá tốt công việc của mình.",
+      "description": "Xin chào mọi người, mình tên là Văn Trung Thành, sinh viên trường Đại học Mở TP.HCM. Chuyên ngành của mình là công nghệ thông tin với định hướng chuyên môn là phát triển phần mềm. Ngoài ra, mình cũng có cảm hứng trong việc huấn luyện và phát triển các mô hình AI. Tuy dễ bị kiệt sức trong công việc nhưng mình luôn kiên trì và hoàn thành khá tốt công việc của mình.",
       "view_cv": "Xem CV"
     },
     "cv": {
@@ -61,11 +61,11 @@
       "next": "Trang sau",
       "page": "Trang",
       "zoom_in": "Phóng to",
-      "reset_zoom": "Đặt lại thu phóng",
+      "reset_zoom": "Đặt lại kích cỡ",
       "open_original": "Mở ảnh gốc",
       "role": "Kỹ sư phát triển phần mềm tích hợp AI",
       "overview_title": "Tổng quan nội dung trang",
-      "overview_page_1": "Trang 1 tóm lược các cột mốc kế hoạch cho sự nghiệp, thành tích học tập tại trường Đại học Mở TP.Hồ Chí Minh, chứng nhận nghiên cứu khoa học về AI và các học phần nền tảng.",
+      "overview_page_1": "Trang 1 tóm lược các kế hoạch dự kiện cho sự nghiệp trước khi tốt nghiệp, thành tích học tập tại trường Đại học Mở TP. Hồ Chí Minh, chứng nhận tham gia nghiên cứu khoa học về chủ đề AI và các học phần nền tảng.",
       "overview_page_2": "Trang 2 trình bày ba kinh nghiệm và dự án đã thực hiện, các kỹ năng hiện có và đã thực hành qua, sở thích và các công việc trong thời gian rảnh.",
       "academic_track_label": "Chuyên ngành",
       "academic_track_value": "Công nghệ Thông tin",
@@ -73,19 +73,19 @@
       "stack_label": "Lĩnh vực cốt lõi",
       "stack_content": "Full-stack Developer và DevOps",
       "additional_label": "Lĩnh vực mở rộng",
-      "additional_content": "Nghiên cứu tích hợp AI",
+      "additional_content": "Nghiên cứu Agentic Coding",
       "connect_linkedin": "Kết nối qua LinkedIn",
       "return_portfolio": "Quay lại Portfolio",
       "overall": "Tự đánh giá năng lực",
-      "overall_content": "6.5 / 10"
+      "overall_content": "7 / 10"
     }
   },
   "projects": {
     "flag": "Đồ án ngành",
     "header": {
-      "badge": "Hồ Sơ Dự Án",
-      "title": "Các Dự Án Kỹ Thuật Tiêu Biểu",
-      "subtitle": "Hệ thống AI Agent, kiến trúc phân tán backend, mô hình học máy ngôn ngữ tự nhiên và nền tảng thời gian thực."
+      "badge": "Khung dự án đã phát triển",
+      "title": "Top dự án được ghim trên GitHub",
+      "subtitle": "Hệ thống thu thập và phân tích tin tuyển dụng nhóm ngành CNTT tại Việt Nam (AIJMC), công cụ đánh giá độ tin cậy của bài đăng tuyển dụng (AIJMC-JPRA), hệ thống quản lý lịch khám chữa bệnh (MBMS), nhận diện văn bản AI tạo sinh (AI-Indicator), quản lý học liệu (ERM) và đặt sân thể thao."
     },
     "buttons": {
       "source": "Mã nguồn",
@@ -94,38 +94,38 @@
     "items": {
       "aijmc": {
         "title": "AI IT Job Market Consultant (AIJMC)",
-        "category": "AI Agent & Thị Trường Tuyển Dụng",
-        "summary": "Nền tảng phân tích thị trường việc làm IT và tư vấn hướng nghiệp dựa trên ReAct AI Agent và RAG đa tầng.",
-        "description": "Hệ thống thu thập và phân tích dữ liệu tuyển dụng từ ITViec, TopDev, VietnamWorks bằng Celery và Crawlee; ứng dụng kỹ thuật Hybrid Retrieval với pgvector kết hợp tìm kiếm ngữ nghĩa và mô hình ngôn ngữ lớn để tư vấn lộ trình nghề nghiệp cá nhân hóa."
+        "category": "AI Agent và Adaptive Crawler",
+        "summary": "Nền tảng phân tích thị trường việc làm IT và tư vấn hướng nghiệp dựa trên ReAct AI Agent và Hybrid RAG.",
+        "description": "Hệ thống thu thập và phân tích dữ liệu tuyển dụng từ ITViec, TopDev, VietnamWorks bằng Celery và Crawlee. Ứng dụng kỹ thuật Hybrid Retrieval với CSDL pgvector để mở rộng tìm kiếm ngữ nghĩa. Sử dụng mô hình Gemini 3.8 Flash theo khung ReAct để tư vấn lộ trình nghề nghiệp cá nhân hóa."
       },
       "aijmc_jpra": {
         "title": "AIJMC-JPRA: Đánh Giá Độ Tin Cậy Tuyển Dụng",
-        "category": "Nghiên Cứu Khoa Học & AI Agent",
+        "category": "Nghiên cứu khoa học mở rộng",
         "summary": "Nghiên cứu khoa học theo chuẩn IEEE Conference phát hiện tin tuyển dụng gian lận và kiểm chứng tính xác thực.",
         "description": "Mô hình phân loại nhị phân đánh giá độ tin cậy của bài đăng tuyển dụng qua URL; tích hợp PydanticAI Agent kết hợp truy xuất web thời gian thực bằng Playwright để đối soát bằng chứng, tính toán tỷ lệ tin cậy và lập luận chi tiết."
       },
       "mbms": {
         "title": "Medical Booking Management System (MBMS)",
-        "category": "Y Tế & Đặt Lịch Thời Gian Thực",
-        "summary": "Nền tảng quản lý và đặt lịch khám bệnh trực tuyến cho phòng khám, phát triển theo mô hình PWA & Native App.",
+        "category": "Quản lý đặt Lịch Thời Gian Thực",
+        "summary": "Nền tảng quản lý và đặt lịch khám bệnh trực tuyến cho phòng khám, phát triển theo mô hình PWA và Native App.",
         "description": "Giải pháp số hóa quy trình đặt hẹn khám chữa bệnh tại các cơ sở y tế; tối ưu hóa trải nghiệm bệnh nhân và bác sĩ theo phương pháp phát triển định hướng AI (AIDD) và Scrum, đóng gói triển khai hoàn chỉnh qua Docker."
       },
       "ai_writing_indicator": {
-        "title": "Chỉ Số Nhận Diện Văn Bản AI",
-        "category": "Machine Learning & Xử Lý Ngôn Ngữ Tự Nhiên",
-        "summary": "Mô hình học máy phân loại nhị phân phát hiện văn bản tiếng Việt do trí tuệ nhân tạo tạo sinh trong báo chí.",
+        "title": "Công cụ Nhận Diện Văn Bản AI",
+        "category": "Machine Learning và Xử lý Ngôn ngữ Tự nhiên",
+        "summary": "Mô hình học máy phân loại nhị phân phát hiện văn bản tiếng Việt do trí tuệ nhân tạo tạo sinh hay người viết trong lĩnh vực báo chí.",
         "description": "Nghiên cứu và huấn luyện pipeline NLP chuyên biệt cho tiếng Việt nhằm phân biệt chính xác bài báo do con người chắp bút hay do các mô hình ngôn ngữ lớn (LLM) tổng hợp, phục vụ kiểm định tính nguyên bản trong xuất bản số."
       },
       "elearning_lcms": {
-        "title": "Hệ Thống Quản Lý Học Liệu Số (LCMS)",
-        "category": "EdTech & Quản Lý Nội Dung Giáo Dục",
-        "summary": "Hệ thống LCMS toàn diện quản lý, lưu trữ và tái sử dụng tài nguyên học tập số trên nền tảng Django REST Framework.",
+        "title": "Hệ Thống Quản Lý Học Liệu Số (ERM)",
+        "category": "EdTech và Quản Lý Nội Dung Giáo Dục",
+        "summary": "Hệ thống ERM toàn diện quản lý, lưu trữ và tái sử dụng tài nguyên học tập số trên nền tảng Django REST Framework và React Native.",
         "description": "Kiến trúc backend xử lý nội dung học tập số kết hợp cơ sở dữ liệu MySQL, bảo mật phân quyền token OAuth2, bảng điều khiển thống kê cho quản trị viên và tích hợp Google GenAI cá nhân hóa đề xuất tài liệu học tập."
       },
       "sports_field_booking": {
-        "title": "Ứng Dụng Đặt Sân Thể Thao & Kiểm Thử Tự Động",
-        "category": "Thể Thao & Đảm Bảo Chất Lượng Phần Mềm",
-        "summary": "Hệ thống đặt sân bóng đá, cầu lông, tennis theo khung giờ với quy trình kiểm thử tự động toàn diện.",
+        "title": "Ứng Dụng Đặt và Quản Lý sân Thể Thao",
+        "category": "Thể Thao và Kiểm thử Phần Mềm",
+        "summary": "Hệ thống cho phép người dùng hoặc quản trị đặt và quản lý sân bóng đá, cầu lông, tennis theo khung giờ nhất định.",
         "description": "Ứng dụng web xây dựng bằng Flask và MySQL phục vụ tìm kiếm và đặt lịch sân thể thao thời gian thực; áp dụng quy trình kiểm thử chất lượng nghiêm ngặt từ Unit, Integration, System đến Acceptance Testing sử dụng Selenium 3."
       }
     }
@@ -133,7 +133,7 @@
   "blog": {
     "badge": "Những dấu ấn cá nhân",
     "title": "Nhật ký của mình",
-    "subtitle": "Tôi muốn AI có thể giúp tôi theo đuổi ước mơ và đam mê, chứ không phải cướp hoặc thay thế những ước mơ đó của tôi. Cảm hứng từ Joanna Maciejewska",
+    "subtitle": "Tôi muốn AI có thể giúp tôi theo đuổi ước mơ và đam mê, chứ không phải cướp hoặc thay thế những ước mơ đó của tôi. Cảm hứng từ Joanna Maciejewska.",
     "chapter_label": "Chương",
     "journal_label": "Nhật ký",
     "actions": {
@@ -145,8 +145,8 @@
       "go_to_story": "Đến bài viết"
     },
     "empty": {
-      "title": "Kho lưu trữ trống",
-      "description": "Chưa có bài viết nào được xuất bản. Vui lòng quay lại sau để đón đọc các bài viết kiến trúc kỹ thuật."
+      "title": "Không có bài viết",
+      "description": "Chưa có bài viết nào được xuất bản, có thể là do lỗi backend hoặc mình bị lười viết bài. Vui lòng quay lại sau nhen."
     }
   },
   "contact": {
@@ -184,5 +184,21 @@
       "submit_button": "Gửi Tin Nhắn",
       "success_message": "Đã nhận được tin nhắn!"
     }
+  },
+  "chat": {
+    "open_tooltip": "Mở trợ lý ảo",
+    "close_button": "Đóng trợ lý ảo",
+    "title": "Trợ lý ảo V.T.Thành",
+    "status_active": "Đang hoạt động",
+    "greeting": "Xin chào! Mình là phiên bản trợ lý ảo của Văn Trung Thành. Mình có thể hỗ trợ gì cho bạn hôm nay?",
+    "suggested_topics_title": "Chủ đề gợi ý",
+    "topics": {
+      "tech_stack": "Ngăn xếp công nghệ (tech stack) gồm những gì?",
+      "projects": "Khám phá các dự án nổi bật",
+      "contact": "Làm thế nào để liên hệ với tôi?"
+    },
+    "input_placeholder": "Đặt câu hỏi cho mình...",
+    "send_button": "Gửi tin nhắn",
+    "disclaimer": "⚠️ Nội dung được tạo bởi AI. Phản hồi không cấu thành bất kỳ lời khuyên nào về mặt pháp lý, tài chính, y tế hay đời sống. Chủ sở hữu website không chịu trách nhiệm cho các quyết định hoặc hệ quả phát sinh từ việc sử dụng chatbot này. Vui lòng cân nhắc khi sử dụng."
   }
 }
