@@ -17,9 +17,9 @@ const STRICT_EMAIL_REGEX =
 const PHONE_REGEX = /^[+]?[(]?[0-9]{1,4}[)]?[-\s./0-9]*$/;
 
 const XSS_PATTERNS = [
-  /<[^>]*script.*?>/i,
-  /<\s*img[^>]+onerror\s*=/i,
-  /<\s*iframe.*?>/i,
+  /<\s*\/?\s*script\b[^>]*>/i,
+  /<\s*img\b[^>]+onerror\s*=/i,
+  /<\s*\/?\s*iframe\b[^>]*>/i,
   /javascript\s*:/i,
   /on\w+\s*=/i,
   /data\s*:\s*text\/html/i,

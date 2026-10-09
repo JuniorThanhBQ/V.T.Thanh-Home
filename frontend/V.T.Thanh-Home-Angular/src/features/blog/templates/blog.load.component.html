@@ -1,0 +1,51 @@
+<div
+  class="min-h-[60vh] flex flex-col items-center justify-center p-6 text-center max-w-lg mx-auto"
+>
+  <div class="relative w-20 h-20 mb-8 flex items-center justify-center">
+    <div class="absolute inset-0 rounded-full border-2 border-sky-500/20 animate-ping"></div>
+    <div
+      class="absolute inset-2 rounded-full border-2 border-t-sky-500 border-r-transparent border-b-sky-500/30 border-l-transparent animate-spin"
+    ></div>
+    <div class="w-4 h-4 rounded-full bg-sky-500 shadow-lg shadow-sky-500/50"></div>
+  </div>
+
+  <span
+    class="text-xs uppercase tracking-[0.3em] font-mono text-sky-500 dark:text-sky-400 mb-3 block"
+  >
+    Server Spin-Up in Progress
+  </span>
+
+  <h3 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mb-3">
+    {{ stages[currentStageIndex] }}
+  </h3>
+
+  <p
+    class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 max-w-md leading-relaxed mb-6 font-light"
+  >
+    Our backend uses Render's free tier, which goes into standby after 15 minutes of inactivity.
+    First load may take up to 50 seconds to warm up.
+  </p>
+
+  <div class="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-1.5 overflow-hidden mb-4">
+    <div
+      class="bg-sky-500 h-full transition-all duration-1000 ease-out"
+      [style.width.%]="secondsElapsed < 50 ? (secondsElapsed / 50) * 100 : 98"
+    ></div>
+  </div>
+
+  <div
+    class="flex items-center justify-between w-full text-xs font-mono text-slate-400 dark:text-slate-500 px-1"
+  >
+    <span>Elapsed: {{ secondsElapsed }}s</span>
+    <span>Target: ~45s</span>
+  </div>
+
+  @if (secondsElapsed > 60) {
+    <button
+      (click)="onRetryClick()"
+      class="mt-6 px-4 py-2 rounded-xl text-xs font-mono font-medium bg-slate-900 hover:bg-slate-800 dark:bg-white/10 dark:hover:bg-white/20 text-white transition-all shadow-sm"
+    >
+      Retry Connection
+    </button>
+  }
+</div>

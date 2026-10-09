@@ -21,8 +21,8 @@ float hash(vec2 p) {
 void main() {
   vec2 uv = gl_FragCoord.xy / u_resolution.xy;
 
-  vec3 lightBase = vec3(0.985, 0.982, 0.975);
-  vec3 darkBase = vec3(0.045, 0.07, 0.115);
+  vec3 lightBase = vec3(0.985, 0.982, 0.975) * 1.06;
+  vec3 darkBase = vec3(0.045, 0.07, 0.115) * 1.5;
   vec3 baseColor = mix(lightBase, darkBase, u_dark_mode);
 
   float grain = (hash(gl_FragCoord.xy + fract(u_time * 0.05)) - 0.5) * 0.035;

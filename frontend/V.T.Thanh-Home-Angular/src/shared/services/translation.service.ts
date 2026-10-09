@@ -16,6 +16,7 @@ export class TranslationService {
   private http = inject(HttpClient);
   private loading = inject(LoadingService);
   private document = inject(DOCUMENT);
+
   public readonly supportedLanguages: LanguageOption[] = [
     { code: 'vi', labelKey: 'language.vi', flag: '🇻🇳' },
     { code: 'en', labelKey: 'language.en', flag: '🇬🇧' },
@@ -24,10 +25,12 @@ export class TranslationService {
     { code: 'fr', labelKey: 'language.fr', flag: '🇫🇷' },
     { code: 'zh', labelKey: 'language.zh', flag: '🇨🇳' },
   ];
+
   public readonly currentLang = signal<SupportedLang>(
     (localStorage.getItem('user_locale') as SupportedLang) || 'vi',
   );
-  private readonly dictionary = signal<Record<string, unknown>>({});
+
+  private readonly dictionary = signal<Map<string, string>>(new Map());
 
   constructor() {
     this.loadLanguage(this.currentLang());
@@ -43,31 +46,42 @@ export class TranslationService {
   }
 
   private loadLanguage(lang: SupportedLang): void {
-    const isInitial = Object.keys(this.dictionary()).length === 0;
+    const isInitial = this.dictionary().size === 0;
     const msg = isInitial ? this.t('loading.initializing') : this.t('loading.switching_language');
     this.loading.show(msg || 'Syncing...');
+
     this.http.get<Record<string, unknown>>(`/i18n/${lang}.json`).subscribe({
       next: (data) => {
-        this.dictionary.set(data);
+        const flatMap = new Map<string, string>();
+        this.flatten(data, '', flatMap);
+        this.dictionary.set(flatMap);
         setTimeout(() => this.loading.hide(), 550);
       },
       error: (err) => {
-        console.error(`Failed to load translation bundle for ${lang}`, err);
+        console.error('Failed to load translation bundle for:', lang, err);
         this.loading.hide();
       },
     });
   }
 
-  public t(key: string): string {
-    const keys = key.split('.');
-    let current: unknown = this.dictionary();
-    for (const k of keys) {
-      if (current && typeof current === 'object' && k in current) {
-        current = (current as Record<string, unknown>)[k];
-      } else {
-        return key;
+  private flatten(obj: Record<string, unknown>, prefix: string, map: Map<string, string>): void {
+    for (const key of Object.keys(obj)) {
+      if (key === '__proto__' || key === 'constructor' || key === 'prototype') {
+        continue;
+      }
+
+      const val = obj[key];
+      const newKey = prefix ? `${prefix}.${key}` : key;
+
+      if (val && typeof val === 'object' && !Array.isArray(val)) {
+        this.flatten(val as Record<string, unknown>, newKey, map);
+      } else if (typeof val === 'string') {
+        map.set(newKey, val);
       }
     }
-    return typeof current === 'string' ? current : key;
+  }
+
+  public t(key: string): string {
+    return this.dictionary().get(key) ?? key;
   }
 }

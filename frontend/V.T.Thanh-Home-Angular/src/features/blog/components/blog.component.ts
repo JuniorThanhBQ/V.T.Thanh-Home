@@ -1,28 +1,50 @@
 import { Component, inject, ElementRef, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslationService } from '@/shared/services/translation.service';
-import { CommingSoonComponent } from '@/shared/components/comming-soon/comming-soon.component';
 import { BlogShaderService } from '../services/blog-shader.service';
+import { BlogLoadComponent } from './blog.load.component';
+
+export interface BlogChapter {
+  chapterNumber: string;
+  title: string;
+  markdownContent: string;
+  imageUrl?: string;
+}
+
+export interface BlogPost {
+  id: string;
+  title: string;
+  category: string;
+  readTime: string;
+  heroImage: string;
+  summary: string;
+  chapters: BlogChapter[];
+}
 
 @Component({
   selector: 'app-blog',
   standalone: true,
-  imports: [CommonModule, CommingSoonComponent],
+  imports: [CommonModule, BlogLoadComponent],
   providers: [BlogShaderService],
-  template: `
-    <section class="relative min-h-[75vh] flex items-center justify-center py-12 overflow-hidden">
-      <canvas #bgCanvas class="fixed inset-0 w-full h-full pointer-events-none z-0"></canvas>
-      <div class="relative z-10 w-full max-w-4xl mx-auto">
-        <app-comming-soon [title]="i18n.t('blog.title')" [subtitle]="i18n.t('blog.subtitle')" />
-      </div>
-    </section>
-  `,
+  templateUrl: '../templates/blog.component.html',
 })
 export class BlogComponent implements AfterViewInit, OnDestroy {
   public i18n = inject(TranslationService);
   private shaderService = inject(BlogShaderService);
 
   @ViewChild('bgCanvas') private canvasRef!: ElementRef<HTMLCanvasElement>;
+
+  public isLoading = false;
+  public activePostIndex = 0;
+  public selectedPost: BlogPost | null = null;
+  public readonly posts: BlogPost[] = [];
+
+  public splitParagraphs(markdown: string): string[] {
+    return markdown
+      .split('\n\n')
+      .map((p) => p.trim())
+      .filter((p) => p.length > 0);
+  }
 
   ngAfterViewInit(): void {
     if (this.canvasRef?.nativeElement) {
@@ -32,5 +54,38 @@ export class BlogComponent implements AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.shaderService.destroy();
+  }
+
+  public nextPost(): void {
+    if (this.activePostIndex < this.posts.length - 1) {
+      this.activePostIndex++;
+    } else {
+      this.activePostIndex = 0;
+    }
+  }
+
+  public prevPost(): void {
+    if (this.activePostIndex > 0) {
+      this.activePostIndex--;
+    } else {
+      this.activePostIndex = this.posts.length - 1;
+    }
+  }
+
+  public openStory(post: BlogPost): void {
+    this.selectedPost = post;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  public closeStory(): void {
+    this.selectedPost = null;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  public reloadBlog(): void {
+    this.isLoading = true;
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 2500);
   }
 }

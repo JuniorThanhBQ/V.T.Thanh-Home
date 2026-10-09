@@ -1,0 +1,215 @@
+<section class="relative min-h-screen pt-12 overflow-hidden">
+  <canvas #bgCanvas class="fixed inset-0 w-full h-full pointer-events-none z-0"></canvas>
+
+  <div class="relative z-10 max-w-6xl mx-auto">
+    @if (isLoading) {
+      <app-blog-load (retry)="reloadBlog()" />
+    } @else if (selectedPost) {
+      <article class="animate-fade-in space-y-12 sm:space-y-16">
+        <div
+          class="flex items-center justify-between pb-6 border-b border-slate-200 dark:border-slate-800"
+        >
+          <button
+            (click)="closeStory()"
+            class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-mono font-medium border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-[#0c121c]/80 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[#172e42]/60 transition-colors shadow-sm"
+          >
+            {{ i18n.t('blog.actions.back_to_journal') }}
+          </button>
+          <div class="text-xs font-mono text-slate-500 dark:text-slate-400">
+            {{ selectedPost.category }} · {{ selectedPost.readTime }}
+          </div>
+        </div>
+
+        <div
+          class="relative aspect-[21/9] w-full rounded-3xl overflow-hidden shadow-2xl bg-slate-950"
+        >
+          <img
+            [src]="selectedPost.heroImage"
+            [alt]="selectedPost.title"
+            class="w-full h-full object-cover"
+          />
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/40 to-transparent flex items-end p-6 sm:p-12"
+          >
+            <h1
+              class="text-2xl sm:text-5xl font-black text-white tracking-tight leading-tight max-w-4xl"
+            >
+              {{ selectedPost.title }}
+            </h1>
+          </div>
+        </div>
+
+        <div class="max-w-5xl mx-auto space-y-16 sm:space-y-24 py-6">
+          @for (chapter of selectedPost.chapters; track chapter.chapterNumber) {
+            <section class="space-y-6">
+              <div class="space-y-2 border-b border-slate-200 dark:border-slate-800 pb-4">
+                <span
+                  class="text-xs uppercase tracking-[0.3em] font-mono text-slate-600 dark:text-slate-300 block"
+                >
+                  {{ i18n.t('blog.chapter_label') }} {{ chapter.chapterNumber }}
+                </span>
+                <h2
+                  class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white tracking-tight"
+                >
+                  {{ chapter.title }}
+                </h2>
+              </div>
+
+              <div class="space-y-5 max-w-none">
+                @for (paragraph of splitParagraphs(chapter.markdownContent); track $index) {
+                  <p
+                    class="leading-relaxed text-slate-700 dark:text-slate-300 font-light text-base sm:text-lg"
+                  >
+                    {{ paragraph }}
+                  </p>
+                }
+              </div>
+
+              @if (chapter.imageUrl) {
+                <div
+                  class="rounded-2xl overflow-hidden shadow-lg bg-slate-950 border border-slate-200 dark:border-slate-800 my-8"
+                >
+                  <img
+                    [src]="chapter.imageUrl"
+                    [alt]="chapter.title"
+                    class="w-full h-auto object-cover max-h-[500px]"
+                  />
+                </div>
+              }
+            </section>
+          }
+        </div>
+
+        <div class="pt-8 border-t border-slate-200 dark:border-slate-800 text-center">
+          <button
+            (click)="closeStory()"
+            class="px-6 py-3 rounded-xl text-xs font-mono font-medium bg-slate-900 hover:bg-slate-800 dark:bg-white/10 dark:hover:bg-white/20 text-white transition-all shadow-md"
+          >
+            {{ i18n.t('blog.actions.return_to_journal') }}
+          </button>
+        </div>
+      </article>
+    } @else {
+      <div class="space-y-6">
+        <div
+          class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800"
+        >
+          <div class="text-left max-w-3xl mb-14">
+            <span
+              class="text-xs uppercase tracking-[0.3em] font-mono text-slate-500 dark:text-slate-400 mb-3 block"
+            >
+              {{ i18n.t('blog.badge') }}
+            </span>
+            <h1
+              class="text-3xl sm:text-5xl font-black text-slate-900 dark:text-white tracking-tight"
+            >
+              {{ i18n.t('blog.title') }}
+            </h1>
+            <p
+              class="mt-4 text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed font-light"
+            >
+              {{ i18n.t('blog.subtitle') }}
+            </p>
+          </div>
+          <div class="text-sm font-mono text-slate-500 dark:text-slate-400">
+            @if (posts.length > 0) {
+              0{{ activePostIndex + 1 }} / 0{{ posts.length }}
+            } @else {
+              00 / 00
+            }
+          </div>
+        </div>
+
+        @if (posts.length > 0) {
+          <div
+            class="group relative rounded-3xl overflow-hidden bg-white/70 dark:bg-[#0c1626]/80 border border-slate-200 dark:border-slate-800 shadow-xl transition-all duration-500"
+          >
+            <div
+              class="relative aspect-[16/9] sm:aspect-[21/9] w-full max-h-110 overflow-hidden bg-slate-950"
+            >
+              <img
+                [src]="posts[activePostIndex].heroImage"
+                [alt]="posts[activePostIndex].title"
+                class="w-full h-full object-fit transition-transform duration-700 ease-out group-hover:scale-105"
+              />
+              <div
+                class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent"
+              ></div>
+            </div>
+
+            <div
+              class="p-6 sm:p-10 flex flex-col sm:flex-row items-start sm:items-end justify-between gap-6"
+            >
+              <div class="space-y-3 max-w-2xl">
+                <span
+                  class="text-xs font-mono uppercase tracking-wider text-slate-600 dark:text-slate-300 block"
+                >
+                  {{ posts[activePostIndex].category }} · {{ posts[activePostIndex].readTime }}
+                </span>
+                <h2
+                  class="text-1xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight leading-tight"
+                >
+                  {{ posts[activePostIndex].title }}
+                </h2>
+                <p
+                  class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 font-light leading-relaxed"
+                >
+                  {{ posts[activePostIndex].summary }}
+                </p>
+              </div>
+
+              <button
+                (click)="openStory(posts[activePostIndex])"
+                class="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-xs font-mono font-medium bg-slate-900 hover:bg-slate-800 dark:bg-sky-600 dark:hover:bg-sky-400 text-white transition-all shadow-md shrink-0"
+              >
+                <span>{{ i18n.t('blog.actions.open_story') }}</span>
+                <span>→</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="flex items-center justify-between pt-4">
+            <button
+              (click)="prevPost()"
+              class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-mono font-medium border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-[#0c121c]/80 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[#172e42]/60 transition-colors"
+            >
+              {{ i18n.t('blog.actions.previous') }}
+            </button>
+            <div class="flex items-center gap-1.5">
+              @for (post of posts; track post.id; let idx = $index) {
+                <button
+                  (click)="activePostIndex = idx"
+                  class="w-2.5 h-2.5 rounded-full transition-all"
+                  [class.bg-slate-500]="activePostIndex === idx"
+                  [class.w-6]="activePostIndex === idx"
+                  [class.bg-slate-300]="activePostIndex !== idx"
+                  [class.dark:bg-slate-700]="activePostIndex !== idx"
+                  [attr.aria-label]="i18n.t('blog.actions.go_to_story') + ' ' + (idx + 1)"
+                ></button>
+              }
+            </div>
+            <button
+              (click)="nextPost()"
+              class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-mono font-medium border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-[#0c121c]/80 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[#172e42]/60 transition-colors"
+            >
+              {{ i18n.t('blog.actions.next') }}
+            </button>
+          </div>
+        } @else {
+          <div
+            class="p-12 text-center rounded-3xl bg-white/40 dark:bg-[#0c1626]/40 border border-slate-200 dark:border-slate-800"
+          >
+            <span
+              class="text-xs font-mono uppercase tracking-widest text-slate-400 dark:text-slate-500 block mb-2"
+            >
+              {{ i18n.t('blog.empty.title') }}
+            </span>
+            <p class="text-sm text-slate-600 dark:text-slate-400 font-light">
+              {{ i18n.t('blog.empty.description') }}
+            </p>
+          </div>
+        }
+      </div>
+    }
+  </div>
+</section>

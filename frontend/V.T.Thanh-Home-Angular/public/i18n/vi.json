@@ -131,8 +131,23 @@
     }
   },
   "blog": {
-    "title": "Đang Phát Triển",
-    "subtitle": "Chức năng này tốn nhiều thời gian hơn mình tưởng, có gì mọi người quạy lại sau nhen."
+    "badge": "Những dấu ấn cá nhân",
+    "title": "Nhật ký của mình",
+    "subtitle": "Tôi muốn AI có thể giúp tôi theo đuổi ước mơ và đam mê, chứ không phải cướp hoặc thay thế những ước mơ đó của tôi. Cảm hứng từ Joanna Maciejewska",
+    "chapter_label": "Chương",
+    "journal_label": "Nhật ký",
+    "actions": {
+      "back_to_journal": "← Quay lại Nhật ký",
+      "return_to_journal": "← Trở về Nhật ký",
+      "open_story": "ĐỌC BÀI VIẾT",
+      "previous": "← Trang trước",
+      "next": "Trang sau →",
+      "go_to_story": "Đến bài viết"
+    },
+    "empty": {
+      "title": "Kho lưu trữ trống",
+      "description": "Chưa có bài viết nào được xuất bản. Vui lòng quay lại sau để đón đọc các bài viết kiến trúc kỹ thuật."
+    }
   },
   "contact": {
     "info": {
