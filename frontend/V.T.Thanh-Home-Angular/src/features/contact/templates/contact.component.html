@@ -11,7 +11,7 @@
     />
 
     <div
-      class="absolute inset-0 bg-slate-950/50 dark:bg-[#070e17]/10 pointer-events-none z-0"
+      class="absolute inset-0 bg-slate-950/55 dark:bg-[#070e17]/10 pointer-events-none z-0"
     ></div>
     <div
       class="absolute inset-0 bg-gradient-to-t dark:from-slate-950/95 dark:via-slate-950/50 dark:to-slate-950/75 pointer-events-none z-0"
@@ -22,9 +22,13 @@
     >
       <div class="lg:col-span-5 text-left text-white space-y-8">
         <div>
-          <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-white leading-tight">
+          <h1
+            class="text-3xl sm:text-4xl font-extrabold tracking-tight text-white leading-tight dark:text-sky-200"
+          >
             {{ i18n.t('contact.info.title_part1') }}
-            <span class="text-sky-400">{{ i18n.t('contact.info.title_part2') }}</span>
+            <span class="text-white-800 dark:text-sky-200">{{
+              i18n.t('contact.info.title_part2')
+            }}</span>
           </h1>
           <p class="mt-4 text-sm sm:text-base text-slate-200 font-light leading-relaxed">
             {{ i18n.t('contact.info.description') }}
@@ -34,7 +38,7 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-2">
           <div class="space-y-1.5">
             <div
-              class="flex items-center gap-2 text-sky-400 font-mono text-xs font-semibold uppercase tracking-wider"
+              class="flex items-center gap-2 dark:text-sky-300 font-mono text-xs font-semibold uppercase tracking-wider"
             >
               <svg
                 class="w-4 h-4"
@@ -57,7 +61,7 @@
 
           <div class="space-y-1.5">
             <div
-              class="flex items-center gap-2 text-sky-400 font-mono text-xs font-semibold uppercase tracking-wider"
+              class="flex items-center gap-2 dark:text-sky-300 font-mono text-xs font-semibold uppercase tracking-wider"
             >
               <svg
                 class="w-4 h-4"
@@ -82,7 +86,7 @@
           <div class="space-y-3 sm:col-span-2">
             <div class="space-y-1.5">
               <div
-                class="flex items-center gap-2 text-sky-400 font-mono text-xs font-semibold uppercase tracking-wider"
+                class="flex items-center gap-2 dark:text-sky-300 font-mono text-xs font-semibold uppercase tracking-wider"
               >
                 <svg
                   class="w-4 h-4"
@@ -295,7 +299,7 @@
           <div class="flex items-center justify-between pt-2">
             <button
               type="submit"
-              class="px-8 py-3 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-medium text-sm transition-all shadow-lg shadow-blue-600/30 cursor-pointer active:scale-95"
+              class="px-8 py-3 rounded-full bg-gray-900/40 hover:bg-gray-800 dark:bg-blue-500 dark:hover:bg-blue-400 text-white font-medium text-sm transition-all shadow-lg dark:shadow-blue-600/30 cursor-pointer active:scale-95"
             >
               {{ i18n.t('contact.form.submit_button') }}
             </button>

@@ -75,7 +75,7 @@ export class AboutComponent implements AfterViewInit, OnDestroy {
   }
 
   public toggleZoom(): void {
-    this.zoomLevel = this.zoomLevel === 1.0 ? 1.35 : 1.0;
+    this.zoomLevel = this.zoomLevel === 1.0 ? 1.6 : 1.0;
   }
 
   @HostListener('window:keydown', ['$event'])

@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { DOCUMENT } from '@angular/common';
 import { LoadingService } from './loading.service';
 
-export type SupportedLang = 'vi' | 'en' | 'zh' | 'ja';
+export type SupportedLang = 'vi' | 'en' | 'zh' | 'ja' | 'fr' | 'de';
 
 export interface LanguageOption {
   code: SupportedLang;
@@ -19,8 +19,10 @@ export class TranslationService {
   public readonly supportedLanguages: LanguageOption[] = [
     { code: 'vi', labelKey: 'language.vi', flag: '🇻🇳' },
     { code: 'en', labelKey: 'language.en', flag: '🇬🇧' },
-    { code: 'zh', labelKey: 'language.zh', flag: '🇨🇳' },
     { code: 'ja', labelKey: 'language.ja', flag: '🇯🇵' },
+    { code: 'de', labelKey: 'language.de', flag: '🇩🇪' },
+    { code: 'fr', labelKey: 'language.fr', flag: '🇫🇷' },
+    { code: 'zh', labelKey: 'language.zh', flag: '🇨🇳' },
   ];
   public readonly currentLang = signal<SupportedLang>(
     (localStorage.getItem('user_locale') as SupportedLang) || 'vi',

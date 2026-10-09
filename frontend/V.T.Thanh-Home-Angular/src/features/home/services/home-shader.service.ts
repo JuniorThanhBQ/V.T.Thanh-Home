@@ -14,7 +14,7 @@ export class HomeShaderService {
 
   private mouseTarget = { x: 0, y: 0 };
   private mouseCurrent = { x: 0, y: 0 };
-  private clock = new THREE.Clock();
+  private clock = new THREE.Timer();
 
   private themeObserver!: MutationObserver;
 
@@ -162,7 +162,7 @@ export class HomeShaderService {
     this.mouseCurrent.x += (this.mouseTarget.x - this.mouseCurrent.x) * 0.05;
     this.mouseCurrent.y += (this.mouseTarget.y - this.mouseCurrent.y) * 0.05;
 
-    this.material.uniforms['u_time'].value = this.clock.getElapsedTime();
+    this.material.uniforms['u_time'].value = this.clock.getElapsed();
     this.material.uniforms['u_mouse'].value.set(this.mouseCurrent.x, this.mouseCurrent.y);
 
     this.renderer.render(this.scene, this.camera);

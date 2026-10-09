@@ -129,7 +129,7 @@
                 (click)="toggleZoom()"
                 class="px-3 py-1.5 rounded-lg text-xs font-mono font-medium border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0c121c] text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[#172e42]/60 transition-colors"
               >
-                {{ zoomLevel === 1.0 ? i18n.t('about.cv.zoom_in') : i18n.t('about.cv.reset_zoom') }}
+                {{ zoomLevel > 1 ? i18n.t('about.cv.reset_zoom') : i18n.t('about.cv.zoom_in') }}
               </button>
               <a
                 [href]="currentPage === 1 ? avatarUrls.cv_picture_one : avatarUrls.cv_picture_two"
@@ -143,10 +143,14 @@
           </div>
 
           <div
-            class="flex-1 relative overflow-auto flex items-center justify-center p-2 sm:p-6 bg-slate-100/50 dark:bg-black/40 rounded-xl my-3"
+            class="flex-1 relative overflow-auto flex justify-center p-2 sm:p-6 bg-slate-100/50 dark:bg-black/40 rounded-xl my-3"
+            [class.items-center]="zoomLevel === 1"
+            [class.items-start]="zoomLevel > 1"
           >
             <div
-              class="transition-transform duration-300 ease-out origin-center flex items-center justify-center max-w-full"
+              class="transition-transform duration-300 ease-out flex items-center justify-center max-w-full"
+              [class.origin-center]="zoomLevel === 1"
+              [class.origin-top]="zoomLevel > 1"
               [style.transform]="'scale(' + zoomLevel + ')'"
             >
               <img
@@ -171,9 +175,9 @@
                 />
                 <div>
                   <h4 class="text-sm font-bold text-slate-900 dark:text-slate-100">
-                    Van Trung Thanh
+                    {{ i18n.t('app.Author') }}
                   </h4>
-                  <p class="text-xs text-sky-600 dark:text-sky-400 font-medium">
+                  <p class="text-xs text-slate-600 dark:text-slate-400 font-medium">
                     {{ i18n.t('about.cv.role') }}
                   </p>
                 </div>
@@ -204,7 +208,7 @@
                 class="p-3.5 rounded-xl bg-slate-50 dark:bg-[#0c121c] border border-slate-200/50 dark:border-slate-800/50"
               >
                 <span
-                  class="text-[10px] font-mono uppercase tracking-widest text-slate-400 block mb-1"
+                  class="text-[10px] font-mono uppercase tracking-widest text-slate-500 block mb-1"
                 >
                   {{ i18n.t('about.cv.overview_title') }}
                 </span>
@@ -221,7 +225,7 @@
                 <div
                   class="flex justify-between items-center text-xs py-1 border-b border-slate-100 dark:border-slate-800/50"
                 >
-                  <span class="text-slate-400 font-mono">{{
+                  <span class="text-slate-500 font-mono">{{
                     i18n.t('about.cv.academic_track_label')
                   }}</span>
                   <span class="text-slate-800 dark:text-slate-200 font-medium">{{
@@ -231,15 +235,15 @@
                 <div
                   class="flex justify-between items-center text-xs py-1 border-b border-slate-100 dark:border-slate-800/50"
                 >
-                  <span class="text-slate-400 font-mono">{{ i18n.t('about.cv.gpa_label') }}</span>
-                  <span class="text-sky-600 dark:text-sky-400 font-bold font-mono"
+                  <span class="text-slate-500 font-mono">{{ i18n.t('about.cv.gpa_label') }}</span>
+                  <span class="text-slate-900 dark:text-slate-100 font-bold font-mono"
                     >3.67 / 4.00</span
                   >
                 </div>
                 <div
                   class="flex justify-between items-center text-xs py-1 border-b border-slate-100 dark:border-slate-800/50"
                 >
-                  <span class="text-slate-400 font-mono">{{ i18n.t('about.cv.stack_label') }}</span>
+                  <span class="text-slate-500 font-mono">{{ i18n.t('about.cv.stack_label') }}</span>
                   <span class="text-slate-800 dark:text-slate-200 font-medium">{{
                     i18n.t('about.cv.stack_content')
                   }}</span>
@@ -247,11 +251,19 @@
                 <div
                   class="flex justify-between items-center text-xs py-1 border-b border-slate-100 dark:border-slate-800/50"
                 >
-                  <span class="text-slate-400 font-mono">{{
+                  <span class="text-slate-500 font-mono">{{
                     i18n.t('about.cv.additional_label')
                   }}</span>
                   <span class="text-slate-800 dark:text-slate-200 font-medium">{{
                     i18n.t('about.cv.additional_content')
+                  }}</span>
+                </div>
+                <div
+                  class="flex justify-between items-center text-xs py-1 border-b border-slate-100 dark:border-slate-800/50"
+                >
+                  <span class="text-slate-500 font-mono">{{ i18n.t('about.cv.overall') }}</span>
+                  <span class="text-slate-800 dark:text-slate-200 font-medium">{{
+                    i18n.t('about.cv.overall_content')
                   }}</span>
                 </div>
               </div>
@@ -265,7 +277,7 @@
               href="https://www.linkedin.com/in/juniorthanh09/"
               target="_blank"
               rel="noopener noreferrer"
-              class="w-full py-2.5 px-4 rounded-xl text-xs font-semibold text-center text-white bg-sky-600 hover:bg-sky-500 transition-colors shadow-lg shadow-sky-600/20"
+              class="w-full py-2.5 px-4 rounded-xl text-xs font-semibold text-center text-white bg-neutral-600 hover:bg-slate-500 dark:bg-sky-800 dark:hover:bg-sky-500 transition-colors shadow-lg shadow-sky-600/20"
             >
               {{ i18n.t('about.cv.connect_linkedin') }}
             </a>

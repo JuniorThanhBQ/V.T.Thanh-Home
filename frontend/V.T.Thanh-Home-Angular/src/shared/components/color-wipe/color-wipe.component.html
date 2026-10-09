@@ -1,0 +1,27 @@
+@if (transition.isWiping()) {
+  <div class="fixed inset-0 z-[99998] pointer-events-none overflow-hidden">
+    <div
+      class="absolute inset-0 z-40 bg-[#e7f3ff]/90 dark:bg-[#172f43]/90 backdrop-blur-xs flex items-center justify-center pointer-events-none animate-smooth-fade"
+    >
+      <div class="relative w-32 h-32 md:w-48 md:h-48 flex items-center justify-center">
+        <div
+          class="absolute -inset-3 rounded-full blur-xl opacity-80 animate-pulse bg-sky-300/70 dark:bg-[#295770]/80"
+        ></div>
+        <div
+          class="relative w-full h-full rounded-full p-1.5 backdrop-blur-md bg-white/60 dark:bg-[#080f17]/80 ring-2 ring-sky-100 dark:ring-[#295770] shadow-[0_0_15px_rgba(41,87,112,0.5)] dark:shadow-[0_0_35px_rgba(41,87,112,0.8)]"
+        >
+          <img
+            [src]="avatarLightUrl"
+            alt="V.T.Thanh Brand Emblem (Light)"
+            class="w-full h-full object-cover rounded-full border-2 border-white/80 block dark:hidden"
+          />
+          <img
+            [src]="avatarDarkUrl"
+            alt="V.T.Thanh Brand Emblem (Dark)"
+            class="w-full h-full object-cover rounded-full border-2 border-white/80 dark:border-[#172e42] opacity-90 hidden dark:block"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+}

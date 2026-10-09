@@ -2,14 +2,16 @@
   "app": {
     "title": "个人网站",
     "Author": "文忠诚",
-    "version": "版本 0.2.1",
+    "version": "版本 1.0.0",
     "copyright": "保留所有权利"
   },
   "language": {
     "vi": "越南语",
     "en": "英语",
     "zh": "中文",
-    "ja": "日语"
+    "ja": "日语",
+    "fr": "法语",
+    "de": "德语"
   },
   "loading": {
     "subtitle": "文忠诚 的个人主页 🏠",

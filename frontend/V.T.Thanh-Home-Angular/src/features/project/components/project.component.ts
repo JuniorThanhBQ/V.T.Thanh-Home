@@ -39,6 +39,7 @@ export class ProjectComponent implements AfterViewInit, OnDestroy {
         'Gemini',
       ],
       sourceUrl: 'https://github.com/JuniorThanhBQ/AI-IT-Job-Market-Consultant',
+      websiteUrl: 'https://ai-it-job-market-consultant.vercel.app/',
     },
     {
       id: 'aijmc_jpra',
@@ -54,6 +55,7 @@ export class ProjectComponent implements AfterViewInit, OnDestroy {
         'Supabase',
       ],
       sourceUrl: 'https://github.com/JuniorThanhBQ/AIJMC-JPRA',
+      websiteUrl: 'https://aijmc-jpra.streamlit.app/',
     },
     {
       id: 'mbms',
@@ -91,6 +93,10 @@ export class ProjectComponent implements AfterViewInit, OnDestroy {
       sourceUrl: 'https://github.com/JuniorThanhBQ/sports-field-booking-app',
     },
   ];
+
+  public readonly flagshipProject = this.projects[0];
+  public readonly trioProjects = this.projects.slice(1, 4);
+  public readonly wideProjects = this.projects.slice(4, 6);
 
   ngAfterViewInit(): void {
     if (this.canvasRef?.nativeElement) {

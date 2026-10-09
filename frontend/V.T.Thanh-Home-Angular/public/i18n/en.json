@@ -2,14 +2,16 @@
   "app": {
     "title": "Personal Website",
     "Author": "Van Trung Thanh",
-    "version": "Version 0.2.1",
+    "version": "Version 1.0.0",
     "copyright": "All rights reserved"
   },
   "language": {
     "vi": "Vietnamese",
     "en": "English",
     "zh": "Chinese",
-    "ja": "Japanese"
+    "ja": "Japanese",
+    "fr": "French",
+    "de": "German"
   },
   "loading": {
     "subtitle": "Van Trung Thanh's Home 🏠",

@@ -2,14 +2,16 @@
   "app": {
     "title": "Website cá nhân",
     "Author": "Văn Trung Thành",
-    "version": "Phiên bản 0.2.1",
+    "version": "Phiên bản 1.0.0",
     "copyright": "Bảo lưu mọi quyền"
   },
   "language": {
     "vi": "Tiếng Việt",
     "en": "Tiếng Anh",
     "zh": "Tiếng Trung",
-    "ja": "Tiếng Nhật"
+    "ja": "Tiếng Nhật",
+    "fr": "Tiếng Pháp",
+    "de": "Tiếng Đức"
   },
   "loading": {
     "subtitle": "Trang nhà của Văn Trung Thành 🏠",
@@ -63,20 +65,23 @@
       "open_original": "Mở ảnh gốc",
       "role": "Kỹ sư phát triển phần mềm tích hợp AI",
       "overview_title": "Tổng quan nội dung trang",
-      "overview_page_1": "Trang 1 tóm lược các cột mốc kế hoạch cho sự nghiệp, thành tích học tập tại trường Đại học Mở TP.Hồ Chí Mnih, chứng nhận nghiên cứu khoa học về AI và các học phần nền tảng.",
+      "overview_page_1": "Trang 1 tóm lược các cột mốc kế hoạch cho sự nghiệp, thành tích học tập tại trường Đại học Mở TP.Hồ Chí Minh, chứng nhận nghiên cứu khoa học về AI và các học phần nền tảng.",
       "overview_page_2": "Trang 2 trình bày ba kinh nghiệm và dự án đã thực hiện, các kỹ năng hiện có và đã thực hành qua, sở thích và các công việc trong thời gian rảnh.",
       "academic_track_label": "Chuyên ngành",
-      "academic_track_value": "HCMC-OU (FCS)",
+      "academic_track_value": "Công nghệ Thông tin",
       "gpa_label": "Điểm GPA tổng",
       "stack_label": "Lĩnh vực cốt lõi",
       "stack_content": "Full-stack Developer và DevOps",
-      "additional_label": "Lĩnh vực phụ",
+      "additional_label": "Lĩnh vực mở rộng",
       "additional_content": "Nghiên cứu tích hợp AI",
       "connect_linkedin": "Kết nối qua LinkedIn",
-      "return_portfolio": "Quay lại Portfolio"
+      "return_portfolio": "Quay lại Portfolio",
+      "overall": "Tự đánh giá năng lực",
+      "overall_content": "6.5 / 10"
     }
   },
   "projects": {
+    "flag": "Đồ án ngành",
     "header": {
       "badge": "Hồ Sơ Dự Án",
       "title": "Các Dự Án Kỹ Thuật Tiêu Biểu",

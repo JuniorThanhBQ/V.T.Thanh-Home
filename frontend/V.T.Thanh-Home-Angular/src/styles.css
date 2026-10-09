@@ -72,12 +72,14 @@ html.dark body {
 }
 
 .mesh-loader {
-  background-color: #ffffff;
+  background-color: #dbedff;
   background-image:
-    radial-gradient(circle at 32% 31%, #fffdd1 0%, transparent 30%),
-    radial-gradient(circle at 18% 15%, #beeafe 0%, transparent 30%);
+    radial-gradient(circle at 20% 30%, #f0fdff 0%, transparent 30%),
+    radial-gradient(circle at 75% 20%, #f0faff 0%, transparent 30%),
+    radial-gradient(circle at 50% 75%, #f1f9fe 0%, transparent 30%),
+    radial-gradient(circle at 85% 80%, #f5ffff 0%, transparent 30%);
   background-size: 200% 200%;
-  animation: cssa-mesh-float 1.5s ease-in-out infinite alternate;
+  animation: cssa-mesh-float 4s ease-in-out infinite alternate;
 }
 
 html.dark .mesh-loader {
