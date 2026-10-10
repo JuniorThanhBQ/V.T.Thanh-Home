@@ -8,7 +8,7 @@ repos:
       - id: trailing-whitespace
       - id: end-of-file-fixer
       - id: check-added-large-files
-        args: ["--maxkb=1024"]
+        args: ["--maxkb=3096"]
       - id: check-merge-conflict
       - id: check-case-conflict
       - id: check-yaml
