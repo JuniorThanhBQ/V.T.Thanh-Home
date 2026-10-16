@@ -18,21 +18,28 @@ repos:
       - id: check-xml
       - id: detect-private-key
 
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.30.0
+    hooks:
+      - id: gitleaks
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.17.1
+    hooks:
+      - id: ruff
+        args: [--fix]
+      - id: ruff-format
+        files: ^scripts/.*\.py$
+
   - repo: local
     hooks:
       - id: prettier
         name: Prettier local for Angular
         language: system
-        entry: npm --prefix frontend/V.T.Thanh-Home-Angular exec prettier -- --write "."
-        files: ^frontend/
+        entry: npm --prefix frontend/V.T.Thanh-Home-Angular exec prettier -- --write
+        files: ^frontend/V\.T\.Thanh-Home-Angular/src/
         types_or:
           [javascript, jsx, ts, tsx, html, css, scss, json, yaml, markdown]
-        exclude: |
-          (?x)^(
-            frontend/package-lock\.json|
-            frontend/.*\.min\..*|
-            frontend/V\.T\.Thanh-Home-Angular/package-lock\.json
-          )$
 
       - id: ng-lint
         name: Angular ESLint
@@ -44,9 +51,9 @@ repos:
   - repo: local
     hooks:
       - id: gradle-spotless
-        name: gradle spotless check
-        entry: cmd /c "cd backend\V.T.Thanh-Home-SpringBoot && gradlew.bat spotlessCheck"
+        name: Gradle Spotless Check
         language: system
+        entry: cmd /c "cd backend\V.T.Thanh-Home-SpringBoot && gradlew.bat spotlessCheck"
         files: ^backend/V\.T\.Thanh-Home-SpringBoot/.*\.java$
         pass_filenames: false
 
@@ -64,8 +71,13 @@ repos:
         name: Hadolint Dockerfile Linter
         types: [dockerfile]
 
+  - repo: https://github.com/rhysd/actionlint
+    rev: v1.7.12
+    hooks:
+      - id: actionlint
+
   - repo: https://github.com/zizmorcore/zizmor-pre-commit
-    rev: v1.30.1
+    rev: v1.31.1
     hooks:
       - id: zizmor
         args: [--no-progress, --fix=safe]

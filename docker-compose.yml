@@ -7,7 +7,7 @@ services:
     restart: unless-stopped
     environment:
       SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE?Unset variable SPRING_PROFILES_ACTIVE}
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${POSTGRES_DB?Unset variable POSTGRES_DB}
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/${POSTGRES_DB?Unset variable POSTGRES_DB}
       SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER?Unset variable POSTGRES_USER}
       SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD?Unset variable POSTGRES_PASSWORD}
       SERVER_PORT: ${SERVER_PORT?Unset variable SERVER_PORT}

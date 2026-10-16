@@ -7,7 +7,7 @@
       <a
         routerLink="/"
         (click)="closeMobileMenu()"
-        class="animate-stagger-item flex items-center space-x-2 text-sky-600 dark:text-sky-400 font-bold text-lg sm:text-xl tracking-tight hover:opacity-80 transition-opacity"
+        class="animate-stagger-item flex items-center space-x-2 text-sky-600 dark:text-sky-400 font-bold text-md sm:text-xl tracking-tight hover:opacity-80 transition-opacity"
         style="--i: 0"
       >
         <img
@@ -187,21 +187,22 @@
         <button
           type="button"
           (click)="toggleMobileMenu()"
-          class="w-10 h-10 rounded-full flex flex-col items-center justify-center gap-1.5 bg-slate-100/80 hover:bg-slate-200/80 dark:bg-slate-800/80 dark:hover:bg-slate-700/80 border border-slate-300/60 dark:border-slate-700/60 transition-colors focus:outline-none focus:ring-2 focus:ring-sky-500 cursor-pointer"
+          class="w-8.5 h-8.5 rounded-full flex flex-col items-center justify-center gap-1 bg-slate-100/80 hover:bg-slate-200/80 dark:bg-slate-800/80 dark:hover:bg-slate-700/80 border border-slate-300/60 dark:border-slate-700/60 transition-colors focus:outline-none focus:ring-2 focus:ring-sky-500 cursor-pointer"
           [attr.aria-expanded]="isMobileMenuOpen()"
           aria-label="Toggle navigation menu"
         >
           <span
-            class="w-5 h-0.5 bg-slate-800 dark:bg-slate-200 rounded-full transition-transform duration-300 ease-in-out"
+            class="w-4.5 h-0.5 bg-slate-800 dark:bg-slate-200 rounded-full transition-transform duration-300 ease-in-out"
             [class.rotate-45]="isMobileMenuOpen()"
-            [class.translate-y-2]="isMobileMenuOpen()"
+            [class.translate-y-1]="isMobileMenuOpen()"
+            [class.translate-x-0]="isMobileMenuOpen()"
           ></span>
           <span
-            class="w-5 h-0.5 bg-slate-800 dark:bg-slate-200 rounded-full transition-opacity duration-200"
+            class="w-4.5 h-0.5 bg-slate-800 dark:bg-slate-200 rounded-full transition-opacity duration-200"
             [class.opacity-0]="isMobileMenuOpen()"
           ></span>
           <span
-            class="w-5 h-0.5 bg-slate-800 dark:bg-slate-200 rounded-full transition-transform duration-300 ease-in-out"
+            class="w-4.5 h-0.5 bg-slate-800 dark:bg-slate-200 rounded-full transition-transform duration-300 ease-in-out"
             [class.-rotate-45]="isMobileMenuOpen()"
             [class.-translate-y-2]="isMobileMenuOpen()"
           ></span>

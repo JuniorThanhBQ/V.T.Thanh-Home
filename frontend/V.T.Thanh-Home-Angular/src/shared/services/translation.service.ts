@@ -1,6 +1,8 @@
 import { Injectable, signal, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { DOCUMENT } from '@angular/common';
+import { DOCUMENT, Location } from '@angular/common';
+import { Router, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
 import { LoadingService } from './loading.service';
 
 export type SupportedLang = 'vi' | 'en' | 'zh' | 'ja' | 'fr' | 'de';
@@ -16,6 +18,8 @@ export class TranslationService {
   private http = inject(HttpClient);
   private loading = inject(LoadingService);
   private document = inject(DOCUMENT);
+  private router = inject(Router);
+  private location = inject(Location);
 
   public readonly supportedLanguages: LanguageOption[] = [
     { code: 'vi', labelKey: 'language.vi', flag: '🇻🇳' },
@@ -26,23 +30,50 @@ export class TranslationService {
     { code: 'zh', labelKey: 'language.zh', flag: '🇨🇳' },
   ];
 
-  public readonly currentLang = signal<SupportedLang>(
-    (localStorage.getItem('user_locale') as SupportedLang) || 'vi',
-  );
-
+  public readonly currentLang = signal<SupportedLang>('vi');
   private readonly dictionary = signal<Map<string, string>>(new Map());
+  private readonly nonDefaultLangs = new Set<string>(['en', 'de', 'fr', 'ja', 'zh']);
 
   constructor() {
-    this.loadLanguage(this.currentLang());
+    this.syncLanguageFromUrl(this.location.path());
+
+    this.router.events
+      .pipe(filter((event): event is NavigationEnd => event instanceof NavigationEnd))
+      .subscribe((event) => {
+        this.syncLanguageFromUrl(event.urlAfterRedirects);
+      });
   }
 
-  public setLanguage(lang: SupportedLang): void {
-    if (this.currentLang() === lang) return;
+  private syncLanguageFromUrl(url: string): void {
+    const segments = url.split('/').filter(Boolean);
+    const firstSegment = segments[0] as string;
+    const detectedLang: SupportedLang = this.nonDefaultLangs.has(firstSegment)
+      ? (firstSegment as SupportedLang)
+      : 'vi';
 
-    this.currentLang.set(lang);
-    localStorage.setItem('user_locale', lang);
-    this.document.documentElement.lang = lang;
-    this.loadLanguage(lang);
+    if (this.currentLang() !== detectedLang || this.dictionary().size === 0) {
+      this.currentLang.set(detectedLang);
+      this.document.documentElement.lang = detectedLang;
+      this.loadLanguage(detectedLang);
+    }
+  }
+
+  public switchLanguage(targetLang: SupportedLang): void {
+    if (this.currentLang() === targetLang) return;
+
+    const currentUrl = this.router.url;
+    const segments = currentUrl.split('/').filter(Boolean);
+
+    if (segments.length > 0 && this.nonDefaultLangs.has(segments[0])) {
+      segments.shift();
+    }
+
+    if (targetLang !== 'vi') {
+      segments.unshift(targetLang);
+    }
+
+    const nextPath = '/' + segments.join('/');
+    this.router.navigateByUrl(nextPath);
   }
 
   private loadLanguage(lang: SupportedLang): void {
@@ -55,10 +86,10 @@ export class TranslationService {
         const flatMap = new Map<string, string>();
         this.flatten(data, '', flatMap);
         this.dictionary.set(flatMap);
-        setTimeout(() => this.loading.hide(), 550);
+        setTimeout(() => this.loading.hide(), 400);
       },
       error: (err) => {
-        console.error('Failed to load translation bundle for:', lang, err);
+        console.error('Failed to load dictionary:', lang, err);
         this.loading.hide();
       },
     });

@@ -1,6 +1,7 @@
 import json
-import requests
 from pathlib import Path
+
+import requests
 
 I18N_DIR = Path("frontend/V.T.Thanh-Home-Angular/public/i18n")
 SOURCE_FILE = I18N_DIR / "vi.json"
@@ -38,7 +39,7 @@ def translate_text(text: str, target_lang_name: str) -> str:
         f'- "Công việc" in a task-management context should normally mean "Tasks".\n\n'
         f'- "Công việc đang chờ" means "Pending tasks".\n'
         f'- "Quên mật khẩu?" in Japanese must be "パスワードをお忘れですか？".\n'
-        f'- Metric card labels must be concise noun phrases, not full conversational sentences.\n'
+        f"- Metric card labels must be concise noun phrases, not full conversational sentences.\n"
         f"Vietnamese text:\n{text}\n\n"
         f"Translation:"
     )
@@ -68,7 +69,9 @@ def translate_text(text: str, target_lang_name: str) -> str:
         return text
 
 
-def sync_and_translate_node(source_node, target_node, target_lang_name: str, path: str = "") -> tuple:
+def sync_and_translate_node(
+    source_node, target_node, target_lang_name: str, path: str = ""
+) -> tuple:
     updated = False
     if isinstance(source_node, dict):
         if not isinstance(target_node, dict):
@@ -78,7 +81,9 @@ def sync_and_translate_node(source_node, target_node, target_lang_name: str, pat
         for k, v in source_node.items():
             current_path = f"{path}.{k}" if path else k
             child_target = target_node.get(k)
-            child_result, child_updated = sync_and_translate_node(v, child_target, target_lang_name, current_path)
+            child_result, child_updated = sync_and_translate_node(
+                v, child_target, target_lang_name, current_path
+            )
             target_node[k] = child_result
             if child_updated:
                 updated = True
@@ -109,7 +114,9 @@ def run_translation():
                     target_data = {}
 
         print(f"\nSynchronizing locale: [{lang_code}] --- ({lang_name})")
-        updated_data, has_changes = sync_and_translate_node(source_data, target_data, lang_name)
+        updated_data, has_changes = sync_and_translate_node(
+            source_data, target_data, lang_name
+        )
         if has_changes:
             with open(target_file, "w", encoding="utf-8") as f:
                 json.dump(updated_data, f, ensure_ascii=False, indent=2)

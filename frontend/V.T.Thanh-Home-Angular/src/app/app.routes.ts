@@ -1,6 +1,6 @@
-import { Routes } from '@angular/router';
+import { Routes, Route, UrlSegment } from '@angular/router';
 
-export const routes: Routes = [
+const coreRoutes: Route[] = [
   {
     path: '',
     loadComponent: () =>
@@ -26,6 +26,24 @@ export const routes: Routes = [
     loadComponent: () =>
       import('@/features/contact/components/contact.component').then((m) => m.ContactComponent),
   },
+];
+
+const SUPPORTED_PREFIX_LANGS = new Set(['en', 'de', 'fr', 'ja', 'zh']);
+
+export const routes: Routes = [
+  {
+    matcher: (segments: UrlSegment[]) => {
+      if (segments.length > 0 && SUPPORTED_PREFIX_LANGS.has(segments[0].path)) {
+        return {
+          consumed: [segments[0]],
+          posParams: { lang: segments[0] },
+        };
+      }
+      return null;
+    },
+    children: coreRoutes,
+  },
+  ...coreRoutes,
   {
     path: '**',
     redirectTo: '',

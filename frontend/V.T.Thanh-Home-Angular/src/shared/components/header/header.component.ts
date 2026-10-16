@@ -26,6 +26,35 @@ export class HeaderComponent implements OnDestroy {
   public isMobileMenuOpen = signal<boolean>(false);
   private elementRef = inject(ElementRef);
 
+  public readonly navItems: NavItem[] = [
+    { path: '/', translationKey: 'navigation.home', exact: true },
+    { path: '/about', translationKey: 'navigation.about' },
+    { path: '/projects', translationKey: 'navigation.projects' },
+    { path: '/blog', translationKey: 'navigation.blog' },
+    { path: '/contact', translationKey: 'navigation.contact' },
+  ];
+
+  public readonly flagUrls: Record<SupportedLang, string> = {
+    vi: 'https://flagcdn.com/vn.svg',
+    en: 'https://flagcdn.com/gb.svg',
+    ja: 'https://flagcdn.com/jp.svg',
+    zh: 'https://flagcdn.com/cn.svg',
+    fr: 'https://flagcdn.com/fr.svg',
+    de: 'https://flagcdn.com/de.svg',
+  };
+
+  public getLocalizedPath(basePath: string): string {
+    const lang = this.i18n.currentLang();
+    if (lang === 'vi') {
+      return basePath;
+    }
+    const cleanPath = basePath === '/' ? '' : basePath;
+    return `/${lang}${cleanPath}`;
+  }
+
+  public currentLangOption = () =>
+    this.i18n.supportedLanguages.find((l) => l.code === this.i18n.currentLang());
+
   public toggleMobileMenu(): void {
     const nextState = !this.isMobileMenuOpen();
     this.isMobileMenuOpen.set(nextState);
@@ -71,33 +100,14 @@ export class HeaderComponent implements OnDestroy {
     }
   }
 
-  public readonly navItems: NavItem[] = [
-    { path: '/', translationKey: 'navigation.home', exact: true },
-    { path: '/about', translationKey: 'navigation.about' },
-    { path: '/projects', translationKey: 'navigation.projects' },
-    { path: '/blog', translationKey: 'navigation.blog' },
-    { path: '/contact', translationKey: 'navigation.contact' },
-  ];
-
-  public readonly flagUrls: Record<SupportedLang, string> = {
-    vi: 'https://flagcdn.com/vn.svg',
-    en: 'https://flagcdn.com/gb.svg',
-    ja: 'https://flagcdn.com/jp.svg',
-    zh: 'https://flagcdn.com/cn.svg',
-    fr: 'https://flagcdn.com/fr.svg',
-    de: 'https://flagcdn.com/de.svg',
-  };
-
-  public currentLangOption = () =>
-    this.i18n.supportedLanguages.find((l) => l.code === this.i18n.currentLang());
-
   public toggleDropdown(): void {
     this.dropdownOpen.update((v) => !v);
   }
 
   public selectLanguage(code: SupportedLang): void {
-    this.i18n.setLanguage(code);
+    this.i18n.switchLanguage(code);
     this.dropdownOpen.set(false);
+    this.isLangDropdownOpen.set(false);
   }
 
   ngOnDestroy(): void {

@@ -50,11 +50,14 @@ func Lint() error {
 }
 
 func PreCommit() error {
-	return run("bash", "scripts/pre-commit-check.sh")
+	return run("uv", "run", "pre-commit", "run", "--all-files")
 }
 
 func PreCommitUpdate() error {
-	return run("bash", "scripts/pre-commit-check.sh", "--update")
+	if err := run("uv", "run", "pre-commit", "autoupdate"); err != nil {
+		return err
+	}
+	return run("uv", "run", "pre-commit", "run", "--all-files")
 }
 
 func Translate() error {
@@ -65,7 +68,6 @@ func SecretGenerate() error {
 	if err := sh.RunV("bash", "scripts/app-secret-generate.sh"); err != nil {
 		return fmt.Errorf("failed to generate secrets: %w", err)
 	}
-
 	return nil
 }
 
