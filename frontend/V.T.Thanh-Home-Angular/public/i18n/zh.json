@@ -24,7 +24,8 @@
     "about": "关于我",
     "projects": "项目",
     "blog": "日志",
-    "contact": "联系我"
+    "contact": "联系我",
+    "label": "控制栏"
   },
   "home": {
     "role": "软件开发工程师与 AI 智能体协调员",
@@ -186,6 +187,7 @@
     }
   },
   "chat": {
+    "unavailable": "功能暂不可用",
     "open_tooltip": "打开虚拟助手",
     "close_button": "关闭虚拟助手",
     "title": "V.T.Thanh 虚拟助手",

@@ -24,7 +24,8 @@
     "about": "About Me",
     "projects": "Projects",
     "blog": "Journal",
-    "contact": "Contact"
+    "contact": "Contact",
+    "label": "Navigation"
   },
   "home": {
     "role": "Software Development Engineer and AI Agent Coordinator",
@@ -186,6 +187,7 @@
     }
   },
   "chat": {
+    "unavailable": "This feature is temporarily unavailable.",
     "open_tooltip": "Open Virtual Assistant",
     "close_button": "Close Virtual Assistant",
     "title": "V.T.Thanh Virtual Assistant",

@@ -114,18 +114,24 @@
     class="p-4 border-t border-slate-200/60 dark:border-slate-800/60 bg-slate-50/60 dark:bg-slate-900/50 backdrop-blur-md space-y-2.5"
   >
     <div class="flex items-center gap-2">
-      <input
+      <p
+        class="flex-1 px-3.5 py-2.5 rounded-lg bg-white/70 dark:bg-slate-900/70 border border-slate-300/70 dark:border-slate-700/60 text-xs text-center font-mono text-slate-400 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-sky-500 dark:focus:border-sky-400 focus:bg-white dark:focus:bg-slate-950 backdrop-blur-xs transition-all"
+      >
+        {{ i18n.t('chat.unavailable') }}
+      </p>
+      <!-- <input
         type="text"
         [(ngModel)]="messageInput"
         (keydown.enter)="sendMessage()"
         [placeholder]="i18n.t('chat.input_placeholder')"
         class="flex-1 px-3.5 py-2.5 rounded-lg bg-white/70 dark:bg-slate-900/70 border border-slate-300/70 dark:border-slate-700/60 text-xs font-mono text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-sky-500 dark:focus:border-sky-400 focus:bg-white dark:focus:bg-slate-950 backdrop-blur-xs transition-all"
-      />
-      <button
+      /> -->
+      <!-- <button
         type="button"
         (click)="sendMessage()"
         class="w-9 h-9 rounded-lg bg-sky-600 hover:bg-sky-500 text-white flex items-center justify-center transition-colors shadow-md shadow-sky-600/30 shrink-0 cursor-pointer"
         [attr.aria-label]="i18n.t('chat.send_button')"
+        [disabled]="true"
       >
         <svg
           class="w-4 h-4 -rotate-45 ml-0.5"
@@ -139,7 +145,7 @@
           <line x1="22" y1="2" x2="11" y2="13"></line>
           <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
         </svg>
-      </button>
+      </button> -->
     </div>
 
     <p

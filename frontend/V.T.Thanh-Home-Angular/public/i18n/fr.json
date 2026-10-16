@@ -24,7 +24,8 @@
     "about": "À propos",
     "projects": "Projets",
     "blog": "Journal",
-    "contact": "Contact"
+    "contact": "Contact",
+    "label": "Barre de commande"
   },
   "home": {
     "role": "Ingénieur en développement logiciel et coordinateur d'agents IA",
@@ -186,6 +187,7 @@
     }
   },
   "chat": {
+    "unavailable": "La fonction est temporairement indisponible",
     "open_tooltip": "Ouvrir l'assistant virtuel",
     "close_button": "Fermer l'assistant virtuel",
     "title": "Assistant virtuel de V.T.Thanh",

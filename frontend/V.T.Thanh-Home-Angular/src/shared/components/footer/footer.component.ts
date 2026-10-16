@@ -1,6 +1,15 @@
-import { Component, inject, signal, DestroyRef, OnInit } from '@angular/core';
+import { Component, inject, signal, computed, DestroyRef, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TranslationService } from '../../services/translation.service';
+import { TranslationService, SupportedLang } from '../../services/translation.service';
+
+const LOCALE_TIME_FORMATS: Record<SupportedLang, string> = {
+  vi: 'dd/MM/yyyy HH:mm:ss',
+  en: 'yyyy-MM-dd HH:mm:ss',
+  ja: 'yyyy/MM/dd HH:mm:ss',
+  zh: 'yyyy-MM-dd HH:mm:ss',
+  fr: 'dd/MM/yyyy HH:mm:ss',
+  de: 'dd.MM.yyyy HH:mm:ss',
+};
 
 @Component({
   selector: 'app-footer',
@@ -14,6 +23,11 @@ export class FooterComponent implements OnInit {
   private destroyRef = inject(DestroyRef);
   public currentTime = signal(new Date());
   public viewersCount: number | null = null;
+
+  public timeFormat = computed(() => {
+    const lang = this.i18n.currentLang();
+    return LOCALE_TIME_FORMATS[lang] ?? 'yyyy-MM-dd HH:mm:ss';
+  });
 
   constructor() {
     const timerId = setInterval(() => {

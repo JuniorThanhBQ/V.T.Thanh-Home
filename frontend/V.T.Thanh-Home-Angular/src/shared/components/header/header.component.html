@@ -5,7 +5,7 @@
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-[72px] flex items-center justify-between">
     <div class="lg:w-[30%] flex items-center shrink-0">
       <a
-        routerLink="/"
+        [routerLink]="logoPath()"
         (click)="closeMobileMenu()"
         class="animate-stagger-item flex items-center space-x-2 text-sky-600 dark:text-sky-400 font-bold text-md sm:text-xl tracking-tight hover:opacity-80 transition-opacity"
         style="--i: 0"
@@ -23,7 +23,7 @@
 
     <div class="lg:w-[70%] flex items-center justify-end space-x-3 sm:space-x-6 lg:space-x-8">
       <nav class="hidden lg:flex items-center space-x-8 text-sm font-medium">
-        @for (item of navItems; track item.path; let idx = $index) {
+        @for (item of navItems(); track item.path; let idx = $index) {
           <a
             [routerLink]="item.path"
             routerLinkActive="!text-sky-600 dark:!text-sky-400 font-semibold"
@@ -34,7 +34,7 @@
             <span
               class="absolute -top-1 -left-1 w-2.5 h-2.5 border-t-2 border-l-2 border-sky-500 opacity-0 -translate-x-1 -translate-y-1 transition-all duration-200 pointer-events-none group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0"
             ></span>
-            <span class="relative z-10">{{ i18n.t(item.translationKey) }}</span>
+            <span class="relative z-10">{{ item.label }}</span>
             <span
               class="absolute -bottom-1 -right-1 w-2.5 h-2.5 border-b-2 border-r-2 border-sky-500 opacity-0 translate-x-1 translate-y-1 transition-all duration-200 pointer-events-none group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0"
             ></span>
@@ -219,10 +219,10 @@
         <span
           class="text-[10px] font-mono uppercase tracking-[0.25em] text-slate-400 dark:text-slate-500 block mb-4"
         >
-          Navigation
+          {{ i18n.t('navigation.label') }}
         </span>
 
-        @for (item of navItems; track item.path; let idx = $index) {
+        @for (item of navItems(); track item.path; let idx = $index) {
           <a
             [routerLink]="item.path"
             (click)="closeMobileMenu()"
@@ -234,7 +234,7 @@
               <span class="text-xs font-mono text-slate-400 dark:text-slate-500"
                 >0{{ idx + 1 }}</span
               >
-              <span>{{ i18n.t(item.translationKey) }}</span>
+              <span>{{ item.label }}</span>
             </span>
             <span
               class="text-xs font-mono text-slate-400 dark:text-slate-500 group-hover:translate-x-1 transition-transform"
@@ -244,13 +244,8 @@
         }
       </div>
 
-      <div class="pt-6 mt-6 border-t border-slate-200/60 dark:border-slate-800/60 space-y-4">
+      <div class="dark:border-slate-800/60 space-y-7">
         <div class="sm:hidden">
-          <span
-            class="text-[10px] font-mono uppercase tracking-[0.25em] text-slate-400 dark:text-slate-500 block mb-3"
-          >
-            Language
-          </span>
           <div class="grid grid-cols-3 gap-2">
             @for (lang of i18n.supportedLanguages; track lang.code) {
               <button
@@ -283,8 +278,8 @@
         <div
           class="pt-2 flex items-center justify-between text-[11px] font-mono text-slate-400 dark:text-slate-500"
         >
-          <span>V.T.Thanh Portfolio</span>
-          <span>Version 1.0</span>
+          <span>{{ i18n.t('app.Author') }}</span>
+          <span>{{ i18n.t('app.version') }}</span>
         </div>
       </div>
     </div>

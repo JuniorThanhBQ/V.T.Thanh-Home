@@ -24,7 +24,8 @@
     "about": "Về bản thân",
     "projects": "Dự án",
     "blog": "Nhật ký",
-    "contact": "Liên hệ"
+    "contact": "Liên hệ",
+    "label": "Định hướng"
   },
   "home": {
     "role": "Kỹ sư phát triển phần mềm và điều phối AI Agent",
@@ -186,6 +187,7 @@
     }
   },
   "chat": {
+    "unavailable": "Chức năng hiện đang bị tạm khóa",
     "open_tooltip": "Mở trợ lý ảo",
     "close_button": "Đóng trợ lý ảo",
     "title": "Trợ lý ảo V.T.Thành",

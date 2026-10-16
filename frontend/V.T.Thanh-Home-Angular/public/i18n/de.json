@@ -24,7 +24,8 @@
     "about": "Über mich",
     "projects": "Projekte",
     "blog": "Tagebuch",
-    "contact": "Kontakt"
+    "contact": "Kontakt",
+    "label": "Kontrollleiste"
   },
   "home": {
     "role": "Softwareentwickler und Koordinator von KI-Agenten",
@@ -186,6 +187,7 @@
     }
   },
   "chat": {
+    "unavailable": "Die Funktion ist vorübergehend nicht verfügbar",
     "open_tooltip": "Virtuellen Assistenten öffnen",
     "close_button": "Virtuellen Assistenten schließen",
     "title": "Virtueller Assistent von V.T.Thanh",
