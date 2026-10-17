@@ -38,7 +38,7 @@ export class LoadingComponent implements OnDestroy {
     this.progress.set(1);
 
     const startTime = performance.now();
-    const duration = 1400;
+    const duration = 950;
 
     this.intervalId = setInterval(() => {
       const elapsed = performance.now() - startTime;
