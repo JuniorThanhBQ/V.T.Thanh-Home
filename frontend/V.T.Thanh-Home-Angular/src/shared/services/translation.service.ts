@@ -33,6 +33,7 @@ export class TranslationService {
   public readonly currentLang = signal<SupportedLang>('vi');
   private readonly dictionary = signal<Map<string, string>>(new Map());
   private readonly nonDefaultLangs = new Set<string>(['en', 'de', 'fr', 'ja', 'zh']);
+  private isFetching = false;
 
   constructor() {
     this.syncLanguageFromUrl(this.location.path());
@@ -51,7 +52,7 @@ export class TranslationService {
       ? (firstSegment as SupportedLang)
       : 'vi';
 
-    if (this.currentLang() !== detectedLang || this.dictionary().size === 0) {
+    if (!this.isFetching && (this.currentLang() !== detectedLang || this.dictionary().size === 0)) {
       this.currentLang.set(detectedLang);
       this.document.documentElement.lang = detectedLang;
       this.loadLanguage(detectedLang);
@@ -77,6 +78,7 @@ export class TranslationService {
   }
 
   private loadLanguage(lang: SupportedLang): void {
+    this.isFetching = true;
     const isInitial = this.dictionary().size === 0;
     const msg = isInitial ? this.t('loading.initializing') : this.t('loading.switching_language');
     this.loading.show(msg || 'Syncing...');
@@ -86,10 +88,12 @@ export class TranslationService {
         const flatMap = new Map<string, string>();
         this.flatten(data, '', flatMap);
         this.dictionary.set(flatMap);
-        setTimeout(() => this.loading.hide(), 400);
+        this.isFetching = false;
+        this.loading.hide();
       },
       error: (err) => {
         console.error('Failed to load dictionary:', lang, err);
+        this.isFetching = false;
         this.loading.hide();
       },
     });

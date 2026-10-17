@@ -47,7 +47,7 @@ export class HeaderComponent implements OnDestroy {
     const prefix = lang === 'vi' ? '' : `/${lang}`;
 
     return this.rawNavConfig.map((item) => {
-      const fullPath = item.rawPath ? `${prefix}/${item.rawPath}` : prefix || '/';
+      const fullPath = item.rawPath ? `${prefix}/${item.rawPath}/` : prefix ? `${prefix}/` : '/';
       return {
         path: fullPath,
         label: this.i18n.t(item.key),
@@ -58,7 +58,7 @@ export class HeaderComponent implements OnDestroy {
 
   public readonly logoPath = computed(() => {
     const lang = this.i18n.currentLang();
-    return lang === 'vi' ? '/' : `/${lang}`;
+    return lang === 'vi' ? '/' : `/${lang}/`;
   });
 
   public readonly flagUrls: Record<SupportedLang, string> = {

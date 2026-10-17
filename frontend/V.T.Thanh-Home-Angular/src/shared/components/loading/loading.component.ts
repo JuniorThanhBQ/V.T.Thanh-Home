@@ -21,6 +21,9 @@ export class LoadingComponent implements OnDestroy {
     effect(() => {
       if (this.isLoading()) {
         this.runTopUpSequence();
+      } else {
+        this.curtainLifted.set(true);
+        this.cleanup();
       }
     });
   }
@@ -35,7 +38,7 @@ export class LoadingComponent implements OnDestroy {
     this.progress.set(1);
 
     const startTime = performance.now();
-    const duration = 520;
+    const duration = 1400;
 
     this.intervalId = setInterval(() => {
       const elapsed = performance.now() - startTime;
@@ -46,7 +49,7 @@ export class LoadingComponent implements OnDestroy {
         clearInterval(this.intervalId);
         setTimeout(() => {
           this.curtainLifted.set(true);
-        }, 120);
+        }, 100);
       }
     }, 16);
   }

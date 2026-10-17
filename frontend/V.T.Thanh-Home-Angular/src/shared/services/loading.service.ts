@@ -7,8 +7,8 @@ export class LoadingService {
 
   private inflightCount = signal<number>(0);
   private startTime = performance.now();
-  private readonly minDuration = 550;
-  private readonly maxTimeout = 2500;
+  private readonly minDuration = 1000;
+  private readonly maxTimeout = 4000;
   private timeoutHandle: ReturnType<typeof setTimeout> | undefined;
 
   constructor() {
@@ -39,7 +39,7 @@ export class LoadingService {
 
   public decrementInflight(): void {
     this.inflightCount.update((c) => Math.max(0, c - 1));
-    if (this.inflightCount() <= 1) {
+    if (this.inflightCount() <= 0) {
       this.hide();
     }
   }
