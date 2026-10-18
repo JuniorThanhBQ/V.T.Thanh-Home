@@ -6,7 +6,7 @@
     "copyright": "Alle Rechte vorbehalten",
     "backend_health_up": "Server online.",
     "backend_health_standby": "Server wird überprüft.",
-    "backend_health_down": "Server wird gewartet."
+    "backend_health_down": "Server ist außer Betrieb."
   },
   "language": {
     "vi": "Vietnamesisch",
@@ -31,7 +31,7 @@
     "projects": "Projekte",
     "blog": "Tagebuch",
     "contact": "Kontakt",
-    "label": "Kontrollleiste"
+    "label": "Navigation"
   },
   "home": {
     "role": "Softwareentwickler und Koordinator von KI-Agenten",

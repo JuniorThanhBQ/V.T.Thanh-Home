@@ -12,11 +12,14 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 import java.util.UUID;
+import java.util.regex.Pattern;
 
 @Component
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class SecurityHeaderAndLoggingFilter extends OncePerRequestFilter {
     private static final Logger log = LoggerFactory.getLogger(SecurityHeaderAndLoggingFilter.class);
+    private static final Pattern SAFE_ID_PATTERN = Pattern.compile("^[a-zA-Z0-9_-]{1,64}$");
+
     @Override
     protected void doFilterInternal(
             HttpServletRequest request,
@@ -24,8 +27,11 @@ public class SecurityHeaderAndLoggingFilter extends OncePerRequestFilter {
             FilterChain filterChain
     ) throws ServletException, IOException {
         long startTime = System.currentTimeMillis();
-        String requestId = request.getHeader("X-Request-Id");
-        if (requestId == null || requestId.isBlank()) {
+        String rawRequestId = request.getHeader("X-Request-Id");
+        String requestId;
+        if (rawRequestId != null && SAFE_ID_PATTERN.matcher(rawRequestId).matches()) {
+            requestId = rawRequestId;
+        } else {
             requestId = UUID.randomUUID().toString();
         }
         response.setHeader("X-Request-Id", requestId);
@@ -37,13 +43,22 @@ public class SecurityHeaderAndLoggingFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
         } finally {
             long duration = System.currentTimeMillis() - startTime;
+            String safeMethod = sanitizeLogInput(request.getMethod());
+            String safeUri = sanitizeLogInput(request.getRequestURI());
             log.info("[{}] {} {} -> Status: {} ({}ms)",
                     requestId,
-                    request.getMethod(),
-                    request.getRequestURI(),
+                    safeMethod,
+                    safeUri,
                     response.getStatus(),
                     duration
             );
         }
+    }
+
+    private String sanitizeLogInput(String input) {
+        if (input == null) {
+            return "";
+        }
+        return input.replaceAll("[\r\n\t]", "_");
     }
 }

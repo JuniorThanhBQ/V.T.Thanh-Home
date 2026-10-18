@@ -6,7 +6,7 @@
     "copyright": "無断転載を禁じます",
     "backend_health_up": "サーバー稼働中。",
     "backend_health_standby": "サーバー確認中。",
-    "backend_health_down": "サーバーメンテナンス中。"
+    "backend_health_down": "サーバーは停止しています。"
   },
   "language": {
     "vi": "ベトナム語",
@@ -31,11 +31,11 @@
     "projects": "プロジェクト",
     "blog": "日記",
     "contact": "お問い合わせ",
-    "label": "コントロールバー"
+    "label": "ナビゲーション"
   },
   "home": {
     "role": "ソフトウェア開発エンジニア兼AIエージェントコーディネーター",
-    "name": "Van Trung Thanh",
+    "name": "キスネ・カネルド",
     "tagline": "私にとって、IT分野は決して簡単に歩める道ではなく、軽い気持ちで乗り越えられるような課題でもありません。これまで、私生活と仕事のどちらかを選び、何かを犠牲にしなければならないことも何度もありました。それでも、自分が本当に望むものを実現するために、これからも努力を続けていきます。",
     "features": {
       "scalable_systems": {

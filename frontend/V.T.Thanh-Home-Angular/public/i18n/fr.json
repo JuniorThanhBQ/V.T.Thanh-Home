@@ -6,7 +6,7 @@
     "copyright": "Tous droits réservés",
     "backend_health_up": "Serveur en ligne.",
     "backend_health_standby": "Vérification du serveur.",
-    "backend_health_down": "Serveur en maintenance."
+    "backend_health_down": "Le serveur est hors service."
   },
   "language": {
     "vi": "Vietnamien",
@@ -16,7 +16,7 @@
     "fr": "Français",
     "de": "Allemand",
     "es": "Espagnol",
-    "ru": "Erreur: Le texte \"Tiếng Nga\" n'est pas traduisible car il ne contient pas de contenu logiciel ou de contexte spécifique. Il s'agit simplement d'une langue, et la traduction en français serait \"Russe\".",
+    "ru": "Russe",
     "kr": "Coréen"
   },
   "loading": {
@@ -31,7 +31,7 @@
     "projects": "Projets",
     "blog": "Journal",
     "contact": "Contact",
-    "label": "Barre de commande"
+    "label": "Navigation"
   },
   "home": {
     "role": "Ingénieur en développement logiciel et coordinateur d'agents IA",
@@ -198,7 +198,7 @@
     "close_button": "Fermer l'assistant virtuel",
     "title": "Assistant virtuel de V.T.Thanh",
     "status_active": "Actif",
-    "greeting": "Bonjour ! Je suis la version virtuelle de l'assistant de Van Trung Thanh. Comment puis-je vous aider aujourd'hui ?",
+    "greeting": "Bonjour ! Je suis l’assistant virtuel de Van Trung Thanh. Comment puis-je vous aider aujourd’hui ?",
     "suggested_topics_title": "Sujets suggérés",
     "topics": {
       "tech_stack": "Quelles technologies composent la stack technique ?",

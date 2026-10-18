@@ -6,7 +6,7 @@
     "copyright": "保留所有权利",
     "backend_health_up": "服务器运行中。",
     "backend_health_standby": "正在检查服务器。",
-    "backend_health_down": "服务器维护中。"
+    "backend_health_down": "服务器已停止运行。"
   },
   "language": {
     "vi": "越南语",
@@ -31,7 +31,7 @@
     "projects": "项目",
     "blog": "日志",
     "contact": "联系我",
-    "label": "控制栏"
+    "label": "导航"
   },
   "home": {
     "role": "软件开发工程师与 AI 智能体协调员",

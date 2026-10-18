@@ -6,7 +6,7 @@
     "copyright": "All rights reserved",
     "backend_health_up": "Server online.",
     "backend_health_standby": "Checking server.",
-    "backend_health_down": "Server under maintenance."
+    "backend_health_down": "Server is offline."
   },
   "language": {
     "vi": "Vietnamese",

@@ -1,12 +1,12 @@
 {
   "app": {
     "title": "Sitio web personal",
-    "Author": "Configuraciones",
+    "Author": "Van Trung Thanh",
     "version": "Versión 1.1.2",
     "copyright": "Reservar todos los derechos",
     "backend_health_up": "Servidor en línea.",
     "backend_health_standby": "Comprobando servidor.",
-    "backend_health_down": "Servidor en mantenimiento."
+    "backend_health_down": "El servidor está fuera de servicio."
   },
   "language": {
     "vi": "Vietnamita",
@@ -31,7 +31,7 @@
     "projects": "Proyectos",
     "blog": "Diario",
     "contact": "Contact",
-    "label": "Direcciones"
+    "label": "Navegación"
   },
   "home": {
     "role": "Desarrollador de software y coordinador de agente inteligente",
@@ -52,7 +52,7 @@
       },
       "devops": {
         "title": "Automatización DevOps",
-        "desc": "Configurar las pipelines CI/CD automatizadas como pruebas de automatización, contenedores Docker y depuración continua garantizan la estabilidad del sistema."
+        "desc": "Construcción de pipelines CI/CD automatizados que incluyen pruebas automatizadas, contenedorización con Docker y despliegue continuo para garantizar la estabilidad del sistema."
       }
     }
   },
@@ -88,7 +88,7 @@
     }
   },
   "projects": {
-    "flag": "Proyecto destacado",
+    "flag": "Proyecto de especialidad",
     "header": {
       "badge": "Marco de proyecto desarrollado",
       "title": "Proyectos destacados en GitHub",
@@ -113,7 +113,7 @@
       },
       "mbms": {
         "title": "Medical Booking Management System (MBMS)",
-        "category": "Gestión de Reservas de Horarios Realizados",
+        "category": "Gestión de citas en tiempo real",
         "summary": "Plataforma de gestión y reserva de citas médicas en línea para consultorios, desarrollada siguiendo el modelo PWA y Aplicativo Nativo.",
         "description": "Solución digital de procesos de cita médica en hospitales; optimización del experiencia paciente y médico según el método de desarrollo orientado a IA (AIDD) y Scrum, contenedoresizados."
       },
@@ -121,7 +121,7 @@
         "title": "Detector de textos generados por IA",
         "category": "Machine Learning y Lenguaje Natural",
         "summary": "Model de aprendizaje máquina binario para la detección de texto vietnamita creado por inteligencia artificial o escrita por un periodista.",
-        "description": "Pipeline de investigación y entrenamiento de NLP especializado para el vietnamita para distinguir correctamente los artículos escritos por personas o combinados por modelos de lenguaje grande (LLM), para la evaluación de autenticidad en publicaciones numéricas."
+        "description": "Se investiga y entrena un pipeline de PLN especializado en vietnamita para distinguir con precisión los artículos escritos por personas de los textos generados por modelos de lenguaje grandes (LLM), y verificar la originalidad en la publicación digital."
       },
       "elearning_lcms": {
         "title": "Sistema de gestión de recursos educativos digitales (ERM)",
@@ -133,7 +133,7 @@
         "title": "Aplicación para reservar y gestionar instalaciones deportivas",
         "category": "Deportes y Pruebas de Software",
         "summary": "El sistema permite a los usuarios y administradores reservar y gestionar canchas de fútbol, bádminton y tenis en horarios determinados.",
-        "description": "Веб-приложение на Flask и MySQL для поиска и бронирования спортивных площадок в реальном времени. В проекте применяется строгий процесс контроля качества: модульное, интеграционное, системное и приемочное тестирование с Selenium 3."
+        "description": "Aplicación web desarrollada con Flask y MySQL para buscar y reservar instalaciones deportivas en tiempo real. Aplica un riguroso proceso de pruebas unitarias, de integración, de sistema y de aceptación mediante Selenium 3."
       }
     }
   },
@@ -162,7 +162,7 @@
       "title_part2": "conmigo",
       "description": "¿Tienes preguntas, historias o deseas compartir más sobre el proyecto? ¡Contáctame por correo electrónico, redes sociales o rellena el formulario!",
       "office_title": "Oficina",
-      "office_value": "Universidad Nacional Abierta de Ho Chi Minh City, Campus Võ Văn Tần, Ciudad de Ho Chi Minh, Vietnam",
+      "office_value": "Universidad Abierta de Ciudad Ho Chi Minh, campus Võ Văn Tần, Ciudad Ho Chi Minh, Vietnam",
       "hours_title": "Horario de Trabajo (Remoto)",
       "hours_days": "Lunes – Viernes:",
       "hours_time": "10:00 - 19:00 (UTC+7)",
@@ -189,7 +189,7 @@
       "message_placeholder": "Contenido del mensaje...",
       "message_error": "Mensaje debe tener al menos 10 caracteres y no contener caracteres no válidos.",
       "submit_button": "Enviar Mensaje",
-      "success_message": "Ha sido notificado!"
+      "success_message": "¡Hemos recibido tu mensaje!"
     }
   },
   "chat": {
@@ -198,14 +198,14 @@
     "close_button": "Cerrar asistente virtual",
     "title": "Asistente Virtual V.T.Thành",
     "status_active": "En línea",
-    "greeting": "¡Hola! Soy la versión virtual del asistente de Van Trung Thanh. ¿En qué puedo ayudarte hoy?",
+    "greeting": "¡Hola! Soy el asistente virtual de Van Trung Thanh. ¿En qué puedo ayudarte hoy?",
     "suggested_topics_title": "Tema sugerido",
     "topics": {
       "tech_stack": "Organización del stack tecnológico incluye qué?",
       "projects": "Descubra los proyectos destacados",
       "contact": "Cómo puedo contactarte?"
     },
-    "input_placeholder": "Preguntarse a sí mismo...",
+    "input_placeholder": "Hazme una pregunta...",
     "send_button": "Enviar mensaje",
     "disclaimer": "⚠️ Contenido generado por AI. Respuestas no constituyen ninguna recomendación legal, financiera, médica o de vida. Propietario del sitio web no se responsabiliza de decisiones o consecuencias que surjan de la utilización de este chatbot. Considerar cuidadosamente su uso."
   }
