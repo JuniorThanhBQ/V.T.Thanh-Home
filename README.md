@@ -9,7 +9,8 @@ Rebuilding my personal website from the ground up using Angular and Spring Boot.
 - CI/CD: GitHub Actions (Free tier)
 - Backend: Spring boot (4.11)
 - Frontend: Angular (22.x)
-- Tools: uv (0.12.21), mage (1.17.2), Gemma 2 9B model.
+- Cloud: Vercel, Render, and Supabase.
+- Tools: uv (0.12.21), mage (1.17.2), Gwen 2.5 3B model.
 
 ## III. References
 
@@ -43,3 +44,12 @@ Rebuilding my personal website from the ground up using Angular and Spring Boot.
 
 > Chinese
 > ![zh](frontend/image/home-zh.png)
+
+> Russian
+> ![ru](frontend/image/home-ru.png)
+
+> Korean
+> ![kr](frontend/image/home-kr.png)
+
+> Spanish
+> ![zh](frontend/image/home-es.png)

@@ -1,7 +1,7 @@
 import { Component, HostListener, OnDestroy, inject, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { AVATAR_URLS } from '@/assets/cloudinaryUrl';
+import { AVATAR_URLS, getDynamicLogo } from '@/assets/cloudinaryUrl';
 import { TranslationService } from '@/shared/services/translation.service';
 import { ThemeService } from '@/shared/services/theme.service';
 import { BackendHealthService } from '@/shared/services/backend-health.service';
@@ -22,6 +22,10 @@ export class ChatbotComponent implements OnDestroy {
 
   public isOpen = false;
   public messageInput = '';
+
+  public readonly logoUrl = computed(() =>
+    getDynamicLogo(this.i18n.currentLang(), this.theme.currentTheme()),
+  );
 
   public healthStatusText = computed(() => {
     const status = this.health.status();

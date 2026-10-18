@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { TranslationService, SupportedLang } from '@/shared/services/translation.service';
 import { ThemeService } from '@/shared/services/theme.service';
-import { AVATAR_URLS } from '@/assets/cloudinaryUrl';
+import { AVATAR_URLS, getDynamicLogo } from '@/assets/cloudinaryUrl';
 
 export interface NavItem {
   path: string;
@@ -30,6 +30,9 @@ export class HeaderComponent implements OnDestroy {
   public theme = inject(ThemeService);
   public dropdownOpen = signal(false);
   public readonly avatarUrls = AVATAR_URLS;
+  public readonly logoUrl = computed(() =>
+    getDynamicLogo(this.i18n.currentLang(), this.theme.currentTheme()),
+  );
   public isLangDropdownOpen = signal<boolean>(false);
   public isMobileMenuOpen = signal<boolean>(false);
   private elementRef = inject(ElementRef);

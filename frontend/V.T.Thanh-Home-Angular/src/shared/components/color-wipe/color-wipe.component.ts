@@ -1,7 +1,8 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouteTransitionService } from '@/shared/services/route-transition.service';
-import { AVATAR_URLS } from '@/assets/cloudinaryUrl';
+import { TranslationService } from '@/shared/services/translation.service';
+import { getDynamicLogo } from '@/assets/cloudinaryUrl';
 
 @Component({
   selector: 'app-color-wipe',
@@ -38,6 +39,7 @@ import { AVATAR_URLS } from '@/assets/cloudinaryUrl';
 })
 export class ColorWipeComponent {
   public transition = inject(RouteTransitionService);
-  readonly avatarLightUrl = AVATAR_URLS.light;
-  readonly avatarDarkUrl = AVATAR_URLS.dark;
+  public i18n = inject(TranslationService);
+  public readonly avatarLightUrl = computed(() => getDynamicLogo(this.i18n.currentLang(), 'light'));
+  public readonly avatarDarkUrl = computed(() => getDynamicLogo(this.i18n.currentLang(), 'dark'));
 }
