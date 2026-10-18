@@ -2,6 +2,11 @@ name: "Backend Deployment"
 
 on:
   workflow_call:
+    secrets:
+      DOCKER_USERNAME:
+        required: true
+      DOCKER_TOKEN:
+        required: true
   workflow_dispatch:
 
 concurrency:

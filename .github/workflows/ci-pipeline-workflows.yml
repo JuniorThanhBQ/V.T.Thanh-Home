@@ -155,3 +155,12 @@ jobs:
         with:
           target: "http://localhost:4200"
           fail_action: false
+
+  deploy:
+    name: "Deploy Backend Image"
+    needs: [security-deep-scan]
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    uses: ./.github/workflows/deployment-workflows.yml
+    secrets:
+      DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+      DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}

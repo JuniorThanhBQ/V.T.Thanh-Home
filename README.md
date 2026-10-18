@@ -22,6 +22,7 @@ Rebuilding my personal website from the ground up using Angular and Spring Boot.
 ## IV. Website Status
 
 [![Website Status](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/JuniorThanhBQ/V.T.Thanh-Home/badges/status.json)](https://vtthanh-home-angular.vercel.app/)
+[![Backend Status](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/JuniorThanhBQ/V.T.Thanh-Home/badges/backend-status.json)](https://vtthanh-backend-latest.onrender.com/actuator/health)
 
 ## V. Home Page
 
