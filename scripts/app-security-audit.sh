@@ -2,9 +2,9 @@
 set -euo pipefail
 
 export MSYS_NO_PATHCONV=1
-TRIVY_VERSION="${TRIVY_VERSION:-0.76.0@sha256:2416d1f74045b57274df1a340eee6b510cacd73c66a6ccb8da092b117eb7d222}"
-SEMGREP_VERSION="${SEMGREP_VERSION:-1.181.0@sha256:81474464c1f07483ba0682a44787fd93c91397419762a04abe2bafaae396304b}"
-ZAP_VERSION="${ZAP_VERSION:-2.17.0@sha256:781a2bdaea47324e7bab583e2263f21d257b0aee61ed51521a5be45f5f5081ef}"
+TRIVY_VERSION="${TRIVY_VERSION:-latest@sha256:2416d1f74045b57274df1a340eee6b510cacd73c66a6ccb8da092b117eb7d222}"
+SEMGREP_VERSION="${SEMGREP_VERSION:-latest@sha256:529ee8a277ec8adc5b534d7c74eea0a47e9de21d62852b6ba7ac6ba9566845c3}"
+ZAP_VERSION="${ZAP_VERSION:-latest@sha256:5ccfff9a411743ab2615136a2edd7416bec9ce41572fa94e935df38c14adb2b6}"
 
 npm --prefix frontend/V.T.Thanh-Home-Angular audit --audit-level=high || {
   echo "Warning: High or critical vulnerabilities detected in frontend dependencies."
@@ -28,7 +28,7 @@ else
   echo "Notice: Semgrep CLI or Docker not found."
 fi
 
-TARGET_PORT="${TARGET_PORT:-${SERVER_PORT:-8080}}"
+TARGET_PORT="${TARGET_PORT:-${SERVER_PORT:-4200}}"
 LOCAL_URL="http://localhost:${TARGET_PORT}"
 if curl -s -f -o /dev/null --connect-timeout 2 "${LOCAL_URL}/actuator/health" 2>/dev/null || \
    curl -s -f -o /dev/null --connect-timeout 2 "${LOCAL_URL}" 2>/dev/null; then
