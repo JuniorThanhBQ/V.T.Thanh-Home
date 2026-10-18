@@ -28,7 +28,7 @@ const coreRoutes: Route[] = [
   },
 ];
 
-const SUPPORTED_PREFIX_LANGS = new Set(['en', 'de', 'fr', 'ja', 'zh']);
+const SUPPORTED_PREFIX_LANGS = new Set(['en', 'de', 'fr', 'ja', 'zh', 'es', 'ru', 'kr']);
 
 export const routes: Routes = [
   {

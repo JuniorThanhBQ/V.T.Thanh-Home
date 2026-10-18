@@ -19,7 +19,6 @@ jobs:
     timeout-minutes: 20
     permissions:
       contents: read
-      # This security scan job requires write access in order to upload SARIF results and create issues for any detected vulnerabilities.
       security-events: write
 
     steps:
@@ -51,7 +50,6 @@ jobs:
     timeout-minutes: 25
     permissions:
       contents: read
-      # This security scan job requires write access in order to upload SARIF results and create issues for any detected vulnerabilities.
       security-events: write
 
     steps:
@@ -79,9 +77,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     permissions:
-      # This security scan job requires write access in order to upload SARIF results and create issues for any detected vulnerabilities.
       security-events: write
-      # Required by the OpenSSF Scorecard Action to generate and upload results to the GitHub Security tab.
       id-token: write
       contents: read
 
@@ -110,10 +106,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     permissions:
-      # This security scan job requires write access in order to upload SARIF results and create issues for any detected vulnerabilities.
       security-events: write
       contents: read
-      # May require write access to create issues for detected vulnerabilities
       issues: write
     steps:
       - name: Checkout repository

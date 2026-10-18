@@ -3,7 +3,10 @@
     "title": "个人网站",
     "Author": "文忠诚",
     "version": "版本 1.1.2",
-    "copyright": "保留所有权利"
+    "copyright": "保留所有权利",
+    "backend_health_up": "服务器运行中。",
+    "backend_health_standby": "正在检查服务器。",
+    "backend_health_down": "服务器维护中。"
   },
   "language": {
     "vi": "越南语",
@@ -11,7 +14,10 @@
     "zh": "中文",
     "ja": "日语",
     "fr": "法语",
-    "de": "德语"
+    "de": "德语",
+    "es": "西班牙语",
+    "ru": "俄语",
+    "kr": "韩语"
   },
   "loading": {
     "subtitle": "文忠诚的个人主页 🏠",

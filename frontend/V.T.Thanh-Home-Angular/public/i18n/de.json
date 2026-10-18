@@ -3,7 +3,10 @@
     "title": "Persönliche Website",
     "Author": "Van Trung Thanh",
     "version": "Version 1.1.2",
-    "copyright": "Alle Rechte vorbehalten"
+    "copyright": "Alle Rechte vorbehalten",
+    "backend_health_up": "Server online.",
+    "backend_health_standby": "Server wird überprüft.",
+    "backend_health_down": "Server wird gewartet."
   },
   "language": {
     "vi": "Vietnamesisch",
@@ -11,7 +14,10 @@
     "zh": "Chinesisch",
     "ja": "Japanisch",
     "fr": "Französisch",
-    "de": "Deutsch"
+    "de": "Deutsch",
+    "es": "Spanisch",
+    "ru": "Russisch",
+    "kr": "Koreanisch"
   },
   "loading": {
     "subtitle": "Die Homepage von Van Trung Thanh 🏠",

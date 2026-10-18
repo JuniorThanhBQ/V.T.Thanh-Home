@@ -2,13 +2,51 @@ import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 
 const DISPOSABLE_EMAIL_DOMAINS = new Set([
   'mailinator.com',
-  'tempmail.com',
+  'mailinator.net',
+  'mailinator.org',
+  'mailinator.info',
+  'mailinator.us',
   '10minutemail.com',
+  '10minutemail.net',
+  '10minutemail.org',
+  '10minutemail.de',
+  '10minuteemail.com',
   'guerrillamail.com',
-  'trashmail.com',
-  'sharklasers.com',
+  'guerrillamail.net',
+  'guerrillamail.org',
+  'guerrillamail.info',
+  'guerrillamail.biz',
+  'guerrillamailblock.com',
+  'tempmail.com',
+  'tempmail.net',
+  'tempmail.org',
+  'tempmail.io',
+  'tempmail.co',
+  'tempmail.ai',
+  'tempmail.plus',
+  'tempmail.cc',
+  'tempmail.dev',
+  'tempmail.space',
   'yopmail.com',
+  'yopmail.fr',
+  'yopmail.net',
+  'yopmail.org',
+  'yopmail.info',
+  'trashmail.com',
+  'trashmail.net',
+  'trashmail.org',
+  'trashmail.de',
+  'trashmail.fr',
+  'sharklasers.com',
   'dispostable.com',
+  'maildrop.cc',
+  'tempr.email',
+  'mailnesia.com',
+  'getnada.com',
+  'tempinbox.com',
+  'duckzmail.com',
+  'throwawaymail.app',
+  'inbox.testmail.app',
 ]);
 
 const STRICT_EMAIL_REGEX =
@@ -16,42 +54,39 @@ const STRICT_EMAIL_REGEX =
 
 const PHONE_REGEX = /^[+]?[(]?[0-9]{1,4}[)]?[-\s./0-9]*$/;
 
-const XSS_PATTERNS = [
-  /<\s*\/?\s*script\b[^>]*>/i,
-  /<\s*img\b[^>]+onerror\s*=/i,
-  /<\s*\/?\s*iframe\b[^>]*>/i,
-  /javascript\s*:/i,
-  /on\w+\s*=/i,
-  /data\s*:\s*text\/html/i,
-];
-
-const SQLI_PATTERNS = [
-  /(\b(select|insert|update|delete|drop|alter|create|truncate|exec|execute|union)\b.*\b(from|into|table|where|join)\b)/i,
-  /('|\b)\s*(or|and)\s+['"\d]+=['"\d]+/i,
-  /(--|#|\/\*)/,
-  /;\s*(drop|delete|insert|update)/i,
-];
-
 export class SecurityValidators {
-  static sanitizeInput(): ValidatorFn {
+  private static readonly HTML_TAG_REGEX = /<[^>]+>/;
+  private static readonly DANGEROUS_ATTRIBUTES =
+    /(on\w+\s*=|javascript\s*:|data\s*:\s*text\/html|vbscript\s*:|&#)/i;
+
+  static noHtml(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const value = control.value ? control.value.toString().trim() : '';
       if (!value) return null;
 
-      for (const pattern of XSS_PATTERNS) {
-        if (pattern.test(value)) {
-          return { securityViolation: 'xss_detected' };
-        }
-      }
-
-      for (const pattern of SQLI_PATTERNS) {
-        if (pattern.test(value)) {
-          return { securityViolation: 'sqli_detected' };
-        }
+      if (
+        SecurityValidators.HTML_TAG_REGEX.test(value) ||
+        SecurityValidators.DANGEROUS_ATTRIBUTES.test(value)
+      ) {
+        return { securityViolation: 'html_not_allowed' };
       }
 
       return null;
     };
+  }
+
+  static sanitizeInput(): ValidatorFn {
+    return SecurityValidators.noHtml();
+  }
+
+  static sanitizeString(input: string): string {
+    if (!input) return '';
+    return input
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#27;');
   }
 }
 

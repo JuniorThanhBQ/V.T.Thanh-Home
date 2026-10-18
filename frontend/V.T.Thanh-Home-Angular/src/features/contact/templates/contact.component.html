@@ -299,9 +299,14 @@
           <div class="flex items-center justify-between pt-2">
             <button
               type="submit"
-              class="px-8 py-3 rounded-full bg-gray-900/40 hover:bg-gray-800 dark:bg-blue-500 dark:hover:bg-blue-400 text-white font-medium text-sm transition-all shadow-lg dark:shadow-blue-600/30 cursor-pointer active:scale-95"
+              [disabled]="health.status() !== 'UP'"
+              class="px-8 py-3 rounded-full text-white font-medium text-sm transition-all shadow-lg active:scale-95 disabled:opacity-90 disabled:cursor-not-allowed disabled:active:scale-100 disabled:text-white bg-gray-900/40 hover:bg-gray-800 dark:bg-blue-500 dark:hover:bg-blue-400 dark:shadow-blue-600/30 disabled:shadow-none cursor-pointer"
+              [class.bg-rose-700/80]="health.status() === 'DOWN'"
+              [class.dark:bg-rose-600/60]="health.status() === 'DOWN'"
+              [class.bg-amber-700/80]="health.status() === 'UNKNOWN'"
+              [class.dark:bg-amber-600/60]="health.status() === 'UNKNOWN'"
             >
-              {{ i18n.t('contact.form.submit_button') }}
+              {{ submitButtonText() }}
             </button>
 
             @if (isSubmitted) {

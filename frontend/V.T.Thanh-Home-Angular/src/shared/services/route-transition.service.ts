@@ -14,7 +14,16 @@ export class RouteTransitionService {
   public readonly isWiping = signal<boolean>(false);
   public readonly direction = signal<WipeDirection>('ltr');
   private readonly routeOrder = ['/', '/projects', '/about', '/blog', '/contact'];
-  private readonly nonDefaultLangs = new Set<string>(['en', 'de', 'fr', 'ja', 'zh']);
+  private readonly nonDefaultLangs = new Set<string>([
+    'en',
+    'de',
+    'fr',
+    'ja',
+    'zh',
+    'es',
+    'ru',
+    'kr',
+  ]);
 
   private currentNormalizedPath: string;
   private wipeTimer: ReturnType<typeof setTimeout> | null = null;

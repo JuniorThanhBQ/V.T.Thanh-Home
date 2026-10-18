@@ -107,10 +107,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     permissions:
-      # This security scan job requires write access in order to upload SARIF results and create issues for any detected vulnerabilities.
       security-events: write
       contents: read
-      # May require write access to create issues for detected vulnerabilities
       issues: write
 
     steps:

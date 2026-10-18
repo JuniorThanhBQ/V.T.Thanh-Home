@@ -3,7 +3,10 @@
     "title": "Website cá nhân",
     "Author": "Văn Trung Thành",
     "version": "Phiên bản 1.1.2",
-    "copyright": "Bảo lưu mọi quyền"
+    "copyright": "Bảo lưu mọi quyền",
+    "backend_health_up": "Server đang hoạt động",
+    "backend_health_standby": "Đang kiểm tra Server",
+    "backend_health_down": "Server đã ngưng hoạt động"
   },
   "language": {
     "vi": "Tiếng Việt",
@@ -11,7 +14,10 @@
     "zh": "Tiếng Trung",
     "ja": "Tiếng Nhật",
     "fr": "Tiếng Pháp",
-    "de": "Tiếng Đức"
+    "de": "Tiếng Đức",
+    "es": "Tây Ban Nha",
+    "ru": "Tiếng Nga",
+    "kr": "Tiếng Hàn"
   },
   "loading": {
     "subtitle": "Trang nhà của Văn Trung Thành 🏠",

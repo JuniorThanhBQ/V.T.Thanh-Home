@@ -11,9 +11,12 @@ TARGET_LANGUAGES = {
     "zh": "Simplified Chinese",
     "fr": "French",
     "de": "German",
+    "es": "Spanish",
+    "ru": "Russian",
+    "kr": "Korean",
 }
 OLLAMA_API_URL = "http://localhost:11434/api/generate"
-MODEL_NAME = "gemma2:9b"
+MODEL_NAME = "qwen2.5:3b"
 
 
 def translate_text(text: str, target_lang_name: str) -> str:

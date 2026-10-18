@@ -20,7 +20,6 @@ jobs:
     timeout-minutes: 45
     permissions:
       contents: read
-      # This security scan job requires write access in order to upload SARIF results and create issues for any detected vulnerabilities.
       security-events: write
       actions: read
     strategy:

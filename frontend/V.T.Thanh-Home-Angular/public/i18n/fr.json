@@ -3,7 +3,10 @@
     "title": "Site personnel",
     "Author": "Van Trung Thanh",
     "version": "Version 1.1.2",
-    "copyright": "Tous droits réservés"
+    "copyright": "Tous droits réservés",
+    "backend_health_up": "Serveur en ligne.",
+    "backend_health_standby": "Vérification du serveur.",
+    "backend_health_down": "Serveur en maintenance."
   },
   "language": {
     "vi": "Vietnamien",
@@ -11,7 +14,10 @@
     "zh": "Chinois",
     "ja": "Japonais",
     "fr": "Français",
-    "de": "Allemand"
+    "de": "Allemand",
+    "es": "Espagnol",
+    "ru": "Erreur: Le texte \"Tiếng Nga\" n'est pas traduisible car il ne contient pas de contenu logiciel ou de contexte spécifique. Il s'agit simplement d'une langue, et la traduction en français serait \"Russe\".",
+    "kr": "Coréen"
   },
   "loading": {
     "subtitle": "La page d'accueil de Van Trung Thanh 🏠",

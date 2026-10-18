@@ -5,7 +5,7 @@ import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { LoadingService } from './loading.service';
 
-export type SupportedLang = 'vi' | 'en' | 'zh' | 'ja' | 'fr' | 'de';
+export type SupportedLang = 'vi' | 'en' | 'zh' | 'ja' | 'fr' | 'de' | 'es' | 'ru' | 'kr';
 
 export interface LanguageOption {
   code: SupportedLang;
@@ -28,11 +28,23 @@ export class TranslationService {
     { code: 'de', labelKey: 'language.de', flag: '🇩🇪' },
     { code: 'fr', labelKey: 'language.fr', flag: '🇫🇷' },
     { code: 'zh', labelKey: 'language.zh', flag: '🇨🇳' },
+    { code: 'ru', labelKey: 'language.ru', flag: '🇷🇺' },
+    { code: 'kr', labelKey: 'language.kr', flag: '🇰🇷' },
+    { code: 'es', labelKey: 'language.es', flag: '🇪🇸' },
   ];
 
   public readonly currentLang = signal<SupportedLang>('vi');
   private readonly dictionary = signal<Map<string, string>>(new Map());
-  private readonly nonDefaultLangs = new Set<string>(['en', 'de', 'fr', 'ja', 'zh']);
+  private readonly nonDefaultLangs = new Set<string>([
+    'en',
+    'de',
+    'fr',
+    'ja',
+    'zh',
+    'es',
+    'ru',
+    'kr',
+  ]);
   private isFetching = false;
 
   constructor() {

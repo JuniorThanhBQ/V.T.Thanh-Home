@@ -68,6 +68,9 @@ export class HeaderComponent implements OnDestroy {
     zh: 'https://flagcdn.com/cn.svg',
     fr: 'https://flagcdn.com/fr.svg',
     de: 'https://flagcdn.com/de.svg',
+    es: 'https://flagcdn.com/es.svg',
+    ru: 'https://flagcdn.com/ru.svg',
+    kr: 'https://flagcdn.com/kr.svg',
   };
 
   public currentLangOption = () =>

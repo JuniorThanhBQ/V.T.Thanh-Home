@@ -1,1 +1,212 @@
-{}
+{
+  "app": {
+    "title": "Sitio web personal",
+    "Author": "Configuraciones",
+    "version": "Versión 1.1.2",
+    "copyright": "Reservar todos los derechos",
+    "backend_health_up": "Servidor en línea.",
+    "backend_health_standby": "Comprobando servidor.",
+    "backend_health_down": "Servidor en mantenimiento."
+  },
+  "language": {
+    "vi": "Vietnamita",
+    "en": "English",
+    "zh": "Chino",
+    "ja": "Japonés",
+    "fr": "Francés",
+    "de": "Alemán",
+    "es": "Español",
+    "ru": "Ruso",
+    "kr": "Coreano"
+  },
+  "loading": {
+    "subtitle": "Página de Inicio de Văn Trung Thành 🏠",
+    "initializing": "Espera un momento, el dueño está tomando el perfil.",
+    "switching_language": "Cambiando idioma!",
+    "tech_stack": "Configuración de Spring Boot 4.11 con Angular 22"
+  },
+  "navigation": {
+    "home": "Inicio",
+    "about": "Sobre mí",
+    "projects": "Proyectos",
+    "blog": "Diario",
+    "contact": "Contact",
+    "label": "Direcciones"
+  },
+  "home": {
+    "role": "Desarrollador de software y coordinador de agente inteligente",
+    "name": "Van Trung Thanh",
+    "tagline": "Para mí, la tecnología de la información nunca ha sido un camino fácil de recorrer ni un reto superficial. Muchas veces he tenido que hacer sacrificios entre mi vida personal y el trabajo. Aun así, seguiré esforzándome por alcanzar lo que realmente deseo.",
+    "features": {
+      "scalable_systems": {
+        "title": "Arquitectura de software",
+        "desc": "Poder leer, entender, diseñar, actualizar y verificar documentos de arquitectura y técnica de software. Amor en desarrollo de productos con Agentic Coding"
+      },
+      "zero_trust": {
+        "title": "Garantía de calidad",
+        "desc": "Diseñar los procesos de prueba SAST y DAST en el ciclo de vida del desarrollo de software. Registrar, reportar y remediar errores/incidentes a través de la documentación de Caso de Prueba."
+      },
+      "creative_interactions": {
+        "title": "Conectarse y actualizar",
+        "desc": "Seguir tendencias de tecnología y seguridad a lo largo del tiempo. Investigar la capacidad de funcionalidad para el estudio de problemas específicos."
+      },
+      "devops": {
+        "title": "Automatización DevOps",
+        "desc": "Configurar las pipelines CI/CD automatizadas como pruebas de automatización, contenedores Docker y depuración continua garantizan la estabilidad del sistema."
+      }
+    }
+  },
+  "about": {
+    "hero": {
+      "tag": "Un zorro azul contempla el mundo",
+      "title": "Sobre mí",
+      "description": "Hola a todos. Me llamo Van Trung Thanh y estudio en la Universidad Abierta de Ciudad Ho Chi Minh. Mi especialidad es Tecnología de la Información, con orientación en desarrollo de software. También me interesa entrenar y desarrollar modelos de IA. Aunque a veces el trabajo me agota, soy perseverante y procuro cumplir bien con mis responsabilidades.",
+      "view_cv": "Ver CV"
+    },
+    "cv": {
+      "prev": "Página anterior",
+      "next": "Página siguiente",
+      "page": "Página",
+      "zoom_in": "Ampliar",
+      "reset_zoom": "Restablecer zoom",
+      "open_original": "Abrir imagen original",
+      "role": "Desarrollador de software integrado con IA",
+      "overview_title": "Resumen del contenido de la página",
+      "overview_page_1": "La página 1 resume mis objetivos profesionales antes de graduarme, mis logros académicos en la Universidad Abierta de Ciudad Ho Chi Minh, mi certificado de participación en una investigación científica sobre IA y las asignaturas fundamentales.",
+      "overview_page_2": "Página 2 presenta tres experiencias y proyectos realizados, las habilidades actuales y practicadas, los intereses y los trabajos en el tiempo libre.",
+      "academic_track_label": "Área de especialización",
+      "academic_track_value": "Tecnologías Informáticas",
+      "gpa_label": "Puntuación Promedio Total",
+      "stack_label": "Área fundamental",
+      "stack_content": "Desarrollo full stack y DevOps",
+      "additional_label": "Ámbito de expansión",
+      "additional_content": "Investigación de Agentic Coding",
+      "connect_linkedin": "Conectar a través de LinkedIn",
+      "return_portfolio": "Volver al Portfolio",
+      "overall": "Evaluación de habilidades",
+      "overall_content": "7 / 10"
+    }
+  },
+  "projects": {
+    "flag": "Proyecto destacado",
+    "header": {
+      "badge": "Marco de proyecto desarrollado",
+      "title": "Proyectos destacados en GitHub",
+      "subtitle": "Sistema de recolección y análisis de empleos en la industria TI en Vietnam (AIJMC), herramienta de evaluación de confiabilidad de los anuncios de empleo (AIJMC-JPRA), sistema de gestión de citas médicas (MBMS), reconocimiento de texto AI generado (AI-Indicator), gestión de materiales educativos (ERM) y reserva de campos deportivos."
+    },
+    "buttons": {
+      "source": "Fuente de código",
+      "website": "Página Web"
+    },
+    "items": {
+      "aijmc": {
+        "title": "AI IT Job Market Consultant (AIJMC)",
+        "category": "Agente de Inteligencia Artificial y Crawlers Adaptativos",
+        "summary": "Plataforma de análisis mercado trabajo IT y asesoría profesional basada en el agente ReAct AI y RAG híbrido.",
+        "description": "Sistema de recolección y análisis de datos de contratación desde ITViec, TopDev, VietnamWorks con Celery y Crawlee. Aplicación híbrida de recuperación con base de datos pgvector para ampliar la búsqueda semántica. Utiliza modelo Gemini 3.8 Flash en el marco ReAct para asesorar rutas profesionales personalizadas."
+      },
+      "aijmc_jpra": {
+        "title": "AIJMC-JPRA: Evaluación de la fiabilidad de ofertas de empleo",
+        "category": "Investigación científica expansiva",
+        "summary": "Investigación científica según la norma IEEE Conference revela fraude en los empleos y verifica su autenticidad.",
+        "description": "Módulo de clasificación binaria para evaluar la confiabilidad de los anuncios de empleo a través del URL; integración del agente PydanticAI que combina el acceso web en tiempo real con Playwright para verificar pruebas, calcular la tasa de confiabilidad y elaborar argumentos detallados."
+      },
+      "mbms": {
+        "title": "Medical Booking Management System (MBMS)",
+        "category": "Gestión de Reservas de Horarios Realizados",
+        "summary": "Plataforma de gestión y reserva de citas médicas en línea para consultorios, desarrollada siguiendo el modelo PWA y Aplicativo Nativo.",
+        "description": "Solución digital de procesos de cita médica en hospitales; optimización del experiencia paciente y médico según el método de desarrollo orientado a IA (AIDD) y Scrum, contenedoresizados."
+      },
+      "ai_writing_indicator": {
+        "title": "Detector de textos generados por IA",
+        "category": "Machine Learning y Lenguaje Natural",
+        "summary": "Model de aprendizaje máquina binario para la detección de texto vietnamita creado por inteligencia artificial o escrita por un periodista.",
+        "description": "Pipeline de investigación y entrenamiento de NLP especializado para el vietnamita para distinguir correctamente los artículos escritos por personas o combinados por modelos de lenguaje grande (LLM), para la evaluación de autenticidad en publicaciones numéricas."
+      },
+      "elearning_lcms": {
+        "title": "Sistema de gestión de recursos educativos digitales (ERM)",
+        "category": "Educación y Gestión de Contenido Educativo",
+        "summary": "Sistema ERM completo de gestión, almacenamiento y reutilización de recursos de aprendizaje digital en Django REST Framework y React Native.",
+        "description": "Arquitectura backend para el procesamiento de contenido educativo digital que combina base de datos MySQL, autenticación con tokens OAuth2, cuadro de control para administradores y personalización de sugerencias de documentos de aprendizaje mediante Google GenAI."
+      },
+      "sports_field_booking": {
+        "title": "Aplicación para reservar y gestionar instalaciones deportivas",
+        "category": "Deportes y Pruebas de Software",
+        "summary": "El sistema permite a los usuarios y administradores reservar y gestionar canchas de fútbol, bádminton y tenis en horarios determinados.",
+        "description": "Веб-приложение на Flask и MySQL для поиска и бронирования спортивных площадок в реальном времени. В проекте применяется строгий процесс контроля качества: модульное, интеграционное, системное и приемочное тестирование с Selenium 3."
+      }
+    }
+  },
+  "blog": {
+    "badge": "Impresiones Personales",
+    "title": "Diario propio",
+    "subtitle": "Quiero que el AI pueda ayudarme a perseguir mis sueños y pasiones, no para robar o reemplazar esos sueños míos. Inspirado en Joanna Maciejewska.",
+    "chapter_label": "Capítulo",
+    "journal_label": "Diario",
+    "actions": {
+      "back_to_journal": "Volver a Diario",
+      "return_to_journal": "← Volver al Diario",
+      "open_story": "LEER EL ARTÍCULO",
+      "previous": "← Anterior",
+      "next": "Página siguiente →",
+      "go_to_story": "Entrar en el artículo"
+    },
+    "empty": {
+      "title": "No hay artículos",
+      "description": "Todavía no se ha publicado ningún artículo. Puede que se deba a un error del backend o a que me ha dado pereza escribir. Vuelve a visitarme más tarde, por favor."
+    }
+  },
+  "contact": {
+    "info": {
+      "title_part1": "Conectarse",
+      "title_part2": "conmigo",
+      "description": "¿Tienes preguntas, historias o deseas compartir más sobre el proyecto? ¡Contáctame por correo electrónico, redes sociales o rellena el formulario!",
+      "office_title": "Oficina",
+      "office_value": "Universidad Nacional Abierta de Ho Chi Minh City, Campus Võ Văn Tần, Ciudad de Ho Chi Minh, Vietnam",
+      "hours_title": "Horario de Trabajo (Remoto)",
+      "hours_days": "Lunes – Viernes:",
+      "hours_time": "10:00 - 19:00 (UTC+7)",
+      "inquiries_title": "Contacto directo"
+    },
+    "form": {
+      "first_name_label": "Nombre*",
+      "first_name_placeholder": "Tu nombre",
+      "first_name_error": "Nombre debe tener al menos 2 caracteres y no contener caracteres no válidos.",
+      "last_name_label": "Apellidos *",
+      "last_name_placeholder": "Tus apellidos y segundo nombre",
+      "last_name_error": "Los apellidos deben tener al menos 2 caracteres y no contener caracteres no válidos.",
+      "phone_label": "Número de Teléfono",
+      "phone_placeholder": "Número de contacto",
+      "phone_error": "Ingrese un número de teléfono válido.",
+      "email_label": "Correo electrónico *",
+      "email_placeholder": "Dirección de correo electrónico",
+      "email_disposable_error": "Dominio de correo electrónico temporal no aceptado.",
+      "email_invalid_error": "Ingrese el correo electrónico empresarial o personal válido.",
+      "subject_label": "Título*",
+      "subject_placeholder": "Contenido a discutir (corto)",
+      "subject_error": "Tema no válido.",
+      "message_label": "Mensaje *",
+      "message_placeholder": "Contenido del mensaje...",
+      "message_error": "Mensaje debe tener al menos 10 caracteres y no contener caracteres no válidos.",
+      "submit_button": "Enviar Mensaje",
+      "success_message": "Ha sido notificado!"
+    }
+  },
+  "chat": {
+    "unavailable": "Funciones actualmente bloqueadas",
+    "open_tooltip": "Abrir asistente virtual",
+    "close_button": "Cerrar asistente virtual",
+    "title": "Asistente Virtual V.T.Thành",
+    "status_active": "En línea",
+    "greeting": "¡Hola! Soy la versión virtual del asistente de Van Trung Thanh. ¿En qué puedo ayudarte hoy?",
+    "suggested_topics_title": "Tema sugerido",
+    "topics": {
+      "tech_stack": "Organización del stack tecnológico incluye qué?",
+      "projects": "Descubra los proyectos destacados",
+      "contact": "Cómo puedo contactarte?"
+    },
+    "input_placeholder": "Preguntarse a sí mismo...",
+    "send_button": "Enviar mensaje",
+    "disclaimer": "⚠️ Contenido generado por AI. Respuestas no constituyen ninguna recomendación legal, financiera, médica o de vida. Propietario del sitio web no se responsabiliza de decisiones o consecuencias que surjan de la utilización de este chatbot. Considerar cuidadosamente su uso."
+  }
+}

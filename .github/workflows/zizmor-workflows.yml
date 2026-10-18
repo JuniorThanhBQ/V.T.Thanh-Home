@@ -23,7 +23,6 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      # This security scan job requires write access in order to upload SARIF results and create issues for any detected vulnerabilities.
       security-events: write
     steps:
       - name: Checkout Repository
