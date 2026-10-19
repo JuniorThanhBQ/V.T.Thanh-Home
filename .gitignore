@@ -281,3 +281,28 @@ Thumbs.db
 .env.local
 
 AGENTS.md
+
+# RAG Chatbot Data & Generated Embeddings
+**/rag/*embeddings*.json
+**/*_embeddings.json
+**/rag/vtt_information*.md
+**/src/rag/
+archives/JuniorThanhBQ/web/src/messages/**
+archives/JuniorThanhBQ/server/src/data/
+archives/JuniorThanhBQ/server/src/modules/chat/
+
+# Environment & Secret files (universal match across all subfolders)
+.env*
+**/.env*
+*.env
+
+# Build & SSR Artifacts
+dist-ssr/
+**/dist-ssr/
+
+# Go binary outputs
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
