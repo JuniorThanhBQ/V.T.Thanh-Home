@@ -26,6 +26,11 @@ const coreRoutes: Route[] = [
     loadComponent: () =>
       import('@/features/contact/components/contact.component').then((m) => m.ContactComponent),
   },
+  {
+    path: 'admin',
+    loadComponent: () =>
+      import('@/features/admin/components/admin.component').then((m) => m.AdminComponent),
+  },
 ];
 
 const SUPPORTED_PREFIX_LANGS = new Set(['en', 'de', 'fr', 'ja', 'zh', 'es', 'ru', 'kr']);

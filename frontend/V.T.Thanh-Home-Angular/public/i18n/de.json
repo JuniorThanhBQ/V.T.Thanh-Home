@@ -2,11 +2,11 @@
   "app": {
     "title": "Persönliche Website",
     "Author": "Van Trung Thanh",
-    "version": "Version 1.1.2",
+    "version": "Version 1.2.2",
     "copyright": "Alle Rechte vorbehalten",
-    "backend_health_up": "Server online.",
-    "backend_health_standby": "Server wird überprüft.",
-    "backend_health_down": "Server ist außer Betrieb."
+    "backend_health_up": "Server online",
+    "backend_health_standby": "Server wird überprüft",
+    "backend_health_down": "Server ist außer Betrieb"
   },
   "language": {
     "vi": "Vietnamesisch",

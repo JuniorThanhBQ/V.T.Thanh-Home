@@ -2,11 +2,11 @@
   "app": {
     "title": "Личный веб-сайт",
     "Author": "Ван Чунг Тхань",
-    "version": "Версия 1.1.2",
+    "version": "Версия 1.2.2",
     "copyright": "Все права защищены.",
-    "backend_health_up": "Сервер работает.",
-    "backend_health_standby": "Проверка сервера.",
-    "backend_health_down": "Сервер не работает."
+    "backend_health_up": "Сервер работает",
+    "backend_health_standby": "Проверка сервера",
+    "backend_health_down": "Сервер не работает"
   },
   "language": {
     "vi": "Вьетнамский",

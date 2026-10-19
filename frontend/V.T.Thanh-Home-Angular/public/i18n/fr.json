@@ -2,11 +2,11 @@
   "app": {
     "title": "Site personnel",
     "Author": "Van Trung Thanh",
-    "version": "Version 1.1.2",
+    "version": "Version 1.2.2",
     "copyright": "Tous droits réservés",
-    "backend_health_up": "Serveur en ligne.",
-    "backend_health_standby": "Vérification du serveur.",
-    "backend_health_down": "Le serveur est hors service."
+    "backend_health_up": "Serveur en ligne",
+    "backend_health_standby": "Vérification du serveur",
+    "backend_health_down": "Le serveur est hors service"
   },
   "language": {
     "vi": "Vietnamien",
