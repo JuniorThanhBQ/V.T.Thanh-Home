@@ -1,31 +1,60 @@
-# V.T.Thanh's Home
+<div align="center">
+
+   # Home of V.T.Thanh (2026 - 2027)
+
+  <img src="https://res.cloudinary.com/dfolk8pz2/image/upload/v1792385538/J_17_crrpsy.png" style="border-radius: 20%;" width="300">
+
+  <p><strong>Home of Van Trung Thanh - A Website Portfolio Rework</strong></p>
+
+   <p>
+  <a href="https://spring.io/projects/spring-boot"><img src="https://img.shields.io/badge/Spring%20Boot-4.1.1-6DB33F?logo=springboot&logoColor=white" alt="Spring Boot" /></a>
+  <a href="https://angular.dev/"><img src="https://img.shields.io/badge/Angular-22.2.2-E40035?logo=angular&logoColor=white" alt="Angular" /></a>
+  <a href="https://magefile.org/"><img src="https://img.shields.io/badge/Mage-1.17.2-EE6002" alt="Mage" /></a>
+  <a href="https://www.docker.com/"><img src="https://img.shields.io/badge/Docker-29.8.2-2496ED?logo=docker&logoColor=white" alt="Docker" /></a>
+  <a href="https://pre-commit.com/"><img src="https://img.shields.io/badge/Pre--commit-4.6.2-FAB040?logo=precommit&logoColor=white" alt="Pre-commit" /></a>
+  <a href="https://www.postgresql.org/"><img src="https://img.shields.io/badge/PostgreSQL-18-4169E1?logo=postgresql&logoColor=white" alt="PostgreSQL" /></a>
+  <a href="https://supabase.com/"><img src="https://img.shields.io/badge/Supabase-3ECF8E?logo=supabase&logoColor=white" alt="Supabase" /></a>
+</p>
+</div>
+
+<div align="justify">
 
 ## I. Introduction
 
-Rebuilding my personal website from the ground up using Angular and Spring Boot. While AI assists with high-level planning and architecture, 100% of the production code is hand-copied (Well, at least that’s the plan until the first bug hits and I start full turbo vibe coding with Gehihi again).
+Rebuilding my personal home website from the ground up using Angular 22 and Spring Boot 4.11. While AI assists with high-level planning and architecture, 100% of the production code is hand-copied (Well, at least that’s the plan until the first bug hits and I start full turbo vibe coding with Gehihi and Codex again).
 
 ## II. Tech stacks
 
-- CI/CD: GitHub Actions (Free tier)
+- CI/CD: Pre-commit (4.6.2) and GitHub Actions (Public Repository Free tier)
 - Backend: Spring boot (4.11)
 - Frontend: Angular (22.x)
 - Cloud: Vercel, Render, and Supabase.
-- Tools: uv (0.12.21), mage (1.17.2), Gwen 2.5 3B model.
+- Containerization: Docker (29.8.2)
+- LLM: Gwen 2.5 3B model, Gemini Embedding 001, Groq free tier model.
+- Tools: uv (0.12.21), mage (1.17.2), docker-compose (v5.5.1).
 
 ## III. References
 
-1. Previous Home Design: [JuniorThanhBQ](https://www.juniorthanh.id.vn/)
-2. Vercel: [Docs](https://vercel.com/docs)
-3. Angular: [Docs](https://angular.dev/overview)
-4. Spring boot: [Docs](https://docs.spring.io/spring-boot/index.html)
+1. Previous Portfolio Design: [JuniorThanhBQ](https://www.juniorthanh.id.vn/)
+2. Vercel Document: [Docs](https://vercel.com/docs)
+3. Angular Document: [Docs](https://angular.dev/overview)
+4. Spring boot Document: [Docs](https://docs.spring.io/spring-boot/index.html)
 5. Inspiration: [Awwwards Website Design](https://www.awwwards.com/)
+6. Domain Register (id.vn): [pavietnam](https://www.pavietnam.vn/)
 
 ## IV. Website Status
 
 [![Website Status](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/JuniorThanhBQ/V.T.Thanh-Home/badges/status.json)](https://vtthanh-home-angular.vercel.app/)
 [![Backend Status](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/JuniorThanhBQ/V.T.Thanh-Home/badges/backend-status.json)](https://vtthanh-backend-latest.onrender.com/actuator/health)
 
-## V. Home Page
+## V. Contact Information
+> [!NOTE]
+> 1. Email: thanh.vantrung2005@gmail.com
+> 2. LinkedIn: https://www.linkedin.com/in/juniorthanh09/
+> 3. FCS-HCMCOU: https://it.ou.edu.vn/
+> 4. Alternate email: juniorthanh09@gmail.com
+
+## VI. Home Page
 
 > Vietnamese
 > ![vi](frontend/image/home-vi.png)
@@ -53,3 +82,5 @@ Rebuilding my personal website from the ground up using Angular and Spring Boot.
 
 > Spanish
 > ![zh](frontend/image/home-es.png)
+
+</div>
