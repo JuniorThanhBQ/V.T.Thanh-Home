@@ -2,7 +2,7 @@
 
    # Home of V.T.Thanh (2026 - 2027)
 
-  <img src="https://res.cloudinary.com/dfolk8pz2/image/upload/v1792385538/J_17_crrpsy.png" style="border-radius: 20%;" width="300">
+  <img src="https://res.cloudinary.com/dfolk8pz2/image/upload/r_max/v1792385538/J_17_crrpsy.png" width="400">
 
   <p><strong>Home of Van Trung Thanh - A Website Portfolio Rework</strong></p>
 
@@ -25,7 +25,7 @@ Rebuilding my personal home website from the ground up using Angular 22 and Spri
 
 ## II. Tech stacks
 
-- CI/CD: Pre-commit (4.6.2) and GitHub Actions (Public Repository Free tier)
+- CI/CD: Pre-commit (4.6.2), dependabot (2.0), CodeQL Action (4.38.3), and GitHub Actions (Public Repository Free tier)
 - Backend: Spring boot (4.11)
 - Frontend: Angular (22.x)
 - Cloud: Vercel, Render, and Supabase.
@@ -47,12 +47,22 @@ Rebuilding my personal home website from the ground up using Angular 22 and Spri
 [![Website Status](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/JuniorThanhBQ/V.T.Thanh-Home/badges/status.json)](https://vtthanh-home-angular.vercel.app/)
 [![Backend Status](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/JuniorThanhBQ/V.T.Thanh-Home/badges/backend-status.json)](https://vtthanh-backend-latest.onrender.com/actuator/health)
 
-## V. Contact Information
+</div>
+
+## V. Contact Information and Important Note
+
 > [!NOTE]
+>
 > 1. Email: thanh.vantrung2005@gmail.com
 > 2. LinkedIn: https://www.linkedin.com/in/juniorthanh09/
 > 3. FCS-HCMCOU: https://it.ou.edu.vn/
 > 4. Alternate email: juniorthanh09@gmail.com
+
+> [!IMPORTANT]
+>
+> 1. Since this project is licensed under the MIT License, you are free to use this website design to build your own site (though I’m not sure why you’d want a website with such a janky aesthetic).
+> 2. There are two areas you’ll need to adjust: `frontend/V.T.Thanh-Home-Angular/public/i18n` for multilingual static content, and `frontend/V.T.Thanh-Home-Angular/src/assets/cloudinaryUrl.ts` to update some of the images used on the site.
+> 3. Final words: You will need to handle the setup of environment variables, your Vercel account, and other similar requirements yourself. If you have any questions, please feel free to reach out via my primary email.
 
 ## VI. Home Page
 
@@ -82,5 +92,3 @@ Rebuilding my personal home website from the ground up using Angular 22 and Spri
 
 > Spanish
 > ![zh](frontend/image/home-es.png)
-
-</div>
