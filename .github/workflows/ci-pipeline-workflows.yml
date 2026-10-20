@@ -12,6 +12,26 @@ permissions:
   contents: read
 
 jobs:
+  changes:
+    name: "Detect Modified Paths"
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    outputs:
+      backend: ${{ steps.filter.outputs.backend }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Check for backend modifications
+        id: filter
+        uses: dorny/paths-filter@ceb8a2b8f2d89434be7ff52d3de7ec3738c5cc9d # v4.0.3
+        with:
+          filters: |
+            backend:
+              - 'backend/V.T.Thanh-Home-SpringBoot/**'
+              - 'backend/Dockerfile'
   gitleaks:
     name: "Secret Leak Detection"
     runs-on: ubuntu-latest
@@ -177,8 +197,8 @@ jobs:
 
   deploy:
     name: "Deploy Backend Image"
-    needs: [security-deep-scan]
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    needs: [security-deep-scan, changes]
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push' && needs.changes.outputs.backend == 'true'
     uses: ./.github/workflows/deployment-workflows.yml
     secrets:
       DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
