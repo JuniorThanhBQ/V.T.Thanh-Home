@@ -39,8 +39,9 @@ Rebuilding my personal home website from the ground up using Angular 22 and Spri
 2. Vercel Document: [Docs](https://vercel.com/docs)
 3. Angular Document: [Docs](https://angular.dev/overview)
 4. Spring boot Document: [Docs](https://docs.spring.io/spring-boot/index.html)
-5. Inspiration: [Awwwards Website Design](https://www.awwwards.com/)
-6. Domain Register (id.vn): [pavietnam](https://www.pavietnam.vn/)
+5. Internal Document: [Docs](docs/)
+6. Inspiration: [Awwwards Website Design](https://www.awwwards.com/)
+7. Domain Register (id.vn): [pavietnam](https://www.pavietnam.vn/)
 
 ## IV. Website Status
 

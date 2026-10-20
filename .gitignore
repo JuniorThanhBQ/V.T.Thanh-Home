@@ -306,3 +306,5 @@ dist-ssr/
 *.dll
 *.so
 *.dylib
+
+docs/instruction/
