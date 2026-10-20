@@ -29,6 +29,7 @@ class VisitorIntegrationTest {
     void setup() {
         mvc = MockMvcBuilders.webAppContextSetup(context)
                 .addFilters(context.getBean(com.vtthanh.V.T.Thanh_Home_SpringBoot.config.RequestSizeFilter.class))
+                .addFilters(context.getBean(com.vtthanh.V.T.Thanh_Home_SpringBoot.config.SecurityHeaderAndLoggingFilter.class))
                 .apply(springSecurity()).build();
     }
 
@@ -55,7 +56,7 @@ class VisitorIntegrationTest {
     @Test
     void oversizedAndMalformedRequestsAreRejected() throws Exception {
         mvc.perform(post("/api/v1/visitors").with(csrf()).contentType(MediaType.APPLICATION_JSON)
-                .content("x".repeat(17000))).andExpect(status().isPayloadTooLarge());
+                .content("x".repeat(17000))).andExpect(status().isContentTooLarge());
         mvc.perform(post("/api/v1/visitors").with(csrf()).contentType(MediaType.APPLICATION_JSON)
                 .content("invalid-json")).andExpect(status().isBadRequest());
     }
@@ -73,6 +74,40 @@ class VisitorIntegrationTest {
                 .andExpect(status().isOk()).andExpect(jsonPath("$.blocked").value(true))
                 .andExpect(jsonPath("$.visitorToken").doesNotExist());
         mvc.perform(post("/api/v1/chat/session").session(session).with(csrf())).andExpect(status().isForbidden());
+    }
+
+    @Test
+    void invalidChatRoutesReturnClientErrorsWithoutInternalDetails() throws Exception {
+        for (String path : new String[]{"/api/v1/chat/session", "/api/v1/chat/message"}) {
+            mvc.perform(get(path)).andExpect(status().isMethodNotAllowed())
+                    .andExpect(header().string("Allow", "POST"))
+                    .andExpect(header().string("Cross-Origin-Resource-Policy", "same-origin"))
+                    .andExpect(jsonPath("$.message").value("Method Not Allowed"))
+                    .andExpect(jsonPath("$.trace").doesNotExist());
+        }
+        mvc.perform(get("/api/v1/chat")).andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.message").value("Not Found"));
+        mvc.perform(post("/api/v1/chat/message").with(csrf())
+                .contentType(MediaType.TEXT_PLAIN).content("invalid"))
+                .andExpect(status().isUnsupportedMediaType());
+    }
+
+    @Test
+    void resourcePolicyAllowsConfiguredCorsRequestsAndRejectsOtherOrigins() throws Exception {
+        for (String path : new String[]{"/api/v1/blogs", "/api/v1/projects", "/actuator/health"}) {
+            mvc.perform(get(path).header("Origin", "http://localhost:4200"))
+                    .andExpect(status().isOk())
+                    .andExpect(header().string("Cross-Origin-Resource-Policy", "same-origin"))
+                    .andExpect(header().string("Access-Control-Allow-Origin", "http://localhost:4200"))
+                    .andExpect(header().string("Access-Control-Allow-Credentials", "true"));
+        }
+        mvc.perform(options("/api/v1/chat/message").header("Origin", "http://localhost:4200")
+                .header("Access-Control-Request-Method", "POST")
+                .header("Access-Control-Request-Headers", "content-type,x-xsrf-token"))
+                .andExpect(status().isOk())
+                .andExpect(header().string("Access-Control-Allow-Origin", "http://localhost:4200"));
+        mvc.perform(get("/api/v1/blogs").header("Origin", "https://untrusted.invalid"))
+                .andExpect(status().isForbidden());
     }
 
     @Test

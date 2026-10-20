@@ -28,34 +28,76 @@ else
   echo "Notice: Semgrep CLI or Docker not found."
 fi
 
-TARGET_PORT="${TARGET_PORT:-${SERVER_PORT:-4200}}"
-LOCAL_URL="http://localhost:${TARGET_PORT}"
-if curl -s -f -o /dev/null --connect-timeout 2 "${LOCAL_URL}/actuator/health" 2>/dev/null || \
-   curl -s -f -o /dev/null --connect-timeout 2 "${LOCAL_URL}" 2>/dev/null; then
-  ZAP_TARGET_URL="http://host.docker.internal:${TARGET_PORT}"
-  EXTRA_DOCKER_ARGS=()
-  if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-    EXTRA_DOCKER_ARGS+=(--add-host=host.docker.internal:host-gateway)
-  fi
-  mkdir -p backend/reports/zap
+FRONTEND_PORT="${FRONTEND_PORT:-4200}"
+BACKEND_PORT="${BACKEND_PORT:-${SERVER_PORT:-8080}}"
+ZAP_HOST_INTERNAL="${ZAP_HOST_INTERNAL:-host.docker.internal}"
+
+EXTRA_DOCKER_ARGS=()
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+  EXTRA_DOCKER_ARGS+=(--add-host=host.docker.internal:host-gateway)
+fi
+
+mkdir -p reports/zap
+mkdir -p backend/reports/zap
+
+if curl -s -f -o /dev/null --connect-timeout 2 "http://localhost:${FRONTEND_PORT}/" 2>/dev/null; then
+  echo "Starting OWASP ZAP DAST scan for Angular Frontend (http://localhost:${FRONTEND_PORT})..."
   set +e
   docker run --rm \
     "${EXTRA_DOCKER_ARGS[@]}" \
-    -v "$(pwd)/backend/reports/zap:/zap/wrk/:rw" \
+    -e ZAP_TARGET_TYPE="frontend" \
+    -v "$(pwd)/reports/zap:/zap/wrk/:rw" \
+    -v "$(pwd)/scripts/zap-hooks.py:/zap/zap-hooks.py:ro" \
     "ghcr.io/zaproxy/zaproxy:${ZAP_VERSION}" \
     zap-baseline.py \
-      -t "${ZAP_TARGET_URL}" \
-      -r "zap-baseline-report.html" \
-      -I
-  ZAP_EXIT_CODE=$?
+      -t "http://${ZAP_HOST_INTERNAL}:${FRONTEND_PORT}" \
+      --hook /zap/zap-hooks.py \
+      -r "zap-frontend-report.html" \
+      -J "zap-frontend-report.json" \
+      -j
+  ZAP_FE_EXIT=$?
   set -e
-  if [ $ZAP_EXIT_CODE -eq 0 ]; then
-    echo "DAST scan completed: Zero security issues detected."
-  elif [ $ZAP_EXIT_CODE -eq 1 ]; then
-    echo "DAST scan completed: Minor warnings detected. Review backend/reports/zap/zap-baseline-report.html"
+  cp -f reports/zap/zap-frontend-report.html backend/reports/zap/ 2>/dev/null || true
+  if [ $ZAP_FE_EXIT -eq 0 ]; then
+    echo "Frontend DAST scan completed: No FAIL or WARN alerts in the scanned scope."
+  elif [ $ZAP_FE_EXIT -eq 1 ]; then
+    echo "Frontend DAST scan found FAIL alerts. Review reports/zap/zap-frontend-report.html"
+  elif [ $ZAP_FE_EXIT -eq 2 ]; then
+    echo "Frontend DAST scan completed with WARN alerts. Review reports/zap/zap-frontend-report.html"
   else
-    echo "DAST scan completed with exit code ${ZAP_EXIT_CODE}. Review backend/reports/zap/zap-baseline-report.html"
+    echo "Frontend DAST scan exited with code ${ZAP_FE_EXIT}. Review reports/zap/zap-frontend-report.html"
   fi
 else
-  echo "Notice: Backend is not running at ${LOCAL_URL}."
+  echo "Notice: Frontend is not running at http://localhost:${FRONTEND_PORT}. Skipping frontend ZAP scan."
+fi
+
+if curl -s -f -o /dev/null --connect-timeout 2 "http://localhost:${BACKEND_PORT}/actuator/health" 2>/dev/null || \
+   curl -s -f -o /dev/null --connect-timeout 2 "http://localhost:${BACKEND_PORT}/" 2>/dev/null; then
+  echo "Starting OWASP ZAP DAST scan for Spring Boot Backend API (http://localhost:${BACKEND_PORT})..."
+  set +e
+  docker run --rm \
+    "${EXTRA_DOCKER_ARGS[@]}" \
+    -e ZAP_TARGET_TYPE="backend" \
+    -v "$(pwd)/reports/zap:/zap/wrk/:rw" \
+    -v "$(pwd)/scripts/zap-hooks.py:/zap/zap-hooks.py:ro" \
+    "ghcr.io/zaproxy/zaproxy:${ZAP_VERSION}" \
+    zap-baseline.py \
+      -t "http://${ZAP_HOST_INTERNAL}:${BACKEND_PORT}" \
+      --hook /zap/zap-hooks.py \
+      -r "zap-backend-report.html" \
+      -J "zap-backend-report.json"
+  ZAP_BE_EXIT=$?
+  set -e
+  cp -f reports/zap/zap-backend-report.html backend/reports/zap/ 2>/dev/null || true
+  if [ $ZAP_BE_EXIT -eq 0 ]; then
+    echo "Backend DAST scan completed: No FAIL or WARN alerts in the scanned scope."
+  elif [ $ZAP_BE_EXIT -eq 1 ]; then
+    echo "Backend DAST scan found FAIL alerts. Review reports/zap/zap-backend-report.html"
+  elif [ $ZAP_BE_EXIT -eq 2 ]; then
+    echo "Backend DAST scan completed with WARN alerts. Review reports/zap/zap-backend-report.html"
+  else
+    echo "Backend DAST scan exited with code ${ZAP_BE_EXIT}. Review reports/zap/zap-backend-report.html"
+  fi
+else
+  echo "Notice: Backend is not running at http://localhost:${BACKEND_PORT}. Skipping backend ZAP scan."
 fi

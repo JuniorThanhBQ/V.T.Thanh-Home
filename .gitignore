@@ -308,3 +308,5 @@ dist-ssr/
 *.dylib
 
 docs/instruction/
+reports/zap/
+backend/reports/zap/

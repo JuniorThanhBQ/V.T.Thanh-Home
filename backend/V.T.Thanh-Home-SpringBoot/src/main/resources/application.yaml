@@ -42,6 +42,9 @@ server:
 spring:
   application:
     name: V.T.Thanh-Home-Backend
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.security.autoconfigure.UserDetailsServiceAutoConfiguration
   threads:
     virtual:
       enabled: true

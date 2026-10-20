@@ -42,6 +42,7 @@ Rebuilding my personal home website from the ground up using Angular 22 and Spri
 5. Internal Document: [Docs](docs/)
 6. Inspiration: [Awwwards Website Design](https://www.awwwards.com/)
 7. Domain Register (id.vn): [pavietnam](https://www.pavietnam.vn/)
+8. DMCA Protected Explanation: [DMCA-PROTECTED](docs/license/dmca-protected.md)
 
 ## IV. Website Status
 

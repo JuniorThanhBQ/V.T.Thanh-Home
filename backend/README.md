@@ -66,11 +66,15 @@ The current knowledge mechanism is a bounded cached text prompt, not pgvector RA
 - Contact submission commits before a scheduled worker sends mail. Delivery claims/retries are bounded. Without mail credentials, accepted contacts remain PENDING rather than being falsely marked SENT. Provider acceptance is not proof of inbox delivery; a crash after provider acceptance can still cause a duplicate notification.
 - `/api/v1/admin/users` lists minimal visitor records; `PATCH /api/v1/admin/users/{id}/block` supports blocking/unblocking. These are administrator-only APIs.
 - Public health is minimal; other Actuator data requires administrator authority.
+- API responses use `Cross-Origin-Resource-Policy: same-origin` to restrict cross-origin `no-cors` resource loads. Angular's CORS-enabled HTTP requests continue to use the configured origin allowlist; CORP does not replace CORS or authentication.
+- Unsupported HTTP methods and missing routes return sanitized 405/404 responses, preserving protocol headers such as `Allow`. Unexpected failures retain a generic 500 body; implementation details are logged on the server.
 
 ## WHEN - Verification and rollout
 
 Run backend tests only against an isolated test database. Test defaults point to `localhost:5544/vtthanh_test`, user `vtthanh_test`, password `test-only-password`. Override with `TEST_DATABASE_URL`, `TEST_DATABASE_USERNAME`, and `TEST_DATABASE_PASSWORD` in an isolated environment. These tests clean test records; never point them to a live database.
 
 Run `gradlew test spotlessCheck checkstyleMain` from the backend project with JDK 25. CI provisions a separate PostgreSQL test service and runs backend/frontend tests before building release images.
+
+The local audit script keeps ZAP warning exit codes enabled: 0 means no FAIL/WARN alerts in the scanned scope, 1 means FAIL alerts, 2 means WARN alerts, and 3 means a scan error. A passing passive baseline does not establish coverage of authenticated chat POST workflows; the integration tests exercise those separately. See the [ZAP baseline documentation](https://www.zaproxy.org/docs/docker/baseline-scan/).
 
 Deploy the backend image and frontend changes together. After rollout, verify cookie/XSRF registration, one live chat reply, empty/nonempty blog responses, admin authorization, and both success/failure contact paths. Review the remaining [instruction audit](../docs/instruction/HOTFIX-REVIEW.md) before treating the entire original guide as complete.

@@ -65,8 +65,26 @@ class ChatIntegrationTest {
     }
 
     @Test
+    void startingSessionStoresOnlyTheServerGeneratedToken() throws Exception {
+        var result = mvc.perform(post("/api/v1/chat/session").session(owner).with(csrf())
+                .header("User-Agent", "untrusted-client-metadata")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"sessionToken\":\"client-chosen-token\"}"))
+                .andExpect(status().isOk()).andReturn();
+        String token = JsonPath.read(result.getResponse().getContentAsString(), "$.sessionToken");
+        assertThat(java.util.UUID.fromString(token).toString()).isEqualTo(token);
+        assertThat(owner.getAttribute("CHAT_TOKEN")).isEqualTo(token);
+        assertThat(sessions.findAll().getFirst().getSessionToken()).isEqualTo(token);
+        assertThat(token).isNotEqualTo("client-chosen-token").isNotEqualTo("untrusted-client-metadata");
+    }
+
+    @Test
     void successfulMessageUsesOwnedSessionAndRecordsActualUsage() throws Exception {
         var result = send("{\"message\":\"What are Thanh's skills?\",\"requestId\":\"success\"}", owner);
+        String token = JsonPath.read(result.getResponse().getContentAsString(), "$.sessionToken");
+        assertThat(java.util.UUID.fromString(token).toString()).isEqualTo(token);
+        assertThat(owner.getAttribute("CHAT_TOKEN")).isEqualTo(token);
+        assertThat(sessions.findAll().getFirst().getSessionToken()).isEqualTo(token);
         assertThat(JsonPath.<String>read(result.getResponse().getContentAsString(), "$.reply")).contains("Spring Boot");
         assertThat(messages.count()).isEqualTo(1);
         assertThat(logs.findAll().getFirst().getTokenUsed()).isEqualTo(18);
@@ -91,6 +109,7 @@ class ChatIntegrationTest {
         mvc.perform(post("/api/v1/chat/message").session(other).with(csrf()).contentType(MediaType.APPLICATION_JSON)
                 .content("{\"sessionToken\":\"" + token + "\",\"message\":\"Hello\",\"requestId\":\"stolen\"}"))
                 .andExpect(status().isNotFound());
+        assertThat(other.getAttribute("CHAT_TOKEN")).isNull();
     }
 
     @Test

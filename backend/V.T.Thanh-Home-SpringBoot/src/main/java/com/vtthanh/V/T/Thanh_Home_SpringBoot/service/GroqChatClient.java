@@ -1,7 +1,5 @@
 package com.vtthanh.V.T.Thanh_Home_SpringBoot.service;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.http.client.JdkClientHttpRequestFactory;
@@ -17,7 +15,6 @@ import java.util.Map;
 @Service
 public class GroqChatClient {
 
-    private static final Logger log = LoggerFactory.getLogger(GroqChatClient.class);
     private static final String GROQ_URL = "https://api.groq.com/openai/v1/chat/completions";
 
     private final GroqKeyProvider keyProvider;

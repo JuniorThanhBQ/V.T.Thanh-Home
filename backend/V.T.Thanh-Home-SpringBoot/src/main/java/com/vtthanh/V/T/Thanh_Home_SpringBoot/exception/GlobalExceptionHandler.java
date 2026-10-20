@@ -75,6 +75,20 @@ public class GlobalExceptionHandler {
         return ResponseEntity.badRequest().body(new ApiErrorResponse("BAD_REQUEST", "Invalid request body"));
     }
 
+    @ExceptionHandler({
+            org.springframework.web.servlet.resource.NoResourceFoundException.class,
+            org.springframework.web.servlet.NoHandlerFoundException.class,
+            org.springframework.web.HttpRequestMethodNotSupportedException.class,
+            org.springframework.web.HttpMediaTypeNotSupportedException.class,
+            org.springframework.web.HttpMediaTypeNotAcceptableException.class
+    })
+    public ResponseEntity<ApiErrorResponse> handleFrameworkRequest(Exception ex) {
+        org.springframework.web.ErrorResponse error = (org.springframework.web.ErrorResponse) ex;
+        HttpStatus status = HttpStatus.valueOf(error.getStatusCode().value());
+        return ResponseEntity.status(status).headers(error.getHeaders())
+                .body(new ApiErrorResponse(status.name(), status.getReasonPhrase()));
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiErrorResponse> handleGenericException(Exception ex) {
         log.error("Unhandled server error: {}", ex.getMessage(), ex);
