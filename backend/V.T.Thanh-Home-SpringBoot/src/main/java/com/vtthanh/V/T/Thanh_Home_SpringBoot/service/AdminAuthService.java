@@ -44,28 +44,21 @@ public class AdminAuthService {
             throw new BadCredentialsException("Invalid credentials");
         }
         String clientIp = resolveClientIp(request);
-        String rateLimitKey = clientIp + ":" + (username != null ? username : "");
 
-        if (rateLimiterService.isBlocked(rateLimitKey)) {
+        if (!rateLimiterService.tryAcquire(clientIp, username)) {
             log.warn("Login attempt blocked by rate limit for client: {}", clientIp);
             throw new RateLimitExceededException("Too many failed login attempts. Please try again later.");
-        }
-
-        if (username == null || username.isBlank() || password == null || password.isBlank()) {
-            rateLimiterService.recordFailedAttempt(rateLimitKey);
-            throw new BadCredentialsException("Invalid credentials");
         }
 
         AdminAccount admin = adminAccountRepository.findByUsername(username)
                 .orElse(null);
 
         if (admin == null || !admin.isActive() || !passwordEncoder.matches(password, admin.getPasswordHash())) {
-            rateLimiterService.recordFailedAttempt(rateLimitKey);
             log.warn("Administrator authentication failed");
             throw new BadCredentialsException("Invalid credentials");
         }
 
-        rateLimiterService.reset(rateLimitKey);
+        rateLimiterService.reset(clientIp, username);
 
         HttpSession session = request.getSession(false);
         if (session != null) {

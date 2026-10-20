@@ -30,10 +30,11 @@ public class VisitorService {
         if (metadata == null || length(metadata.language()) > 40 || length(metadata.timeZone()) > 100) {
             throw new IllegalArgumentException("Visitor metadata is invalid");
         }
-        HttpSession session = request.getSession(true);
-        if (session.getAttribute(VISITOR_ID) == null) {
+        HttpSession existingSession = request.getSession(false);
+        if (existingSession == null || existingSession.getAttribute(VISITOR_ID) == null) {
             limiter.checkLimit("registration:" + clientIp(request));
         }
+        HttpSession session = request.getSession(true);
         synchronized (session) {
             Long id = (Long) session.getAttribute(VISITOR_ID);
             Long savedId = transactions.execute(status -> {
