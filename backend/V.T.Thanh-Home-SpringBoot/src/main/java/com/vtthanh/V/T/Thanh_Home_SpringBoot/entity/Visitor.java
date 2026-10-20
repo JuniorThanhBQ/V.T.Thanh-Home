@@ -29,6 +29,21 @@ public class Visitor extends BaseEntity {
     @Column(name = "last_seen_at", nullable = false)
     private Instant lastSeenAt;
 
+    @Column(name = "user_agent", length = 300)
+    private String userAgent;
+
+    @Column(name = "language", length = 40)
+    private String language;
+
+    @Column(name = "time_zone", length = 100)
+    private String timeZone;
+
+    public void setMetadata(String userAgent, String language, String timeZone) {
+        this.userAgent = userAgent;
+        this.language = language;
+        this.timeZone = timeZone;
+    }
+
     protected Visitor() {
     }
 

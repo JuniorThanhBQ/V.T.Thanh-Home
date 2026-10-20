@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, output } from '@angular/core';
+import { Component, OnInit, OnDestroy, output, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -10,8 +10,8 @@ import { CommonModule } from '@angular/common';
 export class BlogLoadComponent implements OnInit, OnDestroy {
   public retry = output<void>();
 
-  public secondsElapsed = 0;
-  public currentStageIndex = 0;
+  public secondsElapsed = signal(0);
+  public currentStageIndex = signal(0);
   private timerId: ReturnType<typeof setInterval> | null = null;
 
   public readonly stages = [
@@ -23,14 +23,14 @@ export class BlogLoadComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.timerId = setInterval(() => {
-      this.secondsElapsed++;
+      this.secondsElapsed.update((value) => value + 1);
 
-      if (this.secondsElapsed > 35) {
-        this.currentStageIndex = 3;
-      } else if (this.secondsElapsed > 20) {
-        this.currentStageIndex = 2;
-      } else if (this.secondsElapsed > 5) {
-        this.currentStageIndex = 1;
+      if (this.secondsElapsed() > 35) {
+        this.currentStageIndex.set(3);
+      } else if (this.secondsElapsed() > 20) {
+        this.currentStageIndex.set(2);
+      } else if (this.secondsElapsed() > 5) {
+        this.currentStageIndex.set(1);
       }
     }, 1000);
   }
@@ -42,8 +42,8 @@ export class BlogLoadComponent implements OnInit, OnDestroy {
   }
 
   public onRetryClick(): void {
-    this.secondsElapsed = 0;
-    this.currentStageIndex = 0;
+    this.secondsElapsed.set(0);
+    this.currentStageIndex.set(0);
     this.retry.emit();
   }
 }

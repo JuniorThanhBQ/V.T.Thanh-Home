@@ -7,6 +7,7 @@ import { LoadingService } from '@/shared/services/loading.service';
 import { BackendHealthService } from '@/shared/services/backend-health.service';
 import { ColorWipeComponent } from '@/shared/components/color-wipe/color-wipe.component';
 import { ChatbotComponent } from '@/features/chat/components/chat.component';
+import { VisitorService } from '@/shared/services/visitor.service';
 
 @Component({
   imports: [
@@ -25,4 +26,10 @@ export class App {
   public loading = inject(LoadingService);
   public health = inject(BackendHealthService);
   protected readonly title = signal('V.T.Thanh-Home-Angular');
+
+  constructor() {
+    inject(VisitorService)
+      .ensureRegistered()
+      .subscribe({ error: () => undefined });
+  }
 }

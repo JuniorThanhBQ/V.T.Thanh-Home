@@ -1,0 +1,10 @@
+ALTER TABLE visitors ADD COLUMN user_agent VARCHAR(300);
+ALTER TABLE visitors ADD COLUMN language VARCHAR(40);
+ALTER TABLE visitors ADD COLUMN time_zone VARCHAR(100);
+ALTER TABLE chat_sessions ADD COLUMN visitor_id BIGINT REFERENCES visitors(id);
+CREATE INDEX idx_chat_sessions_visitor ON chat_sessions(visitor_id);
+ALTER TABLE chat_messages ADD COLUMN request_id VARCHAR(64);
+ALTER TABLE chat_messages ADD COLUMN status VARCHAR(20) NOT NULL DEFAULT 'COMPLETED';
+CREATE UNIQUE INDEX uq_chat_message_request ON chat_messages(chat_session_id, request_id);
+ALTER TABLE contacts ADD COLUMN visitor_id BIGINT REFERENCES visitors(id);
+CREATE UNIQUE INDEX uq_contact_visitor_request ON contacts(visitor_id, idempotency_key);

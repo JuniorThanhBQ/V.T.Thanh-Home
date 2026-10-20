@@ -299,7 +299,7 @@
           <div class="flex items-center justify-between pt-2">
             <button
               type="submit"
-              [disabled]="health.status() !== 'UP'"
+              [disabled]="isSubmitting"
               class="px-8 py-3 rounded-full text-white font-medium text-sm transition-all shadow-lg active:scale-95 disabled:opacity-90 disabled:cursor-not-allowed disabled:active:scale-100 disabled:text-white bg-gray-900/40 hover:bg-gray-800 dark:bg-blue-500 dark:hover:bg-blue-400 dark:shadow-blue-600/30 disabled:shadow-none cursor-pointer"
               [class.bg-rose-700/80]="health.status() === 'DOWN'"
               [class.dark:bg-rose-600/60]="health.status() === 'DOWN'"
@@ -309,6 +309,11 @@
               {{ submitButtonText() }}
             </button>
 
+            @if (submitFailed) {
+              <span role="alert" class="text-xs text-rose-300">{{
+                i18n.t('contact.form.submit_error')
+              }}</span>
+            }
             @if (isSubmitted) {
               <span class="text-xs font-mono text-emerald-200 dark:text-emerald-400 font-medium">
                 {{ i18n.t('contact.form.success_message') }}

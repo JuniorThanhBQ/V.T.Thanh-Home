@@ -9,6 +9,10 @@ import com.vtthanh.V.T.Thanh_Home_SpringBoot.repository.ContactRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.support.TransactionTemplate;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 import java.util.regex.Pattern;
 
 @Service
@@ -17,68 +21,73 @@ public class ContactService {
     private static final Pattern EMAIL_PATTERN = Pattern.compile("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$");
 
     private final ContactRepository contactRepository;
+    private final TransactionTemplate transactions;
     private final ContactRateLimiterService rateLimiterService;
     private final TurnstileVerificationService turnstileService;
-    private final ContactNotificationWorker notificationWorker;
 
     public ContactService(
             ContactRepository contactRepository,
             ContactRateLimiterService rateLimiterService,
             TurnstileVerificationService turnstileService,
-            ContactNotificationWorker notificationWorker
+            PlatformTransactionManager manager
     ) {
         this.contactRepository = contactRepository;
+        this.transactions = new TransactionTemplate(manager);
         this.rateLimiterService = rateLimiterService;
         this.turnstileService = turnstileService;
-        this.notificationWorker = notificationWorker;
     }
 
-    @Transactional
-    public ContactReceiptResponse submitContact(ContactSubmissionRequest req, String clientIp, String userAgent) {
+    public ContactReceiptResponse submitContact(ContactSubmissionRequest req, String clientIp, String userAgent, Long visitorId) {
+        validateSubmission(req);
         rateLimiterService.checkLimit(clientIp);
 
         turnstileService.verifyToken(req.turnstileToken(), clientIp);
 
-        validateSubmission(req);
-
-        if (req.idempotencyKey() != null && !req.idempotencyKey().isBlank()) {
-            var existing = contactRepository.findByIdempotencyKey(req.idempotencyKey().trim());
-            if (existing.isPresent()) {
-                Contact c = existing.get();
-                return new ContactReceiptResponse(c.getId(), "RECEIVED", "Contact message received successfully", c.getCreatedDate());
+        return transactions.execute(tx -> {
+            if (req.idempotencyKey() != null && !req.idempotencyKey().isBlank()) {
+                var existing = contactRepository.findByVisitorIdAndIdempotencyKey(visitorId, req.idempotencyKey().trim());
+                if (existing.isPresent()) {
+                    Contact c = existing.get();
+                    if (!c.getEmail().equals(req.email().trim()) || !c.getMessage().equals(req.message().trim())
+                            || !c.getFirstName().equals(req.firstName().trim()) || !c.getSubject().equals(req.resolveSubject())
+                            || !normalize(c.getLastName()).equals(normalize(req.lastName()))
+                            || !normalize(c.getPhone()).equals(normalize(req.phone()))) {
+                        throw new ResponseStatusException(HttpStatus.CONFLICT, "Request identifier already used for different content");
+                    }
+                    return new ContactReceiptResponse(c.getId(), "RECEIVED", "Contact message received successfully", c.getCreatedDate());
+                }
             }
-        }
 
-        String resolvedSubject = req.resolveSubject();
-        Contact contact = new Contact(
-                req.firstName().trim(),
-                req.email().trim(),
-                resolvedSubject,
-                req.message().trim()
-        );
+            String resolvedSubject = req.resolveSubject();
+            Contact contact = new Contact(
+                    req.firstName().trim(),
+                    req.email().trim(),
+                    resolvedSubject,
+                    req.message().trim()
+            );
 
-        if (req.lastName() != null && !req.lastName().isBlank()) {
-            contact.setLastName(req.lastName().trim());
-        }
-        if (req.phone() != null && !req.phone().isBlank()) {
-            contact.setPhone(req.phone().trim());
-        }
-        if (req.idempotencyKey() != null && !req.idempotencyKey().isBlank()) {
-            contact.setIdempotencyKey(req.idempotencyKey().trim());
-        }
-        contact.setIpAddress(clientIp);
-        contact.setUserAgent(userAgent);
+            if (req.lastName() != null && !req.lastName().isBlank()) {
+                contact.setLastName(req.lastName().trim());
+            }
+            if (req.phone() != null && !req.phone().isBlank()) {
+                contact.setPhone(req.phone().trim());
+            }
+            if (req.idempotencyKey() != null && !req.idempotencyKey().isBlank()) {
+                contact.setIdempotencyKey(req.idempotencyKey().trim());
+            }
+            contact.setVisitorId(visitorId);
+            contact.setIpAddress(clientIp);
+            contact.setUserAgent(userAgent);
 
-        Contact saved = contactRepository.save(contact);
+            Contact saved = contactRepository.save(contact);
 
-        notificationWorker.processContactAsync(saved.getId());
-
-        return new ContactReceiptResponse(
-                saved.getId(),
-                "RECEIVED",
-                "Contact message received successfully",
-                saved.getCreatedDate()
-        );
+            return new ContactReceiptResponse(
+                    saved.getId(),
+                    "RECEIVED",
+                    "Contact message received successfully",
+                    saved.getCreatedDate()
+            );
+        });
     }
 
     @Transactional(readOnly = true)
@@ -104,9 +113,17 @@ public class ContactService {
         contactRepository.deleteById(id);
     }
 
+    private static String normalize(String value) {
+        return value == null ? "" : value.trim();
+    }
+
     private void validateSubmission(ContactSubmissionRequest req) {
         if (req == null) {
             throw new IllegalArgumentException("Contact request body is required");
+        }
+
+        if (req.resolveSubject().length() > 150 || (req.idempotencyKey() != null && req.idempotencyKey().length() > 128)) {
+            throw new IllegalArgumentException("Subject or request identifier is too long");
         }
 
         if (req.firstName() == null || req.firstName().trim().length() < 2 || req.firstName().trim().length() > 100) {

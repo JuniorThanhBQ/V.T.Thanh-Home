@@ -33,3 +33,7 @@
 **/README.md
 **/HELP.md
 LICENSE
+
+**/.env
+**/.env.*
+!**/.env.example

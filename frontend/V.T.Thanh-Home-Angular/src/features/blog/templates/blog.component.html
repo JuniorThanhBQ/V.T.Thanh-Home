@@ -2,6 +2,18 @@
   <canvas #bgCanvas class="fixed inset-0 w-full h-full pointer-events-none z-0"></canvas>
 
   <div class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    @if (loadFailed) {
+      <div role="alert" class="p-6 text-center space-y-3">
+        <p>{{ i18n.t('blog.load_error') }}</p>
+        <button
+          type="button"
+          (click)="reloadBlog()"
+          class="px-4 py-2 rounded-xl bg-sky-600 text-white cursor-pointer"
+        >
+          {{ i18n.t('blog.actions.retry') }}
+        </button>
+      </div>
+    }
     @if (isLoading) {
       <app-blog-load (retry)="reloadBlog()" />
     } @else if (selectedPost) {

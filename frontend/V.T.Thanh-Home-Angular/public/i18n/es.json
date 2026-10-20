@@ -149,12 +149,14 @@
       "open_story": "LEER EL ARTÍCULO",
       "previous": "← Anterior",
       "next": "Página siguiente →",
-      "go_to_story": "Entrar en el artículo"
+      "go_to_story": "Entrar en el artículo",
+      "retry": "Reintentar"
     },
     "empty": {
       "title": "No hay artículos",
       "description": "Todavía no se ha publicado ningún artículo. Puede que se deba a un error del backend o a que me ha dado pereza escribir. Vuelve a visitarme más tarde, por favor."
-    }
+    },
+    "load_error": "No se pudo cargar el blog. Inténtalo de nuevo."
   },
   "contact": {
     "info": {
@@ -189,7 +191,8 @@
       "message_placeholder": "Contenido del mensaje...",
       "message_error": "Mensaje debe tener al menos 10 caracteres y no contener caracteres no válidos.",
       "submit_button": "Enviar Mensaje",
-      "success_message": "¡Hemos recibido tu mensaje!"
+      "success_message": "¡Hemos recibido tu mensaje!",
+      "submit_error": "No se pudo enviar tu mensaje. Inténtalo de nuevo."
     }
   },
   "chat": {
@@ -201,12 +204,14 @@
     "greeting": "¡Hola! Soy el asistente virtual de Van Trung Thanh. ¿En qué puedo ayudarte hoy?",
     "suggested_topics_title": "Tema sugerido",
     "topics": {
-      "tech_stack": "Organización del stack tecnológico incluye qué?",
+      "tech_stack": "¿Qué habilidades técnicas tengo actualmente?",
       "projects": "Descubra los proyectos destacados",
       "contact": "Cómo puedo contactarte?"
     },
     "input_placeholder": "Hazme una pregunta...",
     "send_button": "Enviar mensaje",
-    "disclaimer": "⚠️ Contenido generado por AI. Respuestas no constituyen ninguna recomendación legal, financiera, médica o de vida. Propietario del sitio web no se responsabiliza de decisiones o consecuencias que surjan de la utilización de este chatbot. Considerar cuidadosamente su uso."
+    "disclaimer": "⚠️ Contenido generado por AI. Respuestas no constituyen ninguna recomendación legal, financiera, médica o de vida. Propietario del sitio web no se responsabiliza de decisiones o consecuencias que surjan de la utilización de este chatbot. Considerar cuidadosamente su uso.",
+    "connection_error": "El asistente no está disponible temporalmente. Inténtalo de nuevo o utiliza el formulario de contacto.",
+    "rate_limited": "Demasiados mensajes. Espera antes de volver a intentarlo."
   }
 }

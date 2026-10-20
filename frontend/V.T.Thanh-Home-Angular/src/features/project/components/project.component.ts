@@ -24,7 +24,7 @@ export class ProjectComponent implements AfterViewInit, OnDestroy {
 
   @ViewChild('bgCanvas') private canvasRef!: ElementRef<HTMLCanvasElement>;
 
-  public readonly projects: ProjectItem[] = [
+  public readonly defaultProjects: ProjectItem[] = [
     {
       id: 'aijmc',
       imageUrl:
@@ -94,9 +94,19 @@ export class ProjectComponent implements AfterViewInit, OnDestroy {
     },
   ];
 
-  public readonly flagshipProject = this.projects[0];
-  public readonly trioProjects = this.projects.slice(1, 4);
-  public readonly wideProjects = this.projects.slice(4, 6);
+  public projects: ProjectItem[] = [...this.defaultProjects];
+
+  public get flagshipProject(): ProjectItem {
+    return this.projects[0] || this.defaultProjects[0];
+  }
+
+  public get trioProjects(): ProjectItem[] {
+    return this.projects.slice(1, 4);
+  }
+
+  public get wideProjects(): ProjectItem[] {
+    return this.projects.slice(4, 6);
+  }
 
   ngAfterViewInit(): void {
     if (this.canvasRef?.nativeElement) {

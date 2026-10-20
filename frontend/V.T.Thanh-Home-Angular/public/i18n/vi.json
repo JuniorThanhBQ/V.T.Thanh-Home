@@ -149,12 +149,14 @@
       "open_story": "ĐỌC BÀI VIẾT",
       "previous": "← Trang trước",
       "next": "Trang sau →",
-      "go_to_story": "Đến bài viết"
+      "go_to_story": "Đến bài viết",
+      "retry": "Thử lại"
     },
     "empty": {
       "title": "Không có bài viết",
       "description": "Chưa có bài viết nào được xuất bản, có thể là do lỗi backend hoặc mình bị lười viết bài. Vui lòng quay lại sau nhen."
-    }
+    },
+    "load_error": "Không thể tải bài viết. Vui lòng thử lại."
   },
   "contact": {
     "info": {
@@ -189,7 +191,8 @@
       "message_placeholder": "Nội dung tin nhắn...",
       "message_error": "Tin nhắn phải có ít nhất 10 ký tự và không chứa ký tự không hợp lệ.",
       "submit_button": "Gửi Tin Nhắn",
-      "success_message": "Đã nhận được tin nhắn!"
+      "success_message": "Đã nhận được tin nhắn!",
+      "submit_error": "Không thể gửi tin nhắn của bạn. Vui lòng thử lại."
     }
   },
   "chat": {
@@ -201,12 +204,14 @@
     "greeting": "Xin chào! Mình là phiên bản trợ lý ảo của Văn Trung Thành. Mình có thể hỗ trợ gì cho bạn hôm nay?",
     "suggested_topics_title": "Chủ đề gợi ý",
     "topics": {
-      "tech_stack": "Ngăn xếp công nghệ (tech stack) gồm những gì?",
+      "tech_stack": "Những kỹ năng technical mà mình hiện có?",
       "projects": "Khám phá các dự án nổi bật",
       "contact": "Làm thế nào để liên hệ với tôi?"
     },
     "input_placeholder": "Đặt câu hỏi cho mình...",
     "send_button": "Gửi tin nhắn",
-    "disclaimer": "⚠️ Nội dung được tạo bởi AI. Phản hồi không cấu thành bất kỳ lời khuyên nào về mặt pháp lý, tài chính, y tế hay đời sống. Chủ sở hữu website không chịu trách nhiệm cho các quyết định hoặc hệ quả phát sinh từ việc sử dụng chatbot này. Vui lòng cân nhắc khi sử dụng."
+    "disclaimer": "⚠️ Nội dung được tạo bởi AI. Phản hồi không cấu thành bất kỳ lời khuyên nào về mặt pháp lý, tài chính, y tế hay đời sống. Chủ sở hữu website không chịu trách nhiệm cho các quyết định hoặc hệ quả phát sinh từ việc sử dụng chatbot này. Vui lòng cân nhắc khi sử dụng.",
+    "connection_error": "Trợ lý tạm thời không khả dụng. Vui lòng thử lại hoặc sử dụng biểu mẫu liên hệ.",
+    "rate_limited": "Bạn gửi tin nhắn quá nhanh. Vui lòng đợi rồi thử lại."
   }
 }

@@ -1,45 +1,29 @@
-export interface ServerConfig {
-  serverUrl: string;
-  serverPort: string;
-}
-
-const runtimeEnv =
-  typeof globalThis !== 'undefined'
-    ? (globalThis as unknown as {
-        process?: { env?: Record<string, string | undefined> };
-        __env?: Record<string, string | undefined>;
-      })
-    : {};
-
-export const SERVER_CONFIG: ServerConfig = {
-  serverUrl: runtimeEnv.process?.env?.['SERVER_URL'] || runtimeEnv.__env?.['SERVER_URL'] || '',
-  serverPort: runtimeEnv.process?.env?.['SERVER_PORT'] || runtimeEnv.__env?.['SERVER_PORT'] || '',
-};
-
-export function getBackendBaseUrl(): string {
-  if (!SERVER_CONFIG.serverUrl) {
-    return '/api';
-  }
-
-  const url = SERVER_CONFIG.serverUrl.replace(/\/+$/, '');
-  const port = SERVER_CONFIG.serverPort ? `:${SERVER_CONFIG.serverPort}` : '';
-
-  if (url.includes('://') && url.split(':').length > 2) {
-    return url;
-  }
-  return `${url}${port}`;
-}
-
 export const API_ENDPOINTS = {
   actuator: {
     health: '/actuator/health',
     info: '/actuator/info',
     metrics: '/actuator/metrics',
   },
+  visitors: '/api/v1/visitors',
+  projects: '/api/v1/projects',
+  blogs: '/api/v1/blogs',
+  contacts: '/api/v1/contacts',
+  chat: {
+    session: '/api/v1/chat/session',
+    message: '/api/v1/chat/message',
+    history: '/api/v1/chat/history',
+  },
+  admin: {
+    login: '/api/v1/admin/login',
+    logout: '/api/v1/admin/logout',
+    session: '/api/v1/admin/session',
+    projects: '/api/v1/admin/projects',
+    blogs: '/api/v1/admin/blogs',
+    contacts: '/api/v1/admin/contacts',
+  },
 } as const;
 
 export function buildApiUrl(endpoint: string): string {
-  const base = getBackendBaseUrl();
   const path = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
-  return `${base}${path}`;
+  return path;
 }

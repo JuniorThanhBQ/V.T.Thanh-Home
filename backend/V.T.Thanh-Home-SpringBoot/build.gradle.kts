@@ -11,7 +11,6 @@ checkstyle {
 	isIgnoreFailures = false
 }
 
-
 group = "com.vtthanh"
 version = "0.0.1-SNAPSHOT"
 
@@ -48,6 +47,14 @@ configurations.all {
         if (requested.group == "tools.jackson.core" || requested.group == "tools.jackson") {
             useVersion("3.1.7")
             because("Remediates CVE-2026-89407, CVE-2026-89425, CVE-2026-68497, CVE-2026-91776, and CVE-2026-91777")
+        }
+        if (requested.group == "commons-beanutils" && requested.name == "commons-beanutils") {
+            useVersion("1.11.0")
+            because("Remediates CVE-2025-48734")
+        }
+        if (requested.group == "org.codehaus.plexus" && requested.name == "plexus-utils") {
+            useVersion("3.6.1")
+            because("Remediates CVE-2025-67030")
         }
     }
 }

@@ -1,6 +1,6 @@
 import { Injectable, inject, signal, DestroyRef } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { timer, of } from 'rxjs';
+import { timer, of, timeout, exhaustMap } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { API_ENDPOINTS, buildApiUrl } from '@/configs/apis';
@@ -33,6 +33,7 @@ export class BackendHealthService {
     this.http
       .get<ActuatorHealthResponse>(url)
       .pipe(
+        timeout(60000),
         catchError(() => {
           return of({ status: 'DOWN' as const });
         }),
@@ -47,9 +48,20 @@ export class BackendHealthService {
 
   private startHealthPolling(): void {
     timer(0, this.intervalMs)
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(() => {
-        this.checkHealth();
+      .pipe(
+        exhaustMap(() =>
+          this.http.get<ActuatorHealthResponse>(buildApiUrl(API_ENDPOINTS.actuator.health)).pipe(
+            timeout(60000),
+            catchError(() => of({ status: 'DOWN' })),
+          ),
+        ),
+        takeUntilDestroyed(this.destroyRef),
+      )
+      .subscribe((res) => {
+        const isUp = res.status === 'UP';
+        this.status.set(isUp ? 'UP' : 'DOWN');
+        this.isHealthy.set(isUp);
+        this.lastChecked.set(new Date());
       });
   }
 }

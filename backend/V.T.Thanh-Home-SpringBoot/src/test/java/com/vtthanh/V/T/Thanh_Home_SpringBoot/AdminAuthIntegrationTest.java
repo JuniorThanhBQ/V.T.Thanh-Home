@@ -20,6 +20,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@org.springframework.test.context.ContextConfiguration(initializers = SafeTestDatabaseInitializer.class)
 @SpringBootTest
 class AdminAuthIntegrationTest {
 
@@ -55,7 +56,7 @@ class AdminAuthIntegrationTest {
     @Test
     void invalidLoginReturnsUnauthorized() throws Exception {
         String body = "{\"username\":\"testadmin\",\"password\":\"WrongPassword\"}";
-        mockMvc.perform(post("/api/v1/admin/login")
+        mockMvc.perform(post("/api/v1/admin/login").with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(body))
                 .andExpect(status().isUnauthorized())
@@ -65,7 +66,7 @@ class AdminAuthIntegrationTest {
     @Test
     void validLoginSucceedsAndAllowsSubsequentProtectedCalls() throws Exception {
         String loginBody = "{\"username\":\"testadmin\",\"password\":\"SecretPass123!\"}";
-        MvcResult loginResult = mockMvc.perform(post("/api/v1/admin/login")
+        MvcResult loginResult = mockMvc.perform(post("/api/v1/admin/login").with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(loginBody))
                 .andExpect(status().isOk())
@@ -80,7 +81,7 @@ class AdminAuthIntegrationTest {
                 .andExpect(jsonPath("$.authenticated").value(true))
                 .andExpect(jsonPath("$.username").value("testadmin"));
 
-        mockMvc.perform(post("/api/v1/admin/logout").session(session).with(csrf()))
+        mockMvc.perform(post("/api/v1/admin/logout").with(csrf()).session(session).with(csrf()))
                 .andExpect(status().isNoContent());
 
         mockMvc.perform(get("/api/v1/admin/session").session(session))

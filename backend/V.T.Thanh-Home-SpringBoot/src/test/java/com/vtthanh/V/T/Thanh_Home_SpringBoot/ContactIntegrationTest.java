@@ -26,6 +26,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@org.springframework.test.context.ContextConfiguration(initializers = SafeTestDatabaseInitializer.class)
 @SpringBootTest
 class ContactIntegrationTest {
 
@@ -44,12 +45,19 @@ class ContactIntegrationTest {
     @Autowired
     private ContactRateLimiterService rateLimiterService;
 
+    @Autowired
+    private com.vtthanh.V.T.Thanh_Home_SpringBoot.service.VisitorService visitors;
+
     private MockMvc mockMvc;
 
     @BeforeEach
     void setup() {
+        var registration = new org.springframework.mock.web.MockHttpServletRequest();
+        registration.setSession(new MockHttpSession());
+        visitors.register(registration, new com.vtthanh.V.T.Thanh_Home_SpringBoot.dto.VisitorRequest("en", "UTC"));
         mockMvc = MockMvcBuilders
                 .webAppContextSetup(context)
+                .defaultRequest(get("/").session((MockHttpSession) registration.getSession()))
                 .apply(springSecurity())
                 .build();
 
@@ -63,7 +71,7 @@ class ContactIntegrationTest {
 
     private MockHttpSession loginAsAdmin() throws Exception {
         String loginBody = "{\"username\":\"stage4admin\",\"password\":\"SecretPass123!\"}";
-        MvcResult loginResult = mockMvc.perform(post("/api/v1/admin/login")
+        MvcResult loginResult = mockMvc.perform(post("/api/v1/admin/login").with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(loginBody))
                 .andExpect(status().isOk())
@@ -75,7 +83,7 @@ class ContactIntegrationTest {
     void publicContactSubmissionSuccess() throws Exception {
         String requestJson = "{\"firstName\":\"Alice\",\"lastName\":\"Smith\",\"email\":\"alice@example.com\",\"phone\":\"0123456789\",\"service\":\"Web Development\",\"message\":\"I would like to discuss a project with you.\"}";
 
-        MvcResult result = mockMvc.perform(post("/api/v1/contacts")
+        MvcResult result = mockMvc.perform(post("/api/v1/contacts").with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestJson))
                 .andExpect(status().isAccepted())
@@ -94,7 +102,7 @@ class ContactIntegrationTest {
     void publicContactSubmissionValidationFails() throws Exception {
         String invalidJson = "{\"firstName\":\"A\",\"email\":\"not-an-email\",\"message\":\"short\"}";
 
-        mockMvc.perform(post("/api/v1/contacts")
+        mockMvc.perform(post("/api/v1/contacts").with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(invalidJson))
                 .andExpect(status().isBadRequest())
@@ -105,13 +113,13 @@ class ContactIntegrationTest {
     void idempotentContactSubmissionReturnsSameReceipt() throws Exception {
         String requestJson = "{\"firstName\":\"Bob\",\"email\":\"bob@example.com\",\"service\":\"Mobile App\",\"message\":\"Need a consultation for a mobile application.\",\"idempotencyKey\":\"idem-unique-123\"}";
 
-        MvcResult result1 = mockMvc.perform(post("/api/v1/contacts")
+        MvcResult result1 = mockMvc.perform(post("/api/v1/contacts").with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestJson))
                 .andExpect(status().isAccepted())
                 .andReturn();
 
-        MvcResult result2 = mockMvc.perform(post("/api/v1/contacts")
+        MvcResult result2 = mockMvc.perform(post("/api/v1/contacts").with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestJson))
                 .andExpect(status().isAccepted())
@@ -128,7 +136,7 @@ class ContactIntegrationTest {
     void rateLimitingBlocksExcessiveSubmissions() throws Exception {
         for (int i = 0; i < 5; i++) {
             String requestJson = "{\"firstName\":\"User" + i + "\",\"email\":\"user" + i + "@example.com\",\"service\":\"General\",\"message\":\"Hello there testing rate limiter message.\"}";
-            mockMvc.perform(post("/api/v1/contacts")
+            mockMvc.perform(post("/api/v1/contacts").with(csrf())
                             .with(request -> {
                                 request.setRemoteAddr("10.0.0.99");
                                 return request;
@@ -139,7 +147,7 @@ class ContactIntegrationTest {
         }
 
         String blockedJson = "{\"firstName\":\"Blocked\",\"email\":\"blocked@example.com\",\"service\":\"General\",\"message\":\"This request should be rate limited.\"}";
-        mockMvc.perform(post("/api/v1/contacts")
+        mockMvc.perform(post("/api/v1/contacts").with(csrf())
                         .with(request -> {
                             request.setRemoteAddr("10.0.0.99");
                             return request;

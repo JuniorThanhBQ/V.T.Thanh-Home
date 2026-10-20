@@ -149,12 +149,14 @@
       "open_story": "LIRE L'ARTICLE",
       "previous": "← Page précédente",
       "next": "Page suivante →",
-      "go_to_story": "Accéder à l'article"
+      "go_to_story": "Accéder à l'article",
+      "retry": "Réessayer"
     },
     "empty": {
       "title": "Aucun article",
       "description": "Aucun article n'a encore été publié. Cela peut être dû à une erreur du backend ou au fait que j'ai été trop paresseux pour écrire. Veuillez revenir plus tard."
-    }
+    },
+    "load_error": "Impossible de charger le journal. Veuillez réessayer."
   },
   "contact": {
     "info": {
@@ -189,7 +191,8 @@
       "message_placeholder": "Saisissez votre message...",
       "message_error": "Le message doit comporter au moins 10 caractères et ne contenir aucun caractère non valide.",
       "submit_button": "Envoyer le message",
-      "success_message": "Votre message a bien été reçu !"
+      "success_message": "Votre message a bien été reçu !",
+      "submit_error": "Votre message n’a pas pu être envoyé. Veuillez réessayer."
     }
   },
   "chat": {
@@ -201,12 +204,14 @@
     "greeting": "Bonjour ! Je suis l’assistant virtuel de Van Trung Thanh. Comment puis-je vous aider aujourd’hui ?",
     "suggested_topics_title": "Sujets suggérés",
     "topics": {
-      "tech_stack": "Quelles technologies composent la stack technique ?",
+      "tech_stack": "Quelles compétences techniques ai-je actuellement ?",
       "projects": "Découvrir les projets principaux",
       "contact": "Comment puis-je prendre contact ?"
     },
     "input_placeholder": "Posez-moi une question...",
     "send_button": "Envoyer le message",
-    "disclaimer": "⚠️ Ce contenu est généré par une intelligence artificielle. Les réponses ne constituent aucun conseil juridique, financier, médical ou personnel. Le propriétaire du site décline toute responsabilité concernant les décisions prises ou les conséquences résultant de l'utilisation de ce chatbot. Veuillez l'utiliser avec discernement."
+    "disclaimer": "⚠️ Ce contenu est généré par une intelligence artificielle. Les réponses ne constituent aucun conseil juridique, financier, médical ou personnel. Le propriétaire du site décline toute responsabilité concernant les décisions prises ou les conséquences résultant de l'utilisation de ce chatbot. Veuillez l'utiliser avec discernement.",
+    "connection_error": "L’assistant est temporairement indisponible. Réessayez ou utilisez le formulaire de contact.",
+    "rate_limited": "Trop de messages. Veuillez patienter avant de réessayer."
   }
 }

@@ -3,6 +3,7 @@ package com.vtthanh.V.T.Thanh_Home_SpringBoot.controller;
 import com.vtthanh.V.T.Thanh_Home_SpringBoot.dto.ContactReceiptResponse;
 import com.vtthanh.V.T.Thanh_Home_SpringBoot.dto.ContactSubmissionRequest;
 import com.vtthanh.V.T.Thanh_Home_SpringBoot.service.ContactService;
+import com.vtthanh.V.T.Thanh_Home_SpringBoot.service.VisitorService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,8 +18,11 @@ public class ContactController {
 
     private final ContactService contactService;
 
-    public ContactController(ContactService contactService) {
+    private final VisitorService visitors;
+
+    public ContactController(ContactService contactService, VisitorService visitors) {
         this.contactService = contactService;
+        this.visitors = visitors;
     }
 
     @PostMapping
@@ -26,18 +30,12 @@ public class ContactController {
             @RequestBody ContactSubmissionRequest request,
             HttpServletRequest servletRequest
     ) {
-        String clientIp = resolveClientIp(servletRequest);
-        String userAgent = servletRequest.getHeader("User-Agent");
+        Long visitorId = visitors.requireVisitor(servletRequest);
+        String clientIp = VisitorService.clientIp(servletRequest);
+        String userAgent = VisitorService.bounded(servletRequest.getHeader("User-Agent"), 300);
 
-        ContactReceiptResponse receipt = contactService.submitContact(request, clientIp, userAgent);
+        ContactReceiptResponse receipt = contactService.submitContact(request, clientIp, userAgent, visitorId);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(receipt);
     }
 
-    private String resolveClientIp(HttpServletRequest request) {
-        String xForwardedFor = request.getHeader("X-Forwarded-For");
-        if (xForwardedFor != null && !xForwardedFor.isBlank()) {
-            return xForwardedFor.split(",")[0].trim();
-        }
-        return request.getRemoteAddr();
-    }
 }

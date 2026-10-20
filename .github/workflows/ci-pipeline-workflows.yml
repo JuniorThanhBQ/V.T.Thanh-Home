@@ -31,6 +31,18 @@ jobs:
 
   lint:
     name: "Lint Frontend and Backend"
+    services:
+      postgres:
+        image: postgres:18
+        env:
+          POSTGRES_DB: vtthanh_test
+          POSTGRES_USER: vtthanh_test
+          POSTGRES_PASSWORD: test-only-password
+        ports:
+          - 5544:5432
+        options: >-
+          --health-cmd "pg_isready -U vtthanh_test -d vtthanh_test"
+          --health-interval 5s --health-timeout 5s --health-retries 10
     needs: [gitleaks]
     runs-on: ubuntu-latest
     timeout-minutes: 15
@@ -60,10 +72,16 @@ jobs:
           chmod +x backend/V.T.Thanh-Home-SpringBoot/gradlew
           ./backend/V.T.Thanh-Home-SpringBoot/gradlew -p backend/V.T.Thanh-Home-SpringBoot spotlessCheck checkstyleMain --no-daemon
 
+      - name: Backend integration tests
+        run: ./backend/V.T.Thanh-Home-SpringBoot/gradlew -p backend/V.T.Thanh-Home-SpringBoot test --no-daemon
+
       - name: Lint Frontend
         run: |
           npm --prefix frontend/V.T.Thanh-Home-Angular ci
           npm --prefix frontend/V.T.Thanh-Home-Angular run lint
+
+      - name: Frontend regression tests
+        run: npm --prefix frontend/V.T.Thanh-Home-Angular test -- --watch=false
 
   build-check:
     name: "App build check"

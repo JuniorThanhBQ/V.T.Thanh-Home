@@ -5,6 +5,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
+import org.springframework.http.client.JdkClientHttpRequestFactory;
+import java.net.http.HttpClient;
+import java.time.Duration;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -46,7 +49,10 @@ public class GmailRestEmailService {
         this.fromEmail = fromEmail;
         this.fromName = fromName;
         this.recipientEmail = recipientEmail;
-        this.restClient = RestClient.create();
+        JdkClientHttpRequestFactory factory = new JdkClientHttpRequestFactory(
+                HttpClient.newBuilder().connectTimeout(Duration.ofSeconds(3)).build());
+        factory.setReadTimeout(Duration.ofSeconds(10));
+        this.restClient = RestClient.builder().requestFactory(factory).build();
     }
 
     public boolean isConfigured() {
@@ -58,7 +64,7 @@ public class GmailRestEmailService {
     public void sendContactNotification(Contact contact) {
         if (!isConfigured()) {
             log.info("Gmail OAuth2 credentials not fully configured; skipping actual HTTPS email delivery for contact id={}", contact.getId());
-            return;
+            throw new IllegalStateException("Email delivery is not configured");
         }
 
         String accessToken = getValidAccessToken();

@@ -5,6 +5,7 @@ import { AVATAR_URLS, getDynamicLogo } from '@/assets/cloudinaryUrl';
 import { TranslationService } from '@/shared/services/translation.service';
 import { ThemeService } from '@/shared/services/theme.service';
 import { BackendHealthService } from '@/shared/services/backend-health.service';
+import { ChatComponentService } from '../services/chat-component.service';
 
 @Component({
   selector: 'app-chatbot',
@@ -16,6 +17,7 @@ export class ChatbotComponent implements OnDestroy {
   public i18n = inject(TranslationService);
   public theme = inject(ThemeService);
   public health = inject(BackendHealthService);
+  public chatService = inject(ChatComponentService);
 
   public readonly avatarUrls = AVATAR_URLS;
   public readonly greetingTime = '11:08 AM';
@@ -59,13 +61,11 @@ export class ChatbotComponent implements OnDestroy {
   }
 
   public sendMessage(): void {
-    if (this.health.status() !== 'UP') {
-      return;
-    }
     const trimmed = this.messageInput.trim();
-    if (!trimmed) {
+    if (!trimmed || trimmed.length > 1000 || this.chatService.isSending()) {
       return;
     }
+    this.chatService.sendMessage(trimmed);
     this.messageInput = '';
   }
 

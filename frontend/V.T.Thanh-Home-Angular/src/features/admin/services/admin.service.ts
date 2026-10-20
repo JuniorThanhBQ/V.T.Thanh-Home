@@ -1,4 +1,9 @@
-import { Injectable, signal, computed } from '@angular/core';
+import { Injectable, signal, computed, inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable, of, switchMap, timeout, tap } from 'rxjs';
+import { VisitorService } from '@/shared/services/visitor.service';
+import { map, catchError } from 'rxjs/operators';
+import { API_ENDPOINTS, buildApiUrl } from '@/configs/apis';
 
 export interface SystemMetrics {
   springBootVersion: string;
@@ -22,6 +27,10 @@ export interface BlogPostItem {
   status: 'PUBLISHED' | 'DRAFT';
   publishedAt: string;
   heroImage: string;
+  slug?: string;
+  version?: number;
+  content?: string;
+  chapters?: { title: string; content: string; chapterOrder: number }[];
 }
 
 export interface ChatHistoryItem {
@@ -35,115 +44,91 @@ export interface ChatHistoryItem {
 
 @Injectable({ providedIn: 'root' })
 export class AdminService {
+  private http = inject(HttpClient);
+  private visitor = inject(VisitorService);
   private readonly storageKey = 'vtthanh_admin_session';
 
-  public readonly isAuthenticated = signal<boolean>(
-    typeof window !== 'undefined' ? sessionStorage.getItem(this.storageKey) === 'true' : false,
-  );
-
-  public readonly adminUser = signal<string | null>(
-    typeof window !== 'undefined' && sessionStorage.getItem(this.storageKey) === 'true'
-      ? 'admin'
-      : null,
-  );
+  public readonly isAuthenticated = signal(false);
+  public readonly adminUser = signal<string | null>(null);
 
   public readonly metrics = signal<SystemMetrics>({
     springBootVersion: '4.1.1',
     javaVersion: '25',
-    uptime: '14h 32m',
-    heapUsedMb: 312,
-    heapMaxMb: 1024,
-    activeThreads: 38,
-    activeProfile: 'production',
-    databaseStatus: 'UP',
-    databaseName: 'PostgreSQL 18 (Supabase)',
-    databasePool: 'HikariPool-1 (10/10 active)',
+    uptime: 'Unavailable',
+    heapUsedMb: 0,
+    heapMaxMb: 0,
+    activeThreads: 0,
+    activeProfile: 'Unavailable',
+    databaseStatus: 'DOWN',
+    databaseName: 'PostgreSQL 18',
+    databasePool: 'Unavailable',
   });
 
   public readonly heapUsagePercentage = computed(() => {
     const m = this.metrics();
-    return Math.round((m.heapUsedMb / m.heapMaxMb) * 100);
+    return m.heapMaxMb > 0 ? Math.round((m.heapUsedMb / m.heapMaxMb) * 100) : 0;
   });
 
-  public readonly posts = signal<BlogPostItem[]>([
-    {
-      id: '1',
-      title: 'Building Modern Portfolio with Spring Boot 4 and Angular 22',
-      category: 'Architecture',
-      readTime: '6 min read',
-      summary:
-        'Exploring fullstack decoupling, native image preparation, and edge deployment on Vercel.',
-      status: 'PUBLISHED',
-      publishedAt: '2026-10-15',
-      heroImage: 'https://res.cloudinary.com/dfolk8pz2/image/upload/v1792385538/J_17_crrpsy.png',
-    },
-    {
-      id: '2',
-      title: 'PostgreSQL 18 Vector Search and pgvector Integration',
-      category: 'Database',
-      readTime: '8 min read',
-      summary: 'Setting up high-performance vector embeddings for hybrid RAG search architectures.',
-      status: 'PUBLISHED',
-      publishedAt: '2026-10-10',
-      heroImage: 'https://res.cloudinary.com/dfolk8pz2/image/upload/v1792385538/J_17_crrpsy.png',
-    },
-    {
-      id: '3',
-      title: 'Automated CI/CD Pipeline Hardening with GitHub Actions and Zizmor',
-      category: 'DevOps',
-      readTime: '5 min read',
-      summary:
-        'Securing workflow permissions, pinning action SHAs, and auditing secrets inheritance.',
-      status: 'DRAFT',
-      publishedAt: '2026-10-18',
-      heroImage: 'https://res.cloudinary.com/dfolk8pz2/image/upload/v1792385538/J_17_crrpsy.png',
-    },
-  ]);
+  public readonly posts = signal<BlogPostItem[]>([]);
+  public readonly chatHistory = signal<ChatHistoryItem[]>([]);
+  public readonly operationError = signal('');
 
-  public readonly chatHistory = signal<ChatHistoryItem[]>([
-    {
-      id: 'c-1',
-      userQuery: 'Can you summarize Van Trung Thanh’s background and skills?',
-      botResponse:
-        'Van Trung Thanh is an IT student specializing in Software Engineering, GenAI Engineering, and DevOps architectures with Spring Boot and Angular.',
-      model: 'gemini-1.5-flash',
-      timestamp: '2026-10-19 12:45',
-      tokens: 142,
-    },
-    {
-      id: 'c-2',
-      userQuery: 'What backend architecture is used for this portfolio?',
-      botResponse:
-        'The backend uses Spring Boot 4.1.1 on Eclipse Temurin JDK 25 with Spring Data JPA, PostgreSQL 18 with pgvector, and Spring Actuator monitoring.',
-      model: 'gemini-1.5-flash',
-      timestamp: '2026-10-19 13:10',
-      tokens: 98,
-    },
-    {
-      id: 'c-3',
-      userQuery: 'How do I contact Thanh for internship opportunities?',
-      botResponse:
-        'You can submit an inquiry via the Contact form or email directly at thanh.vantrung2005@gmail.com.',
-      model: 'qwen2.5:3b',
-      timestamp: '2026-10-19 13:30',
-      tokens: 65,
-    },
-  ]);
+  constructor() {
+    this.checkSession();
+  }
 
-  public login(user: string, pass: string): boolean {
-    if (user === 'admin' && pass === 'admin123') {
-      /* WARNING: THIS IS A MOCK LOGIN ONLY! THIS WILL BE DELETED AFTER THE BACKEND IS RELEASED IN V.T.Thanh-Home V2.0.0 */
-      this.isAuthenticated.set(true);
-      this.adminUser.set(user);
-      if (typeof window !== 'undefined') {
-        sessionStorage.setItem(this.storageKey, 'true');
-      }
-      return true;
-    }
-    return false;
+  public checkSession(): void {
+    const url = buildApiUrl(API_ENDPOINTS.admin.session);
+    this.http
+      .get<{ authenticated: boolean; username: string }>(url, { withCredentials: true })
+      .subscribe({
+        next: (res) => {
+          if (res && res.authenticated) {
+            this.isAuthenticated.set(true);
+            this.adminUser.set(res.username);
+            this.loadPosts();
+          }
+        },
+        error: () => {
+          this.isAuthenticated.set(false);
+          this.adminUser.set(null);
+        },
+      });
+  }
+
+  public login(user: string, pass: string): Observable<boolean> {
+    const url = buildApiUrl(API_ENDPOINTS.admin.login);
+    return this.visitor.csrf().pipe(
+      switchMap(() =>
+        this.http.post<{ authenticated: boolean; username: string }>(
+          url,
+          { username: user, password: pass },
+          { withCredentials: true },
+        ),
+      ),
+      timeout(65000),
+      map((res) => {
+        this.isAuthenticated.set(true);
+        this.adminUser.set(res.username || user);
+        if (typeof window !== 'undefined') {
+          sessionStorage.setItem(this.storageKey, 'true');
+        }
+        return true;
+      }),
+      catchError(() => {
+        this.isAuthenticated.set(false);
+        this.adminUser.set(null);
+        return of(false);
+      }),
+    );
   }
 
   public logout(): void {
+    const url = buildApiUrl(API_ENDPOINTS.admin.logout);
+    this.http.post(url, {}, { withCredentials: true }).subscribe({
+      next: () => undefined,
+      error: () => undefined,
+    });
     this.isAuthenticated.set(false);
     this.adminUser.set(null);
     if (typeof window !== 'undefined') {
@@ -151,31 +136,135 @@ export class AdminService {
     }
   }
 
+  public loadPosts(): void {
+    this.http
+      .get<BlogApiRecord[]>(API_ENDPOINTS.admin.blogs)
+      .pipe(timeout(60000))
+      .subscribe({
+        next: (posts) => this.posts.set(posts.map((post) => this.mapPost(post))),
+        error: () => this.operationError.set('Unable to load posts from the server.'),
+      });
+  }
+
+  public loadPostContent(id: string): Observable<BlogPostItem> {
+    return this.http
+      .get<BlogApiRecord>(`${API_ENDPOINTS.admin.blogs}/${encodeURIComponent(id)}`)
+      .pipe(
+        timeout(60000),
+        map((post) => this.mapPost(post)),
+        tap((post) =>
+          this.posts.update((posts) => posts.map((item) => (item.id === post.id ? post : item))),
+        ),
+      );
+  }
+
   public createPost(post: Omit<BlogPostItem, 'id' | 'publishedAt'>): void {
-    const newPost: BlogPostItem = {
-      ...post,
-      id: Date.now().toString(),
-      publishedAt: new Date().toISOString().split('T')[0],
-    };
-    this.posts.update((list) => [newPost, ...list]);
+    const slug =
+      post.title
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/[\u0111\u0110]/g, 'd')
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-|-$/g, '')
+        .slice(0, 100) || `post-${Date.now()}`;
+    this.savePost('POST', API_ENDPOINTS.admin.blogs, { ...post, slug });
   }
 
   public updatePost(id: string, updated: Partial<BlogPostItem>): void {
-    this.posts.update((list) => list.map((p) => (p.id === id ? { ...p, ...updated } : p)));
+    const existing = this.posts().find((post) => post.id === id);
+    if (!existing) return;
+    this.savePost('PUT', `${API_ENDPOINTS.admin.blogs}/${encodeURIComponent(id)}`, {
+      ...existing,
+      ...updated,
+    });
+  }
+
+  private savePost(method: string, url: string, post: Partial<BlogPostItem>): void {
+    this.operationError.set('');
+    const body = {
+      slug: post.slug,
+      title: post.title,
+      description: post.summary,
+      category: post.category,
+      bannerUrl: post.heroImage,
+      status: post.status,
+      version: post.version,
+      chapters:
+        post.content !== undefined
+          ? post.chapters?.length
+            ? post.chapters.map((chapter, index) =>
+                index === 0 ? { ...chapter, content: post.content } : chapter,
+              )
+            : [{ title: post.title, content: post.content, chapterOrder: 1 }]
+          : undefined,
+    };
+    this.http
+      .request<BlogApiRecord>(method, url, { body })
+      .pipe(timeout(60000))
+      .subscribe({
+        next: () => this.loadPosts(),
+        error: () =>
+          this.operationError.set(
+            'Unable to save the post. Check the fields or refresh after a concurrent edit.',
+          ),
+      });
   }
 
   public deletePost(id: string): void {
-    this.posts.update((list) => list.filter((p) => p.id !== id));
+    this.http
+      .delete(`${API_ENDPOINTS.admin.blogs}/${encodeURIComponent(id)}`)
+      .pipe(timeout(60000))
+      .subscribe({
+        next: () => this.loadPosts(),
+        error: () => this.operationError.set('Unable to delete the post.'),
+      });
   }
 
   public refreshMetrics(): void {
-    const current = this.metrics();
-    const randomizedHeap = Math.floor(280 + Math.random() * 80);
-    const randomizedThreads = Math.floor(32 + Math.random() * 14);
-    this.metrics.set({
-      ...current,
-      heapUsedMb: randomizedHeap,
-      activeThreads: randomizedThreads,
-    });
+    this.http
+      .get<{ status: string }>(buildApiUrl(API_ENDPOINTS.actuator.health))
+      .pipe(timeout(60000))
+      .subscribe({
+        next: (health) =>
+          this.metrics.update((current) => ({
+            ...current,
+            databaseStatus: health.status === 'UP' ? 'UP' : 'DOWN',
+          })),
+        error: () => this.metrics.update((current) => ({ ...current, databaseStatus: 'DOWN' })),
+      });
   }
+
+  private mapPost(post: BlogApiRecord): BlogPostItem {
+    const content = post.chapters?.[0]?.content;
+    return {
+      id: String(post.id),
+      slug: post.slug,
+      version: post.version,
+      title: post.title,
+      category: post.category,
+      status: post.status,
+      summary: post.description,
+      content,
+      chapters: post.chapters,
+      readTime: content
+        ? `${Math.max(1, Math.ceil(content.split(/\s+/).length / 200))} min read`
+        : '',
+      publishedAt: post.publishedAt || '',
+      heroImage: post.bannerUrl || '',
+    };
+  }
+}
+
+interface BlogApiRecord {
+  id: number;
+  slug: string;
+  version: number;
+  title: string;
+  description: string;
+  category: string;
+  status: 'PUBLISHED' | 'DRAFT';
+  bannerUrl?: string;
+  publishedAt?: string;
+  chapters?: { title: string; content: string; chapterOrder: number }[];
 }

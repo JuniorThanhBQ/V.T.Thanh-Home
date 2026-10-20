@@ -13,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.security.web.csrf.CsrfTokenRequestAttributeHandler;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -32,13 +33,14 @@ public class SecurityConfig {
             .cors(Customizer.withDefaults())
             .csrf(csrf -> csrf
                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                .ignoringRequestMatchers("/api/v1/admin/login", "/api/v1/contacts")
+                .csrfTokenRequestHandler(new CsrfTokenRequestAttributeHandler())
             )
             .sessionManagement(session -> session
                 .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
             )
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers(HttpMethod.POST, "/api/v1/admin/login").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/v1/security/csrf", "/api/v1/security/config").permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/v1/visitors", "/api/v1/admin/login").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/v1/projects/**", "/api/v1/blogs/**").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/v1/contacts").permitAll()
                 .requestMatchers("/api/v1/chat/**").permitAll()
@@ -64,7 +66,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource(CorsProperties corsProperties) {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOriginPatterns(corsProperties.allowedOrigins());
+        configuration.setAllowedOrigins(corsProperties.allowedOrigins());
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setExposedHeaders(List.of("X-Total-Count", "X-Request-Id", "Content-Disposition", "Retry-After"));

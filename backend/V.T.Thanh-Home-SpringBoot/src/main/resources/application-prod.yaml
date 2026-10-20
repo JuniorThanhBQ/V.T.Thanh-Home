@@ -1,0 +1,8 @@
+app:
+  turnstile:
+    enabled: ${TURNSTILE_ENABLED:true}
+server:
+  servlet:
+    session:
+      cookie:
+        secure: true

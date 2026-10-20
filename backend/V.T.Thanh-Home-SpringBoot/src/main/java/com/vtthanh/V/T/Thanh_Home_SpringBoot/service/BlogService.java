@@ -15,6 +15,9 @@ import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
+import java.util.HashSet;
+import java.net.URI;
+import org.springframework.data.domain.PageRequest;
 
 @Service
 public class BlogService {
@@ -26,8 +29,8 @@ public class BlogService {
     }
 
     @Transactional(readOnly = true)
-    public List<BlogSummaryResponse> getPublicBlogs() {
-        return blogRepository.findByStatusOrderByPublishedAtDescIdDesc(BlogStatus.PUBLISHED)
+    public List<BlogSummaryResponse> getPublicBlogs(int page, int size) {
+        return blogRepository.findByStatusOrderByPublishedAtDescIdDesc(BlogStatus.PUBLISHED, PageRequest.of(Math.max(0, Math.min(page, 1000)), Math.max(1, Math.min(size, 50))))
                 .stream()
                 .map(this::mapToSummary)
                 .toList();
@@ -42,7 +45,7 @@ public class BlogService {
 
     @Transactional(readOnly = true)
     public List<BlogSummaryResponse> getAllBlogsForAdmin() {
-        return blogRepository.findAllByOrderByCreatedDateDesc()
+        return blogRepository.findAllByOrderByCreatedDateDesc(PageRequest.of(0, 100))
                 .stream()
                 .map(this::mapToSummary)
                 .toList();
@@ -80,6 +83,7 @@ public class BlogService {
             }
         }
 
+        validateBlog(blog);
         Blog saved = blogRepository.save(blog);
         return mapToDetail(saved);
     }
@@ -128,6 +132,7 @@ public class BlogService {
             }
         }
 
+        validateBlog(blog);
         Blog saved = blogRepository.save(blog);
         return mapToDetail(saved);
     }
@@ -138,6 +143,37 @@ public class BlogService {
             throw new ResourceNotFoundException("Blog not found with id: " + id);
         }
         blogRepository.deleteById(id);
+    }
+
+    private void validateBlog(Blog blog) {
+        if (blog.getTitle() == null || blog.getTitle().isBlank() || blog.getTitle().length() > 160
+                || blog.getSlug() == null || !blog.getSlug().matches("[a-z0-9]+(?:-[a-z0-9]+)*") || blog.getSlug().length() > 120
+                || (blog.getSubtitle() != null && blog.getSubtitle().length() > 240)
+                || blog.getDescription().length() > 4000 || blog.getChapters().size() > 20) {
+            throw new IllegalArgumentException("Blog fields exceed the allowed format or size");
+        }
+        if (blog.getBannerUrl() != null && !blog.getBannerUrl().isBlank()) {
+            URI banner = URI.create(blog.getBannerUrl());
+            if (!"https".equals(banner.getScheme()) || banner.getHost() == null || banner.getUserInfo() != null || blog.getBannerUrl().length() > 500) {
+                throw new IllegalArgumentException("Banner must be an HTTPS URL");
+            }
+        }
+        if (blog.getStatus() == BlogStatus.PUBLISHED && blog.getChapters().isEmpty()) {
+            throw new IllegalArgumentException("A published blog needs at least one chapter");
+        }
+        int bytes = 0;
+        var positions = new HashSet<Integer>();
+        for (BlogChapter chapter : blog.getChapters()) {
+            if (chapter.getTitle() == null || chapter.getTitle().isBlank() || chapter.getTitle().length() > 160
+                    || chapter.getContent() == null || chapter.getContent().isBlank()
+                    || chapter.getChapterOrder() < 1 || !positions.add(chapter.getChapterOrder())) {
+                throw new IllegalArgumentException("Chapter fields or order are invalid");
+            }
+            bytes += chapter.getContent().getBytes(java.nio.charset.StandardCharsets.UTF_8).length;
+        }
+        if (bytes > 200 * 1024) {
+            throw new IllegalArgumentException("Article content is too large");
+        }
     }
 
     private BlogSummaryResponse mapToSummary(Blog blog) {

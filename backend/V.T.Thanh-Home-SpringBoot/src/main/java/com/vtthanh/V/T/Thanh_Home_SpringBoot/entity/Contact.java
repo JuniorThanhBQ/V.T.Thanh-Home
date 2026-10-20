@@ -52,6 +52,17 @@ public class Contact extends BaseEntity {
     @Column(name = "user_agent", length = 300)
     private String userAgent;
 
+    @Column(name = "visitor_id")
+    private Long visitorId;
+
+    public Long getVisitorId() {
+        return visitorId;
+    }
+
+    public void setVisitorId(Long visitorId) {
+        this.visitorId = visitorId;
+    }
+
     protected Contact() {
     }
 

@@ -1,10 +1,11 @@
-import { Component, inject, computed } from '@angular/core';
+import { Component, inject, computed, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TranslationService } from '@/shared/services/translation.service';
 import { BackendHealthService } from '@/shared/services/backend-health.service';
 import { AVATAR_URLS } from '@/assets/cloudinaryUrl';
 import { AppValidators, SecurityValidators } from '@/utils/validators';
+import { ContactApiService } from '../services/contact-api.service';
 
 @Component({
   selector: 'app-contact',
@@ -13,21 +14,21 @@ import { AppValidators, SecurityValidators } from '@/utils/validators';
   templateUrl: '../templates/contact.component.html',
 })
 export class ContactComponent {
+  private cdr = inject(ChangeDetectorRef);
+  public submitFailed = false;
   private fb = inject(FormBuilder);
+  private contactApi = inject(ContactApiService);
   public i18n = inject(TranslationService);
   public health = inject(BackendHealthService);
   public readonly avatarUrls = AVATAR_URLS;
   public isSubmitted = false;
+  public isSubmitting = false;
 
   public submitButtonText = computed(() => {
-    const status = this.health.status();
-    if (status === 'UP') {
-      return this.i18n.t('contact.form.submit_button');
+    if (this.isSubmitting) {
+      return '...';
     }
-    if (status === 'DOWN') {
-      return this.i18n.t('app.backend_health_down');
-    }
-    return this.i18n.t('app.backend_health_standby');
+    return this.i18n.t('contact.form.submit_button');
   });
 
   public contactForm: FormGroup = this.fb.group({
@@ -51,22 +52,39 @@ export class ContactComponent {
   }
 
   public onSubmit(): void {
-    if (this.health.status() !== 'UP' || this.contactForm.invalid) {
+    if (this.contactForm.invalid || this.isSubmitting) {
       this.contactForm.markAllAsTouched();
       return;
     }
 
-    this.contactForm.patchValue({
+    const payload = {
       firstName: SecurityValidators.sanitizeString(this.contactForm.value.firstName),
-      lastName: SecurityValidators.sanitizeString(this.contactForm.value.lastName),
-      service: SecurityValidators.sanitizeString(this.contactForm.value.service),
+      lastName: SecurityValidators.sanitizeString(this.contactForm.value.lastName || ''),
+      phone: this.contactForm.value.phone || '',
+      email: this.contactForm.value.email.trim(),
+      service: SecurityValidators.sanitizeString(this.contactForm.value.service || ''),
       message: SecurityValidators.sanitizeString(this.contactForm.value.message),
-    });
+    };
 
-    this.isSubmitted = true;
-    setTimeout(() => {
-      this.isSubmitted = false;
-      this.contactForm.reset();
-    }, 4000);
+    this.submitFailed = false;
+    this.isSubmitting = true;
+
+    this.contactApi.submitContact(payload).subscribe({
+      next: () => {
+        this.isSubmitting = false;
+        this.isSubmitted = true;
+        this.contactForm.reset();
+        this.cdr.markForCheck();
+        setTimeout(() => {
+          this.isSubmitted = false;
+          this.cdr.markForCheck();
+        }, 4000);
+      },
+      error: () => {
+        this.isSubmitting = false;
+        this.submitFailed = true;
+        this.cdr.markForCheck();
+      },
+    });
   }
 }

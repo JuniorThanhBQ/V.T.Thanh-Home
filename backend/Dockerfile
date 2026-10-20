@@ -44,6 +44,6 @@ EXPOSE 8080
 ENV JAVA_TOOL_OPTIONS="-XX:MaxRAMPercentage=80.0 -XX:+UseContainerSupport"
 
 HEALTHCHECK --interval=30s --timeout=5s --start-period=20s --retries=3 \
-  CMD ["curl", "-f", "http://localhost:8080/actuator/health"]
+  CMD ["sh", "-c", "curl -fsS --max-time 3 http://127.0.0.1:${PORT:-${SERVER_PORT:-8080}}/actuator/health"]
 
 ENTRYPOINT ["java", "org.springframework.boot.loader.launch.JarLauncher"]

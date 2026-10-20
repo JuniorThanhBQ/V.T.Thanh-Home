@@ -1,7 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { SecurityValidators } from '@/utils/validators';
 import { AdminService } from '../services/admin.service';
 
 @Component({
@@ -18,8 +17,8 @@ export class AdminLoginComponent {
   public readonly isLoggingIn = signal<boolean>(false);
 
   public loginForm: FormGroup = this.fb.group({
-    username: ['', [Validators.required, SecurityValidators.sanitizeInput()]],
-    password: ['', [Validators.required, SecurityValidators.sanitizeInput()]],
+    username: ['', [Validators.required, Validators.maxLength(50)]],
+    password: ['', [Validators.required, Validators.maxLength(512)]],
   });
 
   public isFieldInvalid(field: string): boolean {
@@ -31,29 +30,30 @@ export class AdminLoginComponent {
     this.loginError.set(null);
     if (this.loginForm.invalid) {
       this.loginForm.markAllAsTouched();
-      if (
-        this.loginForm.get('username')?.errors?.['securityViolation'] ||
-        this.loginForm.get('password')?.errors?.['securityViolation']
-      ) {
-        this.loginError.set('Security violation: HTML or script injection detected.');
-      }
       return;
     }
 
     this.isLoggingIn.set(true);
     const { username, password } = this.loginForm.value;
-    const sanitizedUsername = SecurityValidators.sanitizeString(username);
+    const sanitizedUsername = username.trim();
 
-    setTimeout(() => {
-      const ok = this.adminService.login(sanitizedUsername, password);
-      if (!ok) {
+    this.adminService.login(sanitizedUsername, password).subscribe({
+      next: (ok) => {
+        if (!ok) {
+          this.loginError.set(
+            'Invalid credentials. If you ended up here by mistake, please go back to the homepage.',
+          );
+        } else {
+          this.loginForm.reset();
+        }
+        this.isLoggingIn.set(false);
+      },
+      error: () => {
         this.loginError.set(
           'Invalid credentials. If you ended up here by mistake, please go back to the homepage.',
         );
-      } else {
-        this.loginForm.reset();
-      }
-      this.isLoggingIn.set(false);
-    }, 400);
+        this.isLoggingIn.set(false);
+      },
+    });
   }
 }

@@ -31,6 +31,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@org.springframework.test.context.ContextConfiguration(initializers = SafeTestDatabaseInitializer.class)
 @SpringBootTest
 class ProjectAndBlogIntegrationTest {
 
@@ -68,7 +69,7 @@ class ProjectAndBlogIntegrationTest {
 
     private MockHttpSession loginAsAdmin() throws Exception {
         String loginBody = "{\"username\":\"stage3admin\",\"password\":\"SecretPass123!\"}";
-        MvcResult loginResult = mockMvc.perform(post("/api/v1/admin/login")
+        MvcResult loginResult = mockMvc.perform(post("/api/v1/admin/login").with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(loginBody))
                 .andExpect(status().isOk())
@@ -130,7 +131,7 @@ class ProjectAndBlogIntegrationTest {
         MockHttpSession session = loginAsAdmin();
 
         String createJson = "{\"slug\":\"admin-proj\",\"title\":\"Admin Created\",\"description\":\"Desc\",\"techStack\":[\"Java\"],\"published\":true}";
-        MvcResult createResult = mockMvc.perform(post("/api/v1/admin/projects")
+        MvcResult createResult = mockMvc.perform(post("/api/v1/admin/projects").with(csrf())
                         .session(session)
                         .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
@@ -173,7 +174,7 @@ class ProjectAndBlogIntegrationTest {
         MockHttpSession session = loginAsAdmin();
 
         String createJson = "{\"slug\":\"admin-blog\",\"title\":\"Admin Blog Title\",\"description\":\"Summary text\",\"category\":\"TECHNICAL\",\"status\":\"DRAFT\",\"chapters\":[{\"title\":\"Ch 1\",\"content\":\"# Content 1\",\"chapterOrder\":1}]}";
-        MvcResult createResult = mockMvc.perform(post("/api/v1/admin/blogs")
+        MvcResult createResult = mockMvc.perform(post("/api/v1/admin/blogs").with(csrf())
                         .session(session)
                         .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)

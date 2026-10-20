@@ -39,6 +39,10 @@ public class AdminAuthService {
     }
 
     public AdminSessionResponse login(String username, String password, HttpServletRequest request) {
+        if (username == null || username.isBlank() || username.length() > 50
+                || password == null || password.isBlank() || password.length() > 512) {
+            throw new BadCredentialsException("Invalid credentials");
+        }
         String clientIp = resolveClientIp(request);
         String rateLimitKey = clientIp + ":" + (username != null ? username : "");
 
@@ -57,7 +61,7 @@ public class AdminAuthService {
 
         if (admin == null || !admin.isActive() || !passwordEncoder.matches(password, admin.getPasswordHash())) {
             rateLimiterService.recordFailedAttempt(rateLimitKey);
-            log.warn("Failed login attempt for username: {}", username);
+            log.warn("Administrator authentication failed");
             throw new BadCredentialsException("Invalid credentials");
         }
 
@@ -102,10 +106,6 @@ public class AdminAuthService {
     }
 
     private String resolveClientIp(HttpServletRequest request) {
-        String xff = request.getHeader("X-Forwarded-For");
-        if (xff != null && !xff.isBlank()) {
-            return xff.split(",")[0].trim();
-        }
-        return request.getRemoteAddr();
+        return VisitorService.clientIp(request);
     }
 }

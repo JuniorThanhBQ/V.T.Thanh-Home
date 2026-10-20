@@ -149,12 +149,14 @@
       "open_story": "阅读文章",
       "previous": "← 上一页",
       "next": "下一页 →",
-      "go_to_story": "前往文章"
+      "go_to_story": "前往文章",
+      "retry": "重试"
     },
     "empty": {
       "title": "暂无文章",
       "description": "目前还没有发布任何文章。这可能是后端出现了错误，也可能只是我懒得写文章。请稍后再来看看。"
-    }
+    },
+    "load_error": "无法加载博客，请重试。"
   },
   "contact": {
     "info": {
@@ -189,7 +191,8 @@
       "message_placeholder": "请输入您的留言内容...",
       "message_error": "留言至少需要 10 个字符，且不能包含无效字符。",
       "submit_button": "发送消息",
-      "success_message": "已收到您的消息！"
+      "success_message": "已收到您的消息！",
+      "submit_error": "无法提交您的消息，请重试。"
     }
   },
   "chat": {
@@ -201,12 +204,14 @@
     "greeting": "你好！我是文忠诚的虚拟助手。今天有什么可以帮助你的吗？",
     "suggested_topics_title": "推荐主题",
     "topics": {
-      "tech_stack": "技术栈包括哪些技术？",
+      "tech_stack": "我目前具备哪些技术技能？",
       "projects": "探索代表性项目",
       "contact": "如何与我联系？"
     },
     "input_placeholder": "向我提问...",
     "send_button": "发送消息",
-    "disclaimer": "⚠️ 此内容由人工智能生成。相关回复不构成任何法律、财务、医疗或生活方面的建议。对于因使用本聊天机器人而作出的决定或产生的后果，网站所有者不承担任何责任。请谨慎参考和使用。"
+    "disclaimer": "⚠️ 此内容由人工智能生成。相关回复不构成任何法律、财务、医疗或生活方面的建议。对于因使用本聊天机器人而作出的决定或产生的后果，网站所有者不承担任何责任。请谨慎参考和使用。",
+    "connection_error": "助手暂时不可用，请重试或使用联系表单。",
+    "rate_limited": "消息过多，请稍后重试。"
   }
 }

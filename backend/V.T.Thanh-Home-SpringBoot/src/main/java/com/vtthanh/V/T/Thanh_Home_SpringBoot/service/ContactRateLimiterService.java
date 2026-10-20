@@ -19,6 +19,9 @@ public class ContactRateLimiterService {
             return;
         }
 
+        if (trackers.size() >= 10000 && !trackers.containsKey(clientIp)) {
+            throw new RateLimitExceededException("Request capacity reached. Please retry later.");
+        }
         Instant now = Instant.now();
         IpSubmissionTracker tracker = trackers.compute(clientIp, (key, existing) -> {
             if (existing == null || now.isAfter(existing.windowExpiresAt())) {
@@ -36,6 +39,12 @@ public class ContactRateLimiterService {
         if (clientIp != null) {
             trackers.remove(clientIp);
         }
+    }
+
+    @org.springframework.scheduling.annotation.Scheduled(fixedDelay = 60000)
+    public void expireWindows() {
+        Instant now = Instant.now();
+        trackers.entrySet().removeIf(entry -> now.isAfter(entry.getValue().windowExpiresAt()));
     }
 
     private record IpSubmissionTracker(int count, Instant windowExpiresAt) {

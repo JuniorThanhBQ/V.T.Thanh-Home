@@ -22,7 +22,7 @@ export class AdminDashboardComponent {
 
   public postForm: FormGroup = this.fb.group({
     title: ['', [Validators.required, Validators.minLength(5)]],
-    category: ['Architecture', [Validators.required]],
+    category: ['TECHNICAL', [Validators.required]],
     readTime: ['5 min read', [Validators.required]],
     status: ['PUBLISHED', [Validators.required]],
     heroImage: [
@@ -30,6 +30,7 @@ export class AdminDashboardComponent {
       [Validators.required],
     ],
     summary: ['', [Validators.required, Validators.minLength(10)]],
+    content: ['', [Validators.required, Validators.maxLength(50000)]],
   });
 
   public filteredPosts = computed(() => {
@@ -64,17 +65,22 @@ export class AdminDashboardComponent {
     this.editingPostId.set(null);
     this.postForm.reset({
       title: '',
-      category: 'Architecture',
+      category: 'TECHNICAL',
       readTime: '5 min read',
       status: 'PUBLISHED',
       heroImage: 'https://res.cloudinary.com/dfolk8pz2/image/upload/v1792385538/J_17_crrpsy.png',
       summary: '',
+      content: '',
     });
     this.isPostModalOpen.set(true);
   }
 
   public openEditModal(post: BlogPostItem): void {
     this.editingPostId.set(post.id);
+    this.adminService.loadPostContent(post.id).subscribe({
+      next: (detail) => this.postForm.patchValue({ content: detail.content || '' }),
+      error: () => this.adminService.operationError.set('Unable to load article content.'),
+    });
     this.postForm.patchValue({
       title: post.title,
       category: post.category,
@@ -82,6 +88,7 @@ export class AdminDashboardComponent {
       status: post.status,
       heroImage: post.heroImage,
       summary: post.summary,
+      content: '',
     });
     this.isPostModalOpen.set(true);
   }

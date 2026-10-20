@@ -149,12 +149,14 @@
       "open_story": "BEITRAG LESEN",
       "previous": "← Vorherige Seite",
       "next": "Nächste Seite →",
-      "go_to_story": "Zum Beitrag"
+      "go_to_story": "Zum Beitrag",
+      "retry": "Erneut versuchen"
     },
     "empty": {
       "title": "Keine Beiträge vorhanden",
       "description": "Es wurden noch keine Beiträge veröffentlicht. Möglicherweise liegt ein Backend-Fehler vor oder ich war einfach zu faul, etwas zu schreiben. Bitte schauen Sie später noch einmal vorbei."
-    }
+    },
+    "load_error": "Das Journal konnte nicht geladen werden. Bitte versuchen Sie es erneut."
   },
   "contact": {
     "info": {
@@ -189,7 +191,8 @@
       "message_placeholder": "Geben Sie Ihre Nachricht ein...",
       "message_error": "Die Nachricht muss mindestens 10 Zeichen lang sein und darf keine ungültigen Zeichen enthalten.",
       "submit_button": "Nachricht senden",
-      "success_message": "Ihre Nachricht ist eingegangen!"
+      "success_message": "Ihre Nachricht ist eingegangen!",
+      "submit_error": "Ihre Nachricht konnte nicht gesendet werden. Bitte versuchen Sie es erneut."
     }
   },
   "chat": {
@@ -201,12 +204,14 @@
     "greeting": "Hallo! Ich bin die virtuelle Assistentenversion von Van Trung Thanh. Wie kann ich Ihnen heute helfen?",
     "suggested_topics_title": "Vorgeschlagene Themen",
     "topics": {
-      "tech_stack": "Welche Technologien umfasst der Tech-Stack?",
+      "tech_stack": "Welche technischen Fähigkeiten habe ich derzeit?",
       "projects": "Ausgewählte Projekte entdecken",
       "contact": "Wie kann ich Kontakt aufnehmen?"
     },
     "input_placeholder": "Stellen Sie mir eine Frage...",
     "send_button": "Nachricht senden",
-    "disclaimer": "⚠️ Dieser Inhalt wurde von KI erstellt. Die Antworten stellen keine rechtliche, finanzielle, medizinische oder persönliche Beratung dar. Der Betreiber dieser Website übernimmt keine Verantwortung für Entscheidungen oder Folgen, die sich aus der Nutzung dieses Chatbots ergeben. Bitte verwenden Sie ihn mit Bedacht."
+    "disclaimer": "⚠️ Dieser Inhalt wurde von KI erstellt. Die Antworten stellen keine rechtliche, finanzielle, medizinische oder persönliche Beratung dar. Der Betreiber dieser Website übernimmt keine Verantwortung für Entscheidungen oder Folgen, die sich aus der Nutzung dieses Chatbots ergeben. Bitte verwenden Sie ihn mit Bedacht.",
+    "connection_error": "Der Assistent ist vorübergehend nicht verfügbar. Bitte versuchen Sie es erneut oder nutzen Sie das Kontaktformular.",
+    "rate_limited": "Zu viele Nachrichten. Bitte warten Sie, bevor Sie es erneut versuchen."
   }
 }
