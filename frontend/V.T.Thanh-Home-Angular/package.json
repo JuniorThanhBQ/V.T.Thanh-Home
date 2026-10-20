@@ -1,6 +1,6 @@
 {
   "name": "v.t.thanh-home-angular",
-  "version": "1.2.2",
+  "version": "2.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -21,6 +21,8 @@
     "@angular/router": "^22.2.2",
     "@vercel/analytics": "^2.0.1",
     "botid": "^1.5.11",
+    "dompurify": "^3.4.17",
+    "marked": "^18.1.1",
     "rxjs": "~7.8.0",
     "three": "^0.186.1",
     "tslib": "^2.3.0"
@@ -31,6 +33,7 @@
     "@angular/compiler-cli": "^22.2.2",
     "@eslint/js": "^10.0.1",
     "@tailwindcss/postcss": "^4.1.12",
+    "@types/dompurify": "^3.0.5",
     "@types/three": "^0.186.0",
     "angular-eslint": "22.6.0",
     "eslint": "^10.9.1",

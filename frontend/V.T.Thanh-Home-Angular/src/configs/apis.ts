@@ -20,6 +20,7 @@ export const API_ENDPOINTS = {
     projects: '/api/v1/admin/projects',
     blogs: '/api/v1/admin/blogs',
     contacts: '/api/v1/admin/contacts',
+    users: '/api/v1/admin/users',
   },
 } as const;
 

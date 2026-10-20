@@ -1,4 +1,4 @@
-import { finalize, Subscription } from 'rxjs';
+import { finalize } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   Component,
@@ -7,15 +7,16 @@ import {
   inject,
   ElementRef,
   ViewChild,
-  OnInit,
   AfterViewInit,
   OnDestroy,
+  effect,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslationService } from '@/shared/services/translation.service';
+import { BackendHealthService } from '@/shared/services/backend-health.service';
+import { MarkdownPipe } from '@/shared/pipes/markdown.pipe';
 import { BlogShaderService } from '../services/blog-shader.service';
 import { BlogApiService } from '../services/blog-api.service';
-import { BlogLoadComponent } from './blog.load.component';
 
 export interface BlogChapter {
   chapterNumber: string;
@@ -37,41 +38,44 @@ export interface BlogPost {
 @Component({
   selector: 'app-blog',
   standalone: true,
-  imports: [CommonModule, BlogLoadComponent],
+  imports: [CommonModule, MarkdownPipe],
   providers: [BlogShaderService],
   templateUrl: '../templates/blog.component.html',
 })
-export class BlogComponent implements OnInit, AfterViewInit, OnDestroy {
+export class BlogComponent implements AfterViewInit, OnDestroy {
   public i18n = inject(TranslationService);
+  public health = inject(BackendHealthService);
   private shaderService = inject(BlogShaderService);
   private blogApi = inject(BlogApiService);
   private cdr = inject(ChangeDetectorRef);
   private destroyRef = inject(DestroyRef);
-  private request?: Subscription;
-  public loadFailed = false;
+  private isFetching = false;
 
   @ViewChild('bgCanvas') private canvasRef!: ElementRef<HTMLCanvasElement>;
 
-  public isLoading = false;
   public activePostIndex = 0;
   public selectedPost: BlogPost | null = null;
   public posts: BlogPost[] = [];
 
-  ngOnInit(): void {
-    this.loadBlogs();
+  constructor() {
+    effect(() => {
+      if (this.health.status() === 'UP' && this.posts.length === 0 && !this.isFetching) {
+        this.loadBlogs();
+      }
+    });
   }
 
   public loadBlogs(): void {
-    this.request?.unsubscribe();
-    this.loadFailed = false;
-    this.isLoading = true;
-    this.request = this.blogApi
+    if (this.isFetching) {
+      return;
+    }
+    this.isFetching = true;
+    this.blogApi
       .getBlogs()
       .pipe(
         takeUntilDestroyed(this.destroyRef),
         finalize(() => {
-          this.isLoading = false;
-          this.cdr.markForCheck();
+          this.isFetching = false;
         }),
       )
       .subscribe({
@@ -92,18 +96,13 @@ export class BlogComponent implements OnInit, AfterViewInit, OnDestroy {
             this.posts = [];
           }
           this.activePostIndex = 0;
+          this.cdr.markForCheck();
         },
         error: () => {
-          this.loadFailed = true;
+          this.posts = [];
+          this.cdr.markForCheck();
         },
       });
-  }
-
-  public splitParagraphs(markdown: string): string[] {
-    return markdown
-      .split('\n\n')
-      .map((p) => p.trim())
-      .filter((p) => p.length > 0);
   }
 
   ngAfterViewInit(): void {
@@ -134,17 +133,9 @@ export class BlogComponent implements OnInit, AfterViewInit, OnDestroy {
 
   public openStory(post: BlogPost): void {
     if (post.chapters.length === 0) {
-      this.isLoading = true;
-      this.loadFailed = false;
-      this.request = this.blogApi
+      this.blogApi
         .getBlogBySlug(post.id)
-        .pipe(
-          takeUntilDestroyed(this.destroyRef),
-          finalize(() => {
-            this.isLoading = false;
-            this.cdr.markForCheck();
-          }),
-        )
+        .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe({
           next: (detail) => {
             if (detail && detail.chapters) {
@@ -155,11 +146,12 @@ export class BlogComponent implements OnInit, AfterViewInit, OnDestroy {
               }));
             }
             this.selectedPost = post;
-            this.isLoading = false;
+            this.cdr.markForCheck();
             window.scrollTo({ top: 0, behavior: 'smooth' });
           },
           error: () => {
-            this.loadFailed = true;
+            this.selectedPost = post;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
           },
         });
     } else {
@@ -174,6 +166,8 @@ export class BlogComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   public reloadBlog(): void {
-    this.loadBlogs();
+    if (this.health.status() === 'UP') {
+      this.loadBlogs();
+    }
   }
 }

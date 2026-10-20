@@ -21,7 +21,7 @@ export class BackendHealthService {
   public readonly isHealthy = signal<boolean | null>(null);
   public readonly lastChecked = signal<Date | null>(null);
 
-  private readonly intervalMs = 5 * 60 * 1000;
+  private readonly intervalMs = 1 * 30 * 1000;
 
   constructor() {
     this.startHealthPolling();

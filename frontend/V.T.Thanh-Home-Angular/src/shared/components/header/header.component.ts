@@ -24,6 +24,9 @@ export interface NavItem {
   standalone: true,
   imports: [CommonModule, RouterLink, RouterLinkActive],
   templateUrl: './header.component.html',
+  host: {
+    class: 'block h-[72px]',
+  },
 })
 export class HeaderComponent implements OnDestroy {
   public i18n = inject(TranslationService);
@@ -35,7 +38,26 @@ export class HeaderComponent implements OnDestroy {
   );
   public isLangDropdownOpen = signal<boolean>(false);
   public isMobileMenuOpen = signal<boolean>(false);
+  public isHeaderHidden = signal<boolean>(false);
+  private lastScrollY = 0;
   private elementRef = inject(ElementRef);
+
+  @HostListener('window:scroll')
+  public onWindowScroll(): void {
+    if (this.isMobileMenuOpen()) {
+      return;
+    }
+    const currentScrollY = window.scrollY || document.documentElement.scrollTop || 0;
+    if (currentScrollY > 60 && currentScrollY > this.lastScrollY) {
+      this.isHeaderHidden.set(true);
+      if (this.isLangDropdownOpen()) {
+        this.isLangDropdownOpen.set(false);
+      }
+    } else {
+      this.isHeaderHidden.set(false);
+    }
+    this.lastScrollY = Math.max(0, currentScrollY);
+  }
 
   private readonly rawNavConfig = [
     { rawPath: '', key: 'navigation.home', exact: true },

@@ -11,7 +11,7 @@
       </p>
     </div>
 
-    <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="space-y-5">
+    <form [formGroup]="loginForm" (ngSubmit)="onLogin()" autocomplete="off" class="space-y-5">
       <div class="space-y-1.5 text-left">
         <label
           for="admin-username"
@@ -22,17 +22,16 @@
           id="admin-username"
           type="text"
           formControlName="username"
+          autocomplete="off"
+          autocapitalize="none"
+          spellcheck="false"
           placeholder="admin"
           [class.border-blue-500]="isFieldInvalid('username')"
           class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#08101d] text-sm text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all shadow-inner"
         />
         @if (isFieldInvalid('username')) {
-          <span class="text-xs font-mono text-blue-400 block pt-0.5">
-            @if (loginForm.get('username')?.errors?.['securityViolation']) {
-              Security violation: HTML tags or scripts are not allowed.
-            } @else {
-              Username is required.
-            }
+          <span class="text-xs font-mono text-red-400 block pt-0.5">
+            Enter a username of at most 50 characters.
           </span>
         }
       </div>
@@ -47,26 +46,23 @@
           id="admin-password"
           type="password"
           formControlName="password"
+          autocomplete="off"
           placeholder="••••••••"
           [class.border-blue-500]="isFieldInvalid('password')"
           class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#08101d] text-sm text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all shadow-inner"
         />
         @if (isFieldInvalid('password')) {
-          <span class="text-xs font-mono text-blue-400 block pt-0.5">
-            @if (loginForm.get('password')?.errors?.['securityViolation']) {
-              Security violation: HTML tags or scripts are not allowed.
-            } @else {
-              Password is required.
-            }
+          <span class="text-xs font-mono text-red-400 block pt-0.5">
+            Enter a password of at most 512 characters.
           </span>
         }
       </div>
 
-      @if (loginError()) {
+      @if (loginError() || adminService.sessionError()) {
         <div
           class="p-3 rounded-xl border border-red-500/20 text-xs font-mono text-red-400 dark:text-red-500 text-left"
         >
-          {{ loginError() }}
+          {{ loginError() || adminService.sessionError() }}
         </div>
       }
 

@@ -1,7 +1,9 @@
 <div
   class="relative w-full min-h-[calc(100vh-4.5rem)] flex flex-col justify-start select-none py-6 sm:py-10 px-4 sm:px-6 lg:px-8"
 >
-  @if (!adminService.isAuthenticated()) {
+  @if (adminService.checkingSession()) {
+    <p role="status" class="text-center text-slate-500">Checking administrator session…</p>
+  } @else if (!adminService.isAuthenticated()) {
     <app-admin-login />
   } @else {
     <app-admin-dashboard />

@@ -24,11 +24,22 @@ export class ContactComponent {
   public isSubmitted = false;
   public isSubmitting = false;
 
+  public isFormDisabled = computed(() => {
+    return this.health.status() !== 'UP' || this.isSubmitting;
+  });
+
   public submitButtonText = computed(() => {
     if (this.isSubmitting) {
       return '...';
     }
-    return this.i18n.t('contact.form.submit_button');
+    const status = this.health.status();
+    if (status === 'UP') {
+      return this.i18n.t('contact.form.submit_button');
+    }
+    if (status === 'DOWN') {
+      return this.i18n.t('app.backend_health_down');
+    }
+    return this.i18n.t('app.backend_health_standby');
   });
 
   public contactForm: FormGroup = this.fb.group({
@@ -52,7 +63,7 @@ export class ContactComponent {
   }
 
   public onSubmit(): void {
-    if (this.contactForm.invalid || this.isSubmitting) {
+    if (this.health.status() !== 'UP' || this.contactForm.invalid || this.isSubmitting) {
       this.contactForm.markAllAsTouched();
       return;
     }

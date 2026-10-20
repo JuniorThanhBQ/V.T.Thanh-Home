@@ -81,6 +81,7 @@ jobs:
           npm --prefix frontend/V.T.Thanh-Home-Angular run lint
 
       - name: Frontend regression tests
+        if: ${{ hashFiles('frontend/V.T.Thanh-Home-Angular/src/**/*.spec.ts') != '' }}
         run: npm --prefix frontend/V.T.Thanh-Home-Angular test -- --watch=false
 
   build-check:

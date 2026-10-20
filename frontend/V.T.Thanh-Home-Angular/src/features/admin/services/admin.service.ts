@@ -1,270 +1,299 @@
-import { Injectable, signal, computed, inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable, of, switchMap, timeout, tap } from 'rxjs';
+import { Injectable, inject, signal } from '@angular/core';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import {
+  Observable,
+  Subject,
+  catchError,
+  defer,
+  finalize,
+  forkJoin,
+  map,
+  of,
+  switchMap,
+  takeUntil,
+  tap,
+  throwError,
+  timeout,
+} from 'rxjs';
 import { VisitorService } from '@/shared/services/visitor.service';
-import { map, catchError } from 'rxjs/operators';
-import { API_ENDPOINTS, buildApiUrl } from '@/configs/apis';
+import { API_ENDPOINTS } from '@/configs/apis';
+import {
+  AdminBlog,
+  AdminContact,
+  AdminCredentials,
+  AdminProject,
+  AdminSection,
+  AdminVisitor,
+  BlogWrite,
+  ProjectWrite,
+  RuntimeMetrics,
+} from './admin.models';
 
-export interface SystemMetrics {
-  springBootVersion: string;
-  javaVersion: string;
-  uptime: string;
-  heapUsedMb: number;
-  heapMaxMb: number;
-  activeThreads: number;
-  activeProfile: string;
-  databaseStatus: 'UP' | 'DOWN';
-  databaseName: string;
-  databasePool: string;
+interface AdminSession {
+  authenticated: boolean;
 }
-
-export interface BlogPostItem {
-  id: string;
-  title: string;
-  category: string;
-  readTime: string;
-  summary: string;
-  status: 'PUBLISHED' | 'DRAFT';
-  publishedAt: string;
-  heroImage: string;
-  slug?: string;
-  version?: number;
-  content?: string;
-  chapters?: { title: string; content: string; chapterOrder: number }[];
+interface MetricResponse {
+  measurements: { statistic: string; value: number }[];
 }
-
-export interface ChatHistoryItem {
-  id: string;
-  userQuery: string;
-  botResponse: string;
-  model: string;
-  timestamp: string;
-  tokens: number;
+interface HealthResponse {
+  status: string;
+  components?: { db?: { status: string } };
 }
 
 @Injectable({ providedIn: 'root' })
 export class AdminService {
-  private http = inject(HttpClient);
-  private visitor = inject(VisitorService);
-  private readonly storageKey = 'vtthanh_admin_session';
-
+  private readonly http = inject(HttpClient);
+  private readonly visitor = inject(VisitorService);
+  private readonly sessionEnded = new Subject<void>();
+  private revision = 0;
   public readonly isAuthenticated = signal(false);
-  public readonly adminUser = signal<string | null>(null);
-
-  public readonly metrics = signal<SystemMetrics>({
-    springBootVersion: '4.1.1',
-    javaVersion: '25',
-    uptime: 'Unavailable',
-    heapUsedMb: 0,
-    heapMaxMb: 0,
-    activeThreads: 0,
-    activeProfile: 'Unavailable',
-    databaseStatus: 'DOWN',
-    databaseName: 'PostgreSQL 18',
-    databasePool: 'Unavailable',
-  });
-
-  public readonly heapUsagePercentage = computed(() => {
-    const m = this.metrics();
-    return m.heapMaxMb > 0 ? Math.round((m.heapUsedMb / m.heapMaxMb) * 100) : 0;
-  });
-
-  public readonly posts = signal<BlogPostItem[]>([]);
-  public readonly chatHistory = signal<ChatHistoryItem[]>([]);
-  public readonly operationError = signal('');
+  public readonly checkingSession = signal(true);
+  public readonly sessionError = signal('');
+  public readonly posts = signal<AdminBlog[]>([]);
+  public readonly projects = signal<AdminProject[]>([]);
+  public readonly contacts = signal<AdminContact[]>([]);
+  public readonly visitors = signal<AdminVisitor[]>([]);
+  public readonly visitorPage = signal(0);
+  public readonly metrics = signal<RuntimeMetrics | null>(null);
+  public readonly loading = signal<Partial<Record<AdminSection, boolean>>>({});
+  public readonly errors = signal<Partial<Record<AdminSection, string>>>({});
 
   constructor() {
+    try {
+      sessionStorage.removeItem('vtthanh_admin_session');
+    } catch {
+      this.clearSession();
+    }
     this.checkSession();
   }
 
   public checkSession(): void {
-    const url = buildApiUrl(API_ENDPOINTS.admin.session);
-    this.http
-      .get<{ authenticated: boolean; username: string }>(url, { withCredentials: true })
-      .subscribe({
-        next: (res) => {
-          if (res && res.authenticated) {
-            this.isAuthenticated.set(true);
-            this.adminUser.set(res.username);
-            this.loadPosts();
-          }
-        },
-        error: () => {
-          this.isAuthenticated.set(false);
-          this.adminUser.set(null);
-        },
-      });
+    const revision = ++this.revision;
+    this.checkingSession.set(true);
+    this.sessionError.set('');
+    this.read<AdminSession>(API_ENDPOINTS.admin.session).subscribe({
+      next: (session) => {
+        if (revision !== this.revision) return;
+        if (session.authenticated) this.isAuthenticated.set(true);
+        else this.clearSession();
+        this.checkingSession.set(false);
+      },
+      error: (error: unknown) => {
+        if (revision !== this.revision) return;
+        this.clearSession();
+        this.checkingSession.set(false);
+        if (!(error instanceof HttpErrorResponse) || error.status !== 401) {
+          this.sessionError.set(
+            'Unable to check the administrator session. Check the backend and retry.',
+          );
+        }
+      },
+    });
   }
 
-  public login(user: string, pass: string): Observable<boolean> {
-    const url = buildApiUrl(API_ENDPOINTS.admin.login);
-    return this.visitor.csrf().pipe(
-      switchMap(() =>
-        this.http.post<{ authenticated: boolean; username: string }>(
-          url,
-          { username: user, password: pass },
-          { withCredentials: true },
+  public login(credentials: AdminCredentials): Observable<boolean> {
+    return defer(() => {
+      ++this.revision;
+      this.clearSession();
+      this.checkingSession.set(false);
+      this.sessionError.set('');
+      return this.visitor.csrf().pipe(
+        switchMap(() =>
+          this.http.post<AdminSession>(API_ENDPOINTS.admin.login, credentials, {
+            withCredentials: true,
+          }),
         ),
-      ),
-      timeout(65000),
-      map((res) => {
-        this.isAuthenticated.set(true);
-        this.adminUser.set(res.username || user);
-        if (typeof window !== 'undefined') {
-          sessionStorage.setItem(this.storageKey, 'true');
-        }
-        return true;
-      }),
-      catchError(() => {
-        this.isAuthenticated.set(false);
-        this.adminUser.set(null);
-        return of(false);
+        timeout(65000),
+        map((session) => session.authenticated === true),
+        tap((authenticated) => this.isAuthenticated.set(authenticated)),
+        finalize(() => {
+          credentials.username = '';
+          credentials.password = '';
+        }),
+      );
+    });
+  }
+
+  public logout(): Observable<void> {
+    return this.write<void>('POST', API_ENDPOINTS.admin.logout, {}).pipe(
+      tap(() => {
+        ++this.revision;
+        this.clearSession();
+        this.visitor.invalidate();
       }),
     );
   }
 
-  public logout(): void {
-    const url = buildApiUrl(API_ENDPOINTS.admin.logout);
-    this.http.post(url, {}, { withCredentials: true }).subscribe({
-      next: () => undefined,
-      error: () => undefined,
-    });
-    this.isAuthenticated.set(false);
-    this.adminUser.set(null);
-    if (typeof window !== 'undefined') {
-      sessionStorage.removeItem(this.storageKey);
-    }
-  }
-
   public loadPosts(): void {
-    this.http
-      .get<BlogApiRecord[]>(API_ENDPOINTS.admin.blogs)
-      .pipe(timeout(60000))
-      .subscribe({
-        next: (posts) => this.posts.set(posts.map((post) => this.mapPost(post))),
-        error: () => this.operationError.set('Unable to load posts from the server.'),
-      });
+    this.load('blogs', this.read<AdminBlog[]>(API_ENDPOINTS.admin.blogs), (posts) =>
+      this.posts.set(posts),
+    );
+  }
+  public loadProjects(): void {
+    this.load('projects', this.read<AdminProject[]>(API_ENDPOINTS.admin.projects), (projects) =>
+      this.projects.set(projects),
+    );
+  }
+  public loadContacts(): void {
+    this.load('contacts', this.read<AdminContact[]>(API_ENDPOINTS.admin.contacts), (contacts) =>
+      this.contacts.set(contacts),
+    );
+  }
+  public loadVisitors(page = this.visitorPage()): void {
+    this.load(
+      'visitors',
+      this.read<AdminVisitor[]>(`${API_ENDPOINTS.admin.users}?page=${page}`),
+      (visitors) => {
+        this.visitors.set(visitors);
+        this.visitorPage.set(page);
+      },
+    );
   }
 
-  public loadPostContent(id: string): Observable<BlogPostItem> {
-    return this.http
-      .get<BlogApiRecord>(`${API_ENDPOINTS.admin.blogs}/${encodeURIComponent(id)}`)
-      .pipe(
-        timeout(60000),
-        map((post) => this.mapPost(post)),
-        tap((post) =>
-          this.posts.update((posts) => posts.map((item) => (item.id === post.id ? post : item))),
+  public loadMetrics(): void {
+    let unavailable = false;
+    const optional = <T>(source: Observable<T>): Observable<T | null> =>
+      source.pipe(
+        catchError((error: unknown) => {
+          if (error instanceof HttpErrorResponse && [401, 403].includes(error.status))
+            return throwError(() => error);
+          unavailable = true;
+          return of(null);
+        }),
+      );
+    const metric = (name: string, heap = false) =>
+      optional(
+        this.read<MetricResponse>(
+          `${API_ENDPOINTS.actuator.metrics}/${name}${heap ? '?tag=area:heap' : ''}`,
+        ),
+      ).pipe(
+        map(
+          (response) =>
+            response?.measurements.find((item) => item.statistic === 'VALUE')?.value ?? null,
         ),
       );
+    this.load(
+      'overview',
+      forkJoin({
+        health: optional(this.read<HealthResponse>(API_ENDPOINTS.actuator.health)),
+        uptimeSeconds: metric('process.uptime'),
+        heapUsedBytes: metric('jvm.memory.used', true),
+        heapMaxBytes: metric('jvm.memory.max', true),
+        liveThreads: metric('jvm.threads.live'),
+      }),
+      (result) => {
+        this.metrics.set({
+          ...result,
+          health: result.health?.status ?? null,
+          database: result.health?.components?.db?.status ?? null,
+          checkedAt: new Date().toISOString(),
+        });
+        if (unavailable)
+          this.errors.update((errors) => ({
+            ...errors,
+            overview: 'Some runtime measurements are unavailable. Refresh to retry.',
+          }));
+      },
+    );
   }
 
-  public createPost(post: Omit<BlogPostItem, 'id' | 'publishedAt'>): void {
-    const slug =
-      post.title
-        .normalize('NFD')
-        .replace(/[\u0300-\u036f]/g, '')
-        .replace(/[\u0111\u0110]/g, 'd')
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, '-')
-        .replace(/^-|-$/g, '')
-        .slice(0, 100) || `post-${Date.now()}`;
-    this.savePost('POST', API_ENDPOINTS.admin.blogs, { ...post, slug });
+  public loadPostContent(id: number): Observable<AdminBlog> {
+    return this.read<AdminBlog>(`${API_ENDPOINTS.admin.blogs}/${id}`);
   }
-
-  public updatePost(id: string, updated: Partial<BlogPostItem>): void {
-    const existing = this.posts().find((post) => post.id === id);
-    if (!existing) return;
-    this.savePost('PUT', `${API_ENDPOINTS.admin.blogs}/${encodeURIComponent(id)}`, {
-      ...existing,
-      ...updated,
+  public loadProject(id: number): Observable<AdminProject> {
+    return this.read<AdminProject>(`${API_ENDPOINTS.admin.projects}/${id}`);
+  }
+  public savePost(post: BlogWrite, id: number | null): Observable<AdminBlog> {
+    return this.write<AdminBlog>(
+      id === null ? 'POST' : 'PUT',
+      `${API_ENDPOINTS.admin.blogs}${id === null ? '' : `/${id}`}`,
+      post,
+    );
+  }
+  public saveProject(project: ProjectWrite, id: number | null): Observable<AdminProject> {
+    return this.write<AdminProject>(
+      id === null ? 'POST' : 'PUT',
+      `${API_ENDPOINTS.admin.projects}${id === null ? '' : `/${id}`}`,
+      project,
+    );
+  }
+  public deleteRecord(kind: 'blogs' | 'projects' | 'contacts', id: number): Observable<void> {
+    return this.write<void>('DELETE', `${API_ENDPOINTS.admin[kind]}/${id}`);
+  }
+  public blockVisitor(id: number, blocked: boolean, reason: string): Observable<AdminVisitor> {
+    return this.write<AdminVisitor>('PATCH', `${API_ENDPOINTS.admin.users}/${id}/block`, {
+      blocked,
+      reason,
     });
   }
 
-  private savePost(method: string, url: string, post: Partial<BlogPostItem>): void {
-    this.operationError.set('');
-    const body = {
-      slug: post.slug,
-      title: post.title,
-      description: post.summary,
-      category: post.category,
-      bannerUrl: post.heroImage,
-      status: post.status,
-      version: post.version,
-      chapters:
-        post.content !== undefined
-          ? post.chapters?.length
-            ? post.chapters.map((chapter, index) =>
-                index === 0 ? { ...chapter, content: post.content } : chapter,
-              )
-            : [{ title: post.title, content: post.content, chapterOrder: 1 }]
-          : undefined,
-    };
-    this.http
-      .request<BlogApiRecord>(method, url, { body })
-      .pipe(timeout(60000))
+  public errorMessage(error: unknown): string {
+    if (error instanceof HttpErrorResponse) {
+      if (error.status === 401) return 'Your administrator session expired. Sign in again.';
+      if (error.status === 403)
+        return 'Access denied or security token expired. Sign out and sign in again.';
+      if (error.status === 409)
+        return 'This record changed or conflicts with another record. Close and reopen the editor before retrying.';
+      if (error.status === 400)
+        return 'The server rejected these fields. Check required fields, unique slugs, URLs and content limits.';
+      if (error.status === 413) return 'The request is too large. Reduce the content size.';
+      if (error.status === 429) return 'Too many requests. Wait before trying again.';
+    }
+    return 'The request could not be completed. Check the backend and retry. Your changes have not been confirmed.';
+  }
+
+  private read<T>(url: string): Observable<T> {
+    return this.http.get<T>(url, { withCredentials: true }).pipe(
+      timeout(60000),
+      takeUntil(this.sessionEnded),
+      catchError((error: unknown) => {
+        if (error instanceof HttpErrorResponse && error.status === 401) this.expireSession();
+        return throwError(() => error);
+      }),
+    );
+  }
+  private write<T>(method: string, url: string, body?: unknown): Observable<T> {
+    return this.visitor.csrf().pipe(
+      switchMap(() => this.http.request<T>(method, url, { body, withCredentials: true })),
+      timeout(65000),
+      takeUntil(this.sessionEnded),
+      catchError((error: unknown) => {
+        if (error instanceof HttpErrorResponse && error.status === 401) this.expireSession();
+        return throwError(() => error);
+      }),
+    );
+  }
+  private load<T>(section: AdminSection, request: Observable<T>, accept: (value: T) => void): void {
+    if (!this.isAuthenticated() || this.loading()[section]) return;
+    this.loading.update((state) => ({ ...state, [section]: true }));
+    this.errors.update((state) => ({ ...state, [section]: '' }));
+    request
+      .pipe(finalize(() => this.loading.update((state) => ({ ...state, [section]: false }))))
       .subscribe({
-        next: () => this.loadPosts(),
-        error: () =>
-          this.operationError.set(
-            'Unable to save the post. Check the fields or refresh after a concurrent edit.',
-          ),
+        next: accept,
+        error: (error: unknown) => {
+          if (error instanceof HttpErrorResponse && [401, 403].includes(error.status))
+            this.expireSession();
+          else this.errors.update((state) => ({ ...state, [section]: this.errorMessage(error) }));
+        },
       });
   }
-
-  public deletePost(id: string): void {
-    this.http
-      .delete(`${API_ENDPOINTS.admin.blogs}/${encodeURIComponent(id)}`)
-      .pipe(timeout(60000))
-      .subscribe({
-        next: () => this.loadPosts(),
-        error: () => this.operationError.set('Unable to delete the post.'),
-      });
+  private expireSession(): void {
+    ++this.revision;
+    this.clearSession();
+    this.checkingSession.set(false);
+    this.sessionError.set('Your administrator session is no longer available. Sign in again.');
   }
-
-  public refreshMetrics(): void {
-    this.http
-      .get<{ status: string }>(buildApiUrl(API_ENDPOINTS.actuator.health))
-      .pipe(timeout(60000))
-      .subscribe({
-        next: (health) =>
-          this.metrics.update((current) => ({
-            ...current,
-            databaseStatus: health.status === 'UP' ? 'UP' : 'DOWN',
-          })),
-        error: () => this.metrics.update((current) => ({ ...current, databaseStatus: 'DOWN' })),
-      });
+  private clearSession(): void {
+    this.sessionEnded.next();
+    this.isAuthenticated.set(false);
+    this.posts.set([]);
+    this.projects.set([]);
+    this.contacts.set([]);
+    this.visitors.set([]);
+    this.visitorPage.set(0);
+    this.metrics.set(null);
+    this.errors.set({});
+    this.loading.set({});
   }
-
-  private mapPost(post: BlogApiRecord): BlogPostItem {
-    const content = post.chapters?.[0]?.content;
-    return {
-      id: String(post.id),
-      slug: post.slug,
-      version: post.version,
-      title: post.title,
-      category: post.category,
-      status: post.status,
-      summary: post.description,
-      content,
-      chapters: post.chapters,
-      readTime: content
-        ? `${Math.max(1, Math.ceil(content.split(/\s+/).length / 200))} min read`
-        : '',
-      publishedAt: post.publishedAt || '',
-      heroImage: post.bannerUrl || '',
-    };
-  }
-}
-
-interface BlogApiRecord {
-  id: number;
-  slug: string;
-  version: number;
-  title: string;
-  description: string;
-  category: string;
-  status: 'PUBLISHED' | 'DRAFT';
-  bannerUrl?: string;
-  publishedAt?: string;
-  chapters?: { title: string; content: string; chapterOrder: number }[];
 }

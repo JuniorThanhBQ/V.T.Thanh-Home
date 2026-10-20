@@ -1,899 +1,767 @@
-@if (adminService.operationError()) {
-  <p role="alert" class="p-4 text-rose-600 dark:text-rose-300">
-    {{ adminService.operationError() }}
-  </p>
-}
-<div class="w-full max-w-7xl mx-auto animate-fade-in">
-  <div class="grid grid-cols-1 lg:grid-cols-10 gap-8 lg:gap-12">
-    <aside
-      class="lg:col-span-3 flex flex-col justify-between min-h-[640px] border-b lg:border-b-0 lg:border-r border-slate-200 dark:border-slate-800 pb-8 lg:pb-0 lg:pr-8 space-y-8"
+<div
+  class="mx-auto grid max-w-[1200px] grid-cols-1 gap-6 text-[#172033] dark:text-slate-200 md:grid-cols-[210px_minmax(0,1fr)] md:gap-8"
+>
+  <aside
+    class="flex flex-col gap-6 border-b border-slate-400/25 pb-4 md:border-r md:border-b-0 md:pr-6 md:pb-0"
+  >
+    <div>
+      <p
+        class="my-2 wrap-anywhere text-[0.7rem] tracking-[0.08em] text-slate-500 uppercase dark:text-slate-400"
+      >
+        Portfolio administration
+      </p>
+      <h1 class="mt-1 mb-3 text-xl font-semibold">Admin console</h1>
+      <p class="my-2 wrap-anywhere text-[0.8rem] text-slate-500 dark:text-slate-400">
+        Content, messages and runtime health
+      </p>
+    </div>
+    <nav
+      class="flex flex-wrap gap-2 md:grid [&_button]:text-left"
+      aria-label="Administrator sections"
     >
-      <div class="space-y-6">
-        <div class="space-y-1.5">
-          <h2 class="text-xl font-bold tracking-tight text-slate-900 dark:text-white font-mono">
-            vtthanh-backend
-          </h2>
-          <p class="text-xs font-mono text-slate-500 dark:text-slate-400">
-            Spring Boot 4.1.1 · Java 25
-          </p>
-        </div>
-
-        <div
-          class="pt-3 pb-4 border-y border-slate-200 dark:border-slate-800 text-[11px] font-mono text-slate-500 dark:text-slate-400 space-y-1.5"
-        >
-          <div class="flex justify-between items-center">
-            <span>Engine:</span>
-            <span class="text-slate-800 dark:text-slate-200 font-medium">Spring Boot Native</span>
-          </div>
-          <div class="flex justify-between items-center">
-            <span>Database:</span>
-            <span class="text-slate-800 dark:text-slate-200 font-medium">PostgreSQL 18</span>
-          </div>
-          <div class="flex justify-between items-center">
-            <span>Profile:</span>
-            <span class="text-slate-600 dark:text-white font-medium">production</span>
-          </div>
-        </div>
-
-        <nav class="space-y-1">
-          <p
-            class="text-[10px] font-mono uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-2.5"
-          >
-            Navigation
-          </p>
-
-          <button
-            type="button"
-            (click)="activeTab.set('dashboard')"
-            class="w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-xs font-mono transition-colors text-left cursor-pointer"
-            [class.bg-blue-500/10]="activeTab() === 'dashboard'"
-            [class.text-blue-500]="activeTab() === 'dashboard'"
-            [class.dark:text-blue-400]="activeTab() === 'dashboard'"
-            [class.font-semibold]="activeTab() === 'dashboard'"
-            [class.border-l-2]="activeTab() === 'dashboard'"
-            [class.border-blue-500]="activeTab() === 'dashboard'"
-            [class.text-slate-600]="activeTab() !== 'dashboard'"
-            [class.dark:text-slate-400]="activeTab() !== 'dashboard'"
-            [class.hover:text-slate-900]="activeTab() !== 'dashboard'"
-            [class.dark:hover:text-white]="activeTab() !== 'dashboard'"
-            [class.hover:bg-slate-100]="activeTab() !== 'dashboard'"
-            [class.dark:hover:bg-slate-800/50]="activeTab() !== 'dashboard'"
-          >
-            <div class="flex items-center gap-2.5">
-              <svg
-                class="w-4 h-4"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-              >
-                <rect x="3" y="3" width="7" height="7"></rect>
-                <rect x="14" y="3" width="7" height="7"></rect>
-                <rect x="14" y="14" width="7" height="7"></rect>
-                <rect x="3" y="14" width="7" height="7"></rect>
-              </svg>
-              <span>Dashboard Metrics</span>
-            </div>
-            <span class="text-[10px] opacity-75">LIVE</span>
-          </button>
-
-          <button
-            type="button"
-            (click)="activeTab.set('blog')"
-            class="w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-xs font-mono transition-colors text-left cursor-pointer"
-            [class.bg-blue-500/10]="activeTab() === 'blog'"
-            [class.text-blue-500]="activeTab() === 'blog'"
-            [class.dark:text-blue-400]="activeTab() === 'blog'"
-            [class.font-semibold]="activeTab() === 'blog'"
-            [class.border-l-2]="activeTab() === 'blog'"
-            [class.border-blue-500]="activeTab() === 'blog'"
-            [class.text-slate-600]="activeTab() !== 'blog'"
-            [class.dark:text-slate-400]="activeTab() !== 'blog'"
-            [class.hover:text-slate-900]="activeTab() !== 'blog'"
-            [class.dark:hover:text-white]="activeTab() !== 'blog'"
-            [class.hover:bg-slate-100]="activeTab() !== 'blog'"
-            [class.dark:hover:bg-slate-800/50]="activeTab() !== 'blog'"
-          >
-            <div class="flex items-center gap-2.5">
-              <svg
-                class="w-4 h-4"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-              >
-                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                <polyline points="14 2 14 8 20 8"></polyline>
-                <line x1="16" y1="13" x2="8" y2="13"></line>
-                <line x1="16" y1="17" x2="8" y2="17"></line>
-                <polyline points="10 9 9 9 8 9"></polyline>
-              </svg>
-              <span>Blog CRUD</span>
-            </div>
-            <span
-              class="text-[10px] px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-medium"
-            >
-              {{ adminService.posts().length }}
-            </span>
-          </button>
-
-          <button
-            type="button"
-            (click)="activeTab.set('actuator')"
-            class="w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-xs font-mono transition-colors text-left cursor-pointer"
-            [class.bg-blue-500/10]="activeTab() === 'actuator'"
-            [class.text-blue-500]="activeTab() === 'actuator'"
-            [class.dark:text-blue-400]="activeTab() === 'actuator'"
-            [class.font-semibold]="activeTab() === 'actuator'"
-            [class.border-l-2]="activeTab() === 'actuator'"
-            [class.border-blue-500]="activeTab() === 'actuator'"
-            [class.text-slate-600]="activeTab() !== 'actuator'"
-            [class.dark:text-slate-400]="activeTab() !== 'actuator'"
-            [class.hover:text-slate-900]="activeTab() !== 'actuator'"
-            [class.dark:hover:text-white]="activeTab() !== 'actuator'"
-            [class.hover:bg-slate-100]="activeTab() !== 'actuator'"
-            [class.dark:hover:bg-slate-800/50]="activeTab() !== 'actuator'"
-          >
-            <div class="flex items-center gap-2.5">
-              <svg
-                class="w-4 h-4"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-              >
-                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
-              </svg>
-              <span>Actuator Endpoints</span>
-            </div>
-            <span class="text-[10px] text-blue-500 dark:text-blue-400 font-semibold">REST</span>
-          </button>
-
-          <button
-            type="button"
-            (click)="activeTab.set('chat')"
-            class="w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-xs font-mono transition-colors text-left cursor-pointer"
-            [class.bg-blue-500/10]="activeTab() === 'chat'"
-            [class.text-blue-500]="activeTab() === 'chat'"
-            [class.dark:text-blue-400]="activeTab() === 'chat'"
-            [class.font-semibold]="activeTab() === 'chat'"
-            [class.border-l-2]="activeTab() === 'chat'"
-            [class.border-blue-500]="activeTab() === 'chat'"
-            [class.text-slate-600]="activeTab() !== 'chat'"
-            [class.dark:text-slate-400]="activeTab() !== 'chat'"
-            [class.hover:text-slate-900]="activeTab() !== 'chat'"
-            [class.dark:hover:text-white]="activeTab() !== 'chat'"
-            [class.hover:bg-slate-100]="activeTab() !== 'chat'"
-            [class.dark:hover:bg-slate-800/50]="activeTab() !== 'chat'"
-          >
-            <div class="flex items-center gap-2.5">
-              <svg
-                class="w-4 h-4"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-              >
-                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-              </svg>
-              <span>Chat History</span>
-            </div>
-            <span
-              class="text-[10px] px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-medium"
-            >
-              {{ adminService.chatHistory().length }}
-            </span>
-          </button>
-        </nav>
-      </div>
-
-      <div class="pt-6 border-t border-slate-200 dark:border-slate-800 space-y-4">
-        <div class="flex items-center gap-3">
-          <div
-            class="w-9 h-9 rounded-full bg-slate-200 dark:bg-slate-800 text-blue-500 dark:text-blue-400 flex items-center justify-center font-mono font-bold text-sm"
-          >
-            {{ (adminService.adminUser() || 'A').charAt(0).toUpperCase() }}
-          </div>
-          <div class="min-w-0 flex-1">
-            <div class="text-xs font-semibold text-slate-900 dark:text-white font-mono truncate">
-              {{ adminService.adminUser() || 'admin' }}
-            </div>
-            <div class="text-[10px] font-mono text-slate-500 dark:text-slate-400">
-              Superuser · Session Active
-            </div>
-          </div>
-        </div>
-
+      @for (tab of tabs; track tab.id) {
         <button
+          class="cursor-pointer rounded-lg border border-slate-400/45 px-3.5 py-2 text-[0.8rem] transition-colors enabled:hover:border-blue-600 disabled:cursor-wait disabled:opacity-45 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
           type="button"
-          (click)="adminService.logout()"
-          class="w-full py-2 px-3 rounded-lg border border-slate-300 dark:border-slate-800 hover:border-slate-400 dark:hover:border-slate-700 text-xs font-mono text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors flex items-center justify-center gap-2 cursor-pointer"
+          (click)="selectTab(tab.id)"
+          [class.bg-blue-600]="activeTab() === tab.id"
+          [class.text-white]="activeTab() === tab.id"
+          [attr.aria-current]="activeTab() === tab.id ? 'page' : null"
+          [disabled]="busy()"
         >
-          <svg
-            class="w-3.5 h-3.5 text-slate-400"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
-            <polyline points="16 17 21 12 16 7"></polyline>
-            <line x1="21" y1="12" x2="9" y2="12"></line>
-          </svg>
-          <span>Sign Out</span>
+          {{ tab.label }}
         </button>
-      </div>
-    </aside>
-
-    <main class="lg:col-span-7 flex flex-col space-y-8">
-      @if (activeTab() === 'dashboard') {
-        <div class="space-y-6 animate-fade-in">
-          <div
-            class="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-slate-800"
+      }
+    </nav>
+    <button
+      class="cursor-pointer rounded-lg border border-slate-400/45 px-3.5 py-2 text-[0.8rem] transition-colors enabled:hover:border-blue-600 disabled:cursor-wait disabled:opacity-45 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+      type="button"
+      (click)="logout()"
+      [disabled]="busy()"
+    >
+      Sign out
+    </button>
+  </aside>
+  <main class="min-w-0">
+    <header class="mb-4 flex flex-wrap items-center justify-between gap-2.5">
+      <h2 class="mt-1 mb-3 text-xl font-semibold">{{ activeTab() | titlecase }}</h2>
+      <div class="flex flex-wrap items-center justify-end gap-2.5">
+        <button
+          class="cursor-pointer rounded-lg border border-slate-400/45 px-3.5 py-2 text-[0.8rem] transition-colors enabled:hover:border-blue-600 disabled:cursor-wait disabled:opacity-45 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+          type="button"
+          (click)="refresh()"
+          [disabled]="busy() || adminService.loading()[activeTab()]"
+        >
+          Refresh
+        </button>
+        @if (activeTab() === 'blogs') {
+          <button
+            type="button"
+            class="cursor-pointer rounded-lg border border-slate-400/45 px-3.5 py-2 text-[0.8rem] transition-colors enabled:hover:border-blue-600 disabled:cursor-wait disabled:opacity-45 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 border-blue-600 bg-blue-600 text-white enabled:hover:bg-blue-700"
+            (click)="openBlog()"
+            [disabled]="busy()"
           >
-            <div>
-              <h3 class="text-base font-bold font-mono text-slate-900 dark:text-white">
-                System Telemetry and Metrics
-              </h3>
-              <p class="text-xs font-mono text-slate-500 dark:text-slate-400">
-                Live runtime statistics polled from Spring Boot Actuator
+            New blog
+          </button>
+        }
+        @if (activeTab() === 'projects') {
+          <button
+            type="button"
+            class="cursor-pointer rounded-lg border border-slate-400/45 px-3.5 py-2 text-[0.8rem] transition-colors enabled:hover:border-blue-600 disabled:cursor-wait disabled:opacity-45 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 border-blue-600 bg-blue-600 text-white enabled:hover:bg-blue-700"
+            (click)="openProject()"
+            [disabled]="busy()"
+          >
+            New project
+          </button>
+        }
+      </div>
+    </header>
+    @if (error() && !editor() && !confirmation()) {
+      <p
+        class="my-2 wrap-anywhere rounded-lg bg-red-500/10 p-3 text-sm text-red-700 dark:text-red-300"
+        role="alert"
+      >
+        {{ error() }}
+      </p>
+    }
+    @if (success()) {
+      <p
+        class="my-2 wrap-anywhere rounded-lg bg-green-500/10 p-3 text-sm text-green-700 dark:text-green-300"
+        role="status"
+      >
+        {{ success() }}
+      </p>
+    }
+    @if (adminService.errors()[activeTab()]) {
+      <p
+        class="my-2 wrap-anywhere rounded-lg bg-red-500/10 p-3 text-sm text-red-700 dark:text-red-300"
+        role="alert"
+      >
+        {{ adminService.errors()[activeTab()] }}
+      </p>
+    }
+    @if (adminService.loading()[activeTab()]) {
+      <p role="status" class="my-2 wrap-anywhere text-[0.8rem] text-slate-500 dark:text-slate-400">
+        Loading from the server…
+      </p>
+    }
+
+    @if (activeTab() === 'overview') {
+      @if (adminService.metrics(); as metrics) {
+        <div class="grid grid-cols-[repeat(auto-fit,minmax(170px,1fr))] gap-4">
+          <article
+            class="rounded-xl border border-slate-400/25 bg-white/25 p-4 dark:bg-slate-900/40"
+          >
+            <p
+              class="my-2 wrap-anywhere text-[0.7rem] tracking-[0.08em] text-slate-500 uppercase dark:text-slate-400"
+            >
+              Backend
+            </p>
+            <strong class="text-xl">{{ metrics.health ?? 'Unavailable' }}</strong>
+          </article>
+          <article
+            class="rounded-xl border border-slate-400/25 bg-white/25 p-4 dark:bg-slate-900/40"
+          >
+            <p
+              class="my-2 wrap-anywhere text-[0.7rem] tracking-[0.08em] text-slate-500 uppercase dark:text-slate-400"
+            >
+              Database
+            </p>
+            <strong class="text-xl">{{ metrics.database ?? 'Unavailable' }}</strong>
+          </article>
+          <article
+            class="rounded-xl border border-slate-400/25 bg-white/25 p-4 dark:bg-slate-900/40"
+          >
+            <p
+              class="my-2 wrap-anywhere text-[0.7rem] tracking-[0.08em] text-slate-500 uppercase dark:text-slate-400"
+            >
+              Uptime
+            </p>
+            <strong class="text-xl">{{ formatUptime(metrics.uptimeSeconds) }}</strong>
+          </article>
+          <article
+            class="rounded-xl border border-slate-400/25 bg-white/25 p-4 dark:bg-slate-900/40"
+          >
+            <p
+              class="my-2 wrap-anywhere text-[0.7rem] tracking-[0.08em] text-slate-500 uppercase dark:text-slate-400"
+            >
+              Live threads
+            </p>
+            <strong class="text-xl">{{ metrics.liveThreads ?? 'Unavailable' }}</strong>
+          </article>
+          <article
+            class="rounded-xl border border-slate-400/25 bg-white/25 p-4 dark:bg-slate-900/40"
+          >
+            <p
+              class="my-2 wrap-anywhere text-[0.7rem] tracking-[0.08em] text-slate-500 uppercase dark:text-slate-400"
+            >
+              Heap used
+            </p>
+            <strong class="text-xl">{{ formatBytes(metrics.heapUsedBytes) }}</strong>
+          </article>
+          <article
+            class="rounded-xl border border-slate-400/25 bg-white/25 p-4 dark:bg-slate-900/40"
+          >
+            <p
+              class="my-2 wrap-anywhere text-[0.7rem] tracking-[0.08em] text-slate-500 uppercase dark:text-slate-400"
+            >
+              Heap maximum
+            </p>
+            <strong class="text-xl">{{ formatBytes(metrics.heapMaxBytes) }}</strong>
+          </article>
+        </div>
+        <p class="my-2 wrap-anywhere text-[0.8rem] text-slate-500 dark:text-slate-400">
+          Snapshot checked {{ metrics.checkedAt | date: 'medium' }}. Use Refresh for a new snapshot.
+        </p>
+      }
+      <section class="rounded-xl border border-slate-400/25 bg-white/25 p-4 dark:bg-slate-900/40">
+        <h3 class="mt-1 mb-3 font-semibold">Manage your portfolio</h3>
+        <p class="my-2 wrap-anywhere">
+          Use Blogs and Projects to manage published content and drafts. Contacts contains submitted
+          messages, visitors provides access blocking.
+        </p>
+      </section>
+    }
+
+    @if (activeTab() === 'blogs' || activeTab() === 'projects' || activeTab() === 'contacts') {
+      <label class="my-3 grid gap-1.5 text-sm"
+        >Search loaded records<input
+          class="w-full min-w-0 rounded-lg border border-slate-400/50 bg-transparent p-2.5 text-inherit [&.ng-invalid.ng-touched]:border-red-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+          type="search"
+          [value]="search()"
+          (input)="search.set($any($event.target).value)"
+          placeholder="Search…"
+      /></label>
+    }
+    @if (activeTab() === 'blogs') {
+      <div class="my-4 grid gap-4">
+        @for (post of filteredPosts(); track post.id) {
+          <article
+            class="rounded-xl border border-slate-400/25 bg-white/25 p-4 dark:bg-slate-900/40 flex flex-col items-start justify-between gap-4 md:flex-row md:items-center"
+          >
+            <div class="min-w-0 flex-1">
+              <p
+                class="my-2 wrap-anywhere text-[0.7rem] tracking-[0.08em] text-slate-500 uppercase dark:text-slate-400"
+              >
+                {{ post.status }} · {{ post.category }}
+              </p>
+              <h3 class="mt-1 mb-3 font-semibold">{{ post.title }}</h3>
+              <p class="my-2 wrap-anywhere text-[0.8rem] text-slate-500 dark:text-slate-400">
+                /{{ post.slug }}
+              </p>
+              <p class="my-2 wrap-anywhere">{{ post.description }}</p>
+            </div>
+            <div class="flex flex-wrap items-center justify-end gap-2.5">
+              <button
+                class="cursor-pointer rounded-lg border border-slate-400/45 px-3.5 py-2 text-[0.8rem] transition-colors enabled:hover:border-blue-600 disabled:cursor-wait disabled:opacity-45 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+                type="button"
+                (click)="openBlog(post)"
+                [disabled]="busy()"
+              >
+                Edit</button
+              ><button
+                type="button"
+                class="cursor-pointer rounded-lg border border-slate-400/45 px-3.5 py-2 text-[0.8rem] transition-colors enabled:hover:border-blue-600 disabled:cursor-wait disabled:opacity-45 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 text-red-600 dark:text-red-300"
+                (click)="promptDelete('blogs', post.id, post.title)"
+                [disabled]="busy()"
+              >
+                Delete
+              </button>
+            </div>
+          </article>
+        } @empty {
+          @if (!adminService.loading().blogs && !adminService.errors().blogs) {
+            <p class="my-2 wrap-anywhere p-8 text-center text-slate-500 dark:text-slate-400">
+              No blogs match this search.
+            </p>
+          }
+        }
+      </div>
+    }
+    @if (activeTab() === 'projects') {
+      <p class="my-2 wrap-anywhere text-[0.8rem] text-slate-500 dark:text-slate-400">
+        These records are managed in the backend. The public Projects page currently displays the
+        six translated portfolio projects independently.
+      </p>
+      <div class="my-4 grid gap-4">
+        @for (project of filteredProjects(); track project.id) {
+          <article
+            class="rounded-xl border border-slate-400/25 bg-white/25 p-4 dark:bg-slate-900/40 flex flex-col items-start justify-between gap-4 md:flex-row md:items-center"
+          >
+            <div class="min-w-0 flex-1">
+              <p
+                class="my-2 wrap-anywhere text-[0.7rem] tracking-[0.08em] text-slate-500 uppercase dark:text-slate-400"
+              >
+                {{ project.published ? 'PUBLISHED' : 'DRAFT' }} · Order {{ project.displayOrder }}
+              </p>
+              <h3 class="mt-1 mb-3 font-semibold">{{ project.title }}</h3>
+              <p class="my-2 wrap-anywhere text-[0.8rem] text-slate-500 dark:text-slate-400">
+                /{{ project.slug }}
+              </p>
+              <p class="my-2 wrap-anywhere">{{ project.techStack.join(' · ') }}</p>
+            </div>
+            <div class="flex flex-wrap items-center justify-end gap-2.5">
+              <button
+                class="cursor-pointer rounded-lg border border-slate-400/45 px-3.5 py-2 text-[0.8rem] transition-colors enabled:hover:border-blue-600 disabled:cursor-wait disabled:opacity-45 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+                type="button"
+                (click)="openProject(project)"
+                [disabled]="busy()"
+              >
+                Edit</button
+              ><button
+                type="button"
+                class="cursor-pointer rounded-lg border border-slate-400/45 px-3.5 py-2 text-[0.8rem] transition-colors enabled:hover:border-blue-600 disabled:cursor-wait disabled:opacity-45 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 text-red-600 dark:text-red-300"
+                (click)="promptDelete('projects', project.id, project.title)"
+                [disabled]="busy()"
+              >
+                Delete
+              </button>
+            </div>
+          </article>
+        } @empty {
+          @if (!adminService.loading().projects && !adminService.errors().projects) {
+            <p class="my-2 wrap-anywhere p-8 text-center text-slate-500 dark:text-slate-400">
+              No projects match this search.
+            </p>
+          }
+        }
+      </div>
+    }
+    @if (activeTab() === 'contacts') {
+      <div class="my-4 grid gap-4">
+        @for (contact of filteredContacts(); track contact.id) {
+          <article
+            class="rounded-xl border border-slate-400/25 bg-white/25 p-4 dark:bg-slate-900/40 flex flex-col items-start justify-between gap-4 md:flex-row md:items-center"
+          >
+            <div class="min-w-0 flex-1">
+              <p
+                class="my-2 wrap-anywhere text-[0.7rem] tracking-[0.08em] text-slate-500 uppercase dark:text-slate-400"
+              >
+                {{ contact.status }} · {{ contact.createdDate | date: 'medium' }}
+              </p>
+              <h3 class="mt-1 mb-3 font-semibold">{{ contact.subject }}</h3>
+              <p class="my-2 wrap-anywhere">
+                {{ contact.firstName }} {{ contact.lastName }} · {{ contact.email }}
               </p>
             </div>
-            <span class="text-xs font-mono py-1 rounded text-slate-600 dark:text-blue-400">
-              Uptime: {{ adminService.metrics().uptime }}
-            </span>
-          </div>
-
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-6 py-2">
-            <div class="space-y-1">
-              <div
-                class="text-[11px] font-mono uppercase tracking-wider text-slate-400 dark:text-slate-500"
+            <div class="flex flex-wrap items-center justify-end gap-2.5">
+              <button
+                class="cursor-pointer rounded-lg border border-slate-400/45 px-3.5 py-2 text-[0.8rem] transition-colors enabled:hover:border-blue-600 disabled:cursor-wait disabled:opacity-45 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+                type="button"
+                (click)="selectedContact.set(contact)"
               >
-                JVM Heap Memory
-              </div>
-              <div class="text-2xl font-bold font-mono text-slate-900 dark:text-white">
-                {{ adminService.metrics().heapUsedMb }}
-                <span class="text-xs font-normal text-slate-500"
-                  >/ {{ adminService.metrics().heapMaxMb }} MB</span
-                >
-              </div>
-              <div
-                class="w-full bg-slate-200 dark:bg-slate-800 h-1.5 rounded-full overflow-hidden mt-2"
+                Read message</button
+              ><button
+                type="button"
+                class="cursor-pointer rounded-lg border border-slate-400/45 px-3.5 py-2 text-[0.8rem] transition-colors enabled:hover:border-blue-600 disabled:cursor-wait disabled:opacity-45 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 text-red-600 dark:text-red-300"
+                (click)="promptDelete('contacts', contact.id, contact.subject)"
+                [disabled]="busy()"
               >
-                <div
-                  class="bg-blue-500 h-full transition-all duration-500"
-                  [style.width.%]="adminService.heapUsagePercentage()"
-                ></div>
-              </div>
-              <div class="text-[10px] font-mono text-slate-500 pt-1">
-                {{ adminService.heapUsagePercentage() }}% utilized
-              </div>
+                Delete
+              </button>
             </div>
-
-            <div class="space-y-1">
-              <div
-                class="text-[11px] font-mono uppercase tracking-wider text-slate-400 dark:text-slate-500"
-              >
-                Live Threads
-              </div>
-              <div class="text-2xl font-bold font-mono text-slate-900 dark:text-white">
-                {{ adminService.metrics().activeThreads }}
-              </div>
-              <div class="text-[10px] font-mono text-blue-500 dark:text-blue-400 pt-3">
-                Virtual carrier pool
-              </div>
-            </div>
-
-            <div class="space-y-1">
-              <div
-                class="text-[11px] font-mono uppercase tracking-wider text-slate-400 dark:text-slate-500"
-              >
-                Environment
-              </div>
-              <div class="text-2xl font-bold font-mono text-slate-900 dark:text-white capitalize">
-                {{ adminService.metrics().activeProfile }}
-              </div>
-              <div class="text-[10px] font-mono text-slate-500 pt-3">GraalVM Native</div>
-            </div>
-
-            <div class="space-y-1">
-              <div
-                class="text-[11px] font-mono uppercase tracking-wider text-slate-400 dark:text-slate-500"
-              >
-                DB Connection
-              </div>
-              <div class="text-2xl font-bold font-mono text-blue-500 dark:text-blue-400">
-                {{ adminService.metrics().databaseStatus }}
-              </div>
-              <div class="text-[10px] font-mono text-slate-500 pt-3">HikariPool verified</div>
-            </div>
-          </div>
-
-          <div class="pt-6 border-t border-slate-200 dark:border-slate-800 space-y-4">
-            <h4
-              class="text-xs font-mono uppercase tracking-wider text-slate-400 dark:text-slate-500 font-semibold"
-            >
-              Infrastructure Specifications
-            </h4>
-            <div class="divide-y divide-slate-200 dark:divide-slate-800/80 font-mono text-xs">
-              <div class="py-2.5 flex items-center justify-between">
-                <span class="text-slate-500">Framework Release</span>
-                <span class="text-slate-900 dark:text-white font-medium"
-                  >Spring Boot {{ adminService.metrics().springBootVersion }}</span
-                >
-              </div>
-              <div class="py-2.5 flex items-center justify-between">
-                <span class="text-slate-500">Java Virtual Machine</span>
-                <span class="text-slate-900 dark:text-white font-medium"
-                  >OpenJDK {{ adminService.metrics().javaVersion }} (Temurin 64-Bit Server VM)</span
-                >
-              </div>
-              <div class="py-2.5 flex items-center justify-between">
-                <span class="text-slate-500">Primary Datastore</span>
-                <span class="text-slate-900 dark:text-white font-medium">{{
-                  adminService.metrics().databaseName
-                }}</span>
-              </div>
-              <div class="py-2.5 flex items-center justify-between">
-                <span class="text-slate-500">Connection Pool Manager</span>
-                <span class="text-slate-900 dark:text-white font-medium">{{
-                  adminService.metrics().databasePool
-                }}</span>
-              </div>
-              <div class="py-2.5 flex items-center justify-between">
-                <span class="text-slate-500">Containerization</span>
-                <span class="text-slate-900 dark:text-white font-medium"
-                  >Docker v28.0.1 / Docker Compose v2.33.1</span
-                >
-              </div>
-              <div class="py-2.5 flex items-center justify-between">
-                <span class="text-slate-500">Frontend Client</span>
-                <span class="text-slate-900 dark:text-white font-medium"
-                  >Angular 22.0.0 (Standalone Signals Architecture)</span
-                >
-              </div>
-            </div>
-          </div>
-        </div>
-      }
-
-      @if (activeTab() === 'blog') {
-        <div class="space-y-6 animate-fade-in">
-          <div
-            class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 pb-4 border-b border-slate-200 dark:border-slate-800"
-          >
-            <div class="relative flex-1 max-w-md">
-              <input
-                type="text"
-                [value]="searchQuery()"
-                (input)="searchQuery.set($any($event.target).value)"
-                placeholder="Filter posts by title or category..."
-                class="w-full pl-9 pr-3 py-2 text-xs font-mono bg-transparent border-b border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-blue-500 transition-colors"
-              />
-              <svg
-                class="w-4 h-4 text-slate-400 absolute left-1 top-2.5"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-              >
-                <circle cx="11" cy="11" r="8"></circle>
-                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-              </svg>
-            </div>
-
+          </article>
+        } @empty {
+          @if (!adminService.loading().contacts && !adminService.errors().contacts) {
+            <p class="my-2 wrap-anywhere p-8 text-center text-slate-500 dark:text-slate-400">
+              No contacts match this search.
+            </p>
+          }
+        }
+      </div>
+      @if (selectedContact(); as contact) {
+        <section
+          class="rounded-xl border border-slate-400/25 bg-white/25 p-4 dark:bg-slate-900/40 mt-4"
+          aria-label="Selected contact message"
+        >
+          <div class="mb-4 flex flex-wrap items-center justify-between gap-2.5">
+            <h3 class="mt-1 mb-3 font-semibold">{{ contact.subject }}</h3>
             <button
+              class="cursor-pointer rounded-lg border border-slate-400/45 px-3.5 py-2 text-[0.8rem] transition-colors enabled:hover:border-blue-600 disabled:cursor-wait disabled:opacity-45 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
               type="button"
-              (click)="openCreateModal()"
-              class="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-mono text-xs font-medium transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-sm"
+              (click)="selectedContact.set(null)"
             >
-              <svg
-                class="w-3.5 h-3.5"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-              >
-                <line x1="12" y1="5" x2="12" y2="19"></line>
-                <line x1="5" y1="12" x2="19" y2="12"></line>
-              </svg>
-              <span>Create Article</span>
+              Close message
             </button>
           </div>
-
-          <div class="overflow-x-auto">
-            <table class="w-full text-left font-mono text-xs">
-              <thead>
-                <tr
-                  class="border-b border-slate-200 dark:border-slate-800 text-[10px] uppercase tracking-wider text-slate-400 dark:text-slate-500"
-                >
-                  <th class="py-3 pr-4">Article</th>
-                  <th class="py-3 px-4">Category</th>
-                  <th class="py-3 px-4">Status</th>
-                  <th class="py-3 px-4">Published</th>
-                  <th class="py-3 pl-4 text-right">Actions</th>
-                </tr>
-              </thead>
-              <tbody class="divide-y divide-slate-200 dark:divide-slate-800/80">
-                @for (post of filteredPosts(); track post.id) {
-                  <tr class="hover:bg-slate-50 dark:hover:bg-slate-900/40 transition-colors">
-                    <td class="py-3 pr-4">
-                      <div
-                        class="font-semibold text-slate-900 dark:text-white line-clamp-1 max-w-xs sm:max-w-md"
-                      >
-                        {{ post.title }}
-                      </div>
-                      <div
-                        class="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-1 max-w-xs sm:max-w-md"
-                      >
-                        {{ post.summary }}
-                      </div>
-                    </td>
-                    <td class="py-3 px-4 text-slate-600 dark:text-slate-300">
-                      {{ post.category }}
-                    </td>
-                    <td class="py-3 px-4">
-                      @if (post.status === 'PUBLISHED') {
-                        <span
-                          class="px-2 py-0.5 rounded text-[10px] font-semibold text-blue-500 dark:text-blue-400 border border-blue-500/20"
-                        >
-                          PUBLISHED
-                        </span>
-                      } @else {
-                        <span
-                          class="px-2 py-0.5 rounded text-[10px] font-semibold text-slate-600 dark:text-slate-300 border border-slate-300 dark:border-slate-700"
-                        >
-                          DRAFT
-                        </span>
-                      }
-                    </td>
-                    <td class="py-3 px-4 text-slate-500">
-                      {{ post.publishedAt }}
-                    </td>
-                    <td class="py-3 pl-4 text-right">
-                      <div class="flex items-center justify-end gap-2">
-                        <button
-                          type="button"
-                          (click)="openEditModal(post)"
-                          class="p-1.5 rounded hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors cursor-pointer"
-                          title="Edit post"
-                        >
-                          <svg
-                            class="w-3.5 h-3.5"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                          >
-                            <path
-                              d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
-                            ></path>
-                            <path
-                              d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"
-                            ></path>
-                          </svg>
-                        </button>
-                        <button
-                          type="button"
-                          (click)="promptDelete(post)"
-                          class="p-1.5 rounded hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-500 hover:text-blue-500 dark:hover:text-blue-400 transition-colors cursor-pointer"
-                          title="Delete post"
-                        >
-                          <svg
-                            class="w-3.5 h-3.5"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                          >
-                            <polyline points="3 6 5 6 21 6"></polyline>
-                            <path
-                              d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
-                            ></path>
-                          </svg>
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                } @empty {
-                  <tr>
-                    <td colspan="5" class="py-8 text-center text-slate-500">
-                      No articles found matching the filter criteria.
-                    </td>
-                  </tr>
-                }
-              </tbody>
-            </table>
-          </div>
-        </div>
+          <p class="my-2 wrap-anywhere">
+            {{ contact.firstName }} {{ contact.lastName }} · {{ contact.email }}
+          </p>
+          <p class="my-2 wrap-anywhere">Phone: {{ contact.phone || 'Not supplied' }}</p>
+          <p class="my-2 wrap-anywhere whitespace-pre-wrap">{{ contact.message }}</p>
+          <p class="my-2 wrap-anywhere text-[0.8rem] text-slate-500 dark:text-slate-400">
+            Delivery: {{ contact.status }} · Attempts: {{ contact.deliveryAttempts }}
+          </p>
+          @if (contact.lastDeliveryAttempt) {
+            <p class="my-2 wrap-anywhere text-[0.8rem] text-slate-500 dark:text-slate-400">
+              Last attempt: {{ contact.lastDeliveryAttempt | date: 'medium' }}
+            </p>
+          }
+          @if (contact.lastDeliveryError) {
+            <p
+              class="my-2 wrap-anywhere rounded-lg bg-red-500/10 p-3 text-sm text-red-700 dark:text-red-300"
+            >
+              {{ contact.lastDeliveryError }}
+            </p>
+          }
+        </section>
       }
-
-      @if (activeTab() === 'actuator') {
-        <div class="space-y-6 animate-fade-in">
-          <div
-            class="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-slate-800"
-          >
-            <div>
-              <h3 class="text-base font-bold font-mono text-slate-900 dark:text-white">
-                Spring Boot Actuator Endpoints
-              </h3>
-              <p class="text-xs font-mono text-slate-500 dark:text-slate-400">
-                Standard production management and monitoring exposure
-              </p>
-            </div>
-          </div>
-
-          <div class="space-y-6 pt-2">
-            <div class="space-y-2">
-              <div class="flex items-center justify-between font-mono text-xs">
-                <div class="flex items-center gap-2">
-                  <span class="font-bold text-slate-900 dark:text-white">GET</span>
-                  <span class="text-blue-500 dark:text-blue-400">/actuator/health</span>
-                </div>
-                <span
-                  class="px-2 py-0.5 rounded text-[10px] font-semibold text-blue-500 dark:text-blue-400 border border-blue-500/20"
-                >
-                  HTTP 200 OK · UP
-                </span>
-              </div>
-              <pre
-                class="p-3.5 rounded-lg bg-slate-100 dark:bg-[#070d18] border border-slate-200 dark:border-slate-800 font-mono text-[11px] text-slate-800 dark:text-slate-300 overflow-x-auto leading-relaxed"
-              ><code>{{ '{' }}
-  "status": "UP",
-  "components": {{ '{' }}
-    "db": {{ '{' }}
-      "status": "UP",
-      "details": {{ '{' }}
-        "database": "PostgreSQL 18 (Supabase)",
-        "validationQuery": "isValid()"
-      {{ '}' }}
-    {{ '}' }},
-    "diskSpace": {{ '{' }}
-      "status": "UP",
-      "details": {{ '{' }}
-        "total": 512071987200,
-        "free": 152678248448,
-        "threshold": 10485760
-      {{ '}' }}
-    {{ '}' }},
-    "ping": {{ '{' }}
-      "status": "UP"
-    {{ '}' }}
-  {{ '}' }}
-{{ '}' }}</code></pre>
-            </div>
-
-            <div class="space-y-2 pt-2 border-t border-slate-200 dark:border-slate-800/80">
-              <div class="flex items-center justify-between font-mono text-xs">
-                <div class="flex items-center gap-2">
-                  <span class="font-bold text-slate-900 dark:text-white">GET</span>
-                  <span class="text-blue-500 dark:text-blue-400">/actuator/metrics</span>
-                </div>
-                <span
-                  class="px-2 py-0.5 rounded text-[10px] font-semibold text-blue-500 dark:text-blue-400 border border-blue-500/20"
-                >
-                  HTTP 200 OK · 48 Metrics Available
-                </span>
-              </div>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 font-mono text-[11px]">
-                <div
-                  class="p-2.5 rounded border border-slate-200 dark:border-slate-800 flex justify-between items-center"
-                >
-                  <span class="text-slate-500">jvm.memory.used</span>
-                  <span class="text-slate-900 dark:text-white font-medium">327,155,712 bytes</span>
-                </div>
-                <div
-                  class="p-2.5 rounded border border-slate-200 dark:border-slate-800 flex justify-between items-center"
-                >
-                  <span class="text-slate-500">process.uptime</span>
-                  <span class="text-slate-900 dark:text-white font-medium">52,320.48 s</span>
-                </div>
-                <div
-                  class="p-2.5 rounded border border-slate-200 dark:border-slate-800 flex justify-between items-center"
-                >
-                  <span class="text-slate-500">system.cpu.count</span>
-                  <span class="text-slate-900 dark:text-white font-medium">8 cores</span>
-                </div>
-                <div
-                  class="p-2.5 rounded border border-slate-200 dark:border-slate-800 flex justify-between items-center"
-                >
-                  <span class="text-slate-500">http.server.requests</span>
-                  <span class="text-slate-900 dark:text-white font-medium">4,219 total</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="space-y-2 pt-2 border-t border-slate-200 dark:border-slate-800/80">
-              <div class="flex items-center justify-between font-mono text-xs">
-                <div class="flex items-center gap-2">
-                  <span class="font-bold text-slate-900 dark:text-white">GET</span>
-                  <span class="text-blue-500 dark:text-blue-400">/actuator/info</span>
-                </div>
-                <span
-                  class="px-2 py-0.5 rounded text-[10px] font-semibold text-blue-500 dark:text-blue-400 border border-blue-500/20"
-                >
-                  HTTP 200 OK
-                </span>
-              </div>
-              <pre
-                class="p-3.5 rounded-lg bg-slate-100 dark:bg-[#070d18] border border-slate-200 dark:border-slate-800 font-mono text-[11px] text-slate-800 dark:text-slate-300 overflow-x-auto leading-relaxed"
-              ><code>{{ '{' }}
-  "app": {{ '{' }}
-    "name": "vtthanh-backend",
-    "version": "4.1.1",
-    "java": {{ '{' }}
-      "version": "25",
-      "vendor": "Eclipse Adoptium"
-    {{ '}' }},
-    "description": "Portfolio backend with RAG vector search and Spring AI integration"
-  {{ '}' }}
-{{ '}' }}</code></pre>
-            </div>
-          </div>
-        </div>
-      }
-
-      @if (activeTab() === 'chat') {
-        <div class="space-y-6 animate-fade-in">
-          <div
-            class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 pb-4 border-b border-slate-200 dark:border-slate-800"
-          >
-            <div class="relative flex-1 max-w-md">
-              <input
-                type="text"
-                [value]="chatSearchQuery()"
-                (input)="chatSearchQuery.set($any($event.target).value)"
-                placeholder="Search queries, responses, or models..."
-                class="w-full pl-9 pr-3 py-2 text-xs font-mono bg-transparent border-b border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-blue-500 transition-colors"
-              />
-              <svg
-                class="w-4 h-4 text-slate-400 absolute left-1 top-2.5"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-              >
-                <circle cx="11" cy="11" r="8"></circle>
-                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-              </svg>
-            </div>
-            <span class="text-xs font-mono text-slate-500">
-              {{ filteredChatHistory().length }} conversation(s) recorded
-            </span>
-          </div>
-
-          <div class="divide-y divide-slate-200 dark:divide-slate-800 space-y-6">
-            @for (chat of filteredChatHistory(); track chat.id) {
-              <div class="pt-6 first:pt-2 space-y-3 font-mono text-xs">
-                <div class="flex items-center justify-between text-[11px] text-slate-500">
-                  <div class="flex items-center gap-2">
-                    <span class="w-1.5 h-1.5 rounded-full"></span>
-                    <span class="font-semibold text-slate-900 dark:text-white"
-                      >Query #{{ chat.id }}</span
-                    >
-                    <span>·</span>
-                    <span
-                      class="px-1.5 py-0.5 rounded text-blue-500 dark:text-blue-400 border border-blue-500/20 text-[10px]"
-                    >
-                      {{ chat.model }}
-                    </span>
-                  </div>
-                  <div class="flex items-center gap-3">
-                    <span>{{ chat.tokens }} tokens</span>
-                    <span>{{ chat.timestamp }}</span>
-                  </div>
-                </div>
-
-                <div class="space-y-2">
-                  <div class="flex items-start gap-2 text-slate-700 dark:text-slate-300">
-                    <span class="text-blue-500 dark:text-blue-400 font-bold select-none">&gt;</span>
-                    <span class="font-semibold text-slate-900 dark:text-white">{{
-                      chat.userQuery
-                    }}</span>
-                  </div>
-                  <div
-                    class="pl-4 text-slate-600 dark:text-slate-300 leading-relaxed font-sans text-xs"
+    }
+    @if (activeTab() === 'visitors') {
+      <p class="my-2 wrap-anywhere text-[0.8rem] text-slate-500 dark:text-slate-400">
+        50 records per page, newest first. Only visitor IDs, access status and last-seen times are
+        provided.
+      </p>
+      <div class="overflow-x-auto">
+        <table class="w-full border-collapse text-sm">
+          <caption class="sr-only">
+            Visitor access management
+          </caption>
+          <thead>
+            <tr>
+              <th class="border-b border-slate-400/25 p-3 text-left">Visitor</th>
+              <th class="border-b border-slate-400/25 p-3 text-left">Status</th>
+              <th class="border-b border-slate-400/25 p-3 text-left">Last seen</th>
+              <th class="border-b border-slate-400/25 p-3 text-left">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (visitor of adminService.visitors(); track visitor.id) {
+              <tr>
+                <td class="border-b border-slate-400/25 p-3 text-left">#{{ visitor.id }}</td>
+                <td class="border-b border-slate-400/25 p-3 text-left">
+                  {{ visitor.blocked ? 'Blocked' : 'Allowed' }}
+                </td>
+                <td class="border-b border-slate-400/25 p-3 text-left">
+                  {{ visitor.lastSeenAt ? (visitor.lastSeenAt | date: 'medium') : 'Unavailable' }}
+                </td>
+                <td class="border-b border-slate-400/25 p-3 text-left">
+                  <button
+                    class="cursor-pointer rounded-lg border border-slate-400/45 px-3.5 py-2 text-[0.8rem] transition-colors enabled:hover:border-blue-600 disabled:cursor-wait disabled:opacity-45 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+                    type="button"
+                    (click)="promptBlock(visitor)"
+                    [disabled]="busy()"
                   >
-                    {{ chat.botResponse }}
-                  </div>
-                </div>
-              </div>
+                    {{ visitor.blocked ? 'Unblock' : 'Block' }}
+                  </button>
+                </td>
+              </tr>
             } @empty {
-              <div class="py-12 text-center font-mono text-xs text-slate-500">
-                No conversation sessions match your search query.
-              </div>
+              @if (!adminService.loading().visitors && !adminService.errors().visitors) {
+                <tr>
+                  <td class="border-b border-slate-400/25 p-3 text-left" colspan="4">
+                    No visitors on this page.
+                  </td>
+                </tr>
+              }
             }
-          </div>
-        </div>
-      }
-    </main>
-  </div>
+          </tbody>
+        </table>
+      </div>
+      <div class="mt-3 mb-4 flex flex-wrap items-center justify-between gap-2.5">
+        <button
+          class="cursor-pointer rounded-lg border border-slate-400/45 px-3.5 py-2 text-[0.8rem] transition-colors enabled:hover:border-blue-600 disabled:cursor-wait disabled:opacity-45 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+          type="button"
+          (click)="changeVisitorPage(-1)"
+          [disabled]="adminService.visitorPage() === 0 || adminService.loading().visitors || busy()"
+        >
+          Previous</button
+        ><span>Page {{ adminService.visitorPage() + 1 }}</span
+        ><button
+          class="cursor-pointer rounded-lg border border-slate-400/45 px-3.5 py-2 text-[0.8rem] transition-colors enabled:hover:border-blue-600 disabled:cursor-wait disabled:opacity-45 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+          type="button"
+          (click)="changeVisitorPage(1)"
+          [disabled]="
+            adminService.visitors().length < 50 ||
+            adminService.visitorPage() >= 1000 ||
+            adminService.loading().visitors ||
+            busy()
+          "
+        >
+          Next
+        </button>
+      </div>
+    }
+  </main>
 </div>
 
-@if (isPostModalOpen()) {
-  <div
-    class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in"
-  >
-    <div
-      class="w-full max-w-xl bg-white dark:bg-[#070d18] border border-slate-300 dark:border-slate-800 rounded-2xl shadow-2xl p-6 sm:p-8 space-y-6"
+<dialog
+  class="m-auto max-h-[90dvh] w-[min(820px,calc(100vw-2rem))] overflow-y-auto rounded-2xl border border-slate-400/40 bg-white p-4 text-[#172033] backdrop:bg-slate-950/70 backdrop:backdrop-blur-sm md:p-6 dark:bg-[#0b1424] dark:text-slate-200"
+  #editorDialog
+  (cancel)="closeEditor($event)"
+  aria-labelledby="editor-title"
+>
+  <header class="mb-4 flex flex-wrap items-center justify-between gap-2.5">
+    <h2 class="mt-1 mb-3 text-xl font-semibold" id="editor-title">
+      {{ editing() ? 'Edit' : 'Create' }} {{ editor() === 'blogs' ? 'blog' : 'project' }}
+    </h2>
+    <button
+      class="cursor-pointer rounded-lg border border-slate-400/45 px-3.5 py-2 text-[0.8rem] transition-colors enabled:hover:border-blue-600 disabled:cursor-wait disabled:opacity-45 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+      type="button"
+      (click)="closeEditor()"
+      [disabled]="busy()"
     >
-      <div
-        class="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-slate-800"
+      Close
+    </button>
+  </header>
+  @if (error()) {
+    <p
+      role="alert"
+      class="my-2 wrap-anywhere rounded-lg bg-red-500/10 p-3 text-sm text-red-700 dark:text-red-300"
+    >
+      {{ error() }}
+    </p>
+  }
+  @if (editorLoading()) {
+    <p class="my-2 wrap-anywhere" role="status">Loading the full record…</p>
+  }
+  @if (editor() === 'blogs') {
+    <form [formGroup]="blogForm" (ngSubmit)="save()">
+      <fieldset
+        class="min-w-0 border-0 p-0"
+        [disabled]="busy() || editorLoading() || !editorReady()"
       >
-        <h3 class="text-base font-bold font-mono text-slate-900 dark:text-white">
-          {{ editingPostId() ? 'Edit Article' : 'Create New Article' }}
-        </h3>
-        <button
-          type="button"
-          (click)="closePostModal()"
-          class="p-1 rounded text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors cursor-pointer"
-        >
-          <svg
-            class="w-5 h-5"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
+        <div class="grid grid-cols-1 gap-x-4 md:grid-cols-2">
+          <label class="my-3 grid gap-1.5 text-sm"
+            >Title<input
+              class="w-full min-w-0 rounded-lg border border-slate-400/50 bg-transparent p-2.5 text-inherit [&.ng-invalid.ng-touched]:border-red-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+              formControlName="title"
+              maxlength="160"
+              required
+          /></label>
+          <label class="my-3 grid gap-1.5 text-sm"
+            >Slug<input
+              class="w-full min-w-0 rounded-lg border border-slate-400/50 bg-transparent p-2.5 text-inherit [&.ng-invalid.ng-touched]:border-red-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+              formControlName="slug"
+              maxlength="120"
+              required
+              pattern="[a-z0-9]+(?:-[a-z0-9]+)*"
+            /><small class="text-[0.8rem] text-slate-500 dark:text-slate-400"
+              >Lowercase letters, digits and single hyphens.</small
+            ></label
           >
-            <line x1="18" y1="6" x2="6" y2="18"></line>
-            <line x1="6" y1="6" x2="18" y2="18"></line>
-          </svg>
-        </button>
-      </div>
-
-      <form [formGroup]="postForm" (ngSubmit)="savePost()" class="space-y-4 font-mono text-xs">
-        <div class="space-y-1">
-          <label for="post-title" class="block text-slate-700 dark:text-slate-300"
-            >Article Title</label
-          >
-          <input
-            id="post-title"
-            type="text"
-            formControlName="title"
-            placeholder="e.g. Distributed Caching with Redis & Spring Boot"
-            class="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-transparent text-slate-900 dark:text-white focus:outline-none focus:border-blue-500 transition-colors"
-          />
-        </div>
-
-        <div class="grid grid-cols-2 gap-4">
-          <div class="space-y-1">
-            <label for="post-category" class="block text-slate-700 dark:text-slate-300"
-              >Category</label
-            >
-            <select
-              id="post-category"
+          <label class="my-3 grid gap-1.5 text-sm"
+            >Subtitle<input
+              class="w-full min-w-0 rounded-lg border border-slate-400/50 bg-transparent p-2.5 text-inherit [&.ng-invalid.ng-touched]:border-red-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+              formControlName="subtitle"
+              maxlength="240"
+          /></label>
+          <label class="my-3 grid gap-1.5 text-sm"
+            >Banner URL<input
+              class="w-full min-w-0 rounded-lg border border-slate-400/50 bg-transparent p-2.5 text-inherit [&.ng-invalid.ng-touched]:border-red-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+              formControlName="bannerUrl"
+              type="url"
+              maxlength="500"
+              placeholder="https://…"
+          /></label>
+          <label class="my-3 grid gap-1.5 text-sm"
+            >Category<select
+              class="w-full min-w-0 rounded-lg border border-slate-400/50 bg-transparent p-2.5 text-inherit focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
               formControlName="category"
-              class="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-transparent"
             >
-              <option value="TECHNICAL">Technical</option>
-              <option value="SLICE_OF_LIFE">Slice of life</option>
-              <option value="PERSONAL_STORY">Personal story</option>
-            </select>
-          </div>
-          <div class="space-y-1">
-            <label for="post-read-time" class="block text-slate-700 dark:text-slate-300"
-              >Read Time</label
-            >
-            <input
-              id="post-read-time"
-              type="text"
-              formControlName="readTime"
-              placeholder="5 min read"
-              class="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-transparent text-slate-900 dark:text-white focus:outline-none focus:border-blue-500 transition-colors"
-            />
-          </div>
-        </div>
-
-        <div class="grid grid-cols-2 gap-4">
-          <div class="space-y-1">
-            <label for="post-status" class="block text-slate-700 dark:text-slate-300"
-              >Publication Status</label
-            >
-            <select
-              id="post-status"
+              <option class="bg-[Canvas] text-[CanvasText]" value="TECHNICAL">Technical</option>
+              <option class="bg-[Canvas] text-[CanvasText]" value="SLICE_OF_LIFE">
+                Slice of life
+              </option>
+              <option class="bg-[Canvas] text-[CanvasText]" value="PERSONAL_STORY">
+                Personal story
+              </option>
+            </select></label
+          >
+          <label class="my-3 grid gap-1.5 text-sm"
+            >Status<select
+              class="w-full min-w-0 rounded-lg border border-slate-400/50 bg-transparent p-2.5 text-inherit focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
               formControlName="status"
-              class="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-[#070d18] text-slate-900 dark:text-white focus:outline-none focus:border-blue-500 transition-colors"
             >
-              <option value="PUBLISHED">PUBLISHED</option>
-              <option value="DRAFT">DRAFT</option>
-            </select>
-          </div>
-          <div class="space-y-1">
-            <label for="post-hero-image" class="block text-slate-700 dark:text-slate-300"
-              >Hero Image URL</label
-            >
-            <input
-              id="post-hero-image"
-              type="text"
-              formControlName="heroImage"
-              class="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-transparent text-slate-900 dark:text-white focus:outline-none focus:border-blue-500 transition-colors truncate"
-            />
-          </div>
-        </div>
-
-        <div class="space-y-1">
-          <label for="post-content" class="block text-slate-700 dark:text-slate-300"
-            >First chapter content (Markdown)</label
+              <option class="bg-[Canvas] text-[CanvasText]" value="DRAFT">Draft</option>
+              <option class="bg-[Canvas] text-[CanvasText]" value="PUBLISHED">Published</option>
+            </select></label
           >
-          <textarea
-            id="post-content"
-            formControlName="content"
-            rows="10"
-            class="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-transparent text-slate-900 dark:text-white"
-          ></textarea>
         </div>
-        <div class="space-y-1">
-          <label for="post-summary" class="block text-slate-700 dark:text-slate-300"
-            >Executive Summary</label
-          >
-          <textarea
-            id="post-summary"
-            formControlName="summary"
+        <label class="my-3 grid gap-1.5 text-sm"
+          >Description<textarea
+            class="w-full min-w-0 resize-y rounded-lg border border-slate-400/50 bg-transparent p-2.5 text-inherit [&.ng-invalid.ng-touched]:border-red-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+            formControlName="description"
             rows="3"
-            placeholder="Brief summary of the article..."
-            class="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-transparent text-slate-900 dark:text-white focus:outline-none focus:border-blue-500 transition-colors resize-none"
+            maxlength="4000"
           ></textarea>
-        </div>
-
-        <div
-          class="flex items-center justify-end gap-3 pt-3 border-t border-slate-200 dark:border-slate-800"
-        >
+        </label>
+        <div class="mb-4 flex flex-wrap items-center justify-between gap-2.5">
+          <h3 class="mt-1 mb-3 font-semibold">Chapters ({{ chapters.length }}/20)</h3>
           <button
+            class="cursor-pointer rounded-lg border border-slate-400/45 px-3.5 py-2 text-[0.8rem] transition-colors enabled:hover:border-blue-600 disabled:cursor-wait disabled:opacity-45 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
             type="button"
-            (click)="closePostModal()"
-            class="px-4 py-2 rounded-lg border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
+            (click)="addChapter()"
+            [disabled]="chapters.length >= 20"
           >
-            Cancel
-          </button>
-          <button
-            type="submit"
-            class="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold transition-colors cursor-pointer"
-          >
-            {{ editingPostId() ? 'Update Article' : 'Publish Article' }}
+            Add chapter
           </button>
         </div>
-      </form>
-    </div>
-  </div>
-}
-
-@if (deleteTarget()) {
-  <div
-    class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in"
-  >
-    <div
-      class="w-full max-w-sm bg-white dark:bg-[#070d18] border border-slate-300 dark:border-slate-800 rounded-2xl shadow-2xl p-6 text-center space-y-4"
-    >
-      <div
-        class="w-12 h-12 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-500 dark:text-blue-400 mx-auto flex items-center justify-center"
+        <div formArrayName="chapters" class="my-4 grid gap-4">
+          @for (chapter of chapters.controls; track chapter; let index = $index) {
+            <section
+              class="rounded-xl border border-slate-400/25 bg-white/25 p-4 dark:bg-slate-900/40"
+              [formGroupName]="index"
+            >
+              <div class="mb-4 flex flex-wrap items-center justify-between gap-2.5">
+                <h4 class="mt-1 mb-3 font-semibold">Chapter {{ index + 1 }}</h4>
+                <div class="flex flex-wrap items-center justify-end gap-2.5">
+                  <button
+                    class="cursor-pointer rounded-lg border border-slate-400/45 px-3.5 py-2 text-[0.8rem] transition-colors enabled:hover:border-blue-600 disabled:cursor-wait disabled:opacity-45 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+                    type="button"
+                    (click)="moveChapter(index, -1)"
+                    [disabled]="index === 0"
+                    [attr.aria-label]="'Move chapter ' + (index + 1) + ' up'"
+                  >
+                    Up</button
+                  ><button
+                    class="cursor-pointer rounded-lg border border-slate-400/45 px-3.5 py-2 text-[0.8rem] transition-colors enabled:hover:border-blue-600 disabled:cursor-wait disabled:opacity-45 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+                    type="button"
+                    (click)="moveChapter(index, 1)"
+                    [disabled]="index === chapters.length - 1"
+                    [attr.aria-label]="'Move chapter ' + (index + 1) + ' down'"
+                  >
+                    Down</button
+                  ><button
+                    type="button"
+                    class="cursor-pointer rounded-lg border border-slate-400/45 px-3.5 py-2 text-[0.8rem] transition-colors enabled:hover:border-blue-600 disabled:cursor-wait disabled:opacity-45 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 text-red-600 dark:text-red-300"
+                    (click)="removeChapter(index)"
+                  >
+                    Remove
+                  </button>
+                </div>
+              </div>
+              <label class="my-3 grid gap-1.5 text-sm"
+                >Chapter title<input
+                  class="w-full min-w-0 rounded-lg border border-slate-400/50 bg-transparent p-2.5 text-inherit [&.ng-invalid.ng-touched]:border-red-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+                  formControlName="title"
+                  maxlength="160"
+                  required
+              /></label>
+              <label class="my-3 grid gap-1.5 text-sm"
+                >Content (Markdown)<textarea
+                  class="w-full min-w-0 resize-y rounded-lg border border-slate-400/50 bg-transparent p-2.5 text-inherit [&.ng-invalid.ng-touched]:border-red-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+                  formControlName="content"
+                  rows="8"
+                  required
+                ></textarea>
+              </label>
+            </section>
+          }
+        </div>
+        <p class="my-2 wrap-anywhere text-[0.8rem] text-slate-500 dark:text-slate-400">
+          Up to 200 KiB of chapter text. A published blog needs at least one complete chapter.
+        </p>
+        <button
+          type="submit"
+          class="cursor-pointer rounded-lg border border-slate-400/45 px-3.5 py-2 text-[0.8rem] transition-colors enabled:hover:border-blue-600 disabled:cursor-wait disabled:opacity-45 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 border-blue-600 bg-blue-600 text-white enabled:hover:bg-blue-700"
+          [disabled]="busy() || editorLoading() || !editorReady()"
+        >
+          {{ busy() ? 'Saving…' : 'Save blog' }}
+        </button>
+      </fieldset>
+    </form>
+  }
+  @if (editor() === 'projects') {
+    <form [formGroup]="projectForm" (ngSubmit)="save()">
+      <fieldset
+        class="min-w-0 border-0 p-0"
+        [disabled]="busy() || editorLoading() || !editorReady()"
       >
-        <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <polyline points="3 6 5 6 21 6"></polyline>
-          <path
-            d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
-          ></path>
-        </svg>
-      </div>
-      <div class="space-y-1">
-        <h4 class="text-sm font-bold text-slate-900 dark:text-white font-mono">Delete Article?</h4>
-        <p class="text-xs text-slate-500 truncate font-mono">"{{ deleteTarget()?.title }}"</p>
-      </div>
-      <div class="flex items-center justify-center gap-3 pt-2 font-mono text-xs">
-        <button
-          type="button"
-          (click)="cancelDelete()"
-          class="px-4 py-2 rounded-lg border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
+        <div class="grid grid-cols-1 gap-x-4 md:grid-cols-2">
+          <label class="my-3 grid gap-1.5 text-sm"
+            >Title<input
+              class="w-full min-w-0 rounded-lg border border-slate-400/50 bg-transparent p-2.5 text-inherit [&.ng-invalid.ng-touched]:border-red-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+              formControlName="title"
+              maxlength="160"
+              required
+          /></label>
+          <label class="my-3 grid gap-1.5 text-sm"
+            >Slug<input
+              class="w-full min-w-0 rounded-lg border border-slate-400/50 bg-transparent p-2.5 text-inherit [&.ng-invalid.ng-touched]:border-red-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+              formControlName="slug"
+              maxlength="120"
+              required
+              pattern="[a-z0-9]+(?:-[a-z0-9]+)*"
+          /></label>
+          <label class="my-3 grid gap-1.5 text-sm"
+            >Label<input
+              class="w-full min-w-0 rounded-lg border border-slate-400/50 bg-transparent p-2.5 text-inherit [&.ng-invalid.ng-touched]:border-red-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+              formControlName="label"
+              maxlength="50"
+          /></label>
+          <label class="my-3 grid gap-1.5 text-sm"
+            >Subtitle<input
+              class="w-full min-w-0 rounded-lg border border-slate-400/50 bg-transparent p-2.5 text-inherit [&.ng-invalid.ng-touched]:border-red-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+              formControlName="subtitle"
+              maxlength="240"
+          /></label>
+          <label class="my-3 grid gap-1.5 text-sm"
+            >GitHub URL<input
+              class="w-full min-w-0 rounded-lg border border-slate-400/50 bg-transparent p-2.5 text-inherit [&.ng-invalid.ng-touched]:border-red-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+              formControlName="githubLink"
+              type="url"
+              maxlength="500"
+              placeholder="https://…"
+          /></label>
+          <label class="my-3 grid gap-1.5 text-sm"
+            >Website URL<input
+              class="w-full min-w-0 rounded-lg border border-slate-400/50 bg-transparent p-2.5 text-inherit [&.ng-invalid.ng-touched]:border-red-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+              formControlName="websiteLink"
+              type="url"
+              maxlength="500"
+              placeholder="https://…"
+          /></label>
+          <label class="my-3 grid gap-1.5 text-sm"
+            >Display order<input
+              class="w-full min-w-0 rounded-lg border border-slate-400/50 bg-transparent p-2.5 text-inherit [&.ng-invalid.ng-touched]:border-red-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+              formControlName="displayOrder"
+              type="number"
+              min="0"
+              max="2147483647"
+              step="1"
+              required
+          /></label>
+          <label class="my-3 flex items-center gap-1.5 text-sm"
+            ><input
+              class="w-auto min-w-0 rounded-lg border border-slate-400/50 bg-transparent p-2.5 text-inherit [&.ng-invalid.ng-touched]:border-red-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+              formControlName="published"
+              type="checkbox"
+            />
+            Published</label
+          >
+        </div>
+        <label class="my-3 grid gap-1.5 text-sm"
+          >Technology stack<input
+            class="w-full min-w-0 rounded-lg border border-slate-400/50 bg-transparent p-2.5 text-inherit [&.ng-invalid.ng-touched]:border-red-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+            formControlName="techStack"
+            maxlength="2000"
+            placeholder="Java, Angular, PostgreSQL"
+          /><small class="text-[0.8rem] text-slate-500 dark:text-slate-400"
+            >Separate technologies with commas; up to 50 characters per name.</small
+          ></label
         >
-          Cancel
-        </button>
+        <label class="my-3 grid gap-1.5 text-sm"
+          >Description<textarea
+            class="w-full min-w-0 resize-y rounded-lg border border-slate-400/50 bg-transparent p-2.5 text-inherit [&.ng-invalid.ng-touched]:border-red-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+            formControlName="description"
+            maxlength="4000"
+            rows="5"
+          ></textarea>
+        </label>
         <button
-          type="button"
-          (click)="confirmDelete()"
-          class="px-4 py-2 rounded-lg bg-slate-900 dark:bg-white text-white dark:text-black hover:bg-blue-600 dark:hover:bg-blue-500 dark:hover:text-white font-semibold transition-colors cursor-pointer"
+          type="submit"
+          class="cursor-pointer rounded-lg border border-slate-400/45 px-3.5 py-2 text-[0.8rem] transition-colors enabled:hover:border-blue-600 disabled:cursor-wait disabled:opacity-45 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 border-blue-600 bg-blue-600 text-white enabled:hover:bg-blue-700"
+          [disabled]="busy() || editorLoading() || !editorReady()"
         >
-          Confirm Delete
+          {{ busy() ? 'Saving…' : 'Save project' }}
         </button>
-      </div>
+      </fieldset>
+    </form>
+  }
+</dialog>
+
+<dialog
+  class="m-auto max-h-[90dvh] w-[min(820px,calc(100vw-2rem))] overflow-y-auto rounded-2xl border border-slate-400/40 bg-white p-4 text-[#172033] backdrop:bg-slate-950/70 backdrop:backdrop-blur-sm md:p-6 dark:bg-[#0b1424] dark:text-slate-200"
+  #confirmDialog
+  (cancel)="cancelConfirmation($event)"
+  aria-labelledby="confirmation-title"
+>
+  @if (confirmation(); as action) {
+    <h2 class="mt-1 mb-3 text-xl font-semibold" id="confirmation-title">{{ action.title }}</h2>
+    <p class="my-2 wrap-anywhere">{{ action.label }}</p>
+    @if (action.needsReason) {
+      <label class="my-3 grid gap-1.5 text-sm"
+        >Reason (optional)<input
+          class="w-full min-w-0 rounded-lg border border-slate-400/50 bg-transparent p-2.5 text-inherit [&.ng-invalid.ng-touched]:border-red-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+          [formControl]="blockReason"
+          maxlength="255"
+      /></label>
+    }
+    @if (error()) {
+      <p
+        role="alert"
+        class="my-2 wrap-anywhere rounded-lg bg-red-500/10 p-3 text-sm text-red-700 dark:text-red-300"
+      >
+        {{ error() }}
+      </p>
+    }
+    <div class="flex flex-wrap items-center justify-end gap-2.5">
+      <button
+        class="cursor-pointer rounded-lg border border-slate-400/45 px-3.5 py-2 text-[0.8rem] transition-colors enabled:hover:border-blue-600 disabled:cursor-wait disabled:opacity-45 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+        type="button"
+        (click)="cancelConfirmation()"
+        [disabled]="busy()"
+      >
+        Cancel</button
+      ><button
+        type="button"
+        class="cursor-pointer rounded-lg border border-slate-400/45 px-3.5 py-2 text-[0.8rem] transition-colors enabled:hover:border-blue-600 disabled:cursor-wait disabled:opacity-45 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 text-red-600 dark:text-red-300"
+        (click)="confirm()"
+        [disabled]="busy() || blockReason.invalid"
+      >
+        {{ busy() ? 'Waiting for server…' : 'Confirm' }}
+      </button>
     </div>
-  </div>
-}
+  }
+</dialog>

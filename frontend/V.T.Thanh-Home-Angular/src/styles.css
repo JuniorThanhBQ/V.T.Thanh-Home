@@ -129,3 +129,223 @@ html.dark {
 .dark ::-webkit-scrollbar-thumb:hover {
   background: rgba(100, 116, 139, 0.7);
 }
+
+.chat-markdown-content p {
+  margin-bottom: 0.5rem;
+}
+
+.chat-markdown-content p:last-child {
+  margin-bottom: 0;
+}
+
+.chat-markdown-content ul {
+  list-style-type: disc;
+  margin-left: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.chat-markdown-content ol {
+  list-style-type: decimal;
+  margin-left: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.chat-markdown-content li {
+  margin-bottom: 0.2rem;
+}
+
+.chat-markdown-content strong,
+.chat-markdown-content b {
+  font-weight: 700;
+}
+
+.chat-markdown-content a {
+  color: #0284c7;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.chat-markdown-content code {
+  font-family: monospace;
+  font-size: 0.9em;
+  padding: 0.1rem 0.3rem;
+  border-radius: 0.25rem;
+  background-color: rgba(0, 0, 0, 0.06);
+}
+
+.dark .chat-markdown-content code {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #38bdf8;
+}
+
+.chat-markdown-content pre {
+  background-color: #0f172a;
+  color: #f8fafc;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  margin: 0.5rem 0;
+}
+
+.chat-markdown-content pre code {
+  background-color: transparent;
+  color: inherit;
+  padding: 0;
+}
+
+.chat-markdown-content blockquote {
+  border-left: 3px solid #0284c7;
+  padding-left: 0.75rem;
+  margin: 0.5rem 0;
+  opacity: 0.9;
+}
+
+.blog-markdown-content p {
+  margin-bottom: 1.25rem;
+  line-height: 1.8;
+}
+
+.blog-markdown-content p:last-child {
+  margin-bottom: 0;
+}
+
+.blog-markdown-content h3,
+.blog-markdown-content h4 {
+  font-weight: 700;
+  color: #0f172a;
+  margin-top: 1.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.dark .blog-markdown-content h3,
+.dark .blog-markdown-content h4 {
+  color: #f8fafc;
+}
+
+.blog-markdown-content ul {
+  list-style-type: disc;
+  margin-left: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.blog-markdown-content ol {
+  list-style-type: decimal;
+  margin-left: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.blog-markdown-content li {
+  margin-bottom: 0.35rem;
+}
+
+.blog-markdown-content strong,
+.blog-markdown-content b {
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.dark .blog-markdown-content strong,
+.dark .blog-markdown-content b {
+  color: #f8fafc;
+}
+
+.blog-markdown-content a {
+  color: #0284c7;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.blog-markdown-content code {
+  font-family: monospace;
+  font-size: 0.875em;
+  padding: 0.15rem 0.4rem;
+  border-radius: 0.35rem;
+  background-color: rgba(0, 0, 0, 0.06);
+}
+
+.dark .blog-markdown-content code {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #38bdf8;
+}
+
+.blog-markdown-content pre {
+  background-color: #0c121c;
+  color: #f8fafc;
+  padding: 1rem 1.25rem;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(51, 65, 85, 0.4);
+  overflow-x: auto;
+  margin: 1.25rem 0;
+  font-family: monospace;
+  font-size: 0.875rem;
+}
+
+.blog-markdown-content pre code {
+  background-color: transparent;
+  color: inherit;
+  padding: 0;
+}
+
+.blog-markdown-content blockquote {
+  border-left: 4px solid #0284c7;
+  padding-left: 1rem;
+  margin: 1.25rem 0;
+  font-style: italic;
+  opacity: 0.9;
+}
+
+.blog-markdown-content img {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.blog-markdown-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.875rem;
+  overflow-x: auto;
+  display: block;
+}
+
+.blog-markdown-content thead {
+  background-color: rgba(241, 245, 249, 0.8);
+  border-bottom: 2px solid #cbd5e1;
+}
+
+.dark .blog-markdown-content thead {
+  background-color: rgba(15, 23, 42, 0.8);
+  border-bottom: 2px solid #334155;
+}
+
+.blog-markdown-content th {
+  padding: 0.75rem 1rem;
+  font-weight: 700;
+  color: #0f172a;
+  text-align: left;
+  border: 1px solid #e2e8f0;
+}
+
+.dark .blog-markdown-content th {
+  color: #f8fafc;
+  border: 1px solid #1e293b;
+}
+
+.blog-markdown-content td {
+  padding: 0.75rem 1rem;
+  border: 1px solid #e2e8f0;
+  color: #334155;
+}
+
+.dark .blog-markdown-content td {
+  border: 1px solid #1e293b;
+  color: #cbd5e1;
+}
+
+.blog-markdown-content tbody tr:nth-child(even) {
+  background-color: rgba(248, 250, 252, 0.5);
+}
+
+.dark .blog-markdown-content tbody tr:nth-child(even) {
+  background-color: rgba(15, 23, 42, 0.3);
+}

@@ -2,7 +2,7 @@
   "app": {
     "title": "个人网站",
     "Author": "文忠诚",
-    "version": "版本 1.2.2",
+    "version": "版本 2.0.0",
     "copyright": "保留所有权利",
     "backend_health_up": "服务器运行中。",
     "backend_health_standby": "正在检查服务器。",

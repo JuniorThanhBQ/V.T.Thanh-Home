@@ -2,7 +2,7 @@
   "app": {
     "title": "Website cá nhân",
     "Author": "Văn Trung Thành",
-    "version": "Phiên bản 1.2.2",
+    "version": "Phiên bản 2.0.0",
     "copyright": "Bảo lưu mọi quyền",
     "backend_health_up": "Server đang hoạt động",
     "backend_health_standby": "Đang kiểm tra Server",
@@ -201,7 +201,7 @@
     "close_button": "Đóng trợ lý ảo",
     "title": "Trợ lý ảo V.T.Thành",
     "status_active": "Đang hoạt động",
-    "greeting": "Xin chào! Mình là phiên bản trợ lý ảo của Văn Trung Thành. Mình có thể hỗ trợ gì cho bạn hôm nay?",
+    "greeting": "Xin chào! Mình là trợ lý ảo của Văn Trung Thành. Mình có thể hỗ trợ gì cho bạn hôm nay?",
     "suggested_topics_title": "Chủ đề gợi ý",
     "topics": {
       "tech_stack": "Những kỹ năng technical mà mình hiện có?",

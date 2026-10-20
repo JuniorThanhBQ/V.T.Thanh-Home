@@ -1,5 +1,7 @@
 <header
-  class="sticky top-0 z-50 bg-white/90 dark:bg-slate-900/80 border-b border-slate-200 dark:border-slate-800 transition-colors duration-300"
+  class="fixed top-0 inset-x-0 w-full z-50 bg-white/90 dark:bg-slate-900/80 border-b border-slate-200 dark:border-slate-800 transition-transform duration-300 ease-in-out"
+  [class.-translate-y-full]="isHeaderHidden()"
+  [class.translate-y-0]="!isHeaderHidden()"
   [class.backdrop-blur-md]="!isMobileMenuOpen()"
 >
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-[72px] flex items-center justify-between">

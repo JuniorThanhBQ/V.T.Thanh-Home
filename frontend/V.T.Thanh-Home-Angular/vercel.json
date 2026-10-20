@@ -55,6 +55,15 @@
       ]
     },
     {
+      "source": "/actuator/:path*",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "private, no-store"
+        }
+      ]
+    },
+    {
       "source": "/api/:path*",
       "headers": [
         {
@@ -70,8 +79,8 @@
       "destination": "https://vtthanh-backend-latest.onrender.com/api/v1/:path*"
     },
     {
-      "source": "/actuator/health",
-      "destination": "https://vtthanh-backend-latest.onrender.com/actuator/health"
+      "source": "/actuator/:path*",
+      "destination": "https://vtthanh-backend-latest.onrender.com/actuator/:path*"
     },
     {
       "source": "/((?!api/|actuator/).*)",
