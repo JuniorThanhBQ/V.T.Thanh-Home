@@ -140,8 +140,8 @@ class ProjectAndBlogIntegrationTest {
                 .andExpect(jsonPath("$.slug").value("admin-proj"))
                 .andReturn();
 
-        Long id = ((Number) JsonPath.read(createResult.getResponse().getContentAsString(), "$.id")).longValue();
-        Long version = ((Number) JsonPath.read(createResult.getResponse().getContentAsString(), "$.version")).longValue();
+        long id = ((Number) JsonPath.read(createResult.getResponse().getContentAsString(), "$.id")).longValue();
+        long version = ((Number) JsonPath.read(createResult.getResponse().getContentAsString(), "$.version")).longValue();
 
         String conflictJson = "{\"slug\":\"admin-proj\",\"title\":\"Conflict\",\"description\":\"Desc\",\"published\":true,\"version\":" + (version + 99) + "}";
         mockMvc.perform(put("/api/v1/admin/projects/" + id)
@@ -184,8 +184,8 @@ class ProjectAndBlogIntegrationTest {
                 .andExpect(jsonPath("$.chapters[0].title").value("Ch 1"))
                 .andReturn();
 
-        Long id = ((Number) JsonPath.read(createResult.getResponse().getContentAsString(), "$.id")).longValue();
-        Long version = ((Number) JsonPath.read(createResult.getResponse().getContentAsString(), "$.version")).longValue();
+        long id = ((Number) JsonPath.read(createResult.getResponse().getContentAsString(), "$.id")).longValue();
+        long version = ((Number) JsonPath.read(createResult.getResponse().getContentAsString(), "$.version")).longValue();
 
         String conflictJson = "{\"slug\":\"admin-blog\",\"title\":\"Conflict Blog\",\"description\":\"Updated summary\",\"category\":\"TECHNICAL\",\"status\":\"PUBLISHED\",\"version\":" + (version + 99) + "}";
         mockMvc.perform(put("/api/v1/admin/blogs/" + id)

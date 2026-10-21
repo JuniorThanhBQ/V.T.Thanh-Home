@@ -24,6 +24,12 @@ For direct `bootRun`, export the same application variables into your shell firs
 
 Use the repository root as the Docker build context and `backend/Dockerfile` as the Dockerfile. Supply these in Render's environment settings:
 
+The Docker build packages `app.jar` and uses `backend/Dockerfile.dockerignore` to include only backend build inputs. Production dependency artifacts are resolved before application sources are copied, so source-only changes can reuse that layer. Tests run separately in CI and are not included in the image build context.
+
+The Temurin JDK and JRE defaults are pinned by digest in `backend/Dockerfile`. When updating Java, verify both image manifests, update both digests together, rebuild, scan the runtime image, and rerun database-backed startup checks. The build arguments are named `TEMURIN_JDK_VERSION` and `TEMURIN_JRE_VERSION`.
+
+The container entrypoint selects `PORT`, then `SERVER_PORT`, then `8080`, and exports the selected value as `SERVER_PORT` before replacing the shell with Java. This keeps Spring's environment-property binding aligned with the Docker health check even when both port variables are supplied. `JAVA_TOOL_OPTIONS` defaults to a 65% maximum heap and tier-1 compilation; override it in the runtime environment when benchmarking startup against peak request performance.
+
 | Setting | Value/purpose |
 |---|---|
 | `SPRING_PROFILES_ACTIVE` | `prod` |

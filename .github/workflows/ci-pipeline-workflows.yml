@@ -33,6 +33,7 @@ jobs:
             backend:
               - 'backend/V.T.Thanh-Home-SpringBoot/**'
               - 'backend/Dockerfile'
+              - 'backend/Dockerfile.dockerignore'
   gitleaks:
     name: "Secret Leak Detection"
     runs-on: ubuntu-latest
@@ -54,7 +55,7 @@ jobs:
     name: "Lint Frontend and Backend"
     services:
       postgres:
-        image: postgres:18
+        image: pgvector/pgvector:pg18@sha256:2358fcba361ed2233a5ed81b5fe4ca779ccb304120ce531a3bf51c0ed7e2bc11
         env:
           POSTGRES_DB: vtthanh_test
           POSTGRES_USER: vtthanh_test

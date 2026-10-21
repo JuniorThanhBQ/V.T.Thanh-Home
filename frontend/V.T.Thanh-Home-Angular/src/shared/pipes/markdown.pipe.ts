@@ -1,5 +1,4 @@
-import { Pipe, PipeTransform, inject } from '@angular/core';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { Pipe, PipeTransform } from '@angular/core';
 import { marked } from 'marked';
 import DOMPurify from 'dompurify';
 
@@ -8,8 +7,6 @@ import DOMPurify from 'dompurify';
   standalone: true,
 })
 export class MarkdownPipe implements PipeTransform {
-  private sanitizer = inject(DomSanitizer);
-
   constructor() {
     marked.setOptions({
       gfm: true,
@@ -17,18 +14,57 @@ export class MarkdownPipe implements PipeTransform {
     });
   }
 
-  transform(value: string | null | undefined): SafeHtml {
-    if (!value) {
+  transform(value: string | null | undefined): string {
+    if (!value || typeof window === 'undefined' || !DOMPurify.isSupported) {
       return '';
     }
     const rawHtml = marked.parse(value, { async: false }) as string;
-    const cleanHtml =
-      typeof window !== 'undefined'
-        ? DOMPurify.sanitize(rawHtml, {
-            ADD_ATTR: ['target', 'rel', 'style', 'class', 'width', 'height', 'align'],
-            ADD_TAGS: ['div', 'span', 'img', 'table', 'thead', 'tbody', 'tr', 'th', 'td'],
-          })
-        : rawHtml;
-    return this.sanitizer.bypassSecurityTrustHtml(cleanHtml);
+    return DOMPurify.sanitize(rawHtml, {
+      ALLOWED_TAGS: [
+        'p',
+        'br',
+        'strong',
+        'em',
+        'del',
+        'blockquote',
+        'pre',
+        'code',
+        'ul',
+        'ol',
+        'li',
+        'h1',
+        'h2',
+        'h3',
+        'h4',
+        'h5',
+        'h6',
+        'hr',
+        'a',
+        'img',
+        'table',
+        'thead',
+        'tbody',
+        'tr',
+        'th',
+        'td',
+        'div',
+        'span',
+      ],
+      ALLOWED_ATTR: [
+        'href',
+        'title',
+        'src',
+        'alt',
+        'width',
+        'height',
+        'align',
+        'colspan',
+        'rowspan',
+        'start',
+        'reversed',
+      ],
+      ALLOW_DATA_ATTR: false,
+      ALLOW_ARIA_ATTR: false,
+    });
   }
 }

@@ -2,7 +2,7 @@
   "app": {
     "title": "Website cá nhân",
     "Author": "Văn Trung Thành",
-    "version": "Phiên bản 2.0.0",
+    "version": "Phiên bản 2.1.1",
     "copyright": "Bảo lưu mọi quyền",
     "backend_health_up": "Server đang hoạt động",
     "backend_health_standby": "Đang kiểm tra Server",

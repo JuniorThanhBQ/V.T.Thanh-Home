@@ -22,6 +22,7 @@ export class ContactComponent {
   public health = inject(BackendHealthService);
   public readonly avatarUrls = AVATAR_URLS;
   public isSubmitted = false;
+  public submitSuccess = false;
   public isSubmitting = false;
 
   public isFormDisabled = computed(() => {
@@ -63,6 +64,7 @@ export class ContactComponent {
   }
 
   public onSubmit(): void {
+    this.isSubmitted = true;
     if (this.health.status() !== 'UP' || this.contactForm.invalid || this.isSubmitting) {
       this.contactForm.markAllAsTouched();
       return;
@@ -83,11 +85,12 @@ export class ContactComponent {
     this.contactApi.submitContact(payload).subscribe({
       next: () => {
         this.isSubmitting = false;
-        this.isSubmitted = true;
+        this.isSubmitted = false;
+        this.submitSuccess = true;
         this.contactForm.reset();
         this.cdr.markForCheck();
         setTimeout(() => {
-          this.isSubmitted = false;
+          this.submitSuccess = false;
           this.cdr.markForCheck();
         }, 4000);
       },

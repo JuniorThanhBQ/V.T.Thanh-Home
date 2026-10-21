@@ -1,7 +1,8 @@
 (function () {
   const supportedLangs = ['en', 'de', 'fr', 'ja', 'zh'];
   const segments = window.location.pathname.split('/').filter(Boolean);
-  const activeLang = segments.length > 0 && supportedLangs.includes(segments[0]) ? segments[0] : 'vi';
+  const activeLang =
+    segments.length > 0 && supportedLangs.includes(segments[0]) ? segments[0] : 'vi';
 
   document.documentElement.lang = activeLang;
 
@@ -13,14 +14,19 @@
   document.head.appendChild(preloadLink);
 
   const baseUrl = 'https://vtthanh-home-angular.vercel.app';
-  const cleanPath = segments.length > 0 && supportedLangs.includes(segments[0])
-    ? '/' + segments.slice(1).join('/')
-    : window.location.pathname;
+  const cleanPath =
+    segments.length > 0 && supportedLangs.includes(segments[0])
+      ? '/' + segments.slice(1).join('/')
+      : window.location.pathname;
   const normalizedPath = cleanPath === '/' ? '' : cleanPath;
 
-  const canonicalLink = document.querySelector("link[rel='canonical']") || document.createElement('link');
+  const canonicalLink =
+    document.querySelector("link[rel='canonical']") || document.createElement('link');
   canonicalLink.rel = 'canonical';
-  canonicalLink.href = activeLang === 'vi' ? baseUrl + normalizedPath + '/' : baseUrl + '/' + activeLang + normalizedPath + '/';
+  canonicalLink.href =
+    activeLang === 'vi'
+      ? baseUrl + normalizedPath + '/'
+      : baseUrl + '/' + activeLang + normalizedPath + '/';
   if (!canonicalLink.parentNode) {
     document.head.appendChild(canonicalLink);
   }
@@ -34,6 +40,7 @@
       altLink.hreflang = lang;
       document.head.appendChild(altLink);
     }
-    altLink.href = lang === 'vi' ? baseUrl + normalizedPath + '/' : baseUrl + '/' + lang + normalizedPath + '/';
+    altLink.href =
+      lang === 'vi' ? baseUrl + normalizedPath + '/' : baseUrl + '/' + lang + normalizedPath + '/';
   });
 })();

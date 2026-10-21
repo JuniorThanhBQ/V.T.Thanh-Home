@@ -67,6 +67,17 @@ tasks.withType<Test> {
 	useJUnitPlatform()
 }
 
+tasks.bootJar {
+    archiveFileName.set("app.jar")
+}
+
+tasks.register("resolveProductionDependencies") {
+    doLast {
+        configurations.compileClasspath.get().resolve()
+        configurations.runtimeClasspath.get().resolve()
+    }
+}
+
 spotless {
 	java {
 		removeUnusedImports()

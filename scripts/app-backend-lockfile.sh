@@ -9,9 +9,12 @@ if [ ! -d "$BACKEND_DIR" ]; then
 fi
 
 cd "$BACKEND_DIR"
-if [ -f "./gradlew" ] && command -v bash >/dev/null 2>&1; then
+if [ -f "./gradlew" ] && (command -v java >/dev/null 2>&1 || [ -n "${JAVA_HOME:-}" ]); then
   chmod +x ./gradlew 2>/dev/null || true
   ./gradlew dependencies --write-locks --no-daemon
-else
+elif command -v cmd.exe >/dev/null 2>&1; then
   cmd.exe /c "gradlew.bat dependencies --write-locks --no-daemon"
+else
+  chmod +x ./gradlew 2>/dev/null || true
+  ./gradlew dependencies --write-locks --no-daemon
 fi
