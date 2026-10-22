@@ -23,7 +23,7 @@ public class GroqChatClient {
 
     public GroqChatClient(
             GroqKeyProvider keyProvider,
-            @Value("${app.chat.model:openai/gpt-oss-20b}") String model
+            @Value("${app.chat.model:openai/gpt-oss-120b}") String model
     ) {
         this.keyProvider = keyProvider;
         this.model = model;
@@ -66,8 +66,8 @@ public class GroqChatClient {
         Map<String, Object> requestBody = new java.util.HashMap<>(Map.of(
                 "model", model,
                 "messages", messages,
-                "temperature", 0.3,
-                "max_completion_tokens", 800,
+                "temperature", 0.4,
+                "max_completion_tokens", 1200,
                 "stream", false
         ));
         if (model.startsWith("openai/gpt-oss")) {

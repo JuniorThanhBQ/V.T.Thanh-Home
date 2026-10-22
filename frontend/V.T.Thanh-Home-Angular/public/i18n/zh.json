@@ -2,7 +2,7 @@
   "app": {
     "title": "个人网站",
     "Author": "文忠诚",
-    "version": "版本 2.1.1",
+    "version": "版本 2.2.1",
     "copyright": "保留所有权利",
     "backend_health_up": "服务器运行中。",
     "backend_health_standby": "正在检查服务器。",
@@ -62,6 +62,11 @@
       "title": "关于我",
       "description": "大家好，我叫文忠诚，是胡志明市开放大学的学生。我的专业是信息技术，主要方向为软件开发。此外，我也对人工智能模型的训练与开发很感兴趣。虽然工作有时会让我感到疲惫甚至精疲力尽，但我始终坚持不懈，并努力认真完成自己的职责。",
       "view_cv": "查看简历"
+    },
+    "badge": {
+      "title": "徽章",
+      "close": "关闭徽章查看器",
+      "image_alt": "Van Trung Thanh 的徽章"
     },
     "cv": {
       "prev": "上一页",

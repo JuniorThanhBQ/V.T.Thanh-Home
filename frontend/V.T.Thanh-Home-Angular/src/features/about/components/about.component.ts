@@ -23,6 +23,9 @@ export class AboutComponent implements AfterViewInit, OnDestroy {
   @ViewChild('bgCanvas', { static: true })
   private canvasRef!: ElementRef<HTMLCanvasElement>;
 
+  @ViewChild('badgeDialog', { static: true })
+  private badgeDialogRef!: ElementRef<HTMLDialogElement>;
+
   public readonly avatarUrls = AVATAR_URLS;
   public i18n = inject(TranslationService);
   private shaderService = inject(AboutShaderService);
@@ -30,14 +33,44 @@ export class AboutComponent implements AfterViewInit, OnDestroy {
   public isCvOpen = false;
   public currentPage = 1;
   public zoomLevel = 1.0;
+  private badgePreviousOverflow = '';
 
   ngAfterViewInit(): void {
     this.shaderService.init(this.canvasRef.nativeElement);
   }
 
   ngOnDestroy(): void {
+    if (this.badgeDialogRef.nativeElement.open) {
+      this.closeBadgeViewer();
+    }
     this.shaderService.destroy();
     document.body.style.overflow = '';
+  }
+
+  public openBadgeViewer(): void {
+    const dialog = this.badgeDialogRef.nativeElement;
+    if (dialog.open) return;
+    this.badgePreviousOverflow = document.body.style.overflow;
+    dialog.showModal();
+    document.body.style.overflow = 'hidden';
+  }
+
+  public closeBadgeViewer(): void {
+    this.badgeDialogRef.nativeElement.close();
+  }
+
+  public onBadgeViewerClosed(): void {
+    document.body.style.overflow = this.badgePreviousOverflow;
+  }
+
+  @HostListener('document:click', ['$event'])
+  public onBadgeDialogClick(event: MouseEvent): void {
+    if (
+      this.badgeDialogRef.nativeElement.open &&
+      event.target === this.badgeDialogRef.nativeElement
+    ) {
+      this.closeBadgeViewer();
+    }
   }
 
   public openCvViewer(): void {

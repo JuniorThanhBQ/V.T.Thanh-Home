@@ -2,7 +2,7 @@
   "app": {
     "title": "Sitio web personal",
     "Author": "Van Trung Thanh",
-    "version": "Versión 2.1.1",
+    "version": "Versión 2.2.1",
     "copyright": "Reservar todos los derechos",
     "backend_health_up": "Servidor en línea",
     "backend_health_standby": "Comprobando servidor",
@@ -62,6 +62,11 @@
       "title": "Sobre mí",
       "description": "Hola a todos. Me llamo Van Trung Thanh y estudio en la Universidad Abierta de Ciudad Ho Chi Minh. Mi especialidad es Tecnología de la Información, con orientación en desarrollo de software. También me interesa entrenar y desarrollar modelos de IA. Aunque a veces el trabajo me agota, soy perseverante y procuro cumplir bien con mis responsabilidades.",
       "view_cv": "Ver CV"
+    },
+    "badge": {
+      "title": "Insignias",
+      "close": "Cerrar el visor de insignias",
+      "image_alt": "Insignias de Van Trung Thanh"
     },
     "cv": {
       "prev": "Página anterior",

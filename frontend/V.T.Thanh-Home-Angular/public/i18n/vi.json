@@ -2,7 +2,7 @@
   "app": {
     "title": "Website cá nhân",
     "Author": "Văn Trung Thành",
-    "version": "Phiên bản 2.1.1",
+    "version": "Phiên bản 2.2.1",
     "copyright": "Bảo lưu mọi quyền",
     "backend_health_up": "Server đang hoạt động",
     "backend_health_standby": "Đang kiểm tra Server",
@@ -62,6 +62,11 @@
       "title": "Giới thiệu bản thân",
       "description": "Xin chào mọi người, mình tên là Văn Trung Thành, sinh viên trường Đại học Mở TP.HCM. Chuyên ngành của mình là công nghệ thông tin với định hướng chuyên môn là phát triển phần mềm. Ngoài ra, mình cũng có cảm hứng trong việc huấn luyện và phát triển các mô hình AI. Tuy dễ bị kiệt sức trong công việc nhưng mình luôn kiên trì và hoàn thành khá tốt công việc của mình.",
       "view_cv": "Xem CV"
+    },
+    "badge": {
+      "title": "Thẻ giới thiệu",
+      "close": "Đóng trình xem huy hiệu",
+      "image_alt": "Huy hiệu của Văn Trung Thành"
     },
     "cv": {
       "prev": "Trang trước",

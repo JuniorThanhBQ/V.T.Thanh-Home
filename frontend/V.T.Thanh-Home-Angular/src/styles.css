@@ -7,6 +7,38 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+.mobile-shader-background {
+  background: radial-gradient(ellipse at 50% 35%, #e8f2ff 0%, #b8d6ff 100%);
+}
+
+.dark .mobile-shader-background {
+  background: radial-gradient(ellipse at 50% 35%, #172e42 0%, #080f17 100%);
+}
+
+.mobile-shader-background.mobile-shader-about {
+  background: linear-gradient(135deg, #e8f2ff 0%, #b8d6ff 55%, #d9ebfa 100%);
+}
+
+.dark .mobile-shader-background.mobile-shader-about {
+  background: linear-gradient(135deg, #080f17 0%, #172e42 60%, #295770 100%);
+}
+
+.mobile-shader-background.mobile-shader-blog {
+  background: radial-gradient(ellipse at 50% 35%, #faf9f7 0%, #eeece7 100%);
+}
+
+.dark .mobile-shader-background.mobile-shader-blog {
+  background: radial-gradient(ellipse at 50% 35%, #111b2c 0%, #0b111c 100%);
+}
+
+.mobile-shader-background.mobile-shader-project {
+  background: #f8fafc;
+}
+
+.dark .mobile-shader-background.mobile-shader-project {
+  background: #0b0f19;
+}
+
 html,
 body {
   height: 100%;
@@ -128,6 +160,53 @@ html.dark {
 
 .dark ::-webkit-scrollbar-thumb:hover {
   background: rgba(100, 116, 139, 0.7);
+}
+
+.chat-markdown-content {
+  min-width: 0;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+
+.chat-markdown-content table {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  border-collapse: collapse;
+  margin: 0.75rem 0;
+  font-size: inherit;
+}
+
+.chat-markdown-content th,
+.chat-markdown-content td {
+  min-width: 7rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #cbd5e1;
+  vertical-align: top;
+  white-space: normal;
+}
+
+.chat-markdown-content th {
+  background-color: #e2e8f0;
+  font-weight: 700;
+}
+
+.chat-markdown-content tbody tr:nth-child(even) {
+  background-color: rgba(226, 232, 240, 0.4);
+}
+
+.dark .chat-markdown-content th,
+.dark .chat-markdown-content td {
+  border-color: #475569;
+}
+
+.dark .chat-markdown-content th {
+  background-color: #1e293b;
+}
+
+.dark .chat-markdown-content tbody tr:nth-child(even) {
+  background-color: rgba(30, 41, 59, 0.4);
 }
 
 .chat-markdown-content p {

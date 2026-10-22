@@ -2,7 +2,7 @@
   "app": {
     "title": "Site personnel",
     "Author": "Van Trung Thanh",
-    "version": "Version 2.1.1",
+    "version": "Version 2.2.1",
     "copyright": "Tous droits réservés",
     "backend_health_up": "Serveur en ligne",
     "backend_health_standby": "Vérification du serveur",
@@ -62,6 +62,11 @@
       "title": "À propos de moi",
       "description": "Bonjour à toutes et à tous, je m'appelle Van Trung Thanh et je suis étudiant à l'Université ouverte de Hô Chi Minh-Ville. J'étudie les technologies de l'information avec une spécialisation en développement logiciel. Je m'intéresse également à l'entraînement et au développement de modèles d'intelligence artificielle. Même si le travail peut parfois m'épuiser, je reste toujours persévérant et je m'efforce d'accomplir correctement mes responsabilités.",
       "view_cv": "Voir le CV"
+    },
+    "badge": {
+      "title": "Badges",
+      "close": "Fermer la visionneuse de badges",
+      "image_alt": "Badges de Van Trung Thanh"
     },
     "cv": {
       "prev": "Page précédente",

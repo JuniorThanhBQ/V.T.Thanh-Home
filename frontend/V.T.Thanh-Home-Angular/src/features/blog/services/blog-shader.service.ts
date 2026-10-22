@@ -50,6 +50,7 @@ void main() {
 `;
 
 import { Injectable, NgZone, inject } from '@angular/core';
+import { applyMobileShaderBackground } from '@/shared/utils/mobile-shader';
 
 @Injectable()
 export class BlogShaderService {
@@ -76,6 +77,7 @@ export class BlogShaderService {
   private themeObserver!: MutationObserver;
 
   init(canvas: HTMLCanvasElement): void {
+    if (applyMobileShaderBackground(canvas, 'blog')) return;
     this.canvas = canvas;
     const glContext = this.canvas.getContext('webgl');
     if (!glContext) return;

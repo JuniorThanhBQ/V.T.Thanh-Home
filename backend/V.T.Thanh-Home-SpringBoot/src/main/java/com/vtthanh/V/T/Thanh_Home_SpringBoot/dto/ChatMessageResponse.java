@@ -4,10 +4,7 @@ import java.time.Instant;
 
 public record ChatMessageResponse(
     Long messageId,
-    String sessionToken,
     String reply,
-    int tokensUsed,
-    long latencyMs,
     Instant timestamp
 ) {
 }

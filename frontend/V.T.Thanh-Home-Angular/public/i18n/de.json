@@ -2,7 +2,7 @@
   "app": {
     "title": "Persönliche Website",
     "Author": "Van Trung Thanh",
-    "version": "Version 2.1.1",
+    "version": "Version 2.2.1",
     "copyright": "Alle Rechte vorbehalten",
     "backend_health_up": "Server online",
     "backend_health_standby": "Server wird überprüft",
@@ -62,6 +62,11 @@
       "title": "Über mich",
       "description": "Hallo zusammen, mein Name ist Van Trung Thanh und ich studiere an der Ho-Chi-Minh-Stadt Open University. Mein Studienfach ist Informationstechnologie mit dem Schwerpunkt Softwareentwicklung. Darüber hinaus interessiere ich mich für das Training und die Entwicklung von KI-Modellen. Obwohl ich bei der Arbeit manchmal schnell erschöpft bin, bleibe ich beharrlich und erledige meine Aufgaben stets gewissenhaft.",
       "view_cv": "Lebenslauf ansehen"
+    },
+    "badge": {
+      "title": "Abzeichen",
+      "close": "Abzeichenansicht schließen",
+      "image_alt": "Abzeichen von Van Trung Thanh"
     },
     "cv": {
       "prev": "Vorherige Seite",

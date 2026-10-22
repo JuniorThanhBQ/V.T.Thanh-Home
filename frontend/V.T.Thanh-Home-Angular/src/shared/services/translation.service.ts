@@ -1,11 +1,21 @@
-import { Injectable, signal, inject } from '@angular/core';
+import { DestroyRef, Injectable, signal, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { HttpClient } from '@angular/common/http';
 import { DOCUMENT, Location } from '@angular/common';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { LoadingService } from './loading.service';
+import { Subscription, timeout } from 'rxjs';
+import {
+  SupportedLang,
+  initialLanguage,
+  isSupportedLanguage,
+  languageFromPath,
+  saveLanguagePreference,
+  updateLanguageMetadata,
+} from '@/shared/utils/preferences';
 
-export type SupportedLang = 'vi' | 'en' | 'zh' | 'ja' | 'fr' | 'de' | 'es' | 'ru' | 'kr';
+export type { SupportedLang } from '@/shared/utils/preferences';
 
 export interface LanguageOption {
   code: SupportedLang;
@@ -20,6 +30,7 @@ export class TranslationService {
   private document = inject(DOCUMENT);
   private router = inject(Router);
   private location = inject(Location);
+  private destroyRef = inject(DestroyRef);
 
   public readonly supportedLanguages: LanguageOption[] = [
     { code: 'vi', labelKey: 'language.vi', flag: '🇻🇳' },
@@ -35,80 +46,106 @@ export class TranslationService {
 
   public readonly currentLang = signal<SupportedLang>('vi');
   private readonly dictionary = signal<Map<string, string>>(new Map());
-  private readonly nonDefaultLangs = new Set<string>([
-    'en',
-    'de',
-    'fr',
-    'ja',
-    'zh',
-    'es',
-    'ru',
-    'kr',
-  ]);
-  private isFetching = false;
+  private languageRequest?: Subscription;
+  private requestedLanguage: SupportedLang | undefined;
+  private dictionaryLanguage: SupportedLang | undefined;
+  private requestVersion = 0;
+  private firstNavigation = true;
+  private initialRedirect: string | undefined;
 
   constructor() {
-    this.syncLanguageFromUrl(this.location.path());
+    this.syncLanguageFromUrl(this.location.path(true) || '/', true);
+    this.destroyRef.onDestroy(() => {
+      this.requestVersion++;
+      this.languageRequest?.unsubscribe();
+    });
 
     this.router.events
-      .pipe(filter((event): event is NavigationEnd => event instanceof NavigationEnd))
+      .pipe(
+        filter((event): event is NavigationEnd => event instanceof NavigationEnd),
+        takeUntilDestroyed(this.destroyRef),
+      )
       .subscribe((event) => {
-        this.syncLanguageFromUrl(event.urlAfterRedirects);
+        const restorePreference = this.firstNavigation;
+        this.firstNavigation = false;
+        this.syncLanguageFromUrl(event.urlAfterRedirects, restorePreference);
       });
   }
 
-  private syncLanguageFromUrl(url: string): void {
-    const segments = url.split('/').filter(Boolean);
-    const firstSegment = segments[0] as string;
-    const detectedLang: SupportedLang = this.nonDefaultLangs.has(firstSegment)
-      ? (firstSegment as SupportedLang)
-      : 'vi';
-
-    if (!this.isFetching && (this.currentLang() !== detectedLang || this.dictionary().size === 0)) {
-      this.currentLang.set(detectedLang);
-      this.document.documentElement.lang = detectedLang;
-      this.loadLanguage(detectedLang);
+  private syncLanguageFromUrl(url: string, restorePreference = false): void {
+    const pathname = new URL(url, 'https://vtthanh-home-angular.vercel.app').pathname;
+    const detectedLang = restorePreference ? initialLanguage(pathname) : languageFromPath(pathname);
+    let metadataPath = pathname;
+    if (pathname === '/' && detectedLang !== 'vi') {
+      const nextUrl = this.urlWithLanguage(url, detectedLang);
+      metadataPath = '/' + detectedLang;
+      if (this.initialRedirect !== nextUrl) {
+        this.initialRedirect = nextUrl;
+        void this.router.navigateByUrl(nextUrl, { replaceUrl: true });
+      }
     }
+    updateLanguageMetadata(this.document, metadataPath);
+    this.currentLang.set(detectedLang);
+    this.loadLanguage(detectedLang);
   }
 
   public switchLanguage(targetLang: SupportedLang): void {
-    if (this.currentLang() === targetLang) return;
+    if (!isSupportedLanguage(targetLang)) return;
+    if (this.currentLang() === targetLang) {
+      saveLanguagePreference(targetLang);
+      return;
+    }
+    const nextUrl = this.urlWithLanguage(this.router.url, targetLang);
+    void this.router.navigateByUrl(nextUrl).then((success) => {
+      if (success) saveLanguagePreference(targetLang);
+    });
+  }
 
-    const currentUrl = this.router.url;
-    const segments = currentUrl.split('/').filter(Boolean);
-
-    if (segments.length > 0 && this.nonDefaultLangs.has(segments[0])) {
+  private urlWithLanguage(url: string, language: SupportedLang): string {
+    const parsed = new URL(url, 'https://vtthanh-home-angular.vercel.app');
+    const segments = parsed.pathname.split('/').filter(Boolean);
+    if (isSupportedLanguage(segments[0]) && segments[0] !== 'vi') {
       segments.shift();
     }
-
-    if (targetLang !== 'vi') {
-      segments.unshift(targetLang);
-    }
-
-    const nextPath = '/' + segments.join('/');
-    this.router.navigateByUrl(nextPath);
+    if (language !== 'vi') segments.unshift(language);
+    return '/' + segments.join('/') + parsed.search + parsed.hash;
   }
 
   private loadLanguage(lang: SupportedLang): void {
-    this.isFetching = true;
+    if (this.requestedLanguage === lang) return;
+    const version = ++this.requestVersion;
+    const wasLoading = this.requestedLanguage !== undefined;
+    this.languageRequest?.unsubscribe();
+    this.requestedLanguage = undefined;
+    if (this.dictionaryLanguage === lang) {
+      if (wasLoading) this.loading.hide();
+      return;
+    }
+    this.requestedLanguage = lang;
     const isInitial = this.dictionary().size === 0;
     const msg = isInitial ? this.t('loading.initializing') : this.t('loading.switching_language');
     this.loading.show(msg || 'Syncing...');
 
-    this.http.get<Record<string, unknown>>(`/i18n/${lang}.json`).subscribe({
-      next: (data) => {
-        const flatMap = new Map<string, string>();
-        this.flatten(data, '', flatMap);
-        this.dictionary.set(flatMap);
-        this.isFetching = false;
-        this.loading.hide();
-      },
-      error: (err) => {
-        console.error('Failed to load dictionary:', lang, err);
-        this.isFetching = false;
-        this.loading.hide();
-      },
-    });
+    this.languageRequest = this.http
+      .get<Record<string, unknown>>(`/i18n/${lang}.json`)
+      .pipe(timeout(15000))
+      .subscribe({
+        next: (data) => {
+          if (version !== this.requestVersion) return;
+          const flatMap = new Map<string, string>();
+          this.flatten(data, '', flatMap);
+          this.dictionary.set(flatMap);
+          this.dictionaryLanguage = lang;
+          this.requestedLanguage = undefined;
+          this.loading.hide();
+        },
+        error: (err) => {
+          if (version !== this.requestVersion) return;
+          console.error('Failed to load dictionary:', lang, err);
+          this.requestedLanguage = undefined;
+          this.loading.hide();
+        },
+      });
   }
 
   private flatten(obj: Record<string, unknown>, prefix: string, map: Map<string, string>): void {

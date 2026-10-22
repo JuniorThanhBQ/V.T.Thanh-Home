@@ -23,7 +23,7 @@ app:
     groq-api-keys: ${GROQ_API_KEYS:}
     groq-api-key: ${GROQ_API_KEY:}
     file-url: ${CHAT_FILE_URL:}
-    model: ${CHAT_MODEL:openai/gpt-oss-20b}
+    model: ${CHAT_MODEL:openai/gpt-oss-120b}
 
 server:
   port: ${PORT:${SERVER_PORT:8080}}

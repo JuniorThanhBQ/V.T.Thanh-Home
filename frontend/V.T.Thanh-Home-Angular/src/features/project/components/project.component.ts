@@ -1,5 +1,6 @@
 import { Component, inject, ElementRef, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { AVATAR_URLS } from '@/assets/cloudinaryUrl';
 import { TranslationService } from '@/shared/services/translation.service';
 import { ProjectShaderService } from '../services/project-shader.service';
 
@@ -59,22 +60,19 @@ export class ProjectComponent implements AfterViewInit, OnDestroy {
     },
     {
       id: 'mbms',
-      imageUrl:
-        'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1200&q=80',
+      imageUrl: AVATAR_URLS.mbms_project_banner,
       techStack: ['JavaScript', 'PostgreSQL', 'Docker', 'Docker Compose', 'PWA'],
       sourceUrl: 'https://github.com/JuniorThanhBQ/Medical-Booking-Management-System',
     },
     {
       id: 'ai_writing_indicator',
-      imageUrl:
-        'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1200&q=80',
+      imageUrl: AVATAR_URLS.ai_indicator_project_banner,
       techStack: ['Python', 'Jupyter Notebook', 'Machine Learning', 'NLP', 'Vietnamese Text'],
       sourceUrl: 'https://github.com/JuniorThanhBQ/AIWritingIndicator-13',
     },
     {
       id: 'elearning_lcms',
-      imageUrl:
-        'https://images.unsplash.com/photo-1501504905252-473c47e087f8?auto=format&fit=crop&w=1200&q=80',
+      imageUrl: AVATAR_URLS.erm_project_banner,
       techStack: [
         'Python 3.13',
         'Django',
@@ -87,8 +85,7 @@ export class ProjectComponent implements AfterViewInit, OnDestroy {
     },
     {
       id: 'sports_field_booking',
-      imageUrl:
-        'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1200&q=80',
+      imageUrl: AVATAR_URLS.sport_field_project_banner,
       techStack: ['Python', 'Flask', 'MySQL', 'Selenium 3', 'CI/CD'],
       sourceUrl: 'https://github.com/JuniorThanhBQ/sports-field-booking-app',
     },

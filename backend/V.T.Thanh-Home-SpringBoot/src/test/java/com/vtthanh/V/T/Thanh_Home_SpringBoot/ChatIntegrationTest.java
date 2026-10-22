@@ -1,6 +1,7 @@
 package com.vtthanh.V.T.Thanh_Home_SpringBoot;
 
 import com.jayway.jsonpath.JsonPath;
+import java.util.List;
 import com.vtthanh.V.T.Thanh_Home_SpringBoot.repository.*;
 import com.vtthanh.V.T.Thanh_Home_SpringBoot.service.*;
 import com.vtthanh.V.T.Thanh_Home_SpringBoot.dto.VisitorRequest;
@@ -61,17 +62,24 @@ class ChatIntegrationTest {
     private MvcResult send(String body, MockHttpSession session) throws Exception {
         return mvc.perform(post("/api/v1/chat/message").session(session).with(csrf())
                 .contentType(MediaType.APPLICATION_JSON).content(body))
-                .andExpect(status().isOk()).andReturn();
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.*", org.hamcrest.Matchers.hasSize(3)))
+                .andExpect(jsonPath("$.messageId").isNumber())
+                .andExpect(jsonPath("$.reply").isString())
+                .andExpect(jsonPath("$.timestamp").isString())
+                .andExpect(jsonPath("$.sessionToken").doesNotExist())
+                .andExpect(jsonPath("$.tokensUsed").doesNotExist())
+                .andExpect(jsonPath("$.latencyMs").doesNotExist()).andReturn();
     }
 
     @Test
     void startingSessionStoresOnlyTheServerGeneratedToken() throws Exception {
-        var result = mvc.perform(post("/api/v1/chat/session").session(owner).with(csrf())
+        mvc.perform(post("/api/v1/chat/session").session(owner).with(csrf())
                 .header("User-Agent", "untrusted-client-metadata")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"sessionToken\":\"client-chosen-token\"}"))
-                .andExpect(status().isOk()).andReturn();
-        String token = JsonPath.read(result.getResponse().getContentAsString(), "$.sessionToken");
+                .content("{}"))
+                .andExpect(status().isNoContent()).andExpect(content().string(""));
+        String token = (String) owner.getAttribute("CHAT_TOKEN");
         assertThat(java.util.UUID.fromString(token).toString()).isEqualTo(token);
         assertThat(owner.getAttribute("CHAT_TOKEN")).isEqualTo(token);
         assertThat(sessions.findAll().getFirst().getSessionToken()).isEqualTo(token);
@@ -81,13 +89,16 @@ class ChatIntegrationTest {
     @Test
     void successfulMessageUsesOwnedSessionAndRecordsActualUsage() throws Exception {
         var result = send("{\"message\":\"What are Thanh's skills?\",\"requestId\":\"success\"}", owner);
-        String token = JsonPath.read(result.getResponse().getContentAsString(), "$.sessionToken");
+        String token = (String) owner.getAttribute("CHAT_TOKEN");
         assertThat(java.util.UUID.fromString(token).toString()).isEqualTo(token);
         assertThat(owner.getAttribute("CHAT_TOKEN")).isEqualTo(token);
         assertThat(sessions.findAll().getFirst().getSessionToken()).isEqualTo(token);
         assertThat(JsonPath.<String>read(result.getResponse().getContentAsString(), "$.reply")).contains("Spring Boot");
         assertThat(messages.count()).isEqualTo(1);
         assertThat(logs.findAll().getFirst().getTokenUsed()).isEqualTo(18);
+        assertThat(logs.findAll().getFirst().getLatency()).isEqualTo(20);
+        mvc.perform(get("/api/v1/chat/history").session(owner))
+                .andExpect(status().isOk()).andExpect(jsonPath("$[0].output").value("Thanh builds software with Spring Boot and Angular."));
         verify(client).generateResponse(anyString(), anyList(), anyString());
     }
 
@@ -102,14 +113,48 @@ class ChatIntegrationTest {
 
     @Test
     void anotherVisitorCannotReadOrWriteConversationEvenWithItsToken() throws Exception {
-        var response = send("{\"message\":\"Hello\",\"requestId\":\"owned\"}", owner);
-        String token = JsonPath.read(response.getResponse().getContentAsString(), "$.sessionToken");
+        send("{\"message\":\"Hello\",\"requestId\":\"owned\"}", owner);
+        String token = (String) owner.getAttribute("CHAT_TOKEN");
         MockHttpSession other = visitor();
-        mvc.perform(get("/api/v1/chat/history").session(other).param("sessionToken", token)).andExpect(status().isNotFound());
+        mvc.perform(get("/api/v1/chat/history").session(other)).andExpect(status().isNotFound());
+        other.setAttribute("CHAT_TOKEN", token);
+        mvc.perform(get("/api/v1/chat/history").session(other)).andExpect(status().isNotFound());
         mvc.perform(post("/api/v1/chat/message").session(other).with(csrf()).contentType(MediaType.APPLICATION_JSON)
-                .content("{\"sessionToken\":\"" + token + "\",\"message\":\"Hello\",\"requestId\":\"stolen\"}"))
+                .content("{\"message\":\"Hello\",\"requestId\":\"stolen\"}"))
                 .andExpect(status().isNotFound());
-        assertThat(other.getAttribute("CHAT_TOKEN")).isNull();
+        assertThat(messages.count()).isEqualTo(1);
+        verify(client, times(1)).generateResponse(anyString(), anyList(), anyString());
+    }
+
+    @Test
+    void legacyConversationSelectorsAreRejectedWithoutCreatingWork() throws Exception {
+        for (String token : List.of("\"client-chosen-token\"", "null")) {
+            mvc.perform(post("/api/v1/chat/session").session(owner).with(csrf()).contentType(MediaType.APPLICATION_JSON)
+                    .content("{\"sessionToken\":" + token + "}"))
+                    .andExpect(status().isBadRequest());
+            mvc.perform(post("/api/v1/chat/message").session(owner).with(csrf()).contentType(MediaType.APPLICATION_JSON)
+                    .content("{\"sessionToken\":" + token + ",\"message\":\"Hello\",\"requestId\":\"legacy\"}"))
+                    .andExpect(status().isBadRequest());
+        }
+        mvc.perform(get("/api/v1/chat/history").session(owner).param("sessionToken", ""))
+                .andExpect(status().isBadRequest());
+        assertThat(owner.getAttribute("CHAT_TOKEN")).isNull();
+        assertThat(sessions.count()).isZero();
+        assertThat(messages.count()).isZero();
+        verifyNoInteractions(client);
+    }
+
+    @Test
+    void messageIdCannotSelectAnotherVisitorsHistory() throws Exception {
+        var result = send("{\"message\":\"Hello\",\"requestId\":\"owned-id\"}", owner);
+        Number id = JsonPath.read(result.getResponse().getContentAsString(), "$.messageId");
+        MockHttpSession other = visitor();
+        mvc.perform(get("/api/v1/chat/history").session(other).param("id", id.toString()))
+                .andExpect(status().isNotFound());
+        mvc.perform(get("/api/v1/chat/history").param("id", id.toString()))
+                .andExpect(status().isUnauthorized());
+        mvc.perform(get("/api/v1/chat/messages/" + id).session(other))
+                .andExpect(status().isNotFound());
     }
 
     @Test

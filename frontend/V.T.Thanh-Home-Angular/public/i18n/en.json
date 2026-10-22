@@ -2,7 +2,7 @@
   "app": {
     "title": "Personal Website",
     "Author": "Van Trung Thanh",
-    "version": "Version 2.1.1",
+    "version": "Version 2.2.1",
     "copyright": "All rights reserved",
     "backend_health_up": "Server online",
     "backend_health_standby": "Checking server",
@@ -62,6 +62,11 @@
       "title": "About Me",
       "description": "Hello everyone, my name is Van Trung Thanh, and I am a student at Ho Chi Minh City Open University. I major in Information Technology with a professional focus on software development. I am also inspired by the training and development of AI models. Although I can become exhausted by work, I always remain persistent and do my best to complete my responsibilities well.",
       "view_cv": "View CV"
+    },
+    "badge": {
+      "title": "Badges",
+      "close": "Close badge viewer",
+      "image_alt": "Van Trung Thanh's badges"
     },
     "cv": {
       "prev": "Previous Page",

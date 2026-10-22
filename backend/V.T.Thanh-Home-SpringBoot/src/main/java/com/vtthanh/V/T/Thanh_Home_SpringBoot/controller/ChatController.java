@@ -22,38 +22,39 @@ public class ChatController {
     }
 
     @PostMapping("/session")
-    public ChatSessionResponse startSession(@RequestBody(required = false) java.util.Map<String, String> body,
+    @ResponseStatus(org.springframework.http.HttpStatus.NO_CONTENT)
+    public void startSession(@RequestBody(required = false) java.util.Map<String, String> body,
             HttpServletRequest request) {
         Long visitorId = visitors.requireVisitor(request);
+        if (body != null && body.containsKey("sessionToken")) {
+            throw new IllegalArgumentException("Conversation selection is managed by the server session");
+        }
         limiter.checkLimit("chat-network:" + VisitorService.clientIp(request));
         turnstile.verifyToken(body == null ? null : body.get("turnstileToken"), VisitorService.clientIp(request), "chat");
-        ChatSessionResponse session = chat.startNewSession(visitorId, VisitorService.clientIp(request), request.getHeader("User-Agent"));
-        request.getSession().setAttribute("CHAT_TOKEN", session.sessionToken()); // nosemgrep: java.lang.security.audit.tainted-session-from-http-request.tainted-session-from-http-request
-        return session;
+        String token = chat.startNewSession(visitorId, VisitorService.clientIp(request), request.getHeader("User-Agent"));
+        request.getSession().setAttribute("CHAT_TOKEN", token);
     }
 
     @PostMapping("/message")
     public ChatMessageResponse sendMessage(@RequestBody ChatMessageRequest body, HttpServletRequest request) {
         Long visitorId = visitors.requireVisitor(request);
         limiter.checkLimit("chat-network:" + VisitorService.clientIp(request));
-        String token = body.sessionToken();
-        if (token == null || token.isBlank()) {
-            token = (String) request.getSession().getAttribute("CHAT_TOKEN");
-        }
+        String token = (String) request.getSession().getAttribute("CHAT_TOKEN");
         if (token == null) {
             turnstile.verifyToken(body.turnstileToken(), VisitorService.clientIp(request), "chat");
-            ChatSessionResponse created = chat.startNewSession(visitorId, VisitorService.clientIp(request), request.getHeader("User-Agent"));
-            token = created.sessionToken();
+            token = chat.startNewSession(visitorId, VisitorService.clientIp(request), request.getHeader("User-Agent"));
             request.getSession().setAttribute("CHAT_TOKEN", token); // nosemgrep: java.lang.security.audit.tainted-session-from-http-request.tainted-session-from-http-request
         }
         return chat.sendMessage(body, visitorId, token);
     }
 
     @GetMapping("/history")
-    public List<ChatHistoryItemResponse> getHistory(@RequestParam(required = false) String sessionToken,
-            HttpServletRequest request) {
+    public List<ChatHistoryItemResponse> getHistory(HttpServletRequest request) {
         Long visitorId = visitors.requireVisitor(request);
-        String token = sessionToken == null ? (String) request.getSession().getAttribute("CHAT_TOKEN") : sessionToken;
+        if (request.getParameterMap().containsKey("sessionToken")) {
+            throw new IllegalArgumentException("Conversation selection is managed by the server session");
+        }
+        String token = (String) request.getSession().getAttribute("CHAT_TOKEN");
         return chat.getSessionHistory(token, visitorId);
     }
 }

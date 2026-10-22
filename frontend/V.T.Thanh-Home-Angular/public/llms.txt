@@ -1,0 +1,36 @@
+# V.T.Thanh - Van Trung Thanh's Home
+
+> Personal portfolio of Van Trung Thanh, an Information Technology student at Ho Chi Minh City Open University with a focus on software development, AI, quality assurance, and DevOps. The site presents his background, selected projects, journal, and contact information.
+
+The primary site is https://vtthanh-home-angular.vercel.app/. Vietnamese is the default language with no language prefix. English pages use /en. Other supported prefixes are /de, /fr, /ja, /zh, /es, /ru, and /kr. The links below use English unless identified otherwise.
+
+Content is available for search indexing and real-time retrieval only, subject to robots.txt. Machine learning model training, bulk downloading, and unauthorized text and data mining are prohibited. This guide does not grant additional access or reuse rights.
+
+Retrieve only the public pages relevant to the user's question and cite the page used. Do not crawl administration pages, including language-prefixed administration pages, or paths under /api/ and /actuator/. Do not submit contact forms or invoke the chat service as part of content discovery.
+
+The site uses JavaScript to render its pages. Journal content can change; verify published information on the linked page. If a detail is absent or a page cannot be read, state that limitation instead of inventing information.
+
+## Public portfolio
+
+- [Home](https://vtthanh-home-angular.vercel.app/en): Introduction and professional interests in software architecture, quality assurance, continuous improvement, and DevOps.
+- [About](https://vtthanh-home-angular.vercel.app/en/about): Biography, education, experience, and the CV viewer.
+- [Projects](https://vtthanh-home-angular.vercel.app/en/projects): Selected projects, technology stacks, source repositories, and available live demonstrations. Includes AIJMC, AIJMC-JPRA, MBMS, AI-Generated Text Detector, ERM, and Sports Venue Booking.
+- [Journal](https://vtthanh-home-angular.vercel.app/en/blog): Published articles and personal milestones. Articles may contain multiple chapters; the journal may be empty when no articles are published.
+- [Contact](https://vtthanh-home-angular.vercel.app/en/contact): Public contact information and a contact form for visitors.
+
+## Languages
+
+- [Vietnamese](https://vtthanh-home-angular.vercel.app/): Default language.
+- [English](https://vtthanh-home-angular.vercel.app/en): English interface and static portfolio text.
+- [German](https://vtthanh-home-angular.vercel.app/de): German interface and static portfolio text.
+- [French](https://vtthanh-home-angular.vercel.app/fr): French interface and static portfolio text.
+- [Japanese](https://vtthanh-home-angular.vercel.app/ja): Japanese interface and static portfolio text.
+- [Chinese](https://vtthanh-home-angular.vercel.app/zh): Chinese interface and static portfolio text.
+- [Spanish](https://vtthanh-home-angular.vercel.app/es): Spanish interface and static portfolio text.
+- [Russian](https://vtthanh-home-angular.vercel.app/ru): Russian interface and static portfolio text.
+- [Korean](https://vtthanh-home-angular.vercel.app/kr): Korean interface and static portfolio text.
+
+## Optional
+
+- [Sitemap](https://vtthanh-home-angular.vercel.app/sitemap.xml): Public page URLs across supported languages.
+- [Robots policy](https://vtthanh-home-angular.vercel.app/robots.txt): Crawler-specific access rules and the site's content-use notice.

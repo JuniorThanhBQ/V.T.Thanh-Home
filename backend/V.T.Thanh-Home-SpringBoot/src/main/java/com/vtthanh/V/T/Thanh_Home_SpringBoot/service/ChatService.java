@@ -45,12 +45,12 @@ public class ChatService {
         this.transactions = new TransactionTemplate(manager);
     }
 
-    public ChatSessionResponse startNewSession(Long visitorId, String ip, String userAgent) {
+    public String startNewSession(Long visitorId, String ip, String userAgent) {
         return transactions.execute(tx -> {
             ChatSession session = new ChatSession(ip, VisitorService.bounded(userAgent, 300));
             session.setVisitor(visitors.getReferenceById(visitorId));
             sessions.save(session);
-            return new ChatSessionResponse(session.getSessionToken(), session.getCreatedDate());
+            return session.getSessionToken();
         });
     }
 
@@ -91,7 +91,7 @@ public class ChatService {
                 message.setStatus("COMPLETED");
                 messages.save(message);
                 logs.save(new LogChatHistory(message, (int) result.latencyMs(), result.tokensUsed(), violation, result.model()));
-                return response(message, result.tokensUsed(), result.latencyMs());
+                return response(message);
             });
         } catch (RuntimeException ex) {
             if (work != null && work.completed() == null) {
@@ -130,9 +130,7 @@ public class ChatService {
             if (!prior.getInput().equals(request.message().trim()) || !"COMPLETED".equals(prior.getStatus())) {
                 throw new ResponseStatusException(HttpStatus.CONFLICT, "Request ID already used");
             }
-            LogChatHistory priorLog = prior.getLogChatHistory();
-            return new Work(prior.getId(), List.of(), response(prior,
-                    priorLog == null ? 0 : priorLog.getTokenUsed(), priorLog == null ? 0 : priorLog.getLatency()));
+            return new Work(prior.getId(), List.of(), response(prior));
         }
         if (messages.countByChatSession(session) >= 60) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Conversation limit reached. Start a new session.");
@@ -180,9 +178,8 @@ public class ChatService {
         return session;
     }
 
-    private ChatMessageResponse response(ChatMessage message, int tokens, long latency) {
-        return new ChatMessageResponse(message.getId(), message.getChatSession().getSessionToken(),
-                message.getOutput(), tokens, latency, message.getCreatedDate());
+    private ChatMessageResponse response(ChatMessage message) {
+        return new ChatMessageResponse(message.getId(), message.getOutput(), message.getCreatedDate());
     }
 
     private record Work(Long messageId, List<Map<String, String>> history, ChatMessageResponse completed) { }

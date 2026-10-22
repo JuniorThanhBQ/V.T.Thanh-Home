@@ -15,10 +15,7 @@ export interface ChatMessageUI {
 
 export interface ChatMessageResponse {
   messageId: number;
-  sessionToken: string;
   reply: string;
-  tokensUsed: number;
-  latencyMs: number;
   timestamp: string;
 }
 

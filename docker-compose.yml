@@ -29,7 +29,7 @@ services:
       TURNSTILE_HOSTNAMES: ${TURNSTILE_HOSTNAMES:-localhost,127.0.0.1,vtthanh-home-angular.vercel.app}
       TURNSTILE_ENABLED: ${TURNSTILE_ENABLED:-false}
       CHAT_DAILY_GENERATION_LIMIT: ${CHAT_DAILY_GENERATION_LIMIT:-200}
-      CHAT_MODEL: ${CHAT_MODEL:-openai/gpt-oss-20b}
+      CHAT_MODEL: ${CHAT_MODEL:-openai/gpt-oss-120b}
       SERVER_SERVLET_SESSION_COOKIE_SECURE: "false"
     ports:
       - "${SERVER_PORT?Unset variable SERVER_PORT}:8080"

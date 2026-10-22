@@ -1,5 +1,6 @@
 import { Injectable, NgZone, inject } from '@angular/core';
 import * as THREE from 'three';
+import { applyMobileShaderBackground } from '@/shared/utils/mobile-shader';
 
 @Injectable()
 export class HomeShaderService {
@@ -19,6 +20,7 @@ export class HomeShaderService {
   private themeObserver!: MutationObserver;
 
   init(canvas: HTMLCanvasElement): void {
+    if (applyMobileShaderBackground(canvas, 'home')) return;
     const width = window.innerWidth;
     const height = window.innerHeight;
 

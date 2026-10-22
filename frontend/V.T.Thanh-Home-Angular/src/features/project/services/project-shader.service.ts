@@ -1,4 +1,5 @@
 import { Injectable, NgZone, inject } from '@angular/core';
+import { applyMobileShaderBackground, isMobileShaderMode } from '@/shared/utils/mobile-shader';
 
 interface Node {
   x: number;
@@ -16,13 +17,22 @@ export class ProjectShaderService {
   private animationFrameId: number | null = null;
   private nodes: Node[] = [];
   private mouse = { x: -1000, y: -1000 };
+  private mobileMode = false;
+  private lastFrameTime = 0;
 
   init(canvas: HTMLCanvasElement): void {
+    this.mobileMode = isMobileShaderMode();
+    if (this.mobileMode && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      applyMobileShaderBackground(canvas, 'project');
+      return;
+    }
     this.canvas = canvas;
     this.ctx = canvas.getContext('2d')!;
     this.resize();
 
-    const nodeCount = Math.min(Math.floor(window.innerWidth / 18), 75);
+    const nodeCount = this.mobileMode
+      ? Math.max(16, Math.min(Math.floor(window.innerWidth / 24), 20))
+      : Math.min(Math.floor(window.innerWidth / 18), 75);
     this.nodes = Array.from({ length: nodeCount }, () => ({
       x: Math.random() * this.canvas.width,
       y: Math.random() * this.canvas.height,
@@ -32,7 +42,11 @@ export class ProjectShaderService {
     }));
 
     window.addEventListener('resize', this.onResize);
-    window.addEventListener('mousemove', this.onMouseMove);
+    if (this.mobileMode) {
+      document.addEventListener('visibilitychange', this.onVisibilityChange);
+    } else {
+      window.addEventListener('mousemove', this.onMouseMove);
+    }
 
     this.ngZone.runOutsideAngular(() => this.animate());
   }
@@ -41,7 +55,18 @@ export class ProjectShaderService {
     if (this.animationFrameId) cancelAnimationFrame(this.animationFrameId);
     window.removeEventListener('resize', this.onResize);
     window.removeEventListener('mousemove', this.onMouseMove);
+    document.removeEventListener('visibilitychange', this.onVisibilityChange);
   }
+
+  private onVisibilityChange = (): void => {
+    if (document.hidden) {
+      if (this.animationFrameId !== null) cancelAnimationFrame(this.animationFrameId);
+      this.animationFrameId = null;
+    } else if (this.animationFrameId === null) {
+      this.lastFrameTime = 0;
+      this.ngZone.runOutsideAngular(() => this.animate());
+    }
+  };
 
   private onResize = () => this.resize();
   private onMouseMove = (e: MouseEvent) => {
@@ -52,29 +77,49 @@ export class ProjectShaderService {
   private resize(): void {
     this.canvas.width = window.innerWidth;
     this.canvas.height = window.innerHeight;
+    if (this.mobileMode) {
+      for (const node of this.nodes) {
+        node.x = Math.max(0, Math.min(node.x, this.canvas.width));
+        node.y = Math.max(0, Math.min(node.y, this.canvas.height));
+      }
+    }
   }
 
-  private animate = () => {
+  private animate = (timestamp = performance.now()) => {
+    if (this.mobileMode && timestamp - this.lastFrameTime < 1000 / 30) {
+      this.animationFrameId = requestAnimationFrame(this.animate);
+      return;
+    }
+    const step = this.mobileMode
+      ? this.lastFrameTime === 0
+        ? 1
+        : Math.min(timestamp - this.lastFrameTime, 50) * 0.03
+      : 1;
+    this.lastFrameTime = timestamp;
     const isDark = document.documentElement.classList.contains('dark');
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-    const maxDist = 130;
+    const maxDist = this.mobileMode ? 100 : 130;
     const nodeColor = isDark ? 'rgba(41, 87, 112, 0.7)' : 'rgba(100, 149, 237, 0.6)';
     const lineColor = isDark ? '41, 87, 112' : '100, 149, 237';
 
     for (let i = 0; i < this.nodes.length; i++) {
       const a = this.nodes[i];
-      a.x += a.vx;
-      a.y += a.vy;
+      a.x += a.vx * step;
+      a.y += a.vy * step;
 
       if (a.x < 0 || a.x > this.canvas.width) a.vx *= -1;
       if (a.y < 0 || a.y > this.canvas.height) a.vy *= -1;
+      if (this.mobileMode) {
+        a.x = Math.max(0, Math.min(a.x, this.canvas.width));
+        a.y = Math.max(0, Math.min(a.y, this.canvas.height));
+      }
 
       // Mouse repulsion
       const dx = a.x - this.mouse.x;
       const dy = a.y - this.mouse.y;
       const dist = Math.sqrt(dx * dx + dy * dy);
-      if (dist < 100) {
+      if (!this.mobileMode && dist < 100) {
         a.x += (dx / dist) * 1.2;
         a.y += (dy / dist) * 1.2;
       }
