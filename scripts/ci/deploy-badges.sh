@@ -15,7 +15,8 @@ git rm -rf . >/dev/null 2>&1 || true
 cp "${RUNNER_TEMP}/status.json" status.json
 cp "${RUNNER_TEMP}/backend-status.json" backend-status.json
 cp "${RUNNER_TEMP}/security-status.json" security-status.json
+cp "${RUNNER_TEMP}/cloudflare-status.json" cloudflare-status.json
 
-git add status.json backend-status.json security-status.json
+git add status.json backend-status.json security-status.json cloudflare-status.json
 git commit -m "chore(uptime): update status badges [skip ci]" || exit 0
 git push "https://x-access-token:${TOKEN}@github.com/${REPO}.git" badges --force

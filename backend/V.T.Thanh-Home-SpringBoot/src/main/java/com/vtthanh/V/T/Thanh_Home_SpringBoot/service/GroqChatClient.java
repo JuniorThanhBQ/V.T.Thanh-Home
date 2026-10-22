@@ -66,7 +66,7 @@ public class GroqChatClient {
         Map<String, Object> requestBody = new java.util.HashMap<>(Map.of(
                 "model", model,
                 "messages", messages,
-                "temperature", 0.4,
+                "temperature", 0.3,
                 "max_completion_tokens", 1200,
                 "stream", false
         ));

@@ -21,7 +21,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
 
@@ -35,6 +35,12 @@ jobs:
         env:
           VIRUS_TOTAL_KEY: ${{ secrets.VIRUS_TOTAL_KEY }}
         run: bash scripts/ci/scan-virustotal.sh
+
+      - name: Scan URLs with Cloudflare
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: bash scripts/ci/scan-cloudflare.sh
 
       - name: Deploy status.json to badges branch
         env:

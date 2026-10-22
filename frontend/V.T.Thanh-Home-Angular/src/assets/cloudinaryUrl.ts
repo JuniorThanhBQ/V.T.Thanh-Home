@@ -28,8 +28,8 @@ export const AVATAR_URLS = {
   contact_page_background: `https://res.cloudinary.com/dfolk8pz2/image/upload/v1791453900/Chibi_cagv9g.jpg`,
   erm_project_banner: `https://res.cloudinary.com/dfolk8pz2/image/upload/v1792644436/Orange_and_Cream_Illustrative_Learning_English_Presentation_mwjyen.png`,
   sport_field_project_banner: `https://res.cloudinary.com/dfolk8pz2/image/upload/v1792644676/Purple_Red_and_White_Illustrated_Sports_Presentation_xevkzf.png`,
-  ai_indicator_project_banner: `https://res.cloudinary.com/dfolk8pz2/image/upload/v1792644761/AIWritingIndicator_s4s0ol.png`,
-  mbms_project_banner: `https://res.cloudinary.com/dfolk8pz2/image/upload/v1792645275/Blue_and_White_Illustration_Medical_Health_Care_Presentation_mmiyl9.png`,
+  ai_indicator_project_banner: `https://res.cloudinary.com/dfolk8pz2/image/upload/v1792672151/AIWritingIndicator_1_zb1c9k.png`,
+  mbms_project_banner: `https://res.cloudinary.com/dfolk8pz2/image/upload/v1792672024/Blue_and_White_Illustration_Medical_Health_Care_Presentation_1_vawbdq.png`,
   about_badge: `https://res.cloudinary.com/dfolk8pz2/image/upload/v1792408748/tweenframe-com__slideshow_4_wemzxw.webp`,
 };
 
