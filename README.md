@@ -25,8 +25,6 @@ Rebuilding my personal home website from the ground up using Angular 22 and Spri
 
 ## II. Tech stacks
 
-## Technology Stack
-
 | Category | Technologies | Versions / Plans |
 |---|---|---|
 | **CI/CD** | Pre-commit, Dependabot, CodeQL Action, GitHub Actions | 4.6.2, 2.0, 4.38.3, Public Repository Free Tier |
@@ -34,7 +32,7 @@ Rebuilding my personal home website from the ground up using Angular 22 and Spri
 | **Frontend** | Angular | 22.x |
 | **Cloud** | Vercel, Render, Supabase | Cloud Services |
 | **Containerization** | Docker | 29.8.2 |
-| **LLM & AI** | Qwen 2.5 3B, Gemini Embedding 001, Groq | 2.5 3B, 001, Free Tier |
+| **LLM and AI** | Qwen 2.5 3B, Gemini Embedding 001, Groq | 2.5 3B, 001, Free Tier |
 | **Development Tools** | uv, mage, Docker Compose | 0.12.21, 1.17.2, v5.5.1 |
 
 ## III. References
@@ -47,6 +45,7 @@ Rebuilding my personal home website from the ground up using Angular 22 and Spri
 6. Inspiration: [Awwwards Website Design](https://www.awwwards.com/)
 7. Domain Register (id.vn): [pavietnam](https://www.pavietnam.vn/)
 8. DMCA Protected Explanation: [DMCA-PROTECTED](docs/license/dmca-protected.md)
+9. Security scan and cloudflare Radar: [URL Radar](https://radar.cloudflare.com/scan)
 
 ## IV. Website Status
 

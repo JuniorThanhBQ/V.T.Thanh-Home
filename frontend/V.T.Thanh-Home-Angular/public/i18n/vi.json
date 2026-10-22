@@ -111,31 +111,31 @@
         "description": "Hệ thống thu thập và phân tích dữ liệu tuyển dụng từ ITViec, TopDev, VietnamWorks bằng Celery và Crawlee. Ứng dụng kỹ thuật Hybrid Retrieval với CSDL pgvector để mở rộng tìm kiếm ngữ nghĩa. Sử dụng mô hình Gemini 3.8 Flash theo khung ReAct để tư vấn lộ trình nghề nghiệp cá nhân hóa."
       },
       "aijmc_jpra": {
-        "title": "AIJMC-JPRA: Đánh Giá Độ Tin Cậy Tuyển Dụng",
+        "title": "AIJMC - JPRA: Đánh giá độ tin cậy tin tuyển dụng",
         "category": "Nghiên cứu khoa học mở rộng",
-        "summary": "Nghiên cứu khoa học theo chuẩn IEEE Conference phát hiện tin tuyển dụng gian lận và kiểm chứng tính xác thực.",
+        "summary": "Nghiên cứu khoa học theo chuẩn IEEE Conference nhằm mục đích phát hiện các tin tuyển dụng gian lận và kiểm chứng tính xác thực.",
         "description": "Mô hình phân loại nhị phân đánh giá độ tin cậy của bài đăng tuyển dụng qua URL; tích hợp PydanticAI Agent kết hợp truy xuất web thời gian thực bằng Playwright để đối soát bằng chứng, tính toán tỷ lệ tin cậy và lập luận chi tiết."
       },
       "mbms": {
         "title": "Medical Booking Management System (MBMS)",
         "category": "Quản lý đặt Lịch Thời Gian Thực",
-        "summary": "Nền tảng quản lý và đặt lịch khám bệnh trực tuyến cho phòng khám, phát triển theo mô hình PWA và Native App.",
+        "summary": "Nền tảng quản lý và đặt lịch khám bệnh trực tuyến với phạm vi nghiệp vụ phòng khám nhỏ, phát triển theo mô hình PWA và Native App.",
         "description": "Giải pháp số hóa quy trình đặt hẹn khám chữa bệnh tại các cơ sở y tế; tối ưu hóa trải nghiệm bệnh nhân và bác sĩ theo phương pháp phát triển định hướng AI (AIDD) và Scrum, đóng gói triển khai hoàn chỉnh qua Docker."
       },
       "ai_writing_indicator": {
-        "title": "Công cụ Nhận Diện Văn Bản AI",
+        "title": "Công cụ nhận diện văn bản tạo sinh bởi AI",
         "category": "Machine Learning và Xử lý Ngôn ngữ Tự nhiên",
         "summary": "Mô hình học máy phân loại nhị phân phát hiện văn bản tiếng Việt do trí tuệ nhân tạo tạo sinh hay người viết trong lĩnh vực báo chí.",
         "description": "Nghiên cứu và huấn luyện pipeline NLP chuyên biệt cho tiếng Việt nhằm phân biệt chính xác bài báo do con người chắp bút hay do các mô hình ngôn ngữ lớn (LLM) tổng hợp, phục vụ kiểm định tính nguyên bản trong xuất bản số."
       },
       "elearning_lcms": {
-        "title": "Hệ Thống Quản Lý Học Liệu Số (ERM)",
+        "title": "Hệ thống quản lý học liệu số (ERM)",
         "category": "EdTech và Quản Lý Nội Dung Giáo Dục",
         "summary": "Hệ thống ERM toàn diện quản lý, lưu trữ và tái sử dụng tài nguyên học tập số trên nền tảng Django REST Framework và React Native.",
         "description": "Kiến trúc backend xử lý nội dung học tập số kết hợp cơ sở dữ liệu MySQL, bảo mật phân quyền token OAuth2, bảng điều khiển thống kê cho quản trị viên và tích hợp Google GenAI cá nhân hóa đề xuất tài liệu học tập."
       },
       "sports_field_booking": {
-        "title": "Ứng Dụng Đặt và Quản Lý sân Thể Thao",
+        "title": "Ứng dụng đặt và quản lý sân thể thao",
         "category": "Thể Thao và Kiểm thử Phần Mềm",
         "summary": "Hệ thống cho phép người dùng hoặc quản trị đặt và quản lý sân bóng đá, cầu lông, tennis theo khung giờ nhất định.",
         "description": "Ứng dụng web xây dựng bằng Flask và MySQL phục vụ tìm kiếm và đặt lịch sân thể thao thời gian thực; áp dụng quy trình kiểm thử chất lượng nghiêm ngặt từ Unit, Integration, System đến Acceptance Testing sử dụng Selenium 3."
