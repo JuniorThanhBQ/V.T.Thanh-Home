@@ -51,6 +51,20 @@
             <span>LinkedIn</span>
           </a>
 
+          <a
+            href="https://ou.edu.vn"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-xl bg-white/70 dark:bg-[#0c121c]/80 border border-slate-200/80 dark:border-slate-800/80 text-xs sm:text-sm font-medium text-slate-800 dark:text-slate-200 shadow-sm hover:bg-slate-100 dark:hover:bg-[#172e42]/60 hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-200"
+          >
+            <img
+              [src]="avatarUrls.ouhcmc"
+              alt="OU.EDU.VN"
+              class="w-4 h-4 sm:w-5 sm:h-5 object-contain"
+            />
+            <span>HCMC-OU</span>
+          </a>
+
           <button
             type="button"
             (click)="openBadgeViewer()"
@@ -74,20 +88,6 @@
               i18n.t('about.badge.title')
             }}</span>
           </button>
-
-          <a
-            href="https://ou.edu.vn"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="inline-flex items-center gap-2 px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-xl bg-white/70 dark:bg-[#0c121c]/80 border border-slate-200/80 dark:border-slate-800/80 text-xs sm:text-sm font-medium text-slate-800 dark:text-slate-200 shadow-sm hover:bg-slate-100 dark:hover:bg-[#172e42]/60 hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-200"
-          >
-            <img
-              [src]="avatarUrls.ouhcmc"
-              alt="OU.EDU.VN"
-              class="w-4 h-4 sm:w-5 sm:h-5 object-contain"
-            />
-            <span>HCMC-OU</span>
-          </a>
         </div>
       </div>
 
@@ -126,15 +126,15 @@
     #badgeDialog
     [attr.aria-label]="i18n.t('about.badge.title')"
     (close)="onBadgeViewerClosed()"
-    class="m-auto w-[calc(100%-2rem)] max-w-4xl max-h-[85dvh] overflow-y-auto rounded-2xl border border-slate-200/70 dark:border-slate-800/80 bg-white/5 dark:bg-[#090f19]/10 p-3 sm:p-4 shadow-2xl backdrop:bg-slate-950/80 backdrop:backdrop-blur-sm"
+    class="m-auto w-fit max-w-[calc(100vw-1rem)] sm:max-w-[calc(100vw-2rem)] max-h-[94dvh] overflow-visible border-0 bg-transparent p-0 backdrop:bg-slate-950/80 backdrop:backdrop-blur-sm"
   >
-    <div class="flex flex-col gap-1">
+    <div class="relative w-fit">
       <button
         type="button"
         (click)="closeBadgeViewer()"
         [attr.aria-label]="i18n.t('about.badge.close')"
         autofocus
-        class="self-end p-2 rounded-lg text-slate-200 dark:text-slate-300 hover:bg-slate-600 dark:hover:bg-slate-800 transition-colors cursor-pointer"
+        class="absolute top-2 right-2 sm:top-3 sm:right-3 z-10 grid size-11 place-items-center rounded-full bg-white/90 text-slate-900 shadow-sm hover:bg-slate-900 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-900 transition-[background-color,box-shadow] cursor-pointer"
       >
         <svg
           class="w-5 h-5"
@@ -152,7 +152,7 @@
         [src]="avatarUrls.about_badge"
         [alt]="i18n.t('about.badge.image_alt')"
         loading="lazy"
-        class="block w-full max-h-[calc(88dvh-6rem)] object-contain rounded-lg"
+        class="block w-auto h-auto max-w-[min(80rem,calc(100vw-1rem))] sm:max-w-[min(80rem,calc(100vw-2rem))] max-h-[94dvh] rounded-2xl sm:rounded-3xl shadow-2xl"
       />
     </div>
   </dialog>

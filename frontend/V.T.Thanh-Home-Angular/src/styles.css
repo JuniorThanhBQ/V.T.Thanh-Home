@@ -428,3 +428,15 @@ html.dark {
 .dark .blog-markdown-content tbody tr:nth-child(even) {
   background-color: rgba(15, 23, 42, 0.3);
 }
+
+.blog-markdown-content td,
+.blog-markdown-content th {
+  font-size: 0.75rem;
+}
+
+@media (min-width: 768px) {
+  .blog-markdown-content td,
+  .blog-markdown-content th {
+    font-size: 0.875rem;
+  }
+}

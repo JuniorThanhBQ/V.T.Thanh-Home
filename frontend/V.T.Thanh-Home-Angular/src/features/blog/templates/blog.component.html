@@ -3,19 +3,19 @@
 
   <div class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
     @if (selectedPost) {
-      <article class="animate-fade-in space-y-8 sm:space-y-12 md:space-y-16">
-        <div
-          class="flex items-center justify-between pb-4 sm:pb-6 border-b border-slate-200 dark:border-slate-800"
-        >
+      <article class="animate-fade-in space-y-2 sm:space-y-3 md:space-y-4">
+        <div class="flex items-center justify-between">
           <button
             type="button"
             (click)="closeStory()"
-            class="inline-flex items-center gap-2 px-3.5 py-2 sm:px-4 sm:py-2 rounded-xl text-xs font-mono font-medium border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-[#0c121c]/80 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[#172e42]/60 transition-colors shadow-sm cursor-pointer"
+            class="inline-flex items-center gap-2 px-3.5 py-2 sm:px-4 sm:py-2 rounded-xl text-xs font-mono font-medium text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-[#172e42]/60 transition-colors cursor-pointer"
           >
             {{ i18n.t('blog.actions.back_to_journal') }}
           </button>
           <div class="text-xs font-mono text-slate-500 dark:text-slate-400 truncate ml-2">
-            {{ selectedPost.category }} · {{ selectedPost.readTime }}
+            {{ selectedPost.category }}
+            <span class="text-slate-300 dark:text-slate-700 select-none">|</span>
+            {{ selectedPost.readTime }}
           </div>
         </div>
 
@@ -27,18 +27,14 @@
             [alt]="selectedPost.title"
             class="w-full h-full object-cover"
           />
-          <div
-            class="absolute inset-0 bg-gradient-to-t from-slate-950/30 dark:from-sky-600/25 to-transparent flex items-end p-4 sm:p-8 lg:p-12"
-          >
-            <h1
-              class="text-xl sm:text-3xl md:text-5xl font-black text-white tracking-tight leading-tight max-w-4xl"
-            >
-              {{ selectedPost.title }}
-            </h1>
-          </div>
         </div>
 
-        <div class="max-w-4xl mx-auto space-y-10 sm:space-y-16 md:space-y-20 py-4 sm:py-6">
+        <div class="max-w-5xl mx-auto space-y-10 sm:space-y-16 md:space-y-20 py-4 sm:py-6">
+          <h1
+            class="text-xl sm:text-3xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tight leading-tight"
+          >
+            {{ selectedPost.title }}
+          </h1>
           @for (chapter of selectedPost.chapters; track chapter.chapterNumber) {
             <section class="space-y-4 sm:space-y-6">
               <div
@@ -57,7 +53,7 @@
               </div>
 
               <div
-                class="blog-markdown-content leading-relaxed text-slate-700 dark:text-slate-300 font-light text-sm sm:text-base md:text-lg max-w-none space-y-4"
+                class="blog-markdown-content leading-relaxed text-slate-700 dark:text-slate-300 font-light text-xs sm:text-sm md:text-sm max-w-none space-y-4"
                 [innerHTML]="chapter.markdownContent | markdown"
               ></div>
 
@@ -123,11 +119,13 @@
           <div
             class="group relative rounded-2xl sm:rounded-3xl overflow-hidden bg-white/80 dark:bg-[#0c1626]/80 border border-slate-200/80 dark:border-slate-800/80 shadow-2xl transition-all"
           >
-            <div class="relative aspect-[16/9] w-full overflow-hidden bg-slate-950">
+            <div
+              class="relative h-[180px] md:h-[240px] lg:h-[300px] w-full overflow-hidden bg-slate-950"
+            >
               <img
                 [src]="posts[activePostIndex].heroImage"
                 [alt]="posts[activePostIndex].title"
-                class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                class="w-full h-full object-cover"
               />
               <div
                 class="absolute inset-0 bg-gradient-to-t from-slate-950/15 dark:from-sky-950/20 via-transparent to-transparent"

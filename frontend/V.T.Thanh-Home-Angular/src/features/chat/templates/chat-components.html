@@ -197,7 +197,11 @@
   >
     <div class="flex items-center gap-2">
       <input
+        id="chat-message"
+        name="chatMessage"
         type="text"
+        autocomplete="off"
+        [attr.aria-label]="i18n.t('chat.input_placeholder')"
         maxlength="1000"
         [(ngModel)]="messageInput"
         (keydown.enter)="sendMessage()"
