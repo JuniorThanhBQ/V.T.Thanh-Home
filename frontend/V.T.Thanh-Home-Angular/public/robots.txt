@@ -1,31 +1,27 @@
 # ==============================================================================
 # Notice: Content is available for search indexing and real-time retrieval only.
-# Machine learning model training, bulk downloading, and unauthorized text and
+# Machine learning model training, bulk downloading, unauthorized text and
 # data mining (TDM) are strictly prohibited.
 # ==============================================================================
 
-# Disallow dedicated AI training and scraping crawlers
+# Blocked crawlers
 User-agent: GPTBot
 User-agent: ClaudeBot
 User-agent: CCBot
-User-agent: Google-Extended
-User-agent: FacebookBot
 User-agent: Meta-ExternalAgent
+User-agent: FacebookBot
 User-agent: Bytespider
 User-agent: Applebot-Extended
 User-agent: Amazonbot
 User-agent: Diffbot
 User-agent: anthropic-ai
 User-agent: cohere-ai
+User-agent: Google-Extended
 Disallow: /
 
-# Allow real-time conversational search bots (providing citations/answers)
-User-agent: ChatGPT-User
-User-agent: PerplexityBot
-Allow: /
-
-# General search engines (Google, Bing, DuckDuckGo, etc.)
+# General crawling
 User-agent: *
+Content-Signal: search=yes, ai-input=yes, ai-train=no
 Allow: /
 Disallow: /admin
 Disallow: /en/admin

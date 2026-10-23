@@ -33,7 +33,7 @@ export class BackendHealthService {
     this.http
       .get<ActuatorHealthResponse>(url)
       .pipe(
-        timeout(60000),
+        timeout(120000),
         catchError(() => {
           return of({ status: 'DOWN' as const });
         }),
@@ -51,7 +51,7 @@ export class BackendHealthService {
       .pipe(
         exhaustMap(() =>
           this.http.get<ActuatorHealthResponse>(buildApiUrl(API_ENDPOINTS.actuator.health)).pipe(
-            timeout(60000),
+            timeout(120000),
             catchError(() => of({ status: 'DOWN' })),
           ),
         ),
