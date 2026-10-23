@@ -49,7 +49,7 @@ Rebuilding my personal home website from the ground up using Angular 22 and Spri
 
 ## IV. Website Status
 
-[![Website Status](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/JuniorThanhBQ/V.T.Thanh-Home/badges/status.json)](https://vtthanh-home-angular.vercel.app/)
+[![Website Status](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/JuniorThanhBQ/V.T.Thanh-Home/badges/status.json)](https://www.juniorthanh.id.vn/)
 [![Backend Status](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/JuniorThanhBQ/V.T.Thanh-Home/badges/backend-status.json)](https://vtthanh-backend-latest.onrender.com/actuator/health)
 [![Security Status](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/JuniorThanhBQ/V.T.Thanh-Home/badges/security-status.json)](https://www.virustotal.com/gui/url/cbc2b0bda6fc4a64cfeba1c71872a2b4aafad276656995d6b2321255573f2535/community)
 [![Cloudflare Security](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/JuniorThanhBQ/V.T.Thanh-Home/badges/cloudflare-status.json&logo=cloudflare&logoColor=white)](https://radar.cloudflare.com/scan)

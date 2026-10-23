@@ -40,7 +40,7 @@ The container entrypoint selects `PORT`, then `SERVER_PORT`, then `8080`, and ex
 | `CHAT_FILE_URL` | Public UTF-8 text/Markdown knowledge document; Google Drive `/file/d/.../view` URLs are converted to download URLs |
 | `CHAT_DAILY_GENERATION_LIMIT` | Initial per-instance cap, default 200 attempts/day in UTC |
 | `ADMIN_USERNAME`, `ADMIN_PASSWORD` | Optional first-account bootstrap; password at least 12 characters; changing these does not reset an existing account |
-| `APP_CORS_ALLOWED_ORIGINS` | Exact browser origins, including `https://vtthanh-home-angular.vercel.app`; add any custom domain explicitly |
+| `APP_CORS_ALLOWED_ORIGINS` | Exact browser origins, including `https://www.juniorthanh.id.vn`; add any custom domain explicitly |
 | `TURNSTILE_ENABLED` | `true` for protected production contact/chat creation |
 | `TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY` | Corresponding widget keys; secret stays on Render |
 | `TURNSTILE_HOSTNAMES` | Comma-separated exact frontend hostnames, without scheme/path; match Cloudflare widget configuration |

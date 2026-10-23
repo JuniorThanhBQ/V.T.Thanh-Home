@@ -56,7 +56,7 @@
   preloadLink.crossOrigin = 'anonymous';
   document.head.appendChild(preloadLink);
 
-  const baseUrl = 'https://vtthanh-home-angular.vercel.app';
+  const baseUrl = 'https://www.juniorthanh.id.vn';
   const cleanPath =
     segments.length > 0 && supportedLangs.includes(segments[0])
       ? '/' + segments.slice(1).join('/')

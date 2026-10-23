@@ -9,7 +9,7 @@ public record CorsProperties(
 ) {
     public CorsProperties {
         if (allowedOrigins == null || allowedOrigins.isEmpty()) {
-            allowedOrigins = List.of("http://localhost:4200", "https://vtthanh-home-angular.vercel.app");
+            allowedOrigins = List.of("http://localhost:4200", "https://www.juniorthanh.id.vn");
         }
     }
 }

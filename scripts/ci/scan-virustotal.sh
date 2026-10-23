@@ -4,7 +4,7 @@ set -eu
 RUNNER_TEMP="${RUNNER_TEMP:-/tmp}"
 VIRUS_TOTAL_KEY="${VIRUS_TOTAL_KEY:-}"
 
-TARGETS=("https://vtthanh-home-angular.vercel.app/" "https://www.juniorthanh.id.vn/")
+TARGETS=("https://www.juniorthanh.id.vn/")
 STATUS_MSG="safe"
 BADGE_COLOR="brightgreen"
 

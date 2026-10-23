@@ -3,7 +3,7 @@ app:
     username: ${ADMIN_USERNAME:}
     password: ${ADMIN_PASSWORD:}
   cors:
-    allowed-origins: ${APP_CORS_ALLOWED_ORIGINS:http://localhost:4200,https://vtthanh-home-angular.vercel.app}
+    allowed-origins: ${APP_CORS_ALLOWED_ORIGINS:http://localhost:4200,https://www.juniorthanh.id.vn}
   mail:
     worker-enabled: ${CONTACT_EMAIL_DELIVERY_ENABLED:true}
     gmail:
@@ -16,7 +16,7 @@ app:
   turnstile:
     enabled: ${TURNSTILE_ENABLED:false}
     site-key: ${TURNSTILE_SITE_KEY:}
-    hostnames: ${TURNSTILE_HOSTNAMES:vtthanh-home-angular.vercel.app}
+    hostnames: ${TURNSTILE_HOSTNAMES:www.juniorthanh.id.vn}
     secret-key: ${TURNSTILE_SECRET_KEY:}
   chat:
     daily-generation-limit: ${CHAT_DAILY_GENERATION_LIMIT:200}

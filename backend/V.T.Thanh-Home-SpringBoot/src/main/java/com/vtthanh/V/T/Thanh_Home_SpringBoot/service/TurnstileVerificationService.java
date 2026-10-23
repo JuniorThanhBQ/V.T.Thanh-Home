@@ -25,7 +25,7 @@ public class TurnstileVerificationService {
     public TurnstileVerificationService(@Value("${app.turnstile.enabled:false}") boolean enabled,
             @Value("${app.turnstile.secret-key:}") String secret,
             @Value("${app.turnstile.site-key:}") String siteKey,
-            @Value("${app.turnstile.hostnames:vtthanh-home-angular.vercel.app}") String hostnames) {
+            @Value("${app.turnstile.hostnames:www.juniorthanh.id.vn}") String hostnames) {
         this.enabled = enabled;
         this.secret = secret;
         this.siteKey = siteKey;

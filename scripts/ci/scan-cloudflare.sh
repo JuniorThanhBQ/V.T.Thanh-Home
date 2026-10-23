@@ -5,7 +5,7 @@ RUNNER_TEMP="${RUNNER_TEMP:-/tmp}"
 CF_TOKEN="${CLOUDFLARE_API_TOKEN:-}"
 CF_ACCOUNT="${CLOUDFLARE_ACCOUNT_ID:-}"
 
-TARGET_URL="https://vtthanh-home-angular.vercel.app/"
+TARGET_URL="https://www.juniorthanh.id.vn/"
 STATUS_MSG="secured"
 BADGE_COLOR="brightgreen"
 

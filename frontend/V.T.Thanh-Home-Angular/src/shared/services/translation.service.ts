@@ -73,7 +73,7 @@ export class TranslationService {
   }
 
   private syncLanguageFromUrl(url: string, restorePreference = false): void {
-    const pathname = new URL(url, 'https://vtthanh-home-angular.vercel.app').pathname;
+    const pathname = new URL(url, 'https://www.juniorthanh.id.vn').pathname;
     const detectedLang = restorePreference ? initialLanguage(pathname) : languageFromPath(pathname);
     let metadataPath = pathname;
     if (pathname === '/' && detectedLang !== 'vi') {
@@ -102,7 +102,7 @@ export class TranslationService {
   }
 
   private urlWithLanguage(url: string, language: SupportedLang): string {
-    const parsed = new URL(url, 'https://vtthanh-home-angular.vercel.app');
+    const parsed = new URL(url, 'https://www.juniorthanh.id.vn');
     const segments = parsed.pathname.split('/').filter(Boolean);
     if (isSupportedLanguage(segments[0]) && segments[0] !== 'vi') {
       segments.shift();

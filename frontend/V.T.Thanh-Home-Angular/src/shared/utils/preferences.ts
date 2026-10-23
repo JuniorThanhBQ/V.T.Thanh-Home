@@ -86,7 +86,7 @@ export function updateLanguageMetadata(document: Document, pathname: string): vo
   const segments = pathname.split('/').filter(Boolean);
   if (isSupportedLanguage(segments[0]) && segments[0] !== 'vi') segments.shift();
   const suffix = segments.length ? '/' + segments.join('/') : '';
-  const baseUrl = 'https://vtthanh-home-angular.vercel.app';
+  const baseUrl = 'https://www.juniorthanh.id.vn';
   const pageUrl = (lang: SupportedLang): string =>
     baseUrl + (lang === 'vi' ? suffix || '/' : '/' + lang + suffix);
   const canonical =

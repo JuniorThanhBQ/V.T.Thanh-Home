@@ -2,7 +2,7 @@
 set -eu
 
 RUNNER_TEMP="${RUNNER_TEMP:-/tmp}"
-TARGET_URL="${TARGET_URL:-https://vtthanh-home-angular.vercel.app/}"
+TARGET_URL="${TARGET_URL:-https://www.juniorthanh.id.vn/}"
 HTTP_STATUS=$(curl -s -L -o /dev/null -w "%{http_code}" --max-time 15 "$TARGET_URL" || echo "000")
 
 if [ "$HTTP_STATUS" = "200" ]; then

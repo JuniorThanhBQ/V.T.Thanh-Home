@@ -35,4 +35,4 @@ Disallow: /kr/admin
 Disallow: /api/
 Disallow: /actuator/
 
-Sitemap: https://vtthanh-home-angular.vercel.app/sitemap.xml
+Sitemap: https://www.juniorthanh.id.vn/sitemap.xml
