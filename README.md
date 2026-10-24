@@ -53,6 +53,9 @@ Rebuilding my personal home website from the ground up using Angular 22 and Spri
 [![Backend Status](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/JuniorThanhBQ/V.T.Thanh-Home/badges/backend-status.json)](https://vtthanh-backend-latest.onrender.com/actuator/health)
 [![Security Status](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/JuniorThanhBQ/V.T.Thanh-Home/badges/security-status.json)](https://www.virustotal.com/gui/url/cbc2b0bda6fc4a64cfeba1c71872a2b4aafad276656995d6b2321255573f2535/community)
 [![Cloudflare Security](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/JuniorThanhBQ/V.T.Thanh-Home/badges/cloudflare-status.json&logo=cloudflare&logoColor=white)](https://radar.cloudflare.com/scan)
+[![Backend Image Vulnerabilities](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2FJuniorThanhBQ%2FV.T.Thanh-Home%2Fbadges%2Fimage-vulnerabilities.json&logo=docker&logoColor=white)](https://hub.docker.com/r/juniorthanh09/vtthanh-backend/tags)
+
+The image vulnerability badge reports Critical (C), High (H), Medium (M), Low (L), and Unspecified (U) findings for the published `juniorthanh09/vtthanh-backend:latest` image on `linux/amd64`. The hourly health workflow refreshes it using Docker Scout and requires the `DOCKER_USERNAME` and `DOCKER_TOKEN` Actions secrets. A failed scan or an unrecognized report displays `unavailable`. The badge describes the published image, which may differ from the version currently deployed.
 
 </div>
 

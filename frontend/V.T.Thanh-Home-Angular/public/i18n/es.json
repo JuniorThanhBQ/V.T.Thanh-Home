@@ -2,10 +2,10 @@
   "app": {
     "title": "Sitio web personal",
     "Author": "Van Trung Thanh",
-    "version": "Versión 2.2.1",
+    "version": "Versión 2.2.2",
     "copyright": "Reservar todos los derechos",
     "backend_health_up": "Servidor en línea",
-    "backend_health_standby": "Comprobando servidor",
+    "backend_health_standby": "Iniciando el servidor (tiempo estimado: 2 minutos)",
     "backend_health_down": "El servidor está fuera de servicio"
   },
   "language": {

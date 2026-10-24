@@ -39,7 +39,7 @@ COPY --from=builder --chown=1001:1001 /workspace/extracted/application/ ./
 USER 1001:1001
 
 EXPOSE 8080
-ENV JAVA_TOOL_OPTIONS="-XX:MaxRAMPercentage=65.0 -XX:TieredStopAtLevel=1"
+ENV JAVA_TOOL_OPTIONS="-XX:MaxRAMPercentage=70.0 -XX:TieredStopAtLevel=1"
 
 HEALTHCHECK --interval=30s --timeout=5s --start-period=20s --retries=3 \
   CMD ["sh", "-c", "curl -fsS --max-time 3 http://127.0.0.1:${PORT:-${SERVER_PORT:-8080}}/actuator/health"]

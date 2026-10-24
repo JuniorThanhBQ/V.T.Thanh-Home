@@ -2,10 +2,10 @@
   "app": {
     "title": "個人サイト",
     "Author": "キスネ・カネルド",
-    "version": "バージョン 2.2.1",
+    "version": "バージョン 2.2.2",
     "copyright": "無断転載を禁じます",
     "backend_health_up": "サーバー稼働中。",
-    "backend_health_standby": "サーバー確認中。",
+    "backend_health_standby": "サーバーを起動中（所要時間の目安：2分）",
     "backend_health_down": "サーバーは停止しています。"
   },
   "language": {

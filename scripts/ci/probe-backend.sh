@@ -3,7 +3,7 @@ set -eu
 
 RUNNER_TEMP="${RUNNER_TEMP:-/tmp}"
 BACKEND_URL="${BACKEND_URL:-https://vtthanh-backend-latest.onrender.com/actuator/health}"
-HTTP_STATUS_BACKEND=$(curl -s -L -o /dev/null -w "%{http_code}" --max-time 45 "$BACKEND_URL" || echo "000")
+HTTP_STATUS_BACKEND=$(curl -s -L -o /dev/null -w "%{http_code}" --max-time 45 "$BACKEND_URL") || HTTP_STATUS_BACKEND="000"
 
 if [ "$HTTP_STATUS_BACKEND" = "200" ]; then
   COLOR_BACKEND="brightgreen"
@@ -16,7 +16,7 @@ elif [ "$HTTP_STATUS_BACKEND" = "000" ]; then
   MESSAGE_BACKEND="Unreachable"
 else
   COLOR_BACKEND="red"
-  MESSAGE="${HTTP_STATUS_BACKEND} Error"
+  MESSAGE_BACKEND="${HTTP_STATUS_BACKEND} Error"
 fi
 
 cat <<EOF > "${RUNNER_TEMP}/backend-status.json"

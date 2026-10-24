@@ -2,10 +2,10 @@
   "app": {
     "title": "Personal Website",
     "Author": "Van Trung Thanh",
-    "version": "Version 2.2.1",
+    "version": "Version 2.2.2",
     "copyright": "All rights reserved",
     "backend_health_up": "Server online",
-    "backend_health_standby": "Checking server",
+    "backend_health_standby": "Starting server (ETA: 2 minutes)",
     "backend_health_down": "Server is offline"
   },
   "language": {
