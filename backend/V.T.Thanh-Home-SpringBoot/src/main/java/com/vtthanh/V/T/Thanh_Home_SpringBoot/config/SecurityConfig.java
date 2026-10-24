@@ -68,7 +68,7 @@ public class SecurityConfig {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(corsProperties.allowedOrigins());
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
-        configuration.setAllowedHeaders(List.of("*"));
+        configuration.setAllowedHeaders(List.of("Content-Type", "X-XSRF-TOKEN"));
         configuration.setExposedHeaders(List.of("X-Total-Count", "X-Request-Id", "Content-Disposition", "Retry-After"));
         configuration.setAllowCredentials(true);
         configuration.setMaxAge(3600L);
@@ -84,9 +84,7 @@ public class SecurityConfig {
     }
 
     private static class Sha256BcryptPasswordEncoder implements PasswordEncoder {
-
         private final BCryptPasswordEncoder delegate = new BCryptPasswordEncoder();
-
         @Override
         public String encode(CharSequence rawPassword) {
             String preHashed = preHash(rawPassword);

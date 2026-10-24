@@ -2,6 +2,8 @@ package com.vtthanh.V.T.Thanh_Home_SpringBoot.repository;
 
 import com.vtthanh.V.T.Thanh_Home_SpringBoot.entity.ChatMessage;
 import com.vtthanh.V.T.Thanh_Home_SpringBoot.entity.ChatSession;
+import com.vtthanh.V.T.Thanh_Home_SpringBoot.dto.ChatHistoryItemResponse;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import java.util.List;
@@ -20,9 +22,9 @@ public interface ChatMessageRepository extends JpaRepository<ChatMessage, Long> 
 
     Optional<ChatMessage> findByChatSessionAndRequestId(ChatSession session, String requestId);
 
-    List<ChatMessage> findTop3ByChatSessionAndStatusOrderByCreatedDateDesc(ChatSession session, String status);
-
-    List<ChatMessage> findTop50ByChatSessionAndStatusOrderByCreatedDateDesc(ChatSession session, String status);
+    @Query("select new com.vtthanh.V.T.Thanh_Home_SpringBoot.dto.ChatHistoryItemResponse(m.id, m.input, m.output, m.createdDate) from ChatMessage m where m.chatSession = :session and m.status = :status order by m.createdDate desc, m.id desc")
+    List<ChatHistoryItemResponse> findHistoryByChatSessionAndStatus(
+            @Param("session") ChatSession session, @Param("status") String status, Pageable page);
 
     long countByChatSession(ChatSession session);
 

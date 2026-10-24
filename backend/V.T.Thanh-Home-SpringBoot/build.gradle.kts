@@ -3,6 +3,7 @@ plugins {
 	id("org.springframework.boot") version "4.1.1"
 	id("io.spring.dependency-management") version "1.1.7"
 	id("com.diffplug.spotless") version "8.10.4"
+	id("com.autonomousapps.dependency-analysis") version "3.19.2"
 	checkstyle
 }
 
@@ -12,7 +13,17 @@ checkstyle {
 }
 
 group = "com.vtthanh"
-version = "0.0.1-SNAPSHOT"
+version = "1.0.2"
+
+dependencyAnalysis {
+    issues {
+        all {
+            onAny {
+                severity("warn")
+            }
+        }
+    }
+}
 
 java {
 	toolchain {

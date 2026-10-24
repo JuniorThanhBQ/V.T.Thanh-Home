@@ -2,7 +2,7 @@
   "app": {
     "title": "Persönliche Website",
     "Author": "Van Trung Thanh",
-    "version": "Version 2.2.2",
+    "version": "Version 2.2.3",
     "copyright": "Alle Rechte vorbehalten",
     "backend_health_up": "Server online",
     "backend_health_standby": "Server wird gestartet (voraussichtlich 2 Minuten)",

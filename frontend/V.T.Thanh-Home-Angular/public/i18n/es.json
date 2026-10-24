@@ -2,7 +2,7 @@
   "app": {
     "title": "Sitio web personal",
     "Author": "Van Trung Thanh",
-    "version": "Versión 2.2.2",
+    "version": "Versión 2.2.3",
     "copyright": "Reservar todos los derechos",
     "backend_health_up": "Servidor en línea",
     "backend_health_standby": "Iniciando el servidor (tiempo estimado: 2 minutos)",

@@ -76,7 +76,7 @@ public class ChatKnowledgeService {
                 }
             }
 
-            this.cachedKnowledge = "V.T.Thanh is a Software Engineer specializing in Spring Boot, Angular, and cloud-native solutions.";
+            this.cachedKnowledge = "V.T.Thanh is a Software Engineer specializing in Spring Boot, Angular, and cloud-native solutions. Additional information: Final-year FCS student at Ho Chi Minh City Open University.";
             return this.cachedKnowledge;
         }
     }

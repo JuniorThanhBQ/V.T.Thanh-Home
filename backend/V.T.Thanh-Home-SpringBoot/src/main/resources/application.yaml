@@ -3,7 +3,7 @@ app:
     username: ${ADMIN_USERNAME:}
     password: ${ADMIN_PASSWORD:}
   cors:
-    allowed-origins: ${APP_CORS_ALLOWED_ORIGINS:http://localhost:4200,https://www.juniorthanh.id.vn}
+    allowed-origins: ${APP_CORS_ALLOWED_ORIGINS:http://localhost:4200,https://www.juniorthanh.id.vn,https://vtthanh-home-angular.vercel.app}
   mail:
     worker-enabled: ${CONTACT_EMAIL_DELIVERY_ENABLED:true}
     gmail:
@@ -57,7 +57,7 @@ spring:
       maximum-pool-size: 10
       minimum-idle: 2
       idle-timeout: 30000
-      connection-timeout: 20000
+      connection-timeout: 30000
       max-lifetime: 1800000
   flyway:
     enabled: true

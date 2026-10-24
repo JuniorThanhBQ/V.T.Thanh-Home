@@ -6,6 +6,7 @@ import com.vtthanh.V.T.Thanh_Home_SpringBoot.exception.ResourceNotFoundException
 import com.vtthanh.V.T.Thanh_Home_SpringBoot.exception.ServiceUnavailableException;
 import com.vtthanh.V.T.Thanh_Home_SpringBoot.repository.*;
 import org.springframework.http.HttpStatus;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.support.TransactionTemplate;
@@ -116,9 +117,9 @@ public class ChatService {
     public List<ChatHistoryItemResponse> getSessionHistory(String token, Long visitorId) {
         return transactions.execute(tx -> {
             ChatSession session = ownedSession(token, visitorId);
-            List<ChatMessage> history = new ArrayList<>(messages.findTop50ByChatSessionAndStatusOrderByCreatedDateDesc(session, "COMPLETED"));
+            List<ChatHistoryItemResponse> history = new ArrayList<>(messages.findHistoryByChatSessionAndStatus(session, "COMPLETED", PageRequest.of(0, 50)));
             Collections.reverse(history);
-            return history.stream().map(m -> new ChatHistoryItemResponse(m.getId(), m.getInput(), m.getOutput(), m.getCreatedDate())).toList();
+            return List.copyOf(history);
         });
     }
 
@@ -135,12 +136,12 @@ public class ChatService {
         if (messages.countByChatSession(session) >= 60) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Conversation limit reached. Start a new session.");
         }
-        List<ChatMessage> history = new ArrayList<>(messages.findTop3ByChatSessionAndStatusOrderByCreatedDateDesc(session, "COMPLETED"));
+        List<ChatHistoryItemResponse> history = new ArrayList<>(messages.findHistoryByChatSessionAndStatus(session, "COMPLETED", PageRequest.of(0, 3)));
         Collections.reverse(history);
         List<Map<String, String>> context = new ArrayList<>();
-        for (ChatMessage prior : history) {
-            context.add(Map.of("role", "user", "content", prior.getInput()));
-            context.add(Map.of("role", "assistant", "content", prior.getOutput()));
+        for (ChatHistoryItemResponse prior : history) {
+            context.add(Map.of("role", "user", "content", prior.input()));
+            context.add(Map.of("role", "assistant", "content", prior.output()));
         }
         ChatMessage message = new ChatMessage(session, request.message().trim(), "");
         message.setRequestId(request.requestId());
