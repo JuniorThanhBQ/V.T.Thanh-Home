@@ -55,7 +55,7 @@ Rebuilding my personal home website from the ground up using Angular 22 and Spri
 [![Cloudflare Security](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/JuniorThanhBQ/V.T.Thanh-Home/badges/cloudflare-status.json&logo=cloudflare&logoColor=white)](https://radar.cloudflare.com/scan)
 [![Backend Image Vulnerabilities](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2FJuniorThanhBQ%2FV.T.Thanh-Home%2Fbadges%2Fimage-vulnerabilities.json&logo=docker&logoColor=white)](https://hub.docker.com/r/juniorthanh09/vtthanh-backend/tags)
 
-The image vulnerability badge reports Critical (C), High (H), Medium (M), Low (L), and Unspecified (U) findings for the published `juniorthanh09/vtthanh-backend:latest` image on `linux/amd64`. The hourly health workflow refreshes it using Docker Scout and requires the `DOCKER_USERNAME` and `DOCKER_TOKEN` Actions secrets. A failed scan or an unrecognized report displays `unavailable`. The badge describes the published image, which may differ from the version currently deployed.
+The image vulnerability badge reports image-level Critical (C), High (H), Medium (M), and Low (L) findings for the published `juniorthanh09/vtthanh-backend:latest` image on `linux/amd64`, plus Unspecified (U) when Scout includes it. Package-level counts are excluded. The hourly health workflow refreshes it using Docker Scout and requires the `DOCKER_USERNAME` and `DOCKER_TOKEN` Actions secrets. A failed scan or an unrecognized report displays `unavailable`. The badge describes the published image, which may differ from the version currently deployed.
 
 </div>
 
