@@ -280,8 +280,6 @@ Thumbs.db
 .env
 .env.local
 
-AGENTS.md
-
 # RAG Chatbot Data & Generated Embeddings
 **/rag/*embeddings*.json
 **/*_embeddings.json
