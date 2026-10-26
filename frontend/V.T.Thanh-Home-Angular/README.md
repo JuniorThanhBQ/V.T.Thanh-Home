@@ -16,6 +16,8 @@ For local development, copy this directory's `.env.example` to `.env` and set `S
 
 In Vercel, set `SENTRY_DSN` to the Angular project's DSN and keep `SENTRY_AUTH_TOKEN` in protected build settings for source-map uploads. Only the DSN is passed to browser code; the auth token is read by the source-map script. Use `npm start`, `npm run build`, or `npm run watch` so the environment wrapper runs. `npm run ng -- build` and `npm run ng -- serve` also use the wrapper. Calling `ng build` or `ng serve` directly bypasses environment injection.
 
+GitHub Actions needs its own repository variable named `SENTRY_DSN` with the same Angular project DSN. Set it under **Repository Settings → Secrets and variables → Actions → Variables**. A variable configured in Vercel is not available to GitHub runners. The CI build checks for this variable, then passes it to the Angular build. The security scan downloads that build's browser artifact rather than building it again.
+
 ### When
 
 Restart the development server or rebuild and redeploy after changing `SENTRY_DSN`. Vercel environment changes apply to subsequent deployments.
