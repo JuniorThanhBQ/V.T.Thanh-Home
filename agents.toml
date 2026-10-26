@@ -1,0 +1,14 @@
+version = 1
+agents = [ "codex", "vscode", "copilot", "gemini" ]
+
+[trust]
+git_domains = [ "cli.sentry.dev" ]
+github_orgs = [ "getsentry" ]
+
+[[skills]]
+name = "dotagents"
+source = "getsentry/dotagents"
+
+[[skills]]
+name = "sentry-cli"
+source = "https://cli.sentry.dev"

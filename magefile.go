@@ -74,3 +74,15 @@ func SecretGenerate() error {
 func Setup() error {
 	return run("bash", "scripts/app-setup.sh")
 }
+
+func Test() error {
+	return run("bash", "scripts/app-test.sh")
+}
+
+func TestBackend() error {
+	return run("bash", "scripts/app-test.sh", "--backend")
+}
+
+func TestFrontend() error {
+	return run("bash", "scripts/app-test.sh", "--frontend")
+}

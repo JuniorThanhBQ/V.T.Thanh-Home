@@ -55,7 +55,7 @@ Rebuilding my personal home website from the ground up using Angular 22 and Spri
 [![Cloudflare Security](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/JuniorThanhBQ/V.T.Thanh-Home/badges/cloudflare-status.json&logo=cloudflare&logoColor=white)](https://radar.cloudflare.com/scan)
 [![Backend Image Vulnerabilities](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2FJuniorThanhBQ%2FV.T.Thanh-Home%2Fbadges%2Fimage-vulnerabilities.json&logo=docker&logoColor=white)](https://hub.docker.com/r/juniorthanh09/vtthanh-backend/tags)
 
-The image vulnerability badge reports image-level Critical (C), High (H), Medium (M), and Low (L) findings for the published `juniorthanh09/vtthanh-backend:latest` image on `linux/amd64`, plus Unspecified (U) when Scout includes it. Package-level counts are excluded. The hourly health workflow refreshes it using Docker Scout and requires the `DOCKER_USERNAME` and `DOCKER_TOKEN` Actions secrets. A failed scan or an unrecognized report displays `unavailable`. The badge describes the published image, which may differ from the version currently deployed.
+The image vulnerability badge reports image-level Critical (C), High (H), Medium (M), and Low (L) findings for the published `backend:latest` image on `linux/amd64`, plus Unspecified (U) when Scout includes it. Package-level counts are excluded. A failed scan or an unrecognized report displays `unavailable`.
 
 </div>
 
@@ -102,3 +102,17 @@ The image vulnerability badge reports image-level Critical (C), High (H), Medium
 
 > Spanish
 > ![zh](frontend/image/home-es.png)
+
+<div align="justify">
+
+## VII. Acknowledge of Vibe Coding
+
+This project is licensed under the MIT License because 90% of the code was written by AI. My role was limited to reviewing the output, reporting errors, and requesting corrections. After some consideration, I have decided to make the `AGENTS.md` file and the skills utilized in this project publicly available.
+
+As for the creative assets sourced from Cloudinary, these were designed by me using the Canva platform and are protected under the DMCA (Digital Millennium Copyright Act). I kindly ask that you do not take or reuse these images.
+
+</div>
+
+---
+
+(c) 2026 Van Trung Thanh

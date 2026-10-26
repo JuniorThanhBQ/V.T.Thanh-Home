@@ -2,7 +2,7 @@
 
 ## WHAT
 
-The frontend is an Angular **22.2.2** standalone application, version **2.2.2** in [package.json](V.T.Thanh-Home-Angular/package.json). The manifest declares TypeScript `~6.0.2`, RxJS `~7.8.0`, Tailwind CSS 4, Three.js, Marked, and DOMPurify. It declares `npm@12.2.0` as its package manager; the CI workflow currently selects Node.js 22. Use the lockfile with `npm ci` for reproducible dependency installation.
+The frontend is an Angular **22.2.2** standalone application, version **2.2.3** in [package.json](V.T.Thanh-Home-Angular/package.json). The manifest declares TypeScript `~6.0.2`, RxJS `~7.8.0`, Tailwind CSS 4, Three.js, Marked, and DOMPurify. It declares `npm@12.2.0` as its package manager; the CI workflow currently selects Node.js 22. Use the lockfile with `npm ci` for reproducible dependency installation.
 
 Angular uses same-origin `/api/v1/...` URLs for visitor registration, chat, blogs, contacts, and admin operations. Projects render six static entries with their existing i18n labels; the public project component does not call the project API. Administrator project records are managed independently.
 
@@ -38,7 +38,7 @@ Run the following commands from `frontend/V.T.Thanh-Home-Angular`:
 | `npm run build` | Build the production application |
 | `npm run watch` | Rebuild using the development configuration |
 | `npm run prettier` | Format TypeScript, HTML, and CSS under `src` |
-| `npm test` | Invoke the configured Angular unit-test runner; currently no `.spec.ts` files exist |
+| `npm test` | Invoke the configured Angular unit-test runner; tests are located in `tests/` |
 
 The dev server uses [proxy.conf.json](V.T.Thanh-Home-Angular/proxy.conf.json) to forward `/api/v1/**` and `/actuator/**` to `http://localhost:8080`. Restart `ng serve` after changing proxy configuration. Align the proxy target with the actual backend port.
 

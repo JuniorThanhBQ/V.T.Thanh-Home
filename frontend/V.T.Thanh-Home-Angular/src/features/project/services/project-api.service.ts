@@ -29,6 +29,8 @@ export class ProjectApiService {
   }
 
   public getProjectBySlug(slug: string): Observable<BackendProject> {
-    return this.http.get<BackendProject>(buildApiUrl(`${API_ENDPOINTS.projects}/${slug}`));
+    return this.http.get<BackendProject>(
+      buildApiUrl(`${API_ENDPOINTS.projects}/${encodeURIComponent(slug)}`),
+    );
   }
 }

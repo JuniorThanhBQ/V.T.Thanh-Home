@@ -1,5 +1,7 @@
 # Frontend validation limits — 25 October 2026
 
+**Backend follow-up — 26 October 2026:** Backend authorization, CSRF/session, ownership, publication, idempotency and challenge controls have now been inspected at source level. Read [BACKEND-FOLLOW-UP.md](BACKEND-FOLLOW-UP.md) for the evidence and remaining limits. Statements below that backend implementation had not yet been reviewed describe the historical 25 October scope; runtime/deployment and CLI-validation gaps remain unresolved.
+
 ## What
 
 There are **zero surviving `needs_validation` vulnerability records** and zero unvalidated vulnerability candidates.
