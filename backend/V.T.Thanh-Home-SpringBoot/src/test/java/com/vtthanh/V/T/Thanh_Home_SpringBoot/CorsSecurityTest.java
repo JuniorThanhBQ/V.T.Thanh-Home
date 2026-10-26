@@ -74,6 +74,19 @@ class CorsSecurityTest {
     }
 
     @Test
+    void sentryTraceHeadersAreAllowedBySecurityAndMvc() throws Exception {
+        for (MockMvc mvc : List.of(mockMvc, MockMvcBuilders.webAppContextSetup(context).build())) {
+            mvc.perform(options("/api/v1/visitors")
+                            .header(HttpHeaders.ORIGIN, FRONTEND_ORIGIN)
+                            .header(HttpHeaders.ACCESS_CONTROL_REQUEST_METHOD, "POST")
+                            .header(HttpHeaders.ACCESS_CONTROL_REQUEST_HEADERS, "content-type,sentry-trace,baggage"))
+                    .andExpect(status().isOk())
+                    .andExpect(header().string(HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS, containsString("sentry-trace")))
+                    .andExpect(header().string(HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS, containsString("baggage")));
+        }
+    }
+
+    @Test
     void mvcCorsConfigurationRejectsUnexpectedHeadersWithoutSecurityFilter() throws Exception {
         MockMvc mvcOnly = MockMvcBuilders.webAppContextSetup(context).build();
         mvcOnly.perform(options("/api/v1/visitors")

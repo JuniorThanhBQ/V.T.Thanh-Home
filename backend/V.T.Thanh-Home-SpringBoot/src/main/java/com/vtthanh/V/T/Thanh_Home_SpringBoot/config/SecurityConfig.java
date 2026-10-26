@@ -68,7 +68,7 @@ public class SecurityConfig {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(corsProperties.allowedOrigins());
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
-        configuration.setAllowedHeaders(List.of("Content-Type", "X-XSRF-TOKEN"));
+        configuration.setAllowedHeaders(List.of("Content-Type", "X-XSRF-TOKEN", "sentry-trace", "baggage"));
         configuration.setExposedHeaders(List.of("X-Total-Count", "X-Request-Id", "Content-Disposition", "Retry-After"));
         configuration.setAllowCredentials(true);
         configuration.setMaxAge(3600L);

@@ -292,6 +292,7 @@ archives/JuniorThanhBQ/server/src/modules/chat/
 # Environment & Secret files (universal match across all subfolders)
 .env*
 **/.env*
+!frontend/V.T.Thanh-Home-Angular/.env.example
 *.env
 
 # Build & SSR Artifacts

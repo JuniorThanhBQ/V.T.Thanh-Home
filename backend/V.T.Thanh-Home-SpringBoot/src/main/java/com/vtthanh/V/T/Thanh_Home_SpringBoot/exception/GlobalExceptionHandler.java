@@ -1,6 +1,7 @@
 package com.vtthanh.V.T.Thanh_Home_SpringBoot.exception;
 
 import com.vtthanh.V.T.Thanh_Home_SpringBoot.dto.ApiErrorResponse;
+import io.sentry.spring7.exception.SentryCaptureExceptionParameter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.OptimisticLockingFailureException;
@@ -90,6 +91,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(Exception.class)
+    @SentryCaptureExceptionParameter
     public ResponseEntity<ApiErrorResponse> handleGenericException(Exception ex) {
         log.error("Unhandled server error: {}", ex.getMessage(), ex);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)

@@ -19,7 +19,7 @@ public class WebConfig implements WebMvcConfigurer {
 		registry.addMapping("/api/**")
 				.allowedOriginPatterns(corsProperties.allowedOrigins().toArray(new String[0]))
 				.allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")
-				.allowedHeaders("Content-Type", "X-XSRF-TOKEN")
+				.allowedHeaders("Content-Type", "X-XSRF-TOKEN", "sentry-trace", "baggage")
 				.exposedHeaders("X-Total-Count", "X-Request-Id", "Content-Disposition", "Retry-After")
 				.allowCredentials(true)
 				.maxAge(3600);

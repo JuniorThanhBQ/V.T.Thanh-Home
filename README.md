@@ -14,6 +14,7 @@
   <a href="https://pre-commit.com/"><img src="https://img.shields.io/badge/Pre--commit-4.6.2-FAB040?logo=precommit&logoColor=white" alt="Pre-commit" /></a>
   <a href="https://www.postgresql.org/"><img src="https://img.shields.io/badge/PostgreSQL-18-4169E1?logo=postgresql&logoColor=white" alt="PostgreSQL" /></a>
   <a href="https://supabase.com/"><img src="https://img.shields.io/badge/Supabase-3ECF8E?logo=supabase&logoColor=white" alt="Supabase" /></a>
+  <a href="https://sentry.io/"><img src="https://img.shields.io/badge/Sentry-362D59?logo=sentry&logoColor=white" alt="Sentry" /></a>
 </p>
 </div>
 

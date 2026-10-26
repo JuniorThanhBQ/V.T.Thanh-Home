@@ -1,5 +1,25 @@
 # VTThanhHomeAngular
 
+## Sentry environment configuration
+
+### What
+
+The frontend reads `SENTRY_DSN` through `scripts/angular.mjs`. Angular replaces `process.env.SENTRY_DSN` with its value during compilation. The DSN remains visible in the compiled JavaScript and network requests because the browser must use it to send events.
+
+### Why
+
+The frontend and backend use separate Sentry projects. The repository-root `.env` belongs to the backend and Docker Compose. Its DSN is not loaded by the Angular build.
+
+### How
+
+For local development, copy this directory's `.env.example` to `.env` and set `SENTRY_DSN` to the `vtthanh-home-angular` project's DSN. The `.env` file is ignored by Git. An existing process environment variable takes priority over the local file. Missing, empty, or malformed values fail the build.
+
+In Vercel, set `SENTRY_DSN` to the Angular project's DSN and keep `SENTRY_AUTH_TOKEN` in protected build settings for source-map uploads. Only the DSN is passed to browser code; the auth token is read by the source-map script. Use `npm start`, `npm run build`, or `npm run watch` so the environment wrapper runs. `npm run ng -- build` and `npm run ng -- serve` also use the wrapper. Calling `ng build` or `ng serve` directly bypasses environment injection.
+
+### When
+
+Restart the development server or rebuild and redeploy after changing `SENTRY_DSN`. Vercel environment changes apply to subsequent deployments.
+
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.2.1.
 
 ## Development server
@@ -7,7 +27,7 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
 To start a local development server, run:
 
 ```bash
-ng serve
+npm start
 ```
 
 Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
@@ -31,7 +51,7 @@ ng generate --help
 To build the project run:
 
 ```bash
-ng build
+npm run build
 ```
 
 This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.

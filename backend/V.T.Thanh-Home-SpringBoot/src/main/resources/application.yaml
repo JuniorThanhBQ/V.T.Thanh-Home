@@ -1,3 +1,15 @@
+sentry:
+  dsn: ${SENTRY_DSN:https://fd77d3144fc94b4e6d8dbafedbaf8e70@o4512320619544576.ingest.us.sentry.io/4512320851738624}
+  enabled: ${SENTRY_ENABLED:true}
+  environment: ${SENTRY_ENVIRONMENT:development}
+  release: ${SENTRY_RELEASE:vtthanh-home-springboot@1.0.2}
+  traces-sample-rate: ${SENTRY_TRACES_SAMPLE_RATE:0.1}
+  send-default-pii: false
+  max-request-body-size: none
+  exception-resolver-order: 2147483647
+  in-app-includes:
+    - com.vtthanh
+
 app:
   admin:
     username: ${ADMIN_USERNAME:}
