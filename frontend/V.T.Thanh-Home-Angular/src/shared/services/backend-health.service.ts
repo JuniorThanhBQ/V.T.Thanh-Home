@@ -1,8 +1,8 @@
-import { Injectable, inject, signal, DestroyRef } from '@angular/core';
+import { Injectable, inject, signal, DestroyRef, computed } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { timer, of, timeout, exhaustMap } from 'rxjs';
-import { catchError } from 'rxjs/operators';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { timer, of, timeout, exhaustMap, Subject, merge, switchMap, tap, catchError } from 'rxjs';
+import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
+import { ConnectivityService } from './connectivity.service';
 import { API_ENDPOINTS, buildApiUrl } from '@/configs/apis';
 
 export type BackendHealthStatus = 'UP' | 'DOWN' | 'UNKNOWN';
@@ -18,50 +18,55 @@ export class BackendHealthService {
   private destroyRef = inject(DestroyRef);
 
   public readonly status = signal<BackendHealthStatus>('UNKNOWN');
-  public readonly isHealthy = signal<boolean | null>(null);
+  public readonly connectivity = inject(ConnectivityService);
+  public readonly isHealthy = computed(() =>
+    this.status() === 'UNKNOWN' ? null : this.status() === 'UP',
+  );
+  public readonly available = computed(() => this.connectivity.online() && this.status() === 'UP');
+  public readonly connectionState = computed(() =>
+    !this.connectivity.online()
+      ? 'offline'
+      : this.status() === 'UP'
+        ? 'online'
+        : this.status() === 'DOWN'
+          ? 'unavailable'
+          : 'checking',
+  );
+  public readonly checking = signal(false);
   public readonly lastChecked = signal<Date | null>(null);
 
-  private readonly intervalMs = 1 * 45 * 1000;
+  private readonly manualCheck = new Subject<void>();
 
   constructor() {
-    this.startHealthPolling();
+    toObservable(this.connectivity.online)
+      .pipe(
+        switchMap((online) => {
+          this.status.set('UNKNOWN');
+          this.checking.set(false);
+          if (!online) return of(null);
+          return merge(timer(0, 45000), this.manualCheck).pipe(
+            exhaustMap(() => {
+              this.checking.set(true);
+              return this.http
+                .get<ActuatorHealthResponse>(buildApiUrl(API_ENDPOINTS.actuator.health))
+                .pipe(
+                  timeout(15000),
+                  catchError(() => of({ status: 'DOWN' })),
+                  tap(() => this.checking.set(false)),
+                );
+            }),
+          );
+        }),
+        takeUntilDestroyed(this.destroyRef),
+      )
+      .subscribe((response) => {
+        if (!response) return;
+        this.status.set(response.status === 'UP' ? 'UP' : 'DOWN');
+        this.lastChecked.set(new Date());
+      });
   }
 
   public checkHealth(): void {
-    const url = buildApiUrl(API_ENDPOINTS.actuator.health);
-
-    this.http
-      .get<ActuatorHealthResponse>(url)
-      .pipe(
-        timeout(120000),
-        catchError(() => {
-          return of({ status: 'DOWN' as const });
-        }),
-      )
-      .subscribe((res) => {
-        const isUp = res.status === 'UP';
-        this.status.set(isUp ? 'UP' : 'DOWN');
-        this.isHealthy.set(isUp);
-        this.lastChecked.set(new Date());
-      });
-  }
-
-  private startHealthPolling(): void {
-    timer(0, this.intervalMs)
-      .pipe(
-        exhaustMap(() =>
-          this.http.get<ActuatorHealthResponse>(buildApiUrl(API_ENDPOINTS.actuator.health)).pipe(
-            timeout(120000),
-            catchError(() => of({ status: 'DOWN' })),
-          ),
-        ),
-        takeUntilDestroyed(this.destroyRef),
-      )
-      .subscribe((res) => {
-        const isUp = res.status === 'UP';
-        this.status.set(isUp ? 'UP' : 'DOWN');
-        this.isHealthy.set(isUp);
-        this.lastChecked.set(new Date());
-      });
+    if (this.connectivity.online()) this.manualCheck.next();
   }
 }

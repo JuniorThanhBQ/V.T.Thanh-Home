@@ -2,7 +2,7 @@
   "app": {
     "title": "Website cá nhân",
     "Author": "Văn Trung Thành",
-    "version": "Phiên bản 2.2.3",
+    "version": "Phiên bản 3.0.0",
     "copyright": "Bảo lưu mọi quyền",
     "backend_health_up": "Server đang hoạt động",
     "backend_health_standby": "Đang khởi động Server (ETA: 2 phút)",
@@ -218,5 +218,33 @@
     "disclaimer": "⚠️ Nội dung được tạo bởi AI. Phản hồi không cấu thành bất kỳ lời khuyên nào về mặt pháp lý, tài chính, y tế hay đời sống. Chủ sở hữu website không chịu trách nhiệm cho các quyết định hoặc hệ quả phát sinh từ việc sử dụng chatbot này. Vui lòng cân nhắc khi sử dụng.",
     "connection_error": "Trợ lý tạm thời không khả dụng. Vui lòng thử lại hoặc sử dụng biểu mẫu liên hệ.",
     "rate_limited": "Bạn gửi tin nhắn quá nhanh. Vui lòng đợi rồi thử lại."
+  },
+  "pwa": {
+    "label": "Trạng thái ứng dụng",
+    "offline": "Bạn đang ngoại tuyến",
+    "online": "Dịch vụ trực tuyến sẵn sàng",
+    "unavailable": "Dịch vụ trực tuyến chưa khả dụng",
+    "checking": "Đang kiểm tra dịch vụ…",
+    "ready_checking": "Đang chuẩn bị truy cập ngoại tuyến…",
+    "ready_ready": "Sẵn sàng ngoại tuyến",
+    "ready_incomplete": "Chưa chuẩn bị xong chế độ ngoại tuyến",
+    "ready_unsupported": "Chế độ ngoại tuyến không khả dụng trong phiên này",
+    "retry": "Thử lại",
+    "install": "Cài ứng dụng",
+    "installed": "Đã cài đặt",
+    "install_help": "Cách cài đặt",
+    "install_browser": "Windows và Android: chọn Cài ứng dụng trong menu Chrome hoặc Edge.",
+    "install_safari": "Mac: dùng Chrome hoặc Edge, hoặc Safari → Chia sẻ → Thêm vào Dock trên macOS 14 trở lên.",
+    "portfolio_available": "Trang chủ, Giới thiệu và Dự án dùng được ngoại tuyến sau khi chuẩn bị xong.",
+    "install_failed": "Không thể bắt đầu cài đặt. Hãy thử menu trình duyệt.",
+    "recovery": "Phiên bản này cần tải lại. Hãy kết nối mạng trước.",
+    "update_ready": "Bản cập nhật đã sẵn sàng. Tải lại khi bạn đã hoàn tất.",
+    "reload": "Tải lại ứng dụng",
+    "finish_draft": "Hoàn tất hoặc xóa bản nháp trước khi tải lại. Không có nội dung nào tự động được gửi.",
+    "update_failed": "Không thể kiểm tra hoặc tải bản cập nhật. Ứng dụng hiện tại vẫn mở.",
+    "blog_notice": "Kết nối dịch vụ trực tuyến để đọc nhật ký.",
+    "contact_notice": "Gửi tin cần dịch vụ trực tuyến. Bản nháp được giữ trong thẻ này cho đến khi bạn rời đi hoặc tải lại.",
+    "chat_notice": "Trò chuyện cần dịch vụ trực tuyến. Tin nhắn không tự động được gửi lại.",
+    "send_failed": "Chưa xác nhận được việc gửi. Bản nháp được giữ lại; hãy kết nối và tự thử lại."
   }
 }

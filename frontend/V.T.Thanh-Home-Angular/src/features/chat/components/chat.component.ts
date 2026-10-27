@@ -6,6 +6,7 @@ import {
   computed,
   ViewChild,
   ElementRef,
+  effect,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -15,6 +16,7 @@ import { ThemeService } from '@/shared/services/theme.service';
 import { BackendHealthService } from '@/shared/services/backend-health.service';
 import { MarkdownPipe } from '@/shared/pipes/markdown.pipe';
 import { ChatComponentService } from '../services/chat-component.service';
+import { PendingWorkService } from '@/shared/services/pending-work.service';
 
 @Component({
   selector: 'app-chatbot',
@@ -27,6 +29,7 @@ export class ChatbotComponent implements OnDestroy {
   public theme = inject(ThemeService);
   public health = inject(BackendHealthService);
   public chatService = inject(ChatComponentService);
+  private readonly pendingWork = inject(PendingWorkService);
 
   @ViewChild('messageContainer') private messageContainer?: ElementRef<HTMLDivElement>;
 
@@ -34,13 +37,21 @@ export class ChatbotComponent implements OnDestroy {
   public readonly greetingTime = '11:08 AM';
 
   public isOpen = false;
-  public messageInput = '';
+  private draft = '';
+  public get messageInput(): string {
+    return this.draft;
+  }
+  public set messageInput(value: string) {
+    this.draft = value;
+    this.pendingWork.chatDraft.set(value.trim().length > 0);
+  }
 
   public readonly logoUrl = computed(() =>
     getDynamicLogo(this.i18n.currentLang(), this.theme.currentTheme()),
   );
 
   public healthStatusText = computed(() => {
+    if (!this.health.connectivity.online()) return this.i18n.t('pwa.offline');
     const status = this.health.status();
     if (status === 'UP') {
       return this.i18n.t('chat.status_active');
@@ -52,7 +63,7 @@ export class ChatbotComponent implements OnDestroy {
   });
 
   public inputPlaceholder = computed(() => {
-    if (this.health.status() !== 'UP') {
+    if (!this.health.available()) {
       return this.i18n.t('chat.unavailable');
     }
     return this.i18n.t('chat.input_placeholder');
@@ -63,6 +74,13 @@ export class ChatbotComponent implements OnDestroy {
     'chat.topics.projects',
     'chat.topics.contact',
   ];
+
+  constructor() {
+    effect(() => {
+      const failed = this.chatService.failedMessage();
+      if (failed && !this.messageInput.trim()) this.messageInput = failed;
+    });
+  }
 
   public openChat(): void {
     this.isOpen = true;
@@ -75,14 +93,14 @@ export class ChatbotComponent implements OnDestroy {
   }
 
   public selectTopic(topicKey: string): void {
-    if (this.health.status() !== 'UP') {
+    if (!this.health.available()) {
       return;
     }
     this.messageInput = this.i18n.t(topicKey);
   }
 
   public sendMessage(): void {
-    if (this.health.status() !== 'UP') {
+    if (!this.health.available()) {
       return;
     }
     const trimmed = this.messageInput.trim();
@@ -106,6 +124,7 @@ export class ChatbotComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.pendingWork.chatDraft.set(false);
     document.body.style.overflow = '';
   }
 

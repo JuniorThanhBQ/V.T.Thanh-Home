@@ -2,7 +2,7 @@
   "app": {
     "title": "Persönliche Website",
     "Author": "Van Trung Thanh",
-    "version": "Version 2.2.3",
+    "version": "Version 3.0.0",
     "copyright": "Alle Rechte vorbehalten",
     "backend_health_up": "Server online",
     "backend_health_standby": "Server wird gestartet (voraussichtlich 2 Minuten)",
@@ -218,5 +218,33 @@
     "disclaimer": "⚠️ Dieser Inhalt wurde von KI erstellt. Die Antworten stellen keine rechtliche, finanzielle, medizinische oder persönliche Beratung dar. Der Betreiber dieser Website übernimmt keine Verantwortung für Entscheidungen oder Folgen, die sich aus der Nutzung dieses Chatbots ergeben. Bitte verwenden Sie ihn mit Bedacht.",
     "connection_error": "Der Assistent ist vorübergehend nicht verfügbar. Bitte versuchen Sie es erneut oder nutzen Sie das Kontaktformular.",
     "rate_limited": "Zu viele Nachrichten. Bitte warten Sie, bevor Sie es erneut versuchen."
+  },
+  "pwa": {
+    "label": "App-Status",
+    "offline": "Sie sind offline",
+    "online": "Onlinedienste verfügbar",
+    "unavailable": "Onlinedienste nicht verfügbar",
+    "checking": "Onlinedienste werden geprüft…",
+    "ready_checking": "Offlinezugriff wird vorbereitet…",
+    "ready_ready": "Offline verfügbar",
+    "ready_incomplete": "Offlinevorbereitung unvollständig",
+    "ready_unsupported": "Offlinemodus ist in dieser Sitzung nicht verfügbar",
+    "retry": "Erneut versuchen",
+    "install": "App installieren",
+    "installed": "Installiert",
+    "install_help": "Installationshilfe",
+    "install_browser": "Windows und Android: Im Menü von Chrome oder Edge App installieren auswählen.",
+    "install_safari": "Mac: Chrome oder Edge verwenden, oder Safari → Teilen → Zum Dock hinzufügen ab macOS 14.",
+    "portfolio_available": "Startseite, Über mich und Projekte funktionieren nach der Vorbereitung offline.",
+    "install_failed": "Installation konnte nicht gestartet werden. Versuchen Sie es im Browsermenü.",
+    "recovery": "Diese App-Version muss neu geladen werden. Stellen Sie zuerst eine Verbindung her.",
+    "update_ready": "Ein Update ist bereit. Laden Sie die App neu, wenn Sie fertig sind.",
+    "reload": "App neu laden",
+    "finish_draft": "Beenden oder löschen Sie Ihren Entwurf vor dem Neuladen. Nichts wird automatisch gesendet.",
+    "update_failed": "Updateprüfung oder Download fehlgeschlagen. Die aktuelle App bleibt geöffnet.",
+    "blog_notice": "Verbinden Sie sich mit den Onlinediensten, um das Journal zu lesen.",
+    "contact_notice": "Zum Senden sind Onlinedienste erforderlich. Der Entwurf bleibt bis zum Verlassen oder Neuladen in diesem Tab.",
+    "chat_notice": "Chat benötigt Onlinedienste. Nachrichten werden nicht automatisch erneut gesendet.",
+    "send_failed": "Zustellung nicht bestätigt. Ihr Entwurf bleibt erhalten; verbinden Sie sich und versuchen Sie es manuell erneut."
   }
 }

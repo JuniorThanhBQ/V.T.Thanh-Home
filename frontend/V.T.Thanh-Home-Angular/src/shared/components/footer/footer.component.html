@@ -1,4 +1,6 @@
 <footer
+  [attr.data-pwa-readiness]="pwa.readiness()"
+  [attr.data-connection-state]="health.connectionState()"
   class="border-t border-slate-200 dark:border-slate-800 bg-white/85 dark:bg-slate-900/75 backdrop-blur-md py-4 sm:py-3.5 text-xs text-slate-600 dark:text-slate-400 transition-colors duration-300"
 >
   <div
@@ -68,7 +70,7 @@
             d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
           />
         </svg>
-        {{ viewersCount !== null ? viewersCount : '---' }}
+        {{ viewersCount() !== null ? viewersCount() : '---' }}
       </span>
 
       <span class="text-slate-300 dark:text-slate-700 select-none">|</span>
@@ -86,10 +88,7 @@
         rel="noopener noreferrer"
         class="dmca-badge inline-flex items-center"
       >
-        <img
-          src="https://images.dmca.com/Badges/dmca-badge-w100-5x1-10.png?ID=86fd9370-93d9-4b72-81db-0d5609db3396"
-          alt="DMCA.com Protection Status"
-        />
+        <img src="/badges/dmca-badge.png" alt="DMCA.com Protection Status" />
       </a>
     </div>
   </div>

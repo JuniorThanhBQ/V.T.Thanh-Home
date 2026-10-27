@@ -50,8 +50,8 @@
         <div class="flex items-center gap-1.5 mt-0.5">
           <span
             class="w-1.5 h-1.5 rounded-full"
-            [class.bg-emerald-500]="health.status() === 'UP'"
-            [class.dark:bg-emerald-400]="health.status() === 'UP'"
+            [class.bg-emerald-500]="health.available()"
+            [class.dark:bg-emerald-400]="health.available()"
             [class.bg-rose-500]="health.status() === 'DOWN'"
             [class.dark:bg-rose-400]="health.status() === 'DOWN'"
             [class.bg-amber-400]="health.status() === 'UNKNOWN'"
@@ -59,8 +59,8 @@
           ></span>
           <span
             class="text-[9px] font-mono tracking-widest uppercase font-semibold"
-            [class.text-emerald-600]="health.status() === 'UP'"
-            [class.dark:text-emerald-400]="health.status() === 'UP'"
+            [class.text-emerald-600]="health.available()"
+            [class.dark:text-emerald-400]="health.available()"
             [class.text-rose-600]="health.status() === 'DOWN'"
             [class.dark:text-rose-400]="health.status() === 'DOWN'"
             [class.text-amber-600]="health.status() === 'UNKNOWN'"
@@ -124,7 +124,7 @@
             <button
               type="button"
               (click)="selectTopic(topicKey)"
-              [disabled]="health.status() !== 'UP'"
+              [disabled]="!health.available()"
               class="text-[11px] px-2.5 py-1 rounded-lg bg-slate-100/90 dark:bg-slate-900/80 hover:bg-sky-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 hover:text-sky-600 dark:hover:text-white border border-slate-300/70 dark:border-slate-700/60 transition-colors cursor-pointer text-left disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {{ i18n.t(topicKey) }}
@@ -205,13 +205,13 @@
         maxlength="1000"
         [(ngModel)]="messageInput"
         (keydown.enter)="sendMessage()"
-        [disabled]="health.status() !== 'UP' || chatService.isSending()"
+        [disabled]="!health.available() || chatService.isSending()"
         [placeholder]="inputPlaceholder()"
         class="flex-1 px-3.5 py-2.5 rounded-lg bg-white/70 dark:bg-slate-900/70 border border-slate-300/70 dark:border-slate-700/60 text-xs font-mono text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-sky-500 dark:focus:border-sky-400 focus:bg-white dark:focus:bg-slate-950 backdrop-blur-xs transition-all disabled:opacity-60 disabled:cursor-not-allowed"
-        [class.text-center]="health.status() !== 'UP'"
-        [class.placeholder:text-center]="health.status() !== 'UP'"
+        [class.text-center]="!health.available()"
+        [class.placeholder:text-center]="!health.available()"
       />
-      @if (health.status() === 'UP') {
+      @if (health.available()) {
         <button
           type="button"
           (click)="sendMessage()"

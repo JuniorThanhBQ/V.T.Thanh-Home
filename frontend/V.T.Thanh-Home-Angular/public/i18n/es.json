@@ -2,7 +2,7 @@
   "app": {
     "title": "Sitio web personal",
     "Author": "Van Trung Thanh",
-    "version": "Versión 2.2.3",
+    "version": "Versión 3.0.0",
     "copyright": "Reservar todos los derechos",
     "backend_health_up": "Servidor en línea",
     "backend_health_standby": "Iniciando el servidor (tiempo estimado: 2 minutos)",
@@ -218,5 +218,33 @@
     "disclaimer": "⚠️ Contenido generado por AI. Respuestas no constituyen ninguna recomendación legal, financiera, médica o de vida. Propietario del sitio web no se responsabiliza de decisiones o consecuencias que surjan de la utilización de este chatbot. Considerar cuidadosamente su uso.",
     "connection_error": "El asistente no está disponible temporalmente. Inténtalo de nuevo o utiliza el formulario de contacto.",
     "rate_limited": "Demasiados mensajes. Espera antes de volver a intentarlo."
+  },
+  "pwa": {
+    "label": "Estado de la aplicación",
+    "offline": "Sin conexión",
+    "online": "Servicios en línea disponibles",
+    "unavailable": "Servicios en línea no disponibles",
+    "checking": "Comprobando servicios…",
+    "ready_checking": "Preparando acceso sin conexión…",
+    "ready_ready": "Disponible sin conexión",
+    "ready_incomplete": "Preparación sin conexión incompleta",
+    "ready_unsupported": "El modo sin conexión no está disponible en esta sesión",
+    "retry": "Reintentar",
+    "install": "Instalar aplicación",
+    "installed": "Instalada",
+    "install_help": "Cómo instalar",
+    "install_browser": "Windows y Android: selecciona Instalar aplicación en el menú de Chrome o Edge.",
+    "install_safari": "Mac: usa Chrome o Edge, o Safari → Compartir → Añadir al Dock en macOS 14 o posterior.",
+    "portfolio_available": "Inicio, Acerca de y Proyectos funcionan sin conexión al finalizar la preparación.",
+    "install_failed": "No se pudo iniciar la instalación. Prueba el menú del navegador.",
+    "recovery": "Esta versión necesita recargarse. Conéctate primero.",
+    "update_ready": "Hay una actualización lista. Recarga cuando hayas terminado.",
+    "reload": "Recargar aplicación",
+    "finish_draft": "Termina o borra el borrador antes de recargar. No se enviará nada automáticamente.",
+    "update_failed": "Falló la comprobación o descarga. La aplicación actual permanece abierta.",
+    "blog_notice": "Conéctate a los servicios en línea para leer el diario.",
+    "contact_notice": "El envío necesita servicios en línea. El borrador permanece en esta pestaña hasta salir o recargar.",
+    "chat_notice": "El chat necesita servicios en línea. Los mensajes no se reenviarán automáticamente.",
+    "send_failed": "La entrega no está confirmada. El borrador se conserva; conéctate y reintenta manualmente."
   }
 }

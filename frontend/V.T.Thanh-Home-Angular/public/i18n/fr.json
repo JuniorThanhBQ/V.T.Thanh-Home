@@ -2,7 +2,7 @@
   "app": {
     "title": "Site personnel",
     "Author": "Van Trung Thanh",
-    "version": "Version 2.2.3",
+    "version": "Version 3.0.0",
     "copyright": "Tous droits réservés",
     "backend_health_up": "Serveur en ligne",
     "backend_health_standby": "Démarrage du serveur (durée estimée : 2 minutes)",
@@ -218,5 +218,33 @@
     "disclaimer": "⚠️ Ce contenu est généré par une intelligence artificielle. Les réponses ne constituent aucun conseil juridique, financier, médical ou personnel. Le propriétaire du site décline toute responsabilité concernant les décisions prises ou les conséquences résultant de l'utilisation de ce chatbot. Veuillez l'utiliser avec discernement.",
     "connection_error": "L’assistant est temporairement indisponible. Réessayez ou utilisez le formulaire de contact.",
     "rate_limited": "Trop de messages. Veuillez patienter avant de réessayer."
+  },
+  "pwa": {
+    "label": "État de l’application",
+    "offline": "Vous êtes hors ligne",
+    "online": "Services en ligne disponibles",
+    "unavailable": "Services en ligne indisponibles",
+    "checking": "Vérification des services…",
+    "ready_checking": "Préparation de l’accès hors ligne…",
+    "ready_ready": "Disponible hors ligne",
+    "ready_incomplete": "Préparation hors ligne incomplète",
+    "ready_unsupported": "Mode hors ligne indisponible dans cette session",
+    "retry": "Réessayer",
+    "install": "Installer l’application",
+    "installed": "Installée",
+    "install_help": "Comment installer",
+    "install_browser": "Windows et Android : choisissez Installer l’application dans le menu de Chrome ou Edge.",
+    "install_safari": "Mac : utilisez Chrome ou Edge, ou Safari → Partager → Ajouter au Dock sur macOS 14 ou ultérieur.",
+    "portfolio_available": "Accueil, À propos et Projets fonctionnent hors ligne après la préparation.",
+    "install_failed": "Impossible de lancer l’installation. Essayez le menu du navigateur.",
+    "recovery": "Cette version doit être rechargée. Reconnectez-vous d’abord.",
+    "update_ready": "Une mise à jour est prête. Rechargez quand vous avez terminé.",
+    "reload": "Recharger l’application",
+    "finish_draft": "Terminez ou effacez votre brouillon avant de recharger. Rien ne sera envoyé automatiquement.",
+    "update_failed": "La vérification ou le téléchargement a échoué. L’application actuelle reste ouverte.",
+    "blog_notice": "Connectez-vous aux services en ligne pour lire le journal.",
+    "contact_notice": "L’envoi nécessite les services en ligne. Le brouillon reste dans cet onglet jusqu’à sa fermeture ou son rechargement.",
+    "chat_notice": "Le chat nécessite les services en ligne. Aucun message ne sera renvoyé automatiquement.",
+    "send_failed": "Livraison non confirmée. Votre brouillon est conservé ; reconnectez-vous et réessayez manuellement."
   }
 }

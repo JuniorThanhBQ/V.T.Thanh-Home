@@ -1,4 +1,5 @@
-import { Component, inject, computed, ChangeDetectorRef } from '@angular/core';
+import { Component, inject, computed, ChangeDetectorRef, DestroyRef } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TranslationService } from '@/shared/services/translation.service';
@@ -6,6 +7,8 @@ import { BackendHealthService } from '@/shared/services/backend-health.service';
 import { AVATAR_URLS } from '@/assets/cloudinaryUrl';
 import { AppValidators, SecurityValidators } from '@/utils/validators';
 import { ContactApiService } from '../services/contact-api.service';
+import { PendingWorkService } from '@/shared/services/pending-work.service';
+import { PwaLifecycleService } from '@/shared/services/pwa-lifecycle.service';
 
 @Component({
   selector: 'app-contact',
@@ -14,25 +17,29 @@ import { ContactApiService } from '../services/contact-api.service';
   templateUrl: '../templates/contact.component.html',
 })
 export class ContactComponent {
+  public readonly pwa = inject(PwaLifecycleService);
   private cdr = inject(ChangeDetectorRef);
   public submitFailed = false;
   private fb = inject(FormBuilder);
   private contactApi = inject(ContactApiService);
+  private readonly pendingWork = inject(PendingWorkService);
+  private readonly destroyRef = inject(DestroyRef);
   public i18n = inject(TranslationService);
   public health = inject(BackendHealthService);
   public readonly avatarUrls = AVATAR_URLS;
   public isSubmitted = false;
   public submitSuccess = false;
-  public isSubmitting = false;
+  public readonly isSubmitting = this.pendingWork.contactSending;
 
   public isFormDisabled = computed(() => {
-    return this.health.status() !== 'UP' || this.isSubmitting;
+    return this.isSubmitting();
   });
 
   public submitButtonText = computed(() => {
-    if (this.isSubmitting) {
+    if (this.isSubmitting()) {
       return '...';
     }
+    if (!this.health.connectivity.online()) return this.i18n.t('pwa.offline');
     const status = this.health.status();
     if (status === 'UP') {
       return this.i18n.t('contact.form.submit_button');
@@ -58,6 +65,15 @@ export class ContactComponent {
     ],
   });
 
+  constructor() {
+    this.contactForm.valueChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((value) => {
+      this.pendingWork.contactDraft.set(
+        Object.values(value).some((field) => typeof field === 'string' && field.trim().length > 0),
+      );
+    });
+    this.destroyRef.onDestroy(() => this.pendingWork.contactDraft.set(false));
+  }
+
   public isFieldInvalid(field: string): boolean {
     const control = this.contactForm.get(field);
     return !!(control && control.invalid && (control.dirty || control.touched || this.isSubmitted));
@@ -65,7 +81,7 @@ export class ContactComponent {
 
   public onSubmit(): void {
     this.isSubmitted = true;
-    if (this.health.status() !== 'UP' || this.contactForm.invalid || this.isSubmitting) {
+    if (!this.health.available() || this.contactForm.invalid || this.isSubmitting()) {
       this.contactForm.markAllAsTouched();
       return;
     }
@@ -80,25 +96,28 @@ export class ContactComponent {
     };
 
     this.submitFailed = false;
-    this.isSubmitting = true;
+    this.isSubmitting.set(true);
 
-    this.contactApi.submitContact(payload).subscribe({
-      next: () => {
-        this.isSubmitting = false;
-        this.isSubmitted = false;
-        this.submitSuccess = true;
-        this.contactForm.reset();
-        this.cdr.markForCheck();
-        setTimeout(() => {
-          this.submitSuccess = false;
+    this.contactApi
+      .submitContact(payload)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: () => {
+          this.isSubmitting.set(false);
+          this.isSubmitted = false;
+          this.submitSuccess = true;
+          this.contactForm.reset();
           this.cdr.markForCheck();
-        }, 4000);
-      },
-      error: () => {
-        this.isSubmitting = false;
-        this.submitFailed = true;
-        this.cdr.markForCheck();
-      },
-    });
+          setTimeout(() => {
+            this.submitSuccess = false;
+            this.cdr.markForCheck();
+          }, 4000);
+        },
+        error: () => {
+          this.isSubmitting.set(false);
+          this.submitFailed = true;
+          this.cdr.markForCheck();
+        },
+      });
   }
 }

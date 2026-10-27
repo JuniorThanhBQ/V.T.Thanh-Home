@@ -1,0 +1,7 @@
+{
+  "name": "vtthanh-ci-npm",
+  "private": true,
+  "dependencies": {
+    "npm": "12.2.0"
+  }
+}

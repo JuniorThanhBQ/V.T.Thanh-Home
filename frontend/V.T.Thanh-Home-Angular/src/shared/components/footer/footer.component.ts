@@ -1,7 +1,11 @@
-import { Component, inject, signal, computed, DestroyRef, OnInit } from '@angular/core';
+import { Component, inject, signal, computed, DestroyRef } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { toObservable, takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { catchError, of, switchMap, timeout } from 'rxjs';
 import { CommonModule } from '@angular/common';
-import { TranslationService, SupportedLang } from '../../services/translation.service';
-import { BackendHealthService } from '../../services/backend-health.service';
+import { TranslationService, SupportedLang } from '@/shared/services/translation.service';
+import { BackendHealthService } from '@/shared/services/backend-health.service';
+import { PwaLifecycleService } from '@/shared/services/pwa-lifecycle.service';
 
 const LOCALE_TIME_FORMATS: Record<SupportedLang, string> = {
   vi: 'dd/MM/yyyy HH:mm:ss',
@@ -21,13 +25,15 @@ const LOCALE_TIME_FORMATS: Record<SupportedLang, string> = {
   imports: [CommonModule],
   templateUrl: './footer.component.html',
 })
-export class FooterComponent implements OnInit {
+export class FooterComponent {
   public i18n = inject(TranslationService);
   public health = inject(BackendHealthService);
+  public readonly pwa = inject(PwaLifecycleService);
   public currentYear = new Date().getFullYear();
   private destroyRef = inject(DestroyRef);
   public currentTime = signal(new Date());
-  public viewersCount: number | null = null;
+  public readonly viewersCount = signal<number | null>(null);
+  private readonly http = inject(HttpClient);
 
   public timeFormat = computed(() => {
     const lang = this.i18n.currentLang();
@@ -35,6 +41,7 @@ export class FooterComponent implements OnInit {
   });
 
   public healthStatusText = computed(() => {
+    if (!this.health.connectivity.online()) return this.i18n.t('pwa.offline');
     const status = this.health.status();
     if (status === 'UP') {
       return this.i18n.t('app.backend_health_up');
@@ -46,6 +53,21 @@ export class FooterComponent implements OnInit {
   });
 
   constructor() {
+    toObservable(this.health.connectivity.online)
+      .pipe(
+        switchMap((online) =>
+          online
+            ? this.http.get<{ viewers: number }>('/api/viewers').pipe(
+                timeout(10000),
+                catchError(() => of(null)),
+              )
+            : of(null),
+        ),
+        takeUntilDestroyed(this.destroyRef),
+      )
+      .subscribe((data) =>
+        this.viewersCount.set(typeof data?.viewers === 'number' ? data.viewers : null),
+      );
     const timerId = setInterval(() => {
       this.currentTime.set(new Date());
     }, 1000);
@@ -53,18 +75,5 @@ export class FooterComponent implements OnInit {
     this.destroyRef.onDestroy(() => {
       clearInterval(timerId);
     });
-  }
-
-  ngOnInit(): void {
-    fetch('/api/viewers')
-      .then((res) => res.json())
-      .then((data) => {
-        if (typeof data?.viewers === 'number') {
-          this.viewersCount = data.viewers;
-        }
-      })
-      .catch(() => {
-        this.viewersCount = null;
-      });
   }
 }

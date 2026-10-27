@@ -20,7 +20,6 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
-
     steps:
       - name: Fetch Dependabot metadata
         id: metadata

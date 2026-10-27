@@ -49,15 +49,16 @@
                 }
               ],
               "outputHashing": "all",
-            "optimization": {
-              "scripts": true,
-              "styles": {
-                "minify": true,
-                "inlineCritical": false
+              "optimization": {
+                "scripts": true,
+                "styles": {
+                  "minify": true,
+                  "inlineCritical": false
+                },
+                "fonts": true
               },
-              "fonts": true
-            },
-            "subresourceIntegrity": false
+              "subresourceIntegrity": false,
+              "serviceWorker": "ngsw-config.json"
             },
             "development": {
               "optimization": false,
@@ -85,10 +86,7 @@
         "test": {
           "builder": "@angular/build:unit-test",
           "options": {
-            "include": [
-              "../tests/**/*.spec.ts",
-              "**/*.spec.ts"
-            ]
+            "include": ["../tests/**/*.spec.ts", "**/*.spec.ts"]
           }
         },
         "lint": {

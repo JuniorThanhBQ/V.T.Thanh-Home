@@ -2,7 +2,16 @@
   <canvas #bgCanvas class="fixed inset-0 w-full h-full pointer-events-none z-0"></canvas>
 
   <div class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-    @if (selectedPost) {
+    @if (pwa.isStandalone() && !health.connectivity.online()) {
+      <div
+        class="rounded-2xl border border-slate-200 bg-white/80 p-6 text-slate-700 dark:border-slate-800 dark:bg-slate-900/80 dark:text-slate-200"
+        role="status"
+        data-testid="blog-offline-notice"
+      >
+        <h1 class="text-xl font-semibold">{{ i18n.t('navigation.blog') }}</h1>
+        <p class="mt-2">{{ i18n.t('pwa.blog_notice') }}</p>
+      </div>
+    } @else if (selectedPost) {
       <article class="animate-fade-in space-y-2 sm:space-y-3 md:space-y-4">
         <div class="flex items-center justify-between">
           <button

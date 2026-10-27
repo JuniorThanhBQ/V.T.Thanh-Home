@@ -1,0 +1,53 @@
+<section
+  class="mb-4 rounded-xl border border-slate-200 bg-white/80 p-3 text-sm text-slate-700 dark:border-slate-800 dark:bg-slate-900/80 dark:text-slate-200"
+  [attr.aria-label]="i18n.t('pwa.label')"
+>
+  @if (!health.connectivity.online()) {
+    <div class="flex flex-wrap items-center justify-between gap-3">
+      <div class="flex flex-wrap items-center gap-x-4 gap-y-1" role="status" aria-live="polite">
+        <span data-testid="connection-status" class="font-medium">{{
+          i18n.t('pwa.unavailable')
+        }}</span>
+        <span data-testid="offline-readiness" class="text-xs text-slate-500 dark:text-slate-400">{{
+          i18n.t('pwa.ready_' + pwa.readiness())
+        }}</span>
+      </div>
+    </div>
+  }
+  @if (!health.connectivity.online()) {
+    <p class="mt-2 text-xs">{{ i18n.t('pwa.portfolio_available') }}</p>
+  }
+  @if (pwa.installFailed()) {
+    <p class="mt-2 text-xs" role="status">{{ i18n.t('pwa.install_failed') }}</p>
+  }
+  @if (pwa.updateAvailable() || pwa.unrecoverable()) {
+    <div
+      class="mt-3 flex flex-wrap items-center gap-3 border-t border-slate-200 pt-3 dark:border-slate-700"
+      role="status"
+    >
+      <p>{{ i18n.t(pwa.unrecoverable() ? 'pwa.recovery' : 'pwa.update_ready') }}</p>
+      <button
+        type="button"
+        (click)="pwa.reload()"
+        [disabled]="!pwa.canReload()"
+        class="rounded-lg bg-sky-700 px-3 py-1.5 font-medium text-white disabled:cursor-not-allowed disabled:opacity-50"
+      >
+        {{ i18n.t('pwa.reload') }}
+      </button>
+      @if (pwa.pendingWork.hasUnsavedWork()) {
+        <p class="text-xs">{{ i18n.t('pwa.finish_draft') }}</p>
+      }
+    </div>
+  }
+  @if (pwa.updateFailed()) {
+    <p class="mt-2 text-xs" role="status">{{ i18n.t('pwa.update_failed') }}</p>
+    <button
+      type="button"
+      (click)="pwa.checkForUpdate()"
+      [disabled]="!health.connectivity.online() || pwa.checkingUpdate()"
+      class="mt-1 rounded px-2 py-1 text-xs font-medium text-sky-700 disabled:opacity-50 dark:text-sky-300"
+    >
+      {{ i18n.t('pwa.retry') }}
+    </button>
+  }
+</section>

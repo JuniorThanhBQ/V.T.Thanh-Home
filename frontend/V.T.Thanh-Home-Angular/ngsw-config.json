@@ -1,0 +1,94 @@
+{
+  "$schema": "./node_modules/@angular/service-worker/config/schema.json",
+  "index": "/index.html",
+  "assetGroups": [
+    {
+      "name": "app-shell",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "resources": {
+        "files": [
+          "/index.html",
+          "/manifest.webmanifest",
+          "/pwa-resources.json",
+          "/**/*.css$",
+          "/**/*.js$",
+          "!/ngsw-worker.js$",
+          "!/safety-worker.js$",
+          "!/worker-basic.min.js$"
+        ]
+      }
+    },
+    {
+      "name": "portfolio",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "resources": {
+        "files": [
+          "/badges/dmca-badge.png",
+          "/canva/1788869795561_tzooyq.png",
+          "/canva/1788869795561_zviovw.png",
+          "/canva/AIJ-modified_1_xzw6dh.png",
+          "/canva/AIJ_1_-modified_1_afzibo.png",
+          "/canva/AIWritingIndicator_1_zb1c9k.png",
+          "/canva/Blue_and_White_Illustration_Medical_Health_Care_Presentation_1_vawbdq.png",
+          "/canva/Chibi_cagv9g.jpg",
+          "/canva/J-removebg-preview_gi2ejq.png",
+          "/canva/J_10_eh7utx-removebg-preview_bnjtf1.png",
+          "/canva/J_1_h64aqs-removebg-preview_gglohn.png",
+          "/canva/J_2_baq8tz-removebg-preview_xtywqk.png",
+          "/canva/J_3_sg4gr7-removebg-preview_jp08vt.png",
+          "/canva/J_5_nbtgpw-removebg-preview_biprgh.png",
+          "/canva/J_7_ovshvk-removebg-preview_rxh1vr.png",
+          "/canva/J_8_c9exvw-removebg-preview_yh5i2q.png",
+          "/canva/J__11_-removebg-preview_e9xrlv.png",
+          "/canva/Orange_and_Cream_Illustrative_Learning_English_Presentation_mwjyen.png",
+          "/canva/Purple_Red_and_White_Illustrated_Sports_Presentation_xevkzf.png",
+          "/canva/avatar_tcodag.jpg",
+          "/canva/github_logo_icon_229278_zurvhq.webp",
+          "/canva/google_mail_gmail_logo_icon_159346-removebg-preview_eiwzkp.png",
+          "/canva/light-removebg-preview_n3wmaa.png",
+          "/canva/linkedin-logo-linkedin-symbol-linkedin-icon-free-free-vector-removebg-preview_rjzexl.png",
+          "/canva/ou-hcmc_giwmtx.png",
+          "/canva/tweenframe-com__slideshow_4_wemzxw.webp",
+          "/favicon.ico",
+          "/flags/cn.svg",
+          "/flags/de.svg",
+          "/flags/es.svg",
+          "/flags/fr.svg",
+          "/flags/gb.svg",
+          "/flags/jp.svg",
+          "/flags/kr.svg",
+          "/flags/ru.svg",
+          "/flags/vn.svg",
+          "/fonts/InterVariable.woff2",
+          "/i18n/de.json",
+          "/i18n/en.json",
+          "/i18n/es.json",
+          "/i18n/fr.json",
+          "/i18n/ja.json",
+          "/i18n/kr.json",
+          "/i18n/ru.json",
+          "/i18n/vi.json",
+          "/i18n/zh.json",
+          "/icons/apple-touch-icon.png",
+          "/icons/icon-192.png",
+          "/icons/icon-512.png",
+          "/icons/icon-maskable-512.png"
+        ]
+      }
+    }
+  ],
+  "dataGroups": [],
+  "navigationUrls": [
+    "/**",
+    "!/**/*.*",
+    "!/**/*__*",
+    "!/**/*__*/**",
+    "!/api$",
+    "!/api/**",
+    "!/actuator$",
+    "!/actuator/**"
+  ],
+  "navigationRequestStrategy": "performance"
+}

@@ -87,15 +87,15 @@ export class HeaderComponent implements OnDestroy {
   });
 
   public readonly flagUrls: Record<SupportedLang, string> = {
-    vi: 'https://flagcdn.com/vn.svg',
-    en: 'https://flagcdn.com/gb.svg',
-    ja: 'https://flagcdn.com/jp.svg',
-    zh: 'https://flagcdn.com/cn.svg',
-    fr: 'https://flagcdn.com/fr.svg',
-    de: 'https://flagcdn.com/de.svg',
-    es: 'https://flagcdn.com/es.svg',
-    ru: 'https://flagcdn.com/ru.svg',
-    kr: 'https://flagcdn.com/kr.svg',
+    vi: '/flags/vn.svg',
+    en: '/flags/gb.svg',
+    ja: '/flags/jp.svg',
+    zh: '/flags/cn.svg',
+    fr: '/flags/fr.svg',
+    de: '/flags/de.svg',
+    es: '/flags/es.svg',
+    ru: '/flags/ru.svg',
+    kr: '/flags/kr.svg',
   };
 
   public currentLangOption = () =>

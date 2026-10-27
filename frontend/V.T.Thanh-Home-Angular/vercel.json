@@ -40,7 +40,7 @@
         },
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; base-uri 'self'; object-src 'none'; frame-src https://vercel.live https://challenges.cloudflare.com; frame-ancestors 'none'; form-action 'self'; script-src 'self' https://challenges.cloudflare.com https://va.vercel-scripts.com https://vercel.live; script-src-attr 'none'; style-src 'self' 'unsafe-inline' https://vercel.live; img-src 'self' data: https://res.cloudinary.com https://images.unsplash.com https://flagcdn.com https://vercel.live https://vercel.com https://images.dmca.com; font-src 'self' data: https://vercel.live https://assets.vercel.com; connect-src 'self' https://o4512320619544576.ingest.us.sentry.io https://challenges.cloudflare.com https://vtthanh-backend-latest.onrender.com https://vitals.vercel-insights.com https://vercel.live wss://ws-us3.pusher.com; upgrade-insecure-requests;"
+          "value": "default-src 'self'; base-uri 'self'; object-src 'none'; worker-src 'self'; frame-src https://vercel.live https://challenges.cloudflare.com; frame-ancestors 'none'; form-action 'self'; script-src 'self' https://challenges.cloudflare.com https://va.vercel-scripts.com https://vercel.live; script-src-attr 'none'; style-src 'self' 'unsafe-inline' https://vercel.live; img-src 'self' data: https://res.cloudinary.com https://images.unsplash.com https://flagcdn.com https://vercel.live https://vercel.com https://images.dmca.com; font-src 'self' data: https://vercel.live https://assets.vercel.com; connect-src 'self' https://o4512320619544576.ingest.us.sentry.io https://challenges.cloudflare.com https://vtthanh-backend-latest.onrender.com https://vitals.vercel-insights.com https://vercel.live wss://ws-us3.pusher.com; upgrade-insecure-requests;"
         }
       ]
     },
@@ -164,6 +164,55 @@
           "value": "private, no-store"
         }
       ]
+    },
+    {
+      "source": "/(ngsw-worker[.]js|ngsw[.]json|pwa-resources[.]json|safety-worker[.]js|worker-basic[.]min[.]js|manifest[.]webmanifest)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, max-age=0, must-revalidate"
+        },
+        {
+          "key": "CDN-Cache-Control",
+          "value": "no-store"
+        }
+      ]
+    },
+    {
+      "source": "/ngsw-worker.js",
+      "headers": [
+        {
+          "key": "Service-Worker-Allowed",
+          "value": "/"
+        }
+      ]
+    },
+    {
+      "source": "/manifest.webmanifest",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/manifest+json; charset=utf-8"
+        }
+      ]
+    },
+    {
+      "source": "/(canva|flags|badges|fonts|icons|i18n)/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/((?!api(?:/|$)|actuator(?:/|$)|canva(?:/|$)|flags(?:/|$)|badges(?:/|$)|fonts(?:/|$)|icons(?:/|$)|i18n(?:/|$)|.*[.]).*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
+      ]
     }
   ],
   "rewrites": [
@@ -187,8 +236,11 @@
       "destination": "https://vtthanh-backend-latest.onrender.com/actuator/:path*"
     },
     {
-      "source": "/((?!api/|actuator/|robots[.]txt$|llms[.]txt$|sitemap[.]xml$).*)",
+      "source": "/((?!api(?:/|$)|actuator(?:/|$)|canva(?:/|$)|flags(?:/|$)|badges(?:/|$)|fonts(?:/|$)|icons(?:/|$)|i18n(?:/|$)|.*[.]).*)",
       "destination": "/index.html"
     }
-  ]
+  ],
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist/V.T.Thanh-Home-Angular/browser",
+  "installCommand": "npx --yes npm@12.2.0 ci --include=dev --no-audit --no-fund"
 }

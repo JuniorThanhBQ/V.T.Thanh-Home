@@ -1,7 +1,9 @@
 import { TurnstileService } from '@/shared/services/turnstile.service';
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, switchMap, timeout, catchError, throwError, tap } from 'rxjs';
+import { Observable, switchMap, timeout, catchError, throwError, tap, finalize } from 'rxjs';
+import { ConnectivityService } from '@/shared/services/connectivity.service';
+import { PendingWorkService } from '@/shared/services/pending-work.service';
 import { VisitorService } from '@/shared/services/visitor.service';
 import { API_ENDPOINTS, buildApiUrl } from '@/configs/apis';
 
@@ -28,6 +30,8 @@ export class ContactApiService {
   private http = inject(HttpClient);
   private turnstile = inject(TurnstileService);
   private visitor = inject(VisitorService);
+  private connectivity = inject(ConnectivityService);
+  private pendingWork = inject(PendingWorkService);
 
   public submitContact(payload: ContactPayload): Observable<ContactReceiptResponse> {
     const signature = JSON.stringify(payload);
@@ -42,6 +46,8 @@ export class ContactApiService {
           .post<ContactReceiptResponse>(url, { ...payload, turnstileToken, idempotencyKey })
           .pipe(timeout(65000)),
       ),
+      this.connectivity.requireOnline(),
+      finalize(() => this.pendingWork.contactSending.set(false)),
       tap(() => {
         this.pending = undefined;
       }),

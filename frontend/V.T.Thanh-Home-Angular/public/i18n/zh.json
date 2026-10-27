@@ -2,7 +2,7 @@
   "app": {
     "title": "个人网站",
     "Author": "文忠诚",
-    "version": "版本 2.2.3",
+    "version": "版本 3.0.0",
     "copyright": "保留所有权利",
     "backend_health_up": "服务器运行中。",
     "backend_health_standby": "正在启动服务器（预计耗时：2分钟）",
@@ -218,5 +218,33 @@
     "disclaimer": "⚠️ 此内容由人工智能生成。相关回复不构成任何法律、财务、医疗或生活方面的建议。对于因使用本聊天机器人而作出的决定或产生的后果，网站所有者不承担任何责任。请谨慎参考和使用。",
     "connection_error": "助手暂时不可用，请重试或使用联系表单。",
     "rate_limited": "消息过多，请稍后重试。"
+  },
+  "pwa": {
+    "label": "应用状态",
+    "offline": "当前离线",
+    "online": "在线服务可用",
+    "unavailable": "在线服务不可用",
+    "checking": "正在检查在线服务…",
+    "ready_checking": "正在准备离线访问…",
+    "ready_ready": "可离线使用",
+    "ready_incomplete": "离线准备尚未完成",
+    "ready_unsupported": "当前会话无法使用离线模式",
+    "retry": "重试",
+    "install": "安装应用",
+    "installed": "已安装",
+    "install_help": "安装方法",
+    "install_browser": "Windows 和 Android：在 Chrome 或 Edge 菜单中选择“安装应用”。",
+    "install_safari": "Mac：使用 Chrome 或 Edge，或在 macOS 14 及以上系统中选择 Safari → 共享 → 添加到程序坞。",
+    "portfolio_available": "准备完成后，首页、关于和项目页面可离线使用。",
+    "install_failed": "无法开始安装，请尝试浏览器菜单。",
+    "recovery": "此应用版本需要重新加载，请先连接网络。",
+    "update_ready": "更新已准备就绪，请在完成当前操作后重新加载。",
+    "reload": "重新加载应用",
+    "finish_draft": "重新加载前请完成或清空草稿，不会自动发送任何内容。",
+    "update_failed": "更新检查或下载失败，当前应用仍保持打开。",
+    "blog_notice": "请连接在线服务以阅读日志。",
+    "contact_notice": "发送需要在线服务。离开或重新加载此标签页前，草稿会保留在这里。",
+    "chat_notice": "聊天需要在线服务，不会自动重新发送消息。",
+    "send_failed": "尚未确认送达。草稿已保留，请联网后手动重试。"
   }
 }

@@ -1,6 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, from, of, switchMap, timeout } from 'rxjs';
+import { Observable, of, switchMap, timeout } from 'rxjs';
+import { ConnectivityService } from './connectivity.service';
 
 interface TurnstileApi {
   render(container: HTMLElement, options: Record<string, unknown>): string;
@@ -11,6 +12,7 @@ interface TurnstileApi {
 @Injectable({ providedIn: 'root' })
 export class TurnstileService {
   private http = inject(HttpClient);
+  private connectivity = inject(ConnectivityService);
   private script?: Promise<TurnstileApi>;
 
   public verify(action: 'contact' | 'chat'): Observable<string | undefined> {
@@ -18,9 +20,19 @@ export class TurnstileService {
       timeout(60000),
       switchMap((config) =>
         config.turnstileSiteKey
-          ? from(this.challenge(config.turnstileSiteKey, action))
+          ? new Observable<string>((subscriber) => {
+              const controller = new AbortController();
+              this.challenge(config.turnstileSiteKey, action, controller.signal)
+                .then((token) => {
+                  subscriber.next(token);
+                  subscriber.complete();
+                })
+                .catch((error: unknown) => subscriber.error(error));
+              return () => controller.abort();
+            })
           : of(undefined),
       ),
+      this.connectivity.requireOnline(),
     );
   }
 
@@ -55,21 +67,29 @@ export class TurnstileService {
     return this.script;
   }
 
-  private async challenge(siteKey: string, action: string): Promise<string> {
+  private async challenge(siteKey: string, action: string, signal: AbortSignal): Promise<string> {
     const api = await this.load();
+    if (signal.aborted || !this.connectivity.online())
+      throw new Error('Security verification cancelled');
     return new Promise<string>((resolve, reject) => {
       const container = document.createElement('div');
       container.className = 'fixed bottom-4 left-4 z-[10000]';
       document.body.appendChild(container);
       let id: string | undefined;
+      let finished = false;
       const finish = (token?: string): void => {
+        if (finished) return;
+        finished = true;
+        signal.removeEventListener('abort', cancel);
         clearTimeout(timer);
         if (id) api.remove(id);
         container.remove();
         if (token) resolve(token);
         else reject(new Error('Security verification failed. Please retry.'));
       };
+      const cancel = () => finish();
       const timer = setTimeout(() => finish(), 120000);
+      signal.addEventListener('abort', cancel, { once: true });
       try {
         id = api.render(container, {
           sitekey: siteKey,
@@ -80,7 +100,8 @@ export class TurnstileService {
           'error-callback': () => finish(),
           'expired-callback': () => finish(),
         });
-        api.execute(id);
+        if (finished) api.remove(id);
+        else api.execute(id);
       } catch {
         finish();
       }

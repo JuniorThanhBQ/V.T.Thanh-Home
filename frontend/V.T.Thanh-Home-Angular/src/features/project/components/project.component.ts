@@ -28,8 +28,7 @@ export class ProjectComponent implements AfterViewInit, OnDestroy {
   public readonly defaultProjects: ProjectItem[] = [
     {
       id: 'aijmc',
-      imageUrl:
-        'https://res.cloudinary.com/dfolk8pz2/image/upload/v1786036926/AIJ-modified_1_xzw6dh.png',
+      imageUrl: '/canva/AIJ-modified_1_xzw6dh.png',
       techStack: [
         'FastAPI 0.139+',
         'Next.js 16.2+',
@@ -45,8 +44,7 @@ export class ProjectComponent implements AfterViewInit, OnDestroy {
     },
     {
       id: 'aijmc_jpra',
-      imageUrl:
-        'https://res.cloudinary.com/dfolk8pz2/image/upload/v1790424345/AIJ_1_-modified_1_afzibo.png',
+      imageUrl: '/canva/AIJ_1_-modified_1_afzibo.png',
       techStack: [
         'Python',
         'Streamlit',

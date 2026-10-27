@@ -1,6 +1,7 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, catchError, shareReplay, switchMap, tap, throwError, timeout } from 'rxjs';
+import { ConnectivityService } from './connectivity.service';
 
 export interface VisitorSession {
   registered: boolean;
@@ -9,6 +10,7 @@ export interface VisitorSession {
 @Injectable({ providedIn: 'root' })
 export class VisitorService {
   private readonly http = inject(HttpClient);
+  private readonly connectivity = inject(ConnectivityService);
   private registration?: Observable<VisitorSession>;
   public readonly registered = signal(false);
 
@@ -31,13 +33,14 @@ export class VisitorService {
           }),
         ),
         timeout(65000),
+        this.connectivity.requireOnline(),
         tap(() => this.registered.set(true)),
         catchError((error: unknown) => {
           this.registration = undefined;
           this.registered.set(false);
           return throwError(() => error);
         }),
-        shareReplay({ bufferSize: 1, refCount: false }),
+        shareReplay({ bufferSize: 1, refCount: true }),
       );
     }
     return this.registration;

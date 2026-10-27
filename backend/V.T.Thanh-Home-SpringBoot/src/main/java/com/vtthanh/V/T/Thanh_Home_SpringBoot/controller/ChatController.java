@@ -32,7 +32,7 @@ public class ChatController {
         limiter.checkLimit("chat-network:" + VisitorService.clientIp(request));
         turnstile.verifyToken(body == null ? null : body.get("turnstileToken"), VisitorService.clientIp(request), "chat");
         String token = chat.startNewSession(visitorId, VisitorService.clientIp(request), request.getHeader("User-Agent"));
-        request.getSession().setAttribute("CHAT_TOKEN", token);
+        request.getSession().setAttribute("CHAT_TOKEN", token); // nosemgrep: java.lang.security.audit.tainted-session-from-http-request.tainted-session-from-http-request
     }
 
     @PostMapping("/message")

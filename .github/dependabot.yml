@@ -18,8 +18,6 @@ updates:
           - "patch"
     assignees:
       - "JuniorThanhBQ"
-    reviewers:
-      - "JuniorThanhBQ"
     labels:
       - "dependencies"
     cooldown:
@@ -39,8 +37,6 @@ updates:
         patterns:
           - "eclipse-temurin"
     assignees:
-      - "JuniorThanhBQ"
-    reviewers:
       - "JuniorThanhBQ"
     labels:
       - "dependencies"
@@ -65,8 +61,6 @@ updates:
           - "patch"
     assignees:
       - "JuniorThanhBQ"
-    reviewers:
-      - "JuniorThanhBQ"
     labels:
       - "dependencies"
     cooldown:
@@ -90,8 +84,6 @@ updates:
           - "patch"
     assignees:
       - "JuniorThanhBQ"
-    reviewers:
-      - "JuniorThanhBQ"
     labels:
       - "dependencies"
     cooldown:
@@ -106,7 +98,28 @@ updates:
       timezone: "Asia/Ho_Chi_Minh"
     assignees:
       - "JuniorThanhBQ"
-    reviewers:
+    labels:
+      - "dependencies"
+    cooldown:
+      default-days: 7
+
+  - package-ecosystem: "npm"
+    directory: "/.github/tooling/npm"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "Asia/Ho_Chi_Minh"
+    open-pull-requests-limit: 10
+    groups:
+      npm-toolchain-minor-patch:
+        applies-to: "version-updates"
+        patterns:
+          - "npm"
+        update-types:
+          - "minor"
+          - "patch"
+    assignees:
       - "JuniorThanhBQ"
     labels:
       - "dependencies"
@@ -130,8 +143,6 @@ updates:
           - "minor"
           - "patch"
     assignees:
-      - "JuniorThanhBQ"
-    reviewers:
       - "JuniorThanhBQ"
     labels:
       - "dependencies"

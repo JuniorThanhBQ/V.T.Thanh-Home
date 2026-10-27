@@ -1,36 +1,27 @@
 export const AVATAR_URLS = {
-  light:
-    'https://res.cloudinary.com/dfolk8pz2/image/upload/v1787038092/light-removebg-preview_n3wmaa.png',
-  dark: 'https://res.cloudinary.com/dfolk8pz2/image/upload/v1787040789/J-removebg-preview_gi2ejq.png',
-  dark_en_fr_de_es_kr:
-    'https://res.cloudinary.com/dfolk8pz2/image/upload/v1792326866/J_2_baq8tz-removebg-preview_xtywqk.png',
-  light_en_fr_de_es_kr:
-    'https://res.cloudinary.com/dfolk8pz2/image/upload/v1792326913/J_3_sg4gr7-removebg-preview_jp08vt.png',
-  light_ja:
-    'https://res.cloudinary.com/dfolk8pz2/image/upload/v1792327528/J__11_-removebg-preview_e9xrlv.png',
-  dark_ja:
-    'https://res.cloudinary.com/dfolk8pz2/image/upload/v1792326807/J_1_h64aqs-removebg-preview_gglohn.png',
-  light_zh:
-    'https://res.cloudinary.com/dfolk8pz2/image/upload/v1792326969/J_5_nbtgpw-removebg-preview_biprgh.png',
-  dark_zh:
-    'https://res.cloudinary.com/dfolk8pz2/image/upload/v1792327011/J_7_ovshvk-removebg-preview_rxh1vr.png',
-  light_ru:
-    'https://res.cloudinary.com/dfolk8pz2/image/upload/v1792327096/J_10_eh7utx-removebg-preview_bnjtf1.png',
-  dark_ru:
-    'https://res.cloudinary.com/dfolk8pz2/image/upload/v1792327042/J_8_c9exvw-removebg-preview_yh5i2q.png',
-  avatar: 'https://res.cloudinary.com/dfolk8pz2/image/upload/v1787042717/avatar_tcodag.jpg',
-  ouhcmc: `https://res.cloudinary.com/dfolk8pz2/image/upload/v1785162818/ou-hcmc_giwmtx.png`,
-  gmail: `https://res.cloudinary.com/dfolk8pz2/image/upload/v1787048651/google_mail_gmail_logo_icon_159346-removebg-preview_eiwzkp.png`,
-  github: `https://res.cloudinary.com/dfolk8pz2/image/upload/v1785219389/github_logo_icon_229278_zurvhq.webp`,
-  linkedin: `https://res.cloudinary.com/dfolk8pz2/image/upload/v1787048698/linkedin-logo-linkedin-symbol-linkedin-icon-free-free-vector-removebg-preview_rjzexl.png`,
-  cv_picture_one: `https://res.cloudinary.com/dfolk8pz2/image/upload/v1789540027/1788869795561_tzooyq.png`,
-  cv_picture_two: `https://res.cloudinary.com/dfolk8pz2/image/upload/v1789540034/1788869795561_zviovw.png`,
-  contact_page_background: `https://res.cloudinary.com/dfolk8pz2/image/upload/v1791453900/Chibi_cagv9g.jpg`,
-  erm_project_banner: `https://res.cloudinary.com/dfolk8pz2/image/upload/v1792644436/Orange_and_Cream_Illustrative_Learning_English_Presentation_mwjyen.png`,
-  sport_field_project_banner: `https://res.cloudinary.com/dfolk8pz2/image/upload/v1792644676/Purple_Red_and_White_Illustrated_Sports_Presentation_xevkzf.png`,
-  ai_indicator_project_banner: `https://res.cloudinary.com/dfolk8pz2/image/upload/v1792672151/AIWritingIndicator_1_zb1c9k.png`,
-  mbms_project_banner: `https://res.cloudinary.com/dfolk8pz2/image/upload/v1792672024/Blue_and_White_Illustration_Medical_Health_Care_Presentation_1_vawbdq.png`,
-  about_badge: `https://res.cloudinary.com/dfolk8pz2/image/upload/v1792408748/tweenframe-com__slideshow_4_wemzxw.webp`,
+  light: '/canva/light-removebg-preview_n3wmaa.png',
+  dark: '/canva/J-removebg-preview_gi2ejq.png',
+  dark_en_fr_de_es_kr: '/canva/J_2_baq8tz-removebg-preview_xtywqk.png',
+  light_en_fr_de_es_kr: '/canva/J_3_sg4gr7-removebg-preview_jp08vt.png',
+  light_ja: '/canva/J__11_-removebg-preview_e9xrlv.png',
+  dark_ja: '/canva/J_1_h64aqs-removebg-preview_gglohn.png',
+  light_zh: '/canva/J_5_nbtgpw-removebg-preview_biprgh.png',
+  dark_zh: '/canva/J_7_ovshvk-removebg-preview_rxh1vr.png',
+  light_ru: '/canva/J_10_eh7utx-removebg-preview_bnjtf1.png',
+  dark_ru: '/canva/J_8_c9exvw-removebg-preview_yh5i2q.png',
+  avatar: '/canva/avatar_tcodag.jpg',
+  ouhcmc: `/canva/ou-hcmc_giwmtx.png`,
+  gmail: `/canva/google_mail_gmail_logo_icon_159346-removebg-preview_eiwzkp.png`,
+  github: `/canva/github_logo_icon_229278_zurvhq.webp`,
+  linkedin: `/canva/linkedin-logo-linkedin-symbol-linkedin-icon-free-free-vector-removebg-preview_rjzexl.png`,
+  cv_picture_one: `/canva/1788869795561_tzooyq.png`,
+  cv_picture_two: `/canva/1788869795561_zviovw.png`,
+  contact_page_background: `/canva/Chibi_cagv9g.jpg`,
+  erm_project_banner: `/canva/Orange_and_Cream_Illustrative_Learning_English_Presentation_mwjyen.png`,
+  sport_field_project_banner: `/canva/Purple_Red_and_White_Illustrated_Sports_Presentation_xevkzf.png`,
+  ai_indicator_project_banner: `/canva/AIWritingIndicator_1_zb1c9k.png`,
+  mbms_project_banner: `/canva/Blue_and_White_Illustration_Medical_Health_Care_Presentation_1_vawbdq.png`,
+  about_badge: `/canva/tweenframe-com__slideshow_4_wemzxw.webp`,
 };
 
 export function getDynamicLogo(lang: string, theme: 'light' | 'dark'): string {
