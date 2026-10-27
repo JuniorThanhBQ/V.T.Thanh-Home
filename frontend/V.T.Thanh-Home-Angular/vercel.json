@@ -242,5 +242,5 @@
   ],
   "buildCommand": "npm run build",
   "outputDirectory": "dist/V.T.Thanh-Home-Angular/browser",
-  "installCommand": "npx --yes npm@12.2.0 ci --include=dev --no-audit --no-fund"
+  "installCommand": "npx --yes npm@12.2.1 ci --include=dev --no-audit --no-fund"
 }
