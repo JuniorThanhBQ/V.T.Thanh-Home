@@ -104,9 +104,21 @@ The image vulnerability badge reports image-level Critical (C), High (H), Medium
 > Spanish
 > ![zh](frontend/image/home-es.png)
 
+
+## VII. Progressive Web App
+
+> [!WARNING]
+>
+> V.T.Thanh's beta Progressive Web App (v3.0.0) is available on Microsoft Edge and Google Chrome:
+> ![pwa](frontend/image/pwa.png)
+>
+> ![pwa_guide](frontend/image/pwa_guide.png)
+> Please note that v3.0.0 is highly unstable. We recommend waiting for the main upstream version to be available under the Releases tag.
+
+
 <div align="justify">
 
-## VII. Acknowledge of Vibe Coding
+## VIII. Acknowledge of Vibe Coding
 
 This project is licensed under the MIT License because 90% of the code was written by AI. My role was limited to reviewing the output, reporting errors, and requesting corrections. After some consideration, I have decided to make the `AGENTS.md` file and the skills utilized in this project publicly available.
 

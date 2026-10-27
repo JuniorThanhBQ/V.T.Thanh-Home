@@ -30,6 +30,7 @@ function json(response: ServerResponse, data: unknown, status = 200): void {
 export async function startPwaServer() {
   await readFile(join(original, 'ngsw.json'));
   let current = original;
+  let workerPolicy: string | undefined;
   const copies: string[] = [];
   const heldAssets: ServerResponse[] = [];
   const heldOperations: ServerResponse[] = [];
@@ -47,6 +48,15 @@ export async function startPwaServer() {
   const server = createServer(async (request, response) => {
     try {
       const url = new URL(request.url ?? '/', 'http://localhost');
+      if (url.pathname === '/pwa-policy-media') {
+        response.writeHead(200, {
+          'Content-Type': 'text/plain',
+          'Access-Control-Allow-Origin': '*',
+          'Cache-Control': 'no-store',
+        });
+        response.end('worker-policy-media');
+        return;
+      }
       if (url.pathname === '/actuator/health') {
         state.healthRequests++;
         json(response, { status: state.healthy ? 'UP' : 'DOWN' }, state.healthy ? 200 : 503);
@@ -132,6 +142,9 @@ export async function startPwaServer() {
       response.writeHead(200, {
         'Content-Type': types[extname(target)] ?? 'application/octet-stream',
         'Cache-Control': 'no-store',
+        ...(pathname === '/ngsw-worker.js' && workerPolicy
+          ? { 'Content-Security-Policy': workerPolicy }
+          : {}),
       });
       response.end(bytes);
     } catch (error) {
@@ -154,6 +167,7 @@ export async function startPwaServer() {
   };
   return {
     origin: `http://127.0.0.1:${address.port}`,
+    mediaOrigin: `http://localhost:${address.port}`,
     state,
     disconnect,
     async releaseAsset() {
@@ -168,6 +182,37 @@ export async function startPwaServer() {
     },
     releaseOperations() {
       for (const response of heldOperations.splice(0)) json(response, {}, 503);
+    },
+    async publishWorkerPolicy(policy: string, stamp: boolean | 'legacy' = true) {
+      await mkdir(join(projectRoot, '.angular'), { recursive: true });
+      const copy = await mkdtemp(join(projectRoot, '.angular/pwa-e2e-'));
+      copies.push(copy);
+      await cp(current, copy, { recursive: true });
+      const hosting = JSON.parse(await readFile(join(projectRoot, 'vercel.json'), 'utf8'));
+      for (const rule of hosting.headers)
+        for (const header of rule.headers)
+          if (header.key.toLowerCase() === 'content-security-policy') header.value = policy;
+      const hostingPath = join(copy, 'test-worker-policy.json');
+      await writeFile(hostingPath, JSON.stringify(hosting));
+      if (stamp === 'legacy') {
+        await writeFile(
+          join(copy, 'ngsw-worker.js'),
+          await readFile(join(projectRoot, 'node_modules/@angular/service-worker/ngsw-worker.js')),
+        );
+      } else if (stamp) {
+        const generated = spawnSync(
+          process.execPath,
+          [join(projectRoot, 'scripts/stamp-pwa-worker.mjs'), copy, hostingPath],
+          { cwd: projectRoot, encoding: 'utf8', windowsHide: true },
+        );
+        if (generated.status !== 0)
+          throw new Error(generated.stderr || 'Could not stamp worker policy update');
+      }
+      current = copy;
+      workerPolicy = policy;
+      return createHash('sha256')
+        .update(await readFile(join(copy, 'ngsw-worker.js')))
+        .digest('hex');
     },
     async publishTestUpdate() {
       await mkdir(join(projectRoot, '.angular'), { recursive: true });
@@ -197,6 +242,12 @@ export async function startPwaServer() {
       );
       if (generated.status !== 0)
         throw new Error(generated.stderr || 'Could not generate test update');
+      const stamped = spawnSync(
+        process.execPath,
+        [join(projectRoot, 'scripts/stamp-pwa-worker.mjs'), copy],
+        { cwd: projectRoot, encoding: 'utf8', windowsHide: true },
+      );
+      if (stamped.status !== 0) throw new Error(stamped.stderr || 'Could not stamp test update');
       current = copy;
     },
     async stop() {

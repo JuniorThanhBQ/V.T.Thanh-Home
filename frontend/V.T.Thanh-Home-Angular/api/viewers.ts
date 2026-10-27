@@ -7,9 +7,9 @@ export const config = {
 };
 
 export default async function handler(req: Request) {
-  const token = process.env.VERCEL_TOKEN;
-  const projectId = process.env.VERCEL_PROJECT_ID;
-  const teamId = process.env.VERCEL_TEAM_ID;
+  const token = process.env['VERCEL_TOKEN'];
+  const projectId = process.env['VERCEL_PROJECT_ID'];
+  const teamId = process.env['VERCEL_TEAM_ID'];
 
   if (!token || !projectId) {
     return new Response(JSON.stringify({ viewers: null }), {

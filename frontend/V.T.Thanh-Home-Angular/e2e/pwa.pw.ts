@@ -54,7 +54,9 @@ test.beforeEach(async ({ context, page, pwaServer, standalone }) => {
     });
   }
   await context.route('**/*', (route) =>
-    new URL(route.request().url()).origin === pwaServer.origin ? route.continue() : route.abort(),
+    [pwaServer.origin, pwaServer.mediaOrigin].includes(new URL(route.request().url()).origin)
+      ? route.continue()
+      : route.abort(),
   );
 });
 
@@ -372,4 +374,47 @@ test('only shows the offline notice for network loss, not backend downtime', asy
   await connection(page, 'Online services unavailable');
   await expect(page.locator('app-pwa-status')).toHaveCount(0);
   await expect(page.getByTestId('blog-offline-notice')).toHaveCount(0);
+});
+
+test('refreshes an installed worker CSP on configuration changes without clearing drafts or caches', async ({
+  page,
+  pwaServer,
+}) => {
+  pwaServer.state.healthy = true;
+  const oldPolicy = "default-src 'self'; connect-src 'self'";
+  const newPolicy = oldPolicy + ' ' + pwaServer.mediaOrigin;
+  const oldRevision = await pwaServer.publishWorkerPolicy(oldPolicy, 'legacy');
+  await page.goto(pwaServer.origin + '/en/contact');
+  await expect(page.locator('app-footer > footer')).toHaveAttribute('data-pwa-readiness', 'ready', {
+    timeout: 60000,
+  });
+  await settled(page);
+  const draft = page.locator('[formControlName="firstName"]');
+  await draft.fill('Keep this draft');
+  const mediaWorks = () =>
+    page.evaluate(async (url) => {
+      try {
+        const response = await fetch(url);
+        return response.ok && (await response.text()) === 'worker-policy-media';
+      } catch {
+        return false;
+      }
+    }, pwaServer.mediaOrigin + '/pwa-policy-media');
+  const updateWorker = () =>
+    page.evaluate(async () => {
+      const registration = await navigator.serviceWorker.ready;
+      await registration.update();
+    });
+  expect(await mediaWorks()).toBe(false);
+  expect(await pwaServer.publishWorkerPolicy(newPolicy, false)).toBe(oldRevision);
+  await updateWorker();
+  expect(await mediaWorks()).toBe(false);
+  expect(await pwaServer.publishWorkerPolicy(newPolicy)).not.toBe(oldRevision);
+  await updateWorker();
+  await expect.poll(mediaWorks, { timeout: 45000 }).toBe(true);
+  await expect(draft).toHaveValue('Keep this draft');
+  await expect(page.locator('app-footer > footer')).toHaveAttribute('data-pwa-readiness', 'ready');
+  expect(
+    await page.evaluate(() => new URL(navigator.serviceWorker.controller!.scriptURL).pathname),
+  ).toBe('/ngsw-worker.js');
 });

@@ -170,6 +170,9 @@ describe('PWA lifecycle safeguards', () => {
       serviceWorker: Object.assign(new EventTarget(), {
         controller: null,
         ready: new Promise(() => undefined),
+        getRegistration: vi
+          .fn()
+          .mockResolvedValue({ update: vi.fn().mockResolvedValue(undefined) }),
       }),
     });
     versions = new Subject<VersionEvent>();
@@ -232,6 +235,17 @@ describe('PWA lifecycle safeguards', () => {
     window.dispatchEvent(new Event('appinstalled'));
     expect(service.installed()).toBe(true);
     expect(service.isStandalone()).toBe(false);
+  });
+
+  it('refreshes the worker script during online update checks and skips it offline', async () => {
+    const service = TestBed.inject(PwaLifecycleService);
+    const registration = await navigator.serviceWorker.getRegistration();
+    await service.checkForUpdate();
+    expect(registration!.update).toHaveBeenCalledOnce();
+    expect(TestBed.inject(SwUpdate).checkForUpdate).toHaveBeenCalledOnce();
+    window.dispatchEvent(new Event('offline'));
+    await service.checkForUpdate();
+    expect(registration!.update).toHaveBeenCalledOnce();
   });
 
   it('tracks the active standalone window separately from installation', () => {

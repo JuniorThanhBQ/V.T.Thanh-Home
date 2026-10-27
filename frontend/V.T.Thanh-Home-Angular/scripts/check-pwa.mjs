@@ -2,6 +2,7 @@ import { createHash } from 'node:crypto';
 import { readFile, readdir } from 'node:fs/promises';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { workerRevisionSuffix } from './pwa-worker-revision.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const output = join(root, 'dist/V.T.Thanh-Home-Angular/browser');
@@ -71,8 +72,12 @@ for (const file of workerFiles) {
   const packaged = await readFile(
     new URL(import.meta.resolve(`@angular/service-worker/${packageFile}`)),
   );
-  if (!emitted.equals(packaged))
-    failures.push(`Worker differs from the installed Angular package: ${file}`);
+  const expected =
+    file === 'ngsw-worker.js'
+      ? Buffer.concat([packaged, await workerRevisionSuffix(output)])
+      : packaged;
+  if (!emitted.equals(expected))
+    failures.push(`Worker differs from its verified Angular package and deployment revision: ${file}`);
   if (workerManifest.hashTable['/' + file])
     failures.push(`Worker should not cache itself: ${file}`);
 }

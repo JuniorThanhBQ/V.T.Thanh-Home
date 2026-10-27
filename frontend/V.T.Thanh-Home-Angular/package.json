@@ -5,7 +5,7 @@
     "ng": "node scripts/angular.mjs",
     "start": "node scripts/angular.mjs serve",
     "build": "node scripts/angular.mjs build",
-    "postbuild": "node scripts/sentry-sourcemaps.mjs && node scripts/write-pwa-resources.mjs && ngsw-config dist/V.T.Thanh-Home-Angular/browser ngsw-config.json / && npm run check:pwa",
+    "postbuild": "node scripts/sentry-sourcemaps.mjs && node scripts/write-pwa-resources.mjs && ngsw-config dist/V.T.Thanh-Home-Angular/browser ngsw-config.json / && node scripts/stamp-pwa-worker.mjs && npm run check:pwa",
     "watch": "node scripts/angular.mjs build --watch --configuration development",
     "prettier": "prettier --write \"src/**/*.ts\" \"src/**/*.html\" \"src/**/*.css\"",
     "test": "ng test",

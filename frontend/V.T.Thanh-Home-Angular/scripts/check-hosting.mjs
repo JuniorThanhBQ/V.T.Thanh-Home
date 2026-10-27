@@ -47,6 +47,14 @@ assert.match(
   /^application\/manifest\+json/,
 );
 assert.match(headersFor('/').get('content-security-policy'), /worker-src 'self';/);
+const workerCsp = headersFor('/ngsw-worker.js').get('content-security-policy');
+for (const directive of ['connect-src', 'img-src']) {
+  const sources = workerCsp
+    .split(';')
+    .map((part) => part.trim().split(/\s+/))
+    .find((part) => part[0] === directive);
+  assert.ok(sources?.includes('https://res.cloudinary.com'), `${directive} must allow Blog images`);
+}
 for (const pathname of [
   ...metadata,
   ...inventory.required,

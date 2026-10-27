@@ -213,6 +213,8 @@ export class PwaLifecycleService {
     this.checkingUpdate.set(true);
     this.updateFailed.set(false);
     try {
+      const registration = await navigator.serviceWorker.getRegistration();
+      if (registration) await registration.update();
       await this.updates.checkForUpdate();
     } catch {
       this.updateFailed.set(true);
