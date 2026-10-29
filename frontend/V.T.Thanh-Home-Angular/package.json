@@ -32,7 +32,6 @@
     "@sentry/angular": "^11.9.0",
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.0.0",
-    "botid": "^1.5.11",
     "dompurify": "^3.4.17",
     "marked": "^18.1.1",
     "rxjs": "~7.8.0",
