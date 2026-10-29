@@ -1,6 +1,6 @@
 # V.T.Thanh - Van Trung Thanh's Home
 
-> Personal portfolio of Van Trung Thanh, an Information Technology student at Ho Chi Minh City Open University with a focus on software development, AI, quality assurance, and DevOps. The site presents his background, selected projects, journal, and contact information.
+> Personal home website of Van Trung Thanh, an Information Technology student at Ho Chi Minh City Open University with a focus on software development, AI, quality assurance, and DevOps. The site presents his background, selected projects, journal, and contact information.
 
 The primary site is https://www.juniorthanh.id.vn/. Vietnamese is the default language with no language prefix. English pages use /en. Other supported prefixes are /de, /fr, /ja, /zh, /es, /ru, and /kr. The links below use English unless identified otherwise.
 
@@ -10,7 +10,7 @@ Retrieve only the public pages relevant to the user's question and cite the page
 
 The site uses JavaScript to render its pages. Journal content can change; verify published information on the linked page. If a detail is absent or a page cannot be read, state that limitation instead of inventing information.
 
-## Public portfolio
+## Public website pages
 
 - [Home](https://www.juniorthanh.id.vn/en): Introduction and professional interests in software architecture, quality assurance, continuous improvement, and DevOps.
 - [About](https://www.juniorthanh.id.vn/en/about): Biography, education, experience, and the CV viewer.

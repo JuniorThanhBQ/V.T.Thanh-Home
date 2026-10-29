@@ -1,76 +1,23 @@
-# Security Policy Template
-
-This is a template SECURITY.md file you can add to your repository after enabling security features.
-
----
-
 # Security Policy
-
-## Reporting a Vulnerability
-
-I take the security of this project seriously. If you discover a security vulnerability, please report it responsibly.
-
-### How to Report
-
-**For security vulnerabilities, please DO NOT open a public issue.**
-
-Instead, please report security vulnerabilities through one of the following methods:
-
-1. **Private Vulnerability Reporting** (Recommended)
-   - Go to the [Security Advisories](../../security/advisories) page
-   - Click "Report a vulnerability"
-   - Provide detailed information about the vulnerability
-
-2. **Email**
-   - Send details to: [thanh.vantrung2005@gmail.com]
-   - Include "SECURITY" in the subject line
-
-### What to Include
-
-Please include the following information in your report:
-
-- Description of the vulnerability
-- Steps to reproduce the issue
-- Potential impact
-- Suggested fix (if you have one)
-
-### Response Timeline
-
-- I will acknowledge receipt of your report within 48 hours
-- I will provide a detailed response within 7 days
-- I will keep you informed of our progress
-- I will credit you in the fix announcement (unless you prefer to remain anonymous)
 
 ## Supported Versions
 
-| Version | Supported |
-| ------- | --------- |
-| latest  | ✅ Yes    |
-| older   | ❌ No     |
+I actively monitor and patch security vulnerabilities. The following versions are currently supported:
 
-## Security Features
+| Version  | Supported          |
+| -------  | ------------------ |
+| v3.0.x   | WPA Major Change   |
+| > v2.x.x | Long-term support  |
 
-This repository has the following security features enabled:
+## Reporting a Vulnerability
 
-- ✅ Branch Protection
-- ✅ Private Vulnerability Reporting
-- ✅ Secret Scanning with Push Protection
-- ✅ Dependabot Security Updates
-- ✅ Code Scanning (CodeQL) including Actions workflow security
+If you discover a security vulnerability within this project, please do **not** open a public issue. Instead, help me protect the community by disclosing it responsibly.
 
-## Security Best Practices
+Please send vulnerability reports to the repository owner. When reporting, please provide:
+1. A clear description of the vulnerability.
+2. Steps, script, or proof of concept (PoC) to reproduce the vulnerability.
+3. The potential impact of the issue.
 
-When contributing to this project:
+Email: thanh.vantrung2005@gmail.com
 
-- Never commit secrets (API keys, passwords, tokens)
-- Keep dependencies up to date
-- Follow secure coding practices
-- Review Dependabot alerts and PRs promptly
-
-## Questions?
-
-If you have questions about this security policy, please open a discussion or contact the maintainers.
-
----
-
-Thank you for helping keep this project secure! 🔒
+I will review your report, acknowledge receipt within 72 hours, and work with you to coordinate a secure resolution and release window.

@@ -81,22 +81,6 @@
       ]
     },
     {
-      "source": "/",
-      "has": [
-        {
-          "type": "header",
-          "key": "accept",
-          "value": "^text/markdown$"
-        }
-      ],
-      "headers": [
-        {
-          "key": "Content-Type",
-          "value": "text/markdown; charset=utf-8"
-        }
-      ]
-    },
-    {
       "source": "/index.html",
       "headers": [
         {
@@ -217,17 +201,6 @@
     }
   ],
   "rewrites": [
-    {
-      "source": "/",
-      "has": [
-        {
-          "type": "header",
-          "key": "accept",
-          "value": "^text/markdown$"
-        }
-      ],
-      "destination": "/llms.txt"
-    },
     {
       "source": "/api/v1/:path*",
       "destination": "https://vtthanh-backend-latest.onrender.com/api/v1/:path*"
