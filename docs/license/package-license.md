@@ -58,13 +58,14 @@ Evidence links point to versioned package metadata, Maven POMs, or immutable act
 
 Location: `frontend/V.T.Thanh-Home-Angular/package.json` and `frontend/V.T.Thanh-Home-Angular/package-lock.json`. `@types/dompurify` is no longer a direct dependency and has been removed from this matrix. `@sentry/cli` is a build tool under FSL-1.1-MIT, distinct from the MIT Sentry SDKs and the separately downloaded `sentry` agent CLI.
 
-## Explicit npm overrides and CI bootstrap
+## Explicit npm overrides
 
 | Package | Resolved version | Location / purpose | License / evidence | Status |
 | :--- | :--- | :--- | :--- | :--- |
 | `vite` | `8.3.5` | `frontend/V.T.Thanh-Home-Angular/package.json`; override beneath `@angular/build` | [MIT](https://registry.npmjs.org/vite/8.3.5) | No apparent conflict |
 | `path-to-regexp` | `6.3.0` | `frontend/V.T.Thanh-Home-Angular/package.json`; override beneath `@vercel/routing-utils` | [MIT](https://registry.npmjs.org/path-to-regexp/6.3.0) | No apparent conflict |
-| `npm` | `12.2.1` | `.github/tooling/npm/package.json` and lockfile; CI npm bootstrap | [Artistic-2.0](https://registry.npmjs.org/npm/12.2.1) | No apparent conflict |
+
+npm is supplied by the selected CI or hosting runtime rather than a separately locked repository dependency. Its primary license is [Artistic-2.0](https://github.com/npm/cli/blob/latest/LICENSE), with separately licensed bundled components.
 
 ## Backend direct dependencies
 
@@ -173,7 +174,7 @@ All workflow paths above are relative to `.github/workflows/`. The `init`, `anal
 | `Trivy` | scripts/app-security-audit.sh uses local CLI or digest-pinned aquasec/trivy; CI uses trivy-action | [Apache-2.0 upstream; exact image contents not inventoried](https://github.com/aquasecurity/trivy/blob/main/LICENSE) | Review |
 | `Semgrep` | scripts/app-security-audit.sh uses local CLI or digest-pinned semgrep/semgrep; --config auto | [LGPL-2.1 engine upstream; rules and commercial components have separate terms](https://github.com/semgrep/semgrep/blob/develop/LICENSE) | Review |
 | `ZAP` | scripts/app-security-audit.sh uses digest-pinned ghcr.io/zaproxy/zaproxy; CI action-baseline | [Apache-2.0 upstream; add-ons and image contents separately licensed](https://github.com/zaproxy/zaproxy/blob/main/LICENSE) | Review |
-| `Node.js` | Node 24.x; CI 24.22.1; npm 12.2.1 is listed separately above | [MIT primary license with bundled third-party notices](https://github.com/nodejs/node/blob/v24.22.1/LICENSE) | No apparent conflict |
+| `Node.js` | Node 24.x; CI 24.x; npm provided by the selected platform runtime | [MIT for Node.js; bundled third-party notices](https://github.com/nodejs/node/blob/v24.22.1/LICENSE) | No apparent conflict |
 | `Python` | pyproject.toml requires >=3.14; scripts also call python3 | [PSF-2.0 and included third-party notices](https://docs.python.org/3.14/license.html) | No apparent conflict |
 | `Go` | go.mod selects 1.27.1 | [BSD-3-Clause primary license and third-party notices](https://go.dev/LICENSE) | No apparent conflict |
 | `Eclipse Temurin / OpenJDK` | backend/Dockerfile: digest-pinned 25-jdk-noble build and 25-jre-noble runtime | [GPL-2.0 WITH Classpath-exception-2.0 for OpenJDK; image includes separately licensed Ubuntu packages](https://openjdk.org/legal/gplv2+ce.html) | Review |
@@ -217,4 +218,4 @@ A skill’s instructions, the CLI it invokes, and the runtime used to install it
 
 Regenerate or review this inventory whenever manifests, lockfiles, workflow action refs, pre-commit revisions, scanner images, or vendored assets change. Recheck it before publishing a release or redistributing build images/tools. Use the committed locks for resolved versions and version-specific publisher metadata for license evidence. A full release audit should enumerate the omitted transitive dependencies and image packages and verify the notices actually shipped.
 
-This update was checked against all direct frontend entries, npm overrides, CI bootstrap npm, backend direct dependencies and build constraints, Python/Go manifests, configured hook repositories, and unique external workflow repository/ref pairs. Codegraph was queried before editing; configuration and lockfiles were inspected directly because the graph does not provide a dependency-license inventory. Context7 returned current Sentry documentation distinguishing the two CLIs, but no matching version-specific license coverage; the versioned published license files take precedence. No dependency installations, builds, application changes, or lockfile regeneration were required.
+This update was checked against all direct frontend entries, npm overrides, platform-provided npm, backend direct dependencies and build constraints, Python/Go manifests, configured hook repositories, and unique external workflow repository/ref pairs. Codegraph was queried before editing; configuration and lockfiles were inspected directly because the graph does not provide a dependency-license inventory. Context7 returned current Sentry documentation distinguishing the two CLIs, but no matching version-specific license coverage; the versioned published license files take precedence. No dependency installations, builds, application changes, or lockfile regeneration were required.

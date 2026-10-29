@@ -86,17 +86,14 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 #v7.1.0
         with:
-          node-version: "24.22.1"
+          node-version: "24.x"
           cache: "npm"
-          cache-dependency-path: |
-            .github/tooling/npm/package-lock.json
-            frontend/V.T.Thanh-Home-Angular/package-lock.json
+          cache-dependency-path: frontend/V.T.Thanh-Home-Angular/package-lock.json
 
-      - name: Use the pinned frontend package manager
+      - name: Report Node.js and npm versions
         run: |
-          npm ci --prefix .github/tooling/npm --ignore-scripts --no-audit --no-fund
-          node .github/tooling/npm/verify.mjs
-          echo "$GITHUB_WORKSPACE/.github/tooling/npm/node_modules/.bin" >> "$GITHUB_PATH"
+          node --version
+          npm --version
 
       - name: Lint Backend
         run: |
@@ -108,7 +105,7 @@ jobs:
 
       - name: Lint Frontend
         run: |
-          npm --prefix frontend/V.T.Thanh-Home-Angular ci
+          npm --prefix frontend/V.T.Thanh-Home-Angular ci --include=dev --no-audit --no-fund
           npm --prefix frontend/V.T.Thanh-Home-Angular run lint
 
       - name: Frontend regression tests
@@ -135,16 +132,13 @@ jobs:
       - name: Set up Node.js and Build Angular Production Bundle
         uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 #v7.1.0
         with:
-          node-version: "24.22.1"
+          node-version: "24.x"
           cache: "npm"
-          cache-dependency-path: |
-            .github/tooling/npm/package-lock.json
-            frontend/V.T.Thanh-Home-Angular/package-lock.json
-      - name: Use the pinned frontend package manager
+          cache-dependency-path: frontend/V.T.Thanh-Home-Angular/package-lock.json
+      - name: Report Node.js and npm versions
         run: |
-          npm ci --prefix .github/tooling/npm --ignore-scripts --no-audit --no-fund
-          node .github/tooling/npm/verify.mjs
-          echo "$GITHUB_WORKSPACE/.github/tooling/npm/node_modules/.bin" >> "$GITHUB_PATH"
+          node --version
+          npm --version
 
       - name: Build Angular Production Bundle
         env:
@@ -154,7 +148,7 @@ jobs:
             echo "::error::Set the repository Actions secret SENTRY_DSN to the Angular project's DSN"
             exit 1
           fi
-          npm --prefix frontend/V.T.Thanh-Home-Angular ci
+          npm --prefix frontend/V.T.Thanh-Home-Angular ci --include=dev --no-audit --no-fund
           npm --prefix frontend/V.T.Thanh-Home-Angular run build
 
       - name: Install pinned Chromium and system dependencies

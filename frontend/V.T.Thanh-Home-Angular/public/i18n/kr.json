@@ -2,7 +2,7 @@
   "app": {
     "title": "개인 웹사이트",
     "Author": "문중성",
-    "version": "버전 3.0.0",
+    "version": "버전 3.0.1",
     "copyright": "모든 권리 보유.",
     "backend_health_up": "서버 정상 작동 중",
     "backend_health_standby": "서버 시작 중 (예상 소요 시간: 2분)",

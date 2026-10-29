@@ -1,6 +1,6 @@
 {
   "name": "v.t.thanh-home-angular",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "scripts": {
     "ng": "node scripts/angular.mjs",
     "start": "node scripts/angular.mjs serve",
@@ -20,7 +20,6 @@
     "probe:pwa": "node scripts/probe-pwa.mjs"
   },
   "private": true,
-  "packageManager": "npm@12.2.1",
   "dependencies": {
     "@angular/common": "^22.2.2",
     "@angular/compiler": "^22.2.2",
@@ -75,7 +74,6 @@
     }
   },
   "engines": {
-    "node": "24.x",
-    "npm": "12.2.x"
+    "node": "24.x"
   }
 }

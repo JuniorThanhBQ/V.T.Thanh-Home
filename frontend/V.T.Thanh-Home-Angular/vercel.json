@@ -1,5 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "ignoreCommand": "bash -c 'if [ -n \"$VERCEL_GIT_PREVIOUS_SHA\" ]; then git diff --quiet \"$VERCEL_GIT_PREVIOUS_SHA\" \"$VERCEL_GIT_COMMIT_SHA\" -- .; else exit 1; fi'",
   "cleanUrls": false,
   "trailingSlash": false,
   "headers": [
@@ -241,6 +242,5 @@
     }
   ],
   "buildCommand": "npm run build",
-  "outputDirectory": "dist/V.T.Thanh-Home-Angular/browser",
-  "installCommand": "npx --yes npm@12.2.1 ci --include=dev --no-audit --no-fund"
+  "outputDirectory": "dist/V.T.Thanh-Home-Angular/browser"
 }

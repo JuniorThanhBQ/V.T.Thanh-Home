@@ -10,10 +10,7 @@ const transformed = getTransformedRoutes(config);
 assert.equal(transformed.error, null, JSON.stringify(transformed.error));
 assert.equal(config.buildCommand, 'npm run build');
 assert.equal(config.outputDirectory, 'dist/V.T.Thanh-Home-Angular/browser');
-assert.equal(
-  config.installCommand,
-  `npx --yes ${pkg.packageManager} ci --include=dev --no-audit --no-fund`,
-);
+assert.equal(config.installCommand, undefined);
 assert.equal(pkg.engines.node, '24.x');
 const matches = (rule, pathname) => new RegExp(sourceToRegex(rule.source).src).test(pathname); // nosemgrep: javascript.lang.security.audit.detect-non-literal-regexp.detect-non-literal-regexp
 const headersFor = (pathname) => {
