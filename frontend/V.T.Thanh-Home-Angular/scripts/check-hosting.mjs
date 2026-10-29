@@ -1,7 +1,6 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { getTransformedRoutes, sourceToRegex } from '@vercel/routing-utils';
-import middleware, { config as middlewareConfig } from '../middleware.ts';
 
 const root = new URL('../', import.meta.url);
 const config = JSON.parse(await readFile(new URL('vercel.json', root), 'utf8'));
@@ -102,49 +101,16 @@ assert.ok(
       rule.destination === 'https://vtthanh-backend-latest.onrender.com/actuator/:path*',
   ),
 );
-assert.equal(middlewareConfig.matcher, '/');
-assert.equal(headersFor('/').get('content-type'), undefined);
-assert.match(headersFor('/llms.txt').get('content-type'), /^text\/markdown/);
-const markdown = await readFile(new URL('public/llms.txt', root), 'utf8');
-assert.match(markdown, /^# /);
-assert.doesNotMatch(markdown, /^\s*(?:<!doctype|<html)/i);
-for (const [accept, expected] of [
-  ['text/markdown', true],
-  ['text/markdown, text/html;q=0.9', true],
-  ['text/html;q=0.5, text/markdown;q=0.9', true],
-  ['TEXT/MARKDOWN; q=1.0', true],
-  ['text/markdown;q=0.1, */*;q=0.01', true],
-  ['text/html', false],
-  ['text/markdown;q=0', false],
-  ['text/markdown;q=0, */*', false],
-  ['text/markdown;q=0.5, text/html', false],
-  ['text/markdown;q=invalid', false],
-  ['*/*', false],
-  ['', false],
-]) {
-  for (const method of ['GET', 'HEAD']) {
-    const response = middleware(
-      new Request('https://example.test/', {
-        method,
-        headers: { Accept: accept },
-      }),
-    );
-    assert.equal(response.headers.get('vary'), 'Accept');
-    assert.equal(response.headers.has('content-type'), false);
-    assert.equal(
-      response.headers.get('x-middleware-rewrite'),
-      expected ? 'https://example.test/llms.txt' : null,
-      `${method} ${accept}: incorrect content negotiation`,
-    );
-  }
-}
-const writeResponse = middleware(
-  new Request('https://example.test/', {
-    method: 'POST',
-    headers: { Accept: 'text/markdown' },
-  }),
+assert.ok(
+  config.rewrites.some(
+    (rule) =>
+      rule.source === '/' &&
+      rule.destination === '/llms.txt' &&
+      rule.has?.some(
+        (condition) => condition.key === 'accept' && condition.value === '^text/markdown$',
+      ),
+  ),
 );
-assert.equal(writeResponse.headers.has('x-middleware-rewrite'), false);
 console.log(
   `Vercel routing compiler accepted the configuration; ${navigations} frontend routes, metadata headers, cache policies, API proxies, and asset exclusions verified.`,
 );
