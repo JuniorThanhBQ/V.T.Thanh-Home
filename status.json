@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
   "label": "website",
-  "message": "500 Error",
-  "color": "red"
+  "message": "200 OK",
+  "color": "brightgreen"
 }
