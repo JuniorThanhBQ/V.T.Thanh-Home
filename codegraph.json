@@ -1,0 +1,19 @@
+{
+  "exclude": [
+    "archives/",
+    ".agents/",
+    ".github/tooling/",
+    "reports/",
+    "**/node_modules/",
+    "**/dist/",
+    "**/build/",
+    "**/target/",
+    "**/bin/",
+    "**/.gradle/",
+    "**/.angular/",
+    "**/.venv/",
+    "**/coverage/",
+    "**/playwright-report/",
+    "**/test-results/"
+  ]
+}
