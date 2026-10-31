@@ -69,6 +69,8 @@ for (const pathname of [
   '/robots.txt',
   '/llms.txt',
   '/sitemap.xml',
+  '/.well-known/traffic-advice',
+  '/.well-known/security.txt',
 ]) {
   assert.equal(
     matches(spa[0], pathname),

@@ -141,7 +141,7 @@ describe('AdminService', () => {
 
       const credentials = { username: 'admin', password: 'wrongPassword' };
       service.login(credentials).subscribe({
-        error: () => {},
+        error: () => undefined,
       });
 
       const loginReq = httpMock.expectOne(API_ENDPOINTS.admin.login);

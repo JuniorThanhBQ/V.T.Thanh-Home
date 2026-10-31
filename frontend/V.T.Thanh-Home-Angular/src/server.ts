@@ -11,6 +11,7 @@ const browserDistFolder = join(import.meta.dirname, '../browser');
 
 const app = express();
 const angularApp = new AngularNodeAppEngine({
+  trustProxyHeaders: true,
   allowedHosts: [
     'localhost',
     '127.0.0.1',
@@ -88,11 +89,13 @@ app.use(
     maxAge: 0,
     index: false,
     redirect: false,
+    dotfiles: 'allow',
   }),
 );
 
 app.use((req, res, next) => {
-  if (/\.[^/]+$/.test(new URL(req.originalUrl, 'http://localhost').pathname)) {
+  const pathname = new URL(req.originalUrl, 'http://localhost').pathname;
+  if (/\.[^/]+$/.test(pathname) || pathname.startsWith('/.well-known/')) {
     res.sendStatus(404);
     return;
   }

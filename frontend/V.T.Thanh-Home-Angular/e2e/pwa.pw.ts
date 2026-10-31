@@ -7,7 +7,7 @@ const test = base.extend<{
   pwaServer: Awaited<ReturnType<typeof startPwaServer>>;
 }>({
   standalone: [true, { option: true }],
-  pwaServer: async ({}, use) => {
+  pwaServer: async (_, use) => {
     const server = await startPwaServer();
     try {
       await use(server);

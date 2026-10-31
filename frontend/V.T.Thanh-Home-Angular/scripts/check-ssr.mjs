@@ -68,6 +68,14 @@ try {
   );
   const asset = await fetch(origin + '/missing-ssr-contract.js');
   assert.equal(asset.status, 404);
+  const missingWellKnown = await fetch(origin + '/.well-known/missing-contract');
+  assert.equal(missingWellKnown.status, 404);
+  const trafficAdvice = await fetch(origin + '/.well-known/traffic-advice');
+  assert.equal(trafficAdvice.status, 200);
+  assert.ok((await trafficAdvice.text()).includes('prefetch-proxy'));
+  const securityTxt = await fetch(origin + '/.well-known/security.txt');
+  assert.equal(securityTxt.status, 200);
+  assert.ok((await securityTxt.text()).includes('mailto:'));
   const shell = await fetch(origin + '/index.html');
   assert.equal(shell.status, 200);
   assert.ok(!(await shell.text()).includes('ngh='), 'Offline shell must bootstrap as CSR');

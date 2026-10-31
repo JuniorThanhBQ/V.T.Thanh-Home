@@ -4,7 +4,7 @@ export interface AdminCredentials {
   username: string;
   password: string;
 }
-export interface BlogChapter {
+interface BlogChapter {
   title: string;
   content: string;
   chapterOrder: number;

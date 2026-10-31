@@ -42,6 +42,8 @@ const config = {
     '!/api/**',
     '!/actuator$',
     '!/actuator/**',
+    '!/.well-known/**',
+    '!/.well-known',
   ],
   navigationRequestStrategy: 'freshness',
 };

@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, catchError, shareReplay, switchMap, tap, throwError, timeout } from 'rxjs';
 import { ConnectivityService } from './connectivity.service';
 
-export interface VisitorSession {
+interface VisitorSession {
   registered: boolean;
 }
 

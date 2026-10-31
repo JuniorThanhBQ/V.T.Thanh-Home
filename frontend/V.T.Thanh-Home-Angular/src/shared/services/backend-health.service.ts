@@ -8,7 +8,7 @@ import { API_ENDPOINTS, buildApiUrl } from '@/configs/apis';
 
 export type BackendHealthStatus = 'UP' | 'DOWN' | 'UNKNOWN';
 
-export interface ActuatorHealthResponse {
+interface ActuatorHealthResponse {
   status: 'UP' | 'DOWN' | 'OUT_OF_SERVICE' | 'UNKNOWN' | string;
   components?: Record<string, unknown>;
 }

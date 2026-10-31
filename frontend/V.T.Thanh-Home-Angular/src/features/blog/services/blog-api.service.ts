@@ -18,7 +18,7 @@ export interface BackendBlogSummary {
   updatedDate: string;
 }
 
-export interface BackendBlogChapter {
+interface BackendBlogChapter {
   id?: number;
   title: string;
   content: string;

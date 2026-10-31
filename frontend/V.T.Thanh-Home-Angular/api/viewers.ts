@@ -6,7 +6,7 @@ export const config = {
   runtime: 'edge',
 };
 
-export default async function handler(req: Request) {
+export default async function handler() {
   const token = process.env['VERCEL_TOKEN'];
   const projectId = process.env['VERCEL_PROJECT_ID'];
   const teamId = process.env['VERCEL_TEAM_ID'];

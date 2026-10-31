@@ -16,7 +16,7 @@ export interface ChatMessageUI {
   time: string;
 }
 
-export interface ChatMessageResponse {
+interface ChatMessageResponse {
   messageId: number;
   reply: string;
   timestamp: string;

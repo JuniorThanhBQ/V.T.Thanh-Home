@@ -2,8 +2,8 @@ export type ThemeMode = 'light' | 'dark';
 export type SupportedLang = 'vi' | 'en' | 'zh' | 'ja' | 'fr' | 'de' | 'es' | 'ru' | 'kr';
 
 export const THEME_STORAGE_KEY = 'app_theme';
-export const LANGUAGE_STORAGE_KEY = 'app_language';
-export const SUPPORTED_LANGUAGES: readonly SupportedLang[] = [
+const LANGUAGE_STORAGE_KEY = 'app_language';
+const SUPPORTED_LANGUAGES: readonly SupportedLang[] = [
   'vi',
   'en',
   'zh',
@@ -36,7 +36,7 @@ export function readThemePreference(): ThemeMode | null {
   return isThemeMode(value) ? value : null;
 }
 
-export function readLanguagePreference(): SupportedLang | null {
+function readLanguagePreference(): SupportedLang | null {
   const value = readStoredValue(LANGUAGE_STORAGE_KEY);
   return isSupportedLanguage(value) ? value : null;
 }
@@ -59,7 +59,7 @@ export function saveLanguagePreference(value: SupportedLang): void {
   }
 }
 
-export function preferredBrowserLanguage(): SupportedLang {
+function preferredBrowserLanguage(): SupportedLang {
   if (typeof navigator === 'undefined') return 'vi';
   const languages = navigator.languages?.length ? navigator.languages : [navigator.language];
   for (const language of languages) {

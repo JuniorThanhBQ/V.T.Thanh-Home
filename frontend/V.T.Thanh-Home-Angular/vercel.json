@@ -1,252 +1,278 @@
 {
-  "$schema": "https://openapi.vercel.sh/vercel.json",
-  "ignoreCommand": "bash -c 'if [ -n \"$VERCEL_GIT_PREVIOUS_SHA\" ]; then git diff --quiet \"$VERCEL_GIT_PREVIOUS_SHA\" \"$VERCEL_GIT_COMMIT_SHA\" -- .; else exit 1; fi'",
-  "cleanUrls": false,
-  "trailingSlash": false,
-  "headers": [
-    {
-      "source": "/(.*)",
-      "headers": [
+    "$schema": "https://openapi.vercel.sh/vercel.json",
+    "ignoreCommand": "bash -c \u0027if [ -n \"$VERCEL_GIT_PREVIOUS_SHA\" ]; then git diff --quiet \"$VERCEL_GIT_PREVIOUS_SHA\" \"$VERCEL_GIT_COMMIT_SHA\" -- .; else exit 1; fi\u0027",
+    "cleanUrls": false,
+    "trailingSlash": false,
+    "headers": [
         {
-          "key": "Content-Signal",
-          "value": "search=yes, ai-train=no, ai-input=yes"
+            "source": "/(.*)",
+            "headers": [
+                {
+                    "key": "Content-Signal",
+                    "value": "search=yes, ai-train=no, ai-input=yes"
+                },
+                {
+                    "key": "X-Frame-Options",
+                    "value": "DENY"
+                },
+                {
+                    "key": "Strict-Transport-Security",
+                    "value": "max-age=31536000;"
+                },
+                {
+                    "key": "X-Content-Type-Options",
+                    "value": "nosniff"
+                },
+                {
+                    "key": "Referrer-Policy",
+                    "value": "strict-origin-when-cross-origin"
+                },
+                {
+                    "key": "Permissions-Policy",
+                    "value": "camera=(), microphone=(), geolocation=(), browsing-topics=()"
+                },
+                {
+                    "key": "Cross-Origin-Opener-Policy",
+                    "value": "same-origin"
+                },
+                {
+                    "key": "Cross-Origin-Resource-Policy",
+                    "value": "same-origin"
+                },
+                {
+                    "key": "Content-Security-Policy",
+                    "value": "default-src \u0027self\u0027; base-uri \u0027self\u0027; object-src \u0027none\u0027; worker-src \u0027self\u0027; frame-src https://vercel.live https://challenges.cloudflare.com; frame-ancestors \u0027none\u0027; form-action \u0027self\u0027; script-src \u0027self\u0027 https://challenges.cloudflare.com https://va.vercel-scripts.com https://vercel.live; script-src-attr \u0027none\u0027; style-src \u0027self\u0027 \u0027unsafe-inline\u0027 https://vercel.live; img-src \u0027self\u0027 data: https://res.cloudinary.com https://images.unsplash.com https://flagcdn.com https://vercel.live https://vercel.com https://images.dmca.com; font-src \u0027self\u0027 data: https://vercel.live https://assets.vercel.com; connect-src \u0027self\u0027 https://o4512320619544576.ingest.us.sentry.io https://challenges.cloudflare.com https://res.cloudinary.com https://vtthanh-backend-latest.onrender.com https://vitals.vercel-insights.com https://vercel.live wss://ws-us3.pusher.com; upgrade-insecure-requests;"
+                }
+            ]
         },
         {
-          "key": "X-Frame-Options",
-          "value": "DENY"
+            "source": "/(.*).(js|css)",
+            "headers": [
+                {
+                    "key": "Cache-Control",
+                    "value": "public, max-age=0, must-revalidate"
+                }
+            ]
         },
         {
-          "key": "Strict-Transport-Security",
-          "value": "max-age=31536000;"
+            "source": "/([A-Za-z0-9_-]+-[A-Za-z0-9_-]{8}).(js|css)",
+            "headers": [
+                {
+                    "key": "Cache-Control",
+                    "value": "public, max-age=31536000, immutable"
+                }
+            ]
         },
         {
-          "key": "X-Content-Type-Options",
-          "value": "nosniff"
+            "source": "/",
+            "headers": [
+                {
+                    "key": "Cache-Control",
+                    "value": "public, max-age=0, must-revalidate"
+                },
+                {
+                    "key": "Link",
+                    "value": "\u003c/llms.txt\u003e; rel=\"describedby\"; type=\"text/markdown\", \u003c/sitemap.xml\u003e; rel=\"sitemap\""
+                },
+                {
+                    "key": "Vary",
+                    "value": "Accept"
+                }
+            ]
         },
         {
-          "key": "Referrer-Policy",
-          "value": "strict-origin-when-cross-origin"
+            "source": "/",
+            "has": [
+                {
+                    "type": "header",
+                    "key": "accept",
+                    "value": "^text/markdown$"
+                }
+            ],
+            "headers": [
+                {
+                    "key": "Content-Type",
+                    "value": "text/markdown; charset=utf-8"
+                }
+            ]
         },
         {
-          "key": "Permissions-Policy",
-          "value": "camera=(), microphone=(), geolocation=(), browsing-topics=()"
+            "source": "/index.html",
+            "headers": [
+                {
+                    "key": "Cache-Control",
+                    "value": "public, max-age=0, must-revalidate"
+                },
+                {
+                    "key": "Link",
+                    "value": "\u003c/llms.txt\u003e; rel=\"describedby\"; type=\"text/markdown\", \u003c/sitemap.xml\u003e; rel=\"sitemap\""
+                }
+            ]
         },
         {
-          "key": "Cross-Origin-Opener-Policy",
-          "value": "same-origin"
+            "source": "/robots.txt",
+            "headers": [
+                {
+                    "key": "Content-Type",
+                    "value": "text/plain; charset=utf-8"
+                },
+                {
+                    "key": "Cache-Control",
+                    "value": "public, max-age=0, must-revalidate"
+                }
+            ]
         },
         {
-          "key": "Cross-Origin-Resource-Policy",
-          "value": "same-origin"
+            "source": "/llms.txt",
+            "headers": [
+                {
+                    "key": "Content-Type",
+                    "value": "text/markdown; charset=utf-8"
+                },
+                {
+                    "key": "Cache-Control",
+                    "value": "public, max-age=0, must-revalidate"
+                }
+            ]
         },
         {
-          "key": "Content-Security-Policy",
-          "value": "default-src 'self'; base-uri 'self'; object-src 'none'; worker-src 'self'; frame-src https://vercel.live https://challenges.cloudflare.com; frame-ancestors 'none'; form-action 'self'; script-src 'self' https://challenges.cloudflare.com https://va.vercel-scripts.com https://vercel.live; script-src-attr 'none'; style-src 'self' 'unsafe-inline' https://vercel.live; img-src 'self' data: https://res.cloudinary.com https://images.unsplash.com https://flagcdn.com https://vercel.live https://vercel.com https://images.dmca.com; font-src 'self' data: https://vercel.live https://assets.vercel.com; connect-src 'self' https://o4512320619544576.ingest.us.sentry.io https://challenges.cloudflare.com https://res.cloudinary.com https://vtthanh-backend-latest.onrender.com https://vitals.vercel-insights.com https://vercel.live wss://ws-us3.pusher.com; upgrade-insecure-requests;"
-        }
-      ]
-    },
-    {
-      "source": "/(.*).(js|css)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=0, must-revalidate"
-        }
-      ]
-    },
-    {
-      "source": "/([A-Za-z0-9_-]+-[A-Za-z0-9_-]{8}).(js|css)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=31536000, immutable"
-        }
-      ]
-    },
-    {
-      "source": "/",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=0, must-revalidate"
+            "source": "/sitemap.xml",
+            "headers": [
+                {
+                    "key": "Content-Type",
+                    "value": "application/xml; charset=utf-8"
+                },
+                {
+                    "key": "Cache-Control",
+                    "value": "public, max-age=0, must-revalidate"
+                }
+            ]
         },
         {
-          "key": "Link",
-          "value": "</llms.txt>; rel=\"describedby\"; type=\"text/markdown\", </sitemap.xml>; rel=\"sitemap\""
+            "source": "/actuator/:path*",
+            "headers": [
+                {
+                    "key": "Cache-Control",
+                    "value": "private, no-store"
+                }
+            ]
         },
         {
-          "key": "Vary",
-          "value": "Accept"
-        }
-      ]
-    },
-    {
-      "source": "/",
-      "has": [
-        {
-          "type": "header",
-          "key": "accept",
-          "value": "^text/markdown$"
-        }
-      ],
-      "headers": [
-        {
-          "key": "Content-Type",
-          "value": "text/markdown; charset=utf-8"
-        }
-      ]
-    },
-    {
-      "source": "/index.html",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=0, must-revalidate"
+            "source": "/api/:path*",
+            "headers": [
+                {
+                    "key": "Cache-Control",
+                    "value": "private, no-store"
+                }
+            ]
         },
         {
-          "key": "Link",
-          "value": "</llms.txt>; rel=\"describedby\"; type=\"text/markdown\", </sitemap.xml>; rel=\"sitemap\""
-        }
-      ]
-    },
-    {
-      "source": "/robots.txt",
-      "headers": [
-        {
-          "key": "Content-Type",
-          "value": "text/plain; charset=utf-8"
+            "source": "/(ngsw-worker[.]js|ngsw[.]json|pwa-resources[.]json|safety-worker[.]js|worker-basic[.]min[.]js|manifest[.]webmanifest)",
+            "headers": [
+                {
+                    "key": "Cache-Control",
+                    "value": "no-cache, max-age=0, must-revalidate"
+                },
+                {
+                    "key": "CDN-Cache-Control",
+                    "value": "no-store"
+                }
+            ]
         },
         {
-          "key": "Cache-Control",
-          "value": "public, max-age=0, must-revalidate"
-        }
-      ]
-    },
-    {
-      "source": "/llms.txt",
-      "headers": [
-        {
-          "key": "Content-Type",
-          "value": "text/markdown; charset=utf-8"
+            "source": "/ngsw-worker.js",
+            "headers": [
+                {
+                    "key": "Service-Worker-Allowed",
+                    "value": "/"
+                }
+            ]
         },
         {
-          "key": "Cache-Control",
-          "value": "public, max-age=0, must-revalidate"
-        }
-      ]
-    },
-    {
-      "source": "/sitemap.xml",
-      "headers": [
-        {
-          "key": "Content-Type",
-          "value": "application/xml; charset=utf-8"
+            "source": "/manifest.webmanifest",
+            "headers": [
+                {
+                    "key": "Content-Type",
+                    "value": "application/manifest+json; charset=utf-8"
+                }
+            ]
         },
         {
-          "key": "Cache-Control",
-          "value": "public, max-age=0, must-revalidate"
-        }
-      ]
-    },
-    {
-      "source": "/actuator/:path*",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "private, no-store"
-        }
-      ]
-    },
-    {
-      "source": "/api/:path*",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "private, no-store"
-        }
-      ]
-    },
-    {
-      "source": "/(ngsw-worker[.]js|ngsw[.]json|pwa-resources[.]json|safety-worker[.]js|worker-basic[.]min[.]js|manifest[.]webmanifest)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "no-cache, max-age=0, must-revalidate"
+            "source": "/(canva|flags|badges|fonts|icons|i18n)/(.*)",
+            "headers": [
+                {
+                    "key": "Cache-Control",
+                    "value": "public, max-age=0, must-revalidate"
+                }
+            ]
         },
         {
-          "key": "CDN-Cache-Control",
-          "value": "no-store"
-        }
-      ]
-    },
-    {
-      "source": "/ngsw-worker.js",
-      "headers": [
+            "source": "/((?!api(?:/|$)|actuator(?:/|$)|canva(?:/|$)|flags(?:/|$)|badges(?:/|$)|fonts(?:/|$)|icons(?:/|$)|i18n(?:/|$)|[.]well-known(?:/|$)|.*[.]).*)",
+            "headers": [
+                {
+                    "key": "Cache-Control",
+                    "value": "public, max-age=0, must-revalidate"
+                }
+            ]
+        },
         {
-          "key": "Service-Worker-Allowed",
-          "value": "/"
-        }
-      ]
-    },
-    {
-      "source": "/manifest.webmanifest",
-      "headers": [
+            "source": "/.well-known/traffic-advice",
+            "headers": [
+                {
+                    "key": "Content-Type",
+                    "value": "application/trafficadvice+json; charset=utf-8"
+                },
+                {
+                    "key": "Cache-Control",
+                    "value": "public, max-age=86400, must-revalidate"
+                }
+            ]
+        },
         {
-          "key": "Content-Type",
-          "value": "application/manifest+json; charset=utf-8"
+            "source": "/.well-known/security.txt",
+            "headers": [
+                {
+                    "key": "Content-Type",
+                    "value": "text/plain; charset=utf-8"
+                },
+                {
+                    "key": "Cache-Control",
+                    "value": "public, max-age=86400, must-revalidate"
+                }
+            ]
         }
-      ]
-    },
-    {
-      "source": "/(canva|flags|badges|fonts|icons|i18n)/(.*)",
-      "headers": [
+    ],
+    "rewrites": [
         {
-          "key": "Cache-Control",
-          "value": "public, max-age=0, must-revalidate"
-        }
-      ]
-    },
-    {
-      "source": "/((?!api(?:/|$)|actuator(?:/|$)|canva(?:/|$)|flags(?:/|$)|badges(?:/|$)|fonts(?:/|$)|icons(?:/|$)|i18n(?:/|$)|.*[.]).*)",
-      "headers": [
+            "source": "/",
+            "has": [
+                {
+                    "type": "header",
+                    "key": "accept",
+                    "value": "^text/markdown$"
+                }
+            ],
+            "destination": "/llms.txt"
+        },
         {
-          "key": "Cache-Control",
-          "value": "public, max-age=0, must-revalidate"
+            "source": "/api/v1/:path*",
+            "destination": "https://vtthanh-backend-latest.onrender.com/api/v1/:path*"
+        },
+        {
+            "source": "/actuator/:path*",
+            "destination": "https://vtthanh-backend-latest.onrender.com/actuator/:path*"
+        },
+        {
+            "source": "/((?!api(?:/|$)|actuator(?:/|$)|canva(?:/|$)|flags(?:/|$)|badges(?:/|$)|fonts(?:/|$)|icons(?:/|$)|i18n(?:/|$)|[.]well-known(?:/|$)|.*[.]).*)",
+            "destination": "/api/ssr"
         }
-      ]
+    ],
+    "buildCommand": "npm run build",
+    "outputDirectory": "dist/V.T.Thanh-Home-Angular/browser",
+    "functions": {
+        "api/ssr.mjs": {
+            "includeFiles": "dist/V.T.Thanh-Home-Angular/**",
+            "maxDuration": 30
+        }
     }
-  ],
-  "rewrites": [
-    {
-      "source": "/",
-      "has": [
-        {
-          "type": "header",
-          "key": "accept",
-          "value": "^text/markdown$"
-        }
-      ],
-      "destination": "/llms.txt"
-    },
-    {
-      "source": "/api/v1/:path*",
-      "destination": "https://vtthanh-backend-latest.onrender.com/api/v1/:path*"
-    },
-    {
-      "source": "/actuator/:path*",
-      "destination": "https://vtthanh-backend-latest.onrender.com/actuator/:path*"
-    },
-    {
-      "source": "/((?!api(?:/|$)|actuator(?:/|$)|canva(?:/|$)|flags(?:/|$)|badges(?:/|$)|fonts(?:/|$)|icons(?:/|$)|i18n(?:/|$)|.*[.]).*)",
-      "destination": "/api/ssr"
-    }
-  ],
-  "buildCommand": "npm run build",
-  "outputDirectory": "dist/V.T.Thanh-Home-Angular/browser",
-  "functions": {
-    "api/ssr.mjs": {
-      "includeFiles": "dist/V.T.Thanh-Home-Angular/**",
-      "maxDuration": 30
-    }
-  }
 }
