@@ -2,7 +2,7 @@ import { test as base, expect } from '@playwright/test';
 import { startSsrServer } from './fixtures/ssr-server';
 
 const test = base.extend<{ ssr: Awaited<ReturnType<typeof startSsrServer>> }>({
-  ssr: async (_, use) => {
+  ssr: async ({}, use) => {
     const server = await startSsrServer();
     try {
       await use(server);

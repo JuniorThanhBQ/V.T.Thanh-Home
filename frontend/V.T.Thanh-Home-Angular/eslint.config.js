@@ -33,11 +33,14 @@ module.exports = defineConfig([
     },
   },
   {
+    files: ['e2e/**/*.ts'],
+    rules: {
+      'no-empty-pattern': ['error', { allowObjectPatternsAsParameters: true }],
+    },
+  },
+  {
     files: ['**/*.html'],
-    extends: [
-      ...angular.configs.templateRecommended,
-      ...angular.configs.templateAccessibility,
-    ],
+    extends: [...angular.configs.templateRecommended, ...angular.configs.templateAccessibility],
     rules: {},
   },
 ]);

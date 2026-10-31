@@ -115,6 +115,7 @@ jobs:
       - name: Verify browser test types and hosting configuration
         run: |
           npm --prefix frontend/V.T.Thanh-Home-Angular run typecheck:e2e
+          npm --prefix frontend/V.T.Thanh-Home-Angular run e2e:pwa -- --list
           npm --prefix frontend/V.T.Thanh-Home-Angular run check:hosting
 
   build-check:
@@ -150,6 +151,10 @@ jobs:
           fi
           npm --prefix frontend/V.T.Thanh-Home-Angular ci --include=dev --no-audit --no-fund
           npm --prefix frontend/V.T.Thanh-Home-Angular run build
+
+      - name: Verify SSR without synchronous ESM require support
+        working-directory: frontend/V.T.Thanh-Home-Angular
+        run: npm run check:ssr:compat
 
       - name: Install pinned Chromium and system dependencies
         working-directory: frontend/V.T.Thanh-Home-Angular
