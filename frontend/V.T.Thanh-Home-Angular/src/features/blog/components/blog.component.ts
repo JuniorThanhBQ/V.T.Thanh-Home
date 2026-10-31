@@ -7,11 +7,14 @@ import {
   inject,
   ElementRef,
   ViewChild,
-  AfterViewInit,
+  afterNextRender,
   OnDestroy,
   effect,
+  PLATFORM_ID,
+  TransferState,
+  makeStateKey,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { TranslationService } from '@/shared/services/translation.service';
 import { BackendHealthService } from '@/shared/services/backend-health.service';
 import { PwaLifecycleService } from '@/shared/services/pwa-lifecycle.service';
@@ -36,6 +39,8 @@ export interface BlogPost {
   chapters: BlogChapter[];
 }
 
+const BLOG_STATE = makeStateKey<BlogPost[]>('public-blog-list');
+
 @Component({
   selector: 'app-blog',
   standalone: true,
@@ -43,7 +48,7 @@ export interface BlogPost {
   providers: [BlogShaderService],
   templateUrl: '../templates/blog.component.html',
 })
-export class BlogComponent implements AfterViewInit, OnDestroy {
+export class BlogComponent implements OnDestroy {
   public readonly pwa = inject(PwaLifecycleService);
   public i18n = inject(TranslationService);
   public health = inject(BackendHealthService);
@@ -52,6 +57,8 @@ export class BlogComponent implements AfterViewInit, OnDestroy {
   private cdr = inject(ChangeDetectorRef);
   private destroyRef = inject(DestroyRef);
   private isFetching = false;
+  private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
+  private readonly transferState = inject(TransferState);
 
   @ViewChild('bgCanvas') private canvasRef!: ElementRef<HTMLCanvasElement>;
 
@@ -60,6 +67,9 @@ export class BlogComponent implements AfterViewInit, OnDestroy {
   public posts: BlogPost[] = [];
 
   constructor() {
+    this.posts = this.transferState.get(BLOG_STATE, []);
+    if (!this.isBrowser) this.loadBlogs();
+    afterNextRender(() => this.shaderService.init(this.canvasRef.nativeElement));
     effect(() => {
       if (this.health.available()) {
         this.loadBlogs();
@@ -70,14 +80,14 @@ export class BlogComponent implements AfterViewInit, OnDestroy {
   }
 
   public loadBlogs(): void {
-    if (!this.health.available() || this.isFetching) {
+    if ((this.isBrowser && !this.health.available()) || this.isFetching) {
       return;
     }
     this.isFetching = true;
     this.blogApi
       .getBlogs()
       .pipe(
-        timeout(15000),
+        timeout(this.isBrowser ? 15000 : 5000),
         takeUntilDestroyed(this.destroyRef),
         finalize(() => {
           this.isFetching = false;
@@ -100,6 +110,7 @@ export class BlogComponent implements AfterViewInit, OnDestroy {
           } else {
             this.posts = [];
           }
+          if (!this.isBrowser) this.transferState.set(BLOG_STATE, this.posts);
           this.activePostIndex = 0;
           this.cdr.markForCheck();
         },
@@ -108,12 +119,6 @@ export class BlogComponent implements AfterViewInit, OnDestroy {
           this.cdr.markForCheck();
         },
       });
-  }
-
-  ngAfterViewInit(): void {
-    if (this.canvasRef?.nativeElement) {
-      this.shaderService.init(this.canvasRef.nativeElement);
-    }
   }
 
   ngOnDestroy(): void {

@@ -1,9 +1,11 @@
-import { Injectable, NgZone, inject } from '@angular/core';
+import { Injectable, NgZone, PLATFORM_ID, inject } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import * as THREE from 'three';
 import { applyMobileShaderBackground } from '@/shared/utils/mobile-shader';
 
 @Injectable()
 export class HomeShaderService {
+  private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
   private ngZone = inject(NgZone);
 
   private renderer!: THREE.WebGLRenderer;
@@ -20,6 +22,7 @@ export class HomeShaderService {
   private themeObserver!: MutationObserver;
 
   init(canvas: HTMLCanvasElement): void {
+    if (!this.isBrowser) return;
     if (applyMobileShaderBackground(canvas, 'home')) return;
     const width = window.innerWidth;
     const height = window.innerHeight;
@@ -99,6 +102,7 @@ export class HomeShaderService {
   }
 
   destroy(): void {
+    if (!this.isBrowser) return;
     if (this.animationFrameId !== null) {
       cancelAnimationFrame(this.animationFrameId);
     }

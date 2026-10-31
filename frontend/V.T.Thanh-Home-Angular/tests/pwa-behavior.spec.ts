@@ -252,6 +252,7 @@ describe('PWA lifecycle safeguards', () => {
     const displayMode = Object.assign(new EventTarget(), { matches: true });
     vi.stubGlobal('matchMedia', () => displayMode);
     const service = TestBed.inject(PwaLifecycleService);
+    TestBed.tick();
     expect(service.isStandalone()).toBe(true);
     expect(service.installed()).toBe(true);
     displayMode.matches = false;

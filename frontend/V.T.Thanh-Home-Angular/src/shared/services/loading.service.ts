@@ -1,7 +1,9 @@
-import { Injectable, signal } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Injectable, PLATFORM_ID, DestroyRef, inject, signal } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
 export class LoadingService {
+  private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
   public readonly isLoading = signal<boolean>(true);
   public readonly loadingText = signal<string>('Syncing Core Systems');
 
@@ -12,6 +14,7 @@ export class LoadingService {
   private timeoutHandle: ReturnType<typeof setTimeout> | undefined;
 
   constructor() {
+    inject(DestroyRef).onDestroy(() => clearTimeout(this.timeoutHandle));
     this.armSafetyTimeout();
   }
 
@@ -24,10 +27,15 @@ export class LoadingService {
   }
 
   public hide(): void {
+    if (!this.isBrowser) {
+      this.isLoading.set(false);
+      return;
+    }
+    clearTimeout(this.timeoutHandle);
     const elapsed = performance.now() - this.startTime;
     const remaining = Math.max(0, this.minDuration - elapsed);
 
-    setTimeout(() => {
+    this.timeoutHandle = setTimeout(() => {
       this.isLoading.set(false);
       clearTimeout(this.timeoutHandle);
     }, remaining);
@@ -45,6 +53,7 @@ export class LoadingService {
   }
 
   private armSafetyTimeout(): void {
+    if (!this.isBrowser) return;
     this.timeoutHandle = setTimeout(() => {
       if (this.isLoading()) {
         this.isLoading.set(false);

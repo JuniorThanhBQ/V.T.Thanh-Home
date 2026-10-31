@@ -1,4 +1,5 @@
-import { Component, signal, inject, DestroyRef, computed } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Component, PLATFORM_ID, signal, inject, DestroyRef, computed } from '@angular/core';
 import { toObservable, takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { EMPTY, catchError, switchMap } from 'rxjs';
 import { RouterOutlet } from '@angular/router';
@@ -41,6 +42,7 @@ export class App {
   protected readonly title = signal('V.T.Thanh-Home-Angular');
 
   constructor() {
+    if (!isPlatformBrowser(inject(PLATFORM_ID))) return;
     const visitor = inject(VisitorService);
     toObservable(this.health.available)
       .pipe(

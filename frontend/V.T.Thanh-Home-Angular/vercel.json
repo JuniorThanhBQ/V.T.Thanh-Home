@@ -238,9 +238,15 @@
     },
     {
       "source": "/((?!api(?:/|$)|actuator(?:/|$)|canva(?:/|$)|flags(?:/|$)|badges(?:/|$)|fonts(?:/|$)|icons(?:/|$)|i18n(?:/|$)|.*[.]).*)",
-      "destination": "/index.html"
+      "destination": "/api/ssr"
     }
   ],
   "buildCommand": "npm run build",
-  "outputDirectory": "dist/V.T.Thanh-Home-Angular/browser"
+  "outputDirectory": "dist/V.T.Thanh-Home-Angular/browser",
+  "functions": {
+    "api/ssr.mjs": {
+      "includeFiles": "dist/V.T.Thanh-Home-Angular/**",
+      "maxDuration": 30
+    }
+  }
 }

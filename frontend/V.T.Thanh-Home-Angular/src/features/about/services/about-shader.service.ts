@@ -1,8 +1,10 @@
-import { Injectable, NgZone, inject } from '@angular/core';
+import { Injectable, NgZone, PLATFORM_ID, inject } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { applyMobileShaderBackground } from '@/shared/utils/mobile-shader';
 
 @Injectable()
 export class AboutShaderService {
+  private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
   private ngZone = inject(NgZone);
 
   private canvas!: HTMLCanvasElement;
@@ -30,6 +32,7 @@ export class AboutShaderService {
   private themeObserver!: MutationObserver;
 
   init(canvas: HTMLCanvasElement): void {
+    if (!this.isBrowser) return;
     if (applyMobileShaderBackground(canvas, 'about')) return;
     this.canvas = canvas;
     const glContext = this.canvas.getContext('webgl');
@@ -120,6 +123,7 @@ export class AboutShaderService {
   }
 
   destroy(): void {
+    if (!this.isBrowser) return;
     if (this.animationFrameId !== null) {
       cancelAnimationFrame(this.animationFrameId);
     }

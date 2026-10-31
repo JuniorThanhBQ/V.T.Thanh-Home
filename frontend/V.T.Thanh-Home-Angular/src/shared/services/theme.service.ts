@@ -1,5 +1,5 @@
-import { Injectable, OnDestroy, signal, inject } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
+import { Injectable, OnDestroy, PLATFORM_ID, afterNextRender, signal, inject } from '@angular/core';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { AVATAR_URLS } from '@/assets/cloudinaryUrl';
 import {
   ThemeMode,
@@ -14,23 +14,28 @@ export type { ThemeMode } from '@/shared/utils/preferences';
 @Injectable({ providedIn: 'root' })
 export class ThemeService implements OnDestroy {
   private document = inject(DOCUMENT);
-  private savedTheme = readThemePreference();
+  private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
+  private savedTheme: ThemeMode | null = null;
   private mediaQuery: MediaQueryList | undefined;
 
   public readonly currentTheme = signal<ThemeMode>('light');
 
   constructor() {
-    try {
-      this.mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-      this.mediaQuery.addEventListener('change', this.onSystemThemeChange);
-    } catch {
-      this.mediaQuery = undefined;
-    }
-    this.applyTheme(this.savedTheme ?? this.systemTheme());
-    window.addEventListener('storage', this.onStorageChange);
+    afterNextRender(() => {
+      this.savedTheme = readThemePreference();
+      try {
+        this.mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+        this.mediaQuery.addEventListener('change', this.onSystemThemeChange);
+      } catch {
+        this.mediaQuery = undefined;
+      }
+      this.applyTheme(this.savedTheme ?? this.systemTheme());
+      window.addEventListener('storage', this.onStorageChange);
+    });
   }
 
   public toggleTheme(): void {
+    if (!this.isBrowser) return;
     const nextTheme = this.currentTheme() === 'dark' ? 'light' : 'dark';
     this.savedTheme = nextTheme;
     saveThemePreference(nextTheme);
@@ -38,6 +43,7 @@ export class ThemeService implements OnDestroy {
   }
 
   ngOnDestroy(): void {
+    if (!this.isBrowser) return;
     this.mediaQuery?.removeEventListener('change', this.onSystemThemeChange);
     window.removeEventListener('storage', this.onStorageChange);
   }

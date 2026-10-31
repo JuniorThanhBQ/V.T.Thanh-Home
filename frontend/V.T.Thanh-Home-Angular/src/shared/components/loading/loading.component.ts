@@ -1,4 +1,12 @@
-import { Component, OnDestroy, input, signal, effect, inject } from '@angular/core';
+import {
+  Component,
+  OnDestroy,
+  input,
+  signal,
+  effect,
+  inject,
+  afterNextRender,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslationService } from '@/shared/services/translation.service';
 
@@ -12,10 +20,14 @@ export class LoadingComponent implements OnDestroy {
   public isLoading = input<boolean>(true);
   public i18n = inject(TranslationService);
   public progress = signal<number>(1);
-  public curtainLifted = signal<boolean>(false);
+  public curtainLifted = signal<boolean>(true);
+  private readonly browserReady = signal(false);
+  private liftTimer: ReturnType<typeof setTimeout> | undefined;
   private animationFrameId: number | undefined;
   constructor() {
+    afterNextRender(() => this.browserReady.set(true));
     effect(() => {
+      if (!this.browserReady()) return;
       if (this.isLoading()) {
         this.runTopUpSequence();
       } else {
@@ -53,11 +65,12 @@ export class LoadingComponent implements OnDestroy {
   private finishAndLift(): void {
     this.cleanup();
     this.progress.set(100);
-    setTimeout(() => {
+    this.liftTimer = setTimeout(() => {
       this.curtainLifted.set(true);
     }, 120);
   }
   private cleanup(): void {
+    clearTimeout(this.liftTimer);
     if (this.animationFrameId !== undefined) {
       cancelAnimationFrame(this.animationFrameId);
       this.animationFrameId = undefined;

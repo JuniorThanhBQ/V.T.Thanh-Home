@@ -98,15 +98,20 @@ for (const icon of manifest.icons) {
   assert.equal(`${bytes.readUInt32BE(16)}x${bytes.readUInt32BE(20)}`, icon.sizes);
   assert.equal(createHash('sha1').update(bytes).digest('hex'), workerManifest.hashTable[icon.src]);
 }
-for (const pathname of ['/index.html', '/about', '/en/projects']) {
+for (const [pathname, component] of [
+  ['/about', 'app-about'],
+  ['/en/projects', 'app-project'],
+]) {
   const { bytes, response } = await get(pathname, 'text/html');
   assert.match(response.headers.get('content-type') ?? '', /text\/html/);
-  assert.equal(
-    createHash('sha1').update(bytes).digest('hex'),
-    workerManifest.hashTable['/index.html'],
-    `${pathname}: incorrect or stale navigation HTML`,
-  );
+  assert.ok(bytes.toString().includes(`<${component}`), `${pathname}: missing server content`);
+  assert.match(bytes.toString(), /ngh=/, `${pathname}: missing hydration annotations`);
 }
+const shell = await get('/index.html', 'text/html');
+assert.equal(
+  createHash('sha1').update(shell.bytes).digest('hex'),
+  workerManifest.hashTable['/index.html'],
+);
 const missing = await fetch(
   new URL(`/pwa-probe-missing-${randomBytes(6).toString('hex')}.js`, base),
   { signal: AbortSignal.timeout(15000) },

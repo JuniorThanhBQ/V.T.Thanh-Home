@@ -1,7 +1,16 @@
-import { DestroyRef, Injectable, signal, inject } from '@angular/core';
+import {
+  DestroyRef,
+  Injectable,
+  TransferState,
+  makeStateKey,
+  PLATFORM_ID,
+  afterNextRender,
+  signal,
+  inject,
+} from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { HttpClient } from '@angular/common/http';
-import { DOCUMENT, Location } from '@angular/common';
+import { DOCUMENT, Location, isPlatformServer } from '@angular/common';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { LoadingService } from './loading.service';
@@ -25,6 +34,8 @@ export interface LanguageOption {
 
 @Injectable({ providedIn: 'root' })
 export class TranslationService {
+  private readonly transferState = inject(TransferState);
+  private readonly isServer = isPlatformServer(inject(PLATFORM_ID));
   private http = inject(HttpClient);
   private loading = inject(LoadingService);
   private document = inject(DOCUMENT);
@@ -50,11 +61,13 @@ export class TranslationService {
   private requestedLanguage: SupportedLang | undefined;
   private dictionaryLanguage: SupportedLang | undefined;
   private requestVersion = 0;
-  private firstNavigation = true;
   private initialRedirect: string | undefined;
 
   constructor() {
-    this.syncLanguageFromUrl(this.location.path(true) || '/', true);
+    this.syncLanguageFromUrl(this.location.path(true) || '/');
+    afterNextRender(() => {
+      this.syncLanguageFromUrl(this.location.path(true) || '/', true);
+    });
     this.destroyRef.onDestroy(() => {
       this.requestVersion++;
       this.languageRequest?.unsubscribe();
@@ -66,9 +79,7 @@ export class TranslationService {
         takeUntilDestroyed(this.destroyRef),
       )
       .subscribe((event) => {
-        const restorePreference = this.firstNavigation;
-        this.firstNavigation = false;
-        this.syncLanguageFromUrl(event.urlAfterRedirects, restorePreference);
+        this.syncLanguageFromUrl(event.urlAfterRedirects);
       });
   }
 
@@ -113,6 +124,15 @@ export class TranslationService {
 
   private loadLanguage(lang: SupportedLang): void {
     if (this.requestedLanguage === lang) return;
+    const stateKey = makeStateKey<Record<string, unknown>>(`dictionary-${lang}`);
+    if (!this.isServer && this.dictionary().size === 0 && this.transferState.hasKey(stateKey)) {
+      const flatMap = new Map<string, string>();
+      this.flatten(this.transferState.get(stateKey, {}), '', flatMap);
+      this.transferState.remove(stateKey);
+      this.dictionary.set(flatMap);
+      this.dictionaryLanguage = lang;
+      return;
+    }
     const version = ++this.requestVersion;
     const wasLoading = this.requestedLanguage !== undefined;
     this.languageRequest?.unsubscribe();
@@ -132,6 +152,7 @@ export class TranslationService {
       .subscribe({
         next: (data) => {
           if (version !== this.requestVersion) return;
+          if (this.isServer) this.transferState.set(stateKey, data);
           const flatMap = new Map<string, string>();
           this.flatten(data, '', flatMap);
           this.dictionary.set(flatMap);

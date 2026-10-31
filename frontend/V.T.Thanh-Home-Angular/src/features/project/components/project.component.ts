@@ -1,4 +1,11 @@
-import { Component, inject, ElementRef, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  inject,
+  ElementRef,
+  ViewChild,
+  afterNextRender,
+  OnDestroy,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AVATAR_URLS } from '@/assets/cloudinaryUrl';
 import { TranslationService } from '@/shared/services/translation.service';
@@ -19,7 +26,7 @@ export interface ProjectItem {
   providers: [ProjectShaderService],
   templateUrl: '../templates/project.component.html',
 })
-export class ProjectComponent implements AfterViewInit, OnDestroy {
+export class ProjectComponent implements OnDestroy {
   public i18n = inject(TranslationService);
   private shaderService = inject(ProjectShaderService);
 
@@ -121,10 +128,8 @@ export class ProjectComponent implements AfterViewInit, OnDestroy {
     return this.projects.slice(4, 6);
   }
 
-  ngAfterViewInit(): void {
-    if (this.canvasRef?.nativeElement) {
-      this.shaderService.init(this.canvasRef.nativeElement);
-    }
+  constructor() {
+    afterNextRender(() => this.shaderService.init(this.canvasRef.nativeElement));
   }
 
   ngOnDestroy(): void {

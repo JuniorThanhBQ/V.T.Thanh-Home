@@ -1,4 +1,5 @@
-import { Injectable, NgZone, inject } from '@angular/core';
+import { Injectable, NgZone, PLATFORM_ID, inject } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { applyMobileShaderBackground, isMobileShaderMode } from '@/shared/utils/mobile-shader';
 
 interface Node {
@@ -11,6 +12,7 @@ interface Node {
 
 @Injectable()
 export class ProjectShaderService {
+  private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
   private ngZone = inject(NgZone);
   private canvas!: HTMLCanvasElement;
   private ctx!: CanvasRenderingContext2D;
@@ -21,6 +23,7 @@ export class ProjectShaderService {
   private lastFrameTime = 0;
 
   init(canvas: HTMLCanvasElement): void {
+    if (!this.isBrowser) return;
     this.mobileMode = isMobileShaderMode();
     if (this.mobileMode && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       applyMobileShaderBackground(canvas, 'project');
@@ -52,6 +55,7 @@ export class ProjectShaderService {
   }
 
   destroy(): void {
+    if (!this.isBrowser) return;
     if (this.animationFrameId) cancelAnimationFrame(this.animationFrameId);
     window.removeEventListener('resize', this.onResize);
     window.removeEventListener('mousemove', this.onMouseMove);

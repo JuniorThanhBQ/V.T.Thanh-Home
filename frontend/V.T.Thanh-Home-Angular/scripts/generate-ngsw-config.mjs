@@ -43,7 +43,7 @@ const config = {
     '!/actuator$',
     '!/actuator/**',
   ],
-  navigationRequestStrategy: 'performance',
+  navigationRequestStrategy: 'freshness',
 };
 const target = new URL('ngsw-config.json', root);
 const contents = JSON.stringify(config, null, 2) + '\n';

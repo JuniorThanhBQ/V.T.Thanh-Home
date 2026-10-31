@@ -1,3 +1,4 @@
+import { TestBed } from '@angular/core/testing';
 import { describe, it, expect, beforeEach } from 'vitest';
 import { MarkdownPipe } from '@/shared/pipes/markdown.pipe';
 
@@ -5,7 +6,7 @@ describe('MarkdownPipe', () => {
   let pipe: MarkdownPipe;
 
   beforeEach(() => {
-    pipe = new MarkdownPipe();
+    pipe = TestBed.runInInjectionContext(() => new MarkdownPipe());
   });
 
   describe('Empty and boundary inputs', () => {
@@ -52,7 +53,8 @@ describe('MarkdownPipe', () => {
     });
 
     it('renders legitimate links and images with safe attributes', () => {
-      const markdown = '[Link Title](https://example.com) ![Alt Text](https://example.com/image.png)';
+      const markdown =
+        '[Link Title](https://example.com) ![Alt Text](https://example.com/image.png)';
       const output = pipe.transform(markdown);
       expect(output).toContain('<a href="https://example.com">Link Title</a>');
       expect(output).toContain('<img src="https://example.com/image.png" alt="Alt Text">');
@@ -100,7 +102,8 @@ describe('MarkdownPipe', () => {
     });
 
     it('strips onclick and inline event attributes from allowed tags', () => {
-      const payload = '<div onclick="alert(1)">Click me</div><span onmouseover="evil()">Hover</span>';
+      const payload =
+        '<div onclick="alert(1)">Click me</div><span onmouseover="evil()">Hover</span>';
       const output = pipe.transform(payload);
       expect(output).not.toContain('onclick');
       expect(output).not.toContain('onmouseover');
@@ -109,7 +112,8 @@ describe('MarkdownPipe', () => {
     });
 
     it('strips form elements and inputs', () => {
-      const payload = '<form action="/steal"><input type="password" name="pwd"><button>Submit</button></form>';
+      const payload =
+        '<form action="/steal"><input type="password" name="pwd"><button>Submit</button></form>';
       const output = pipe.transform(payload);
       expect(output).not.toContain('<form');
       expect(output).not.toContain('<input');

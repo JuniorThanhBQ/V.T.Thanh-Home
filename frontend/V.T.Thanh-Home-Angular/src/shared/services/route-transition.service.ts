@@ -65,6 +65,7 @@ export class RouteTransitionService {
   }
 
   private triggerWipe(): void {
+    if (typeof window === 'undefined') return;
     this.clearWipeTimer();
     this.isWiping.set(true);
 
