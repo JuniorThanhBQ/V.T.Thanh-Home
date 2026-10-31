@@ -7,6 +7,7 @@ import {
   HostListener,
   inject,
   PLATFORM_ID,
+  Injector,
 } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { TranslationService } from '@/shared/services/translation.service';
@@ -27,15 +28,21 @@ export class AboutComponent implements OnDestroy {
   @ViewChild('badgeDialog', { static: true })
   private badgeDialogRef!: ElementRef<HTMLDialogElement>;
 
+  @ViewChild('cvDialog', { static: true })
+  private cvDialogRef!: ElementRef<HTMLDialogElement>;
+
   public readonly avatarUrls = AVATAR_URLS;
   public i18n = inject(TranslationService);
   private platformId = inject(PLATFORM_ID);
   private shaderService = inject(AboutShaderService);
 
   public isCvOpen = false;
+  public isBadgeOpen = false;
   public currentPage = 1;
   public zoomLevel = 1.0;
   private badgePreviousOverflow = '';
+  private cvPreviousOverflow = '';
+  private readonly injector = inject(Injector);
 
   constructor() {
     afterNextRender(() => this.shaderService.init(this.canvasRef.nativeElement));
@@ -46,6 +53,7 @@ export class AboutComponent implements OnDestroy {
     if (this.badgeDialogRef.nativeElement.open) {
       this.closeBadgeViewer();
     }
+    if (this.isCvOpen) this.closeCvViewer();
     this.shaderService.destroy();
     document.body.style.overflow = '';
   }
@@ -53,6 +61,7 @@ export class AboutComponent implements OnDestroy {
   public openBadgeViewer(): void {
     const dialog = this.badgeDialogRef.nativeElement;
     if (dialog.open) return;
+    this.isBadgeOpen = true;
     this.badgePreviousOverflow = document.body.style.overflow;
     dialog.showModal();
     document.body.style.overflow = 'hidden';
@@ -63,6 +72,7 @@ export class AboutComponent implements OnDestroy {
   }
 
   public onBadgeViewerClosed(): void {
+    this.isBadgeOpen = false;
     document.body.style.overflow = this.badgePreviousOverflow;
   }
 
@@ -77,16 +87,35 @@ export class AboutComponent implements OnDestroy {
   }
 
   public openCvViewer(): void {
+    if (this.isCvOpen) return;
+    this.cvPreviousOverflow = document.body.style.overflow;
     this.isCvOpen = true;
     this.currentPage = 1;
     this.zoomLevel = 1.0;
     document.body.style.overflow = 'hidden';
+    afterNextRender(
+      () => {
+        if (this.isCvOpen) this.cvDialogRef.nativeElement.showModal();
+      },
+      { injector: this.injector },
+    );
   }
 
   public closeCvViewer(): void {
+    this.cvDialogRef.nativeElement.close();
+    this.onCvViewerClosed();
+  }
+
+  public onCvViewerClosed(): void {
+    if (this.cvDialogRef.nativeElement.open || !this.isCvOpen) return;
     this.isCvOpen = false;
     this.zoomLevel = 1.0;
-    document.body.style.overflow = '';
+    document.body.style.overflow = this.cvPreviousOverflow;
+  }
+
+  @HostListener('document:click', ['$event'])
+  public onCvDialogClick(event: MouseEvent): void {
+    if (event.target === this.cvDialogRef.nativeElement) this.closeCvViewer();
   }
 
   public setPage(page: number): void {
@@ -118,9 +147,7 @@ export class AboutComponent implements OnDestroy {
   public handleKeyDown(event: KeyboardEvent): void {
     if (!this.isCvOpen) return;
 
-    if (event.key === 'Escape') {
-      this.closeCvViewer();
-    } else if (event.key === 'ArrowRight') {
+    if (event.key === 'ArrowRight') {
       this.nextPage();
     } else if (event.key === 'ArrowLeft') {
       this.prevPage();

@@ -74,6 +74,7 @@ The image vulnerability badge reports image-level Critical (C), High (H), Medium
 > 1. Since this project is licensed under the MIT License, you are free to use this website design to build your own site (though I’m not sure why you’d want a website with such a janky aesthetic).
 > 2. There are two areas you’ll need to adjust: `frontend/V.T.Thanh-Home-Angular/public/i18n` for multilingual static content, and `frontend/V.T.Thanh-Home-Angular/src/assets/cloudinaryUrl.ts` to update some of the images used on the site.
 > 3. Final words: You will need to handle the setup of environment variables, your Vercel account, and other similar requirements yourself. If you have any questions, please feel free to reach out via my primary email.
+> 4. Old Archives Website was deleted on 31/10/2026, commit #123. The reason is that the old source code no longer contains any components worth migrating to the new project. Furthermore, the number of false-positive alerts from tools like CodeQL and Trivy has been steadily increasing.
 
 ## VI. Home Page
 
@@ -109,11 +110,11 @@ The image vulnerability badge reports image-level Critical (C), High (H), Medium
 
 > [!WARNING]
 >
-> V.T.Thanh's beta Progressive Web App (v3.0.0) is available on Microsoft Edge and Google Chrome:
+> V.T.Thanh's beta Progressive Web App (v3.x.x) is available on Microsoft Edge and Google Chrome:
 > ![pwa](frontend/image/pwa.png)
 >
 > ![pwa_guide](frontend/image/pwa_guide.png)
-> Please note that v3.0.0 is highly unstable. We recommend waiting for the main upstream version to be available under the Releases tag.
+> Please note that v3.x.x is highly unstable. I recommend waiting for the main upstream version to be available under the Releases tag.
 
 
 <div align="justify">

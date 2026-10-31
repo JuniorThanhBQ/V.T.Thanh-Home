@@ -1,4 +1,4 @@
-# VTThanhHomeAngular
+# VTThanh-Home-Angular
 
 ## Sentry environment configuration
 

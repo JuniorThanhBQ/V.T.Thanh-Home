@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { join } from 'node:path';
 
 const output = fileURLToPath(new URL('../dist/V.T.Thanh-Home-Angular/browser/', import.meta.url));
-const workerFiles = ['ngsw-worker.js', 'safety-worker.js', 'worker-basic.min.js'];
+const ignoredFiles = ['ngsw-worker.js', 'safety-worker.js', 'worker-basic.min.js', 'theme-init.js'];
 
 async function findMaps(directory) {
   const maps = [];
@@ -25,10 +25,16 @@ if (maps.length > 0) {
     org: 'vtthanh-group',
     project: 'vtthanh-home-angular',
   });
-  await cli.sourceMaps.inject({ paths: [output], ignore: workerFiles });
+  await cli.sourceMaps.inject({ paths: [output], ignore: ignoredFiles });
   if (process.env.SENTRY_AUTH_TOKEN) {
     await cli.execute(
-      ['sourcemaps', 'upload', '--validate', ...workerFiles.flatMap((file) => ['--ignore', file]), output],
+      [
+        'sourcemaps',
+        'upload',
+        '--validate',
+        ...ignoredFiles.flatMap((file) => ['--ignore', file]),
+        output,
+      ],
       true,
     );
   } else {

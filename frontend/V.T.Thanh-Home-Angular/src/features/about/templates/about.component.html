@@ -148,28 +148,26 @@
           <path d="m18 6-12 12M6 6l12 12"></path>
         </svg>
       </button>
-      <img
-        [src]="avatarUrls.about_badge"
-        [alt]="i18n.t('about.badge.image_alt')"
-        loading="lazy"
-        class="block w-auto h-auto max-w-[min(80rem,calc(100vw-1rem))] sm:max-w-[min(80rem,calc(100vw-2rem))] max-h-[94dvh] rounded-2xl sm:rounded-3xl shadow-2xl"
-      />
+      @if (isBadgeOpen) {
+        <img
+          [src]="avatarUrls.about_badge"
+          [alt]="i18n.t('about.badge.image_alt')"
+          width="1050"
+          height="590"
+          class="block w-auto h-auto aspect-[1050/590] max-w-[min(80rem,calc(100vw-1rem))] sm:max-w-[min(80rem,calc(100vw-2rem))] max-h-[94dvh] rounded-2xl sm:rounded-3xl shadow-2xl"
+        />
+      }
     </div>
   </dialog>
 
-  @if (isCvOpen) {
-    <div
-      class="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-4 lg:p-6 animate-fade-in"
-    >
-      <div
-        class="fixed inset-0 bg-slate-950/80 backdrop-blur-xl cursor-pointer"
-        (click)="closeCvViewer()"
-        (keydown.escape)="closeCvViewer()"
-        tabindex="0"
-        role="button"
-        aria-label="Close CV Viewer Backdrop"
-      ></div>
-
+  <dialog
+    #cvDialog
+    aria-label="Curriculum Vitae"
+    (close)="onCvViewerClosed()"
+    (cancel)="$event.preventDefault(); closeCvViewer()"
+    class="fixed inset-0 m-0 h-full w-full max-h-none max-w-none border-0 bg-transparent p-2.5 sm:p-4 lg:p-6 backdrop:bg-slate-950/80 backdrop:backdrop-blur-xl open:flex open:items-center open:justify-center"
+  >
+    @if (isCvOpen) {
       <div
         class="relative z-10 w-full max-w-7xl h-[94dvh] flex flex-col lg:flex-row gap-4 lg:gap-6 bg-white/95 dark:bg-[#090f19]/95 border border-slate-200/70 dark:border-slate-800/80 rounded-2xl lg:rounded-3xl p-3.5 sm:p-5 lg:p-6 shadow-2xl overflow-y-auto lg:overflow-hidden"
       >
@@ -389,6 +387,6 @@
           </div>
         </div>
       </div>
-    </div>
-  }
+    }
+  </dialog>
 </div>

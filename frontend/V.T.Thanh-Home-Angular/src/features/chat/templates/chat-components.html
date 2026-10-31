@@ -1,6 +1,7 @@
 @if (!isOpen) {
   <div class="fixed right-0 top-1/2 -translate-y-1/2 z-40 group select-none">
     <button
+      #chatLauncher
       type="button"
       (click)="openChat()"
       class="flex items-center justify-center w-6.5 h-9 md:w-7 md:h-11 bg-white/80 dark:bg-slate-900/80 hover:bg-sky-50/90 dark:hover:bg-sky-600/80 text-slate-700 dark:text-slate-200 hover:text-sky-600 dark:hover:text-white rounded-l-lg border-y border-l border-slate-300/70 dark:border-slate-700/60 shadow-xl backdrop-blur-md transition-all duration-200 cursor-pointer"
@@ -30,6 +31,7 @@
   class="fixed top-0 right-0 h-full w-full sm:w-[440px] lg:w-[40%] bg-white/80 dark:bg-slate-950/80 text-slate-900 dark:text-slate-100 z-[70] flex flex-col shadow-2xl border-l border-slate-200/70 dark:border-slate-800/70 backdrop-blur-2xl transition-transform duration-300 ease-out"
   [class.translate-x-0]="isOpen"
   [class.translate-x-full]="!isOpen"
+  [inert]="!isOpen"
 >
   <header
     class="flex items-center justify-between px-5 py-3.5 border-b border-slate-200/60 dark:border-slate-800/60 bg-slate-50/60 dark:bg-slate-900/50 backdrop-blur-md"
@@ -73,6 +75,7 @@
     </div>
 
     <button
+      #chatCloseButton
       type="button"
       (click)="closeChat()"
       class="p-1.5 rounded-lg text-slate-500 hover:text-slate-900 hover:bg-slate-200/50 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800/50 transition-colors cursor-pointer"

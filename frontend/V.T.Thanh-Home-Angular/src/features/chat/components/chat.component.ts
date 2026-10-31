@@ -7,6 +7,8 @@ import {
   ViewChild,
   ElementRef,
   effect,
+  afterNextRender,
+  Injector,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -32,6 +34,10 @@ export class ChatbotComponent implements OnDestroy {
   private readonly pendingWork = inject(PendingWorkService);
 
   @ViewChild('messageContainer') private messageContainer?: ElementRef<HTMLDivElement>;
+  @ViewChild('chatLauncher') private chatLauncher?: ElementRef<HTMLButtonElement>;
+  @ViewChild('chatCloseButton') private chatCloseButton?: ElementRef<HTMLButtonElement>;
+  private readonly injector = inject(Injector);
+  private previousOverflow = '';
 
   public readonly avatarUrls = AVATAR_URLS;
   public readonly greetingTime = '11:08 AM';
@@ -83,13 +89,28 @@ export class ChatbotComponent implements OnDestroy {
   }
 
   public openChat(): void {
+    if (this.isOpen) return;
+    this.previousOverflow = document.body.style.overflow;
     this.isOpen = true;
     document.body.style.overflow = 'hidden';
+    afterNextRender(
+      () => {
+        if (this.isOpen) this.chatCloseButton?.nativeElement.focus({ preventScroll: true });
+      },
+      { injector: this.injector },
+    );
   }
 
   public closeChat(): void {
+    if (!this.isOpen) return;
     this.isOpen = false;
-    document.body.style.overflow = '';
+    document.body.style.overflow = this.previousOverflow;
+    afterNextRender(
+      () => {
+        if (!this.isOpen) this.chatLauncher?.nativeElement.focus({ preventScroll: true });
+      },
+      { injector: this.injector },
+    );
   }
 
   public selectTopic(topicKey: string): void {
@@ -126,7 +147,7 @@ export class ChatbotComponent implements OnDestroy {
   ngOnDestroy(): void {
     if (typeof document === 'undefined') return;
     this.pendingWork.chatDraft.set(false);
-    document.body.style.overflow = '';
+    if (this.isOpen) document.body.style.overflow = this.previousOverflow;
   }
 
   @HostListener('window:keydown.escape')

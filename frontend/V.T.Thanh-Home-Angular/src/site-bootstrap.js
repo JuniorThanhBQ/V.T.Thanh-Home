@@ -1,38 +1,11 @@
 (function () {
   const supportedLangs = ['en', 'de', 'fr', 'ja', 'zh', 'es', 'ru', 'kr'];
   const allLangs = ['vi'].concat(supportedLangs);
-  function storedValue(key, allowed) {
-    try {
-      const value = window.localStorage.getItem(key);
-      return allowed.includes(value) ? value : null;
-    } catch {
-      return null;
-    }
-  }
-
-  let theme = storedValue('app_theme', ['light', 'dark']);
-  if (!theme) {
-    try {
-      theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    } catch {
-      theme = 'light';
-    }
-  }
-  document.documentElement.classList.toggle('dark', theme === 'dark');
-  document.documentElement.style.colorScheme = theme;
-
   const segments = window.location.pathname.split('/').filter(Boolean);
   const activeLang =
     segments.length > 0 && supportedLangs.includes(segments[0]) ? segments[0] : 'vi';
 
   document.documentElement.lang = activeLang === 'kr' ? 'ko' : activeLang;
-
-  const preloadLink = document.createElement('link');
-  preloadLink.rel = 'preload';
-  preloadLink.as = 'fetch';
-  preloadLink.href = '/i18n/' + activeLang + '.json';
-  preloadLink.crossOrigin = 'anonymous';
-  document.head.appendChild(preloadLink);
 
   const baseUrl = 'https://www.juniorthanh.id.vn';
   const cleanPath =
