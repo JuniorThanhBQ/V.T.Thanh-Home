@@ -2,7 +2,7 @@
 
 ## WHAT
 
-The frontend is an Angular **22.2.3** standalone application, version **3.0.1** in [package.json](V.T.Thanh-Home-Angular/package.json). The manifest declares TypeScript `~6.0.2`, RxJS `~7.8.0`, Tailwind CSS 4, Three.js, Marked, and DOMPurify. Use Node.js 24.x with its bundled npm in CI. Vercel selects npm automatically from the committed lockfile and platform configuration; no custom Install Command override should be set in the Vercel dashboard. Use the lockfile with `npm ci` for reproducible dependency installation.
+The frontend is an Angular **22.2.3** standalone application, version **3.1.1** in [package.json](V.T.Thanh-Home-Angular/package.json). The manifest declares TypeScript `~6.0.2`, RxJS `~7.8.0`, Tailwind CSS 4, Three.js, Marked, and DOMPurify. Use Node.js 24.x with its bundled npm in CI. Vercel selects npm automatically from the committed lockfile and platform configuration; no custom Install Command override should be set in the Vercel dashboard. Use the lockfile with `npm ci` for reproducible dependency installation.
 
 Angular uses same-origin `/api/v1/...` URLs for visitor registration, chat, blogs, contacts, and admin operations. Projects render six static entries with their existing i18n labels; the public project component does not call the project API. Administrator project records are managed independently.
 
