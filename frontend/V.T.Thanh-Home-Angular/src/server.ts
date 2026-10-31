@@ -29,12 +29,38 @@ app.use(
     try {
       const origin =
         process.env['SSR_BACKEND_ORIGIN'] || 'https://vtthanh-backend-latest.onrender.com';
+      let parsed: URL;
+      try {
+        parsed = new URL(req.originalUrl, 'http://localhost');
+        const segments = req.originalUrl
+          .split(/[?#]/, 1)[0]
+          .replaceAll('\\', '/')
+          .split('/')
+          .map((segment) => decodeURIComponent(segment));
+        const traversing = segments.some(
+          (segment) => segment === '.' || segment === '..' || /[\\/]/.test(segment),
+        );
+        const allowed = ['/api/v1', '/actuator'].some(
+          (prefix) => parsed.pathname === prefix || parsed.pathname.startsWith(`${prefix}/`),
+        );
+        if (traversing || !allowed) {
+          res.status(400).send('Invalid request path');
+          return;
+        }
+      } catch {
+        res.status(400).send('Invalid request path');
+        return;
+      }
+      const targetUrl = new URL(origin);
+      targetUrl.pathname = parsed.pathname;
+      targetUrl.search = parsed.search;
+      targetUrl.hash = '';
       const headers = new Headers();
       for (const name of ['accept', 'content-type', 'cookie', 'x-xsrf-token', 'x-csrf-token']) {
         const value = req.get(name);
         if (value) headers.set(name, value);
       }
-      const response = await fetch(new URL(req.originalUrl, origin), {
+      const response = await fetch(targetUrl, {
         method: req.method,
         headers,
         body: ['GET', 'HEAD'].includes(req.method) ? undefined : req.body,
