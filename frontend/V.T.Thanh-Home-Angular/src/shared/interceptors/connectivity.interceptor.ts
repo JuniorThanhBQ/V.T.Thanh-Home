@@ -5,7 +5,7 @@ import { ConnectivityService } from '../services/connectivity.service';
 import { BackendHealthService } from '../services/backend-health.service';
 
 export const connectivityInterceptor: HttpInterceptorFn = (request, next) => {
-  const pathname = new URL(request.url, location.origin).pathname;
+  const pathname = new URL(request.url, 'https://ssr.invalid').pathname;
   if (!/^\/api(?:\/|$)/.test(pathname)) return next(request);
   const connectivity = inject(ConnectivityService);
   const health = inject(BackendHealthService);

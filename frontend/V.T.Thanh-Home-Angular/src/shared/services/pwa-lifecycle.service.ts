@@ -1,3 +1,5 @@
+import { isPlatformBrowser } from '@angular/common';
+import { PLATFORM_ID, afterNextRender } from '@angular/core';
 import { DestroyRef, Injectable, computed, effect, inject, signal } from '@angular/core';
 import { SwUpdate } from '@angular/service-worker';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -16,6 +18,7 @@ interface ResourceReceipt {
 
 @Injectable({ providedIn: 'root' })
 export class PwaLifecycleService {
+  private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
   private readonly updates = inject(SwUpdate);
   private readonly connectivity = inject(ConnectivityService);
   public readonly pendingWork = inject(PendingWorkService);
@@ -26,7 +29,7 @@ export class PwaLifecycleService {
   public readonly installing = signal(false);
   public readonly installFailed = signal(false);
   public readonly readiness = signal<'checking' | 'ready' | 'incomplete' | 'unsupported'>(
-    this.updates.isEnabled && 'caches' in window ? 'checking' : 'unsupported',
+    this.isBrowser && this.updates.isEnabled && 'caches' in window ? 'checking' : 'unsupported',
   );
   public readonly updateAvailable = signal(false);
   public readonly updateFailed = signal(false);
@@ -43,6 +46,7 @@ export class PwaLifecycleService {
   private destroyed = false;
 
   constructor() {
+    if (!this.isBrowser) return;
     const displayMode = window.matchMedia('(display-mode: standalone)');
     const updateInstalled = () => {
       const standalone =
@@ -58,7 +62,7 @@ export class PwaLifecycleService {
       this.installed.set(true);
       this.installPrompt.set(null);
     };
-    updateInstalled();
+    afterNextRender(updateInstalled);
     displayMode.addEventListener('change', updateInstalled);
     window.addEventListener('beforeinstallprompt', capturePrompt);
     window.addEventListener('appinstalled', markInstalled);
@@ -122,6 +126,7 @@ export class PwaLifecycleService {
 
   public async verifyOfflineResources(): Promise<void> {
     if (
+      !this.isBrowser ||
       this.destroyed ||
       this.readiness() === 'unsupported' ||
       this.unrecoverable() ||
@@ -204,6 +209,7 @@ export class PwaLifecycleService {
 
   public async checkForUpdate(): Promise<void> {
     if (
+      !this.isBrowser ||
       !this.updates.isEnabled ||
       !this.connectivity.online() ||
       this.checkingUpdate() ||
@@ -224,11 +230,12 @@ export class PwaLifecycleService {
   }
 
   public reload(): void {
-    if (this.canReload() && (this.updateAvailable() || this.unrecoverable()))
+    if (this.isBrowser && this.canReload() && (this.updateAvailable() || this.unrecoverable()))
       window.location.reload();
   }
 
   public async install(): Promise<void> {
+    if (!this.isBrowser) return;
     const prompt = this.installPrompt();
     if (!prompt || this.installing() || this.installed()) return;
     this.installing.set(true);

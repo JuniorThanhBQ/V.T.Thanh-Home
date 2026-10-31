@@ -1,6 +1,8 @@
+import { isPlatformBrowser } from '@angular/common';
 import {
   ApplicationConfig,
   ErrorHandler,
+  PLATFORM_ID,
   inject,
   isDevMode,
   provideAppInitializer,
@@ -13,6 +15,7 @@ import { provideServiceWorker } from '@angular/service-worker';
 import { routes } from './app.routes';
 import { loadingInterceptor } from '@/shared/interceptors/loading.interceptor';
 import { connectivityInterceptor } from '@/shared/interceptors/connectivity.interceptor';
+import { provideClientHydration } from '@angular/platform-browser';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -25,7 +28,7 @@ export const appConfig: ApplicationConfig = {
     { provide: ErrorHandler, useValue: Sentry.createErrorHandler() },
     { provide: Sentry.TraceService, deps: [Router] },
     provideAppInitializer(() => {
-      inject(Sentry.TraceService);
+      if (isPlatformBrowser(inject(PLATFORM_ID))) inject(Sentry.TraceService);
     }),
     provideRouter(
       routes,
@@ -33,5 +36,6 @@ export const appConfig: ApplicationConfig = {
       withInMemoryScrolling({ scrollPositionRestoration: 'enabled' }),
     ),
     provideHttpClient(withInterceptors([connectivityInterceptor, loadingInterceptor])),
+    provideClientHydration(),
   ],
 };

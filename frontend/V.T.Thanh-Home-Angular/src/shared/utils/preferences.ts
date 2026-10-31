@@ -60,6 +60,7 @@ export function saveLanguagePreference(value: SupportedLang): void {
 }
 
 export function preferredBrowserLanguage(): SupportedLang {
+  if (typeof navigator === 'undefined') return 'vi';
   const languages = navigator.languages?.length ? navigator.languages : [navigator.language];
   for (const language of languages) {
     const base = language.toLowerCase().split(/[-_]/)[0];

@@ -14,6 +14,7 @@ import org.springframework.web.client.RestClient;
 public class ChatKnowledgeService {
 
     private static final Logger log = LoggerFactory.getLogger(ChatKnowledgeService.class);
+    private static final int MAX_KNOWLEDGE_CODE_POINTS = 20000;
 
     private final String chatFileUrl;
     private final RestClient restClient;
@@ -67,8 +68,7 @@ public class ChatKnowledgeService {
                             throw new IllegalArgumentException("Knowledge source must return plain text or Markdown");
                         }
                         log.info("Loaded portfolio knowledge base");
-                        byte[] utf8 = content.getBytes(java.nio.charset.StandardCharsets.UTF_8);
-                        this.cachedKnowledge = new String(utf8, 0, Math.min(utf8.length, 12000), java.nio.charset.StandardCharsets.UTF_8).trim();
+                        this.cachedKnowledge = limitKnowledge(content);
                         return this.cachedKnowledge;
                     }
                 } catch (Exception ex) {
@@ -79,6 +79,11 @@ public class ChatKnowledgeService {
             this.cachedKnowledge = "V.T.Thanh is a Software Engineer specializing in Spring Boot, Angular, and cloud-native solutions. Additional information: Final-year FCS student at Ho Chi Minh City Open University.";
             return this.cachedKnowledge;
         }
+    }
+
+    static String limitKnowledge(String content) {
+        int codePoints = Math.min(content.codePointCount(0, content.length()), MAX_KNOWLEDGE_CODE_POINTS);
+        return content.substring(0, content.offsetByCodePoints(0, codePoints)).trim();
     }
 
     public void setCachedKnowledgeForTest(String content) {

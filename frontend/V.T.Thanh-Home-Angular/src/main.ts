@@ -23,8 +23,10 @@ Sentry.init({
   },
 });
 
-injectAnalytics();
-injectSpeedInsights();
+if (!['localhost', '127.0.0.1'].includes(location.hostname)) {
+  injectAnalytics();
+  injectSpeedInsights();
+}
 bootstrapApplication(App, appConfig).catch((err) => {
   Sentry.captureException(err);
   console.error(err);

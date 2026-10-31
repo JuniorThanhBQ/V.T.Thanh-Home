@@ -21,28 +21,6 @@
   document.documentElement.classList.toggle('dark', theme === 'dark');
   document.documentElement.style.colorScheme = theme;
 
-  if (window.location.pathname === '/') {
-    let preferredLang = storedValue('app_language', allLangs);
-    if (!preferredLang) {
-      const languages = navigator.languages?.length ? navigator.languages : [navigator.language];
-      for (const language of languages) {
-        const base = language.toLowerCase().split(/[-_]/)[0];
-        const normalized = base === 'ko' ? 'kr' : base;
-        if (allLangs.includes(normalized)) {
-          preferredLang = normalized;
-          break;
-        }
-      }
-    }
-    if (preferredLang && preferredLang !== 'vi') {
-      window.history.replaceState(
-        window.history.state,
-        '',
-        '/' + preferredLang + window.location.search + window.location.hash,
-      );
-    }
-  }
-
   const segments = window.location.pathname.split('/').filter(Boolean);
   const activeLang =
     segments.length > 0 && supportedLangs.includes(segments[0]) ? segments[0] : 'vi';

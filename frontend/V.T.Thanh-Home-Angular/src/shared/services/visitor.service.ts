@@ -24,6 +24,8 @@ export class VisitorService {
   }
 
   public ensureRegistered(): Observable<VisitorSession> {
+    if (typeof window === 'undefined')
+      return throwError(() => new Error('Visitor registration requires a browser'));
     if (!this.registration) {
       this.registration = this.csrf().pipe(
         switchMap(() =>

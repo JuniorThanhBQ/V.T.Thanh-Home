@@ -1,4 +1,5 @@
-import { Injectable, inject, signal, DestroyRef, computed } from '@angular/core';
+import { Injectable, PLATFORM_ID, inject, signal, DestroyRef, computed } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { timer, of, timeout, exhaustMap, Subject, merge, switchMap, tap, catchError } from 'rxjs';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
@@ -14,6 +15,7 @@ export interface ActuatorHealthResponse {
 
 @Injectable({ providedIn: 'root' })
 export class BackendHealthService {
+  private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
   private http = inject(HttpClient);
   private destroyRef = inject(DestroyRef);
 
@@ -38,6 +40,7 @@ export class BackendHealthService {
   private readonly manualCheck = new Subject<void>();
 
   constructor() {
+    if (!this.isBrowser) return;
     toObservable(this.connectivity.online)
       .pipe(
         switchMap((online) => {
@@ -67,6 +70,6 @@ export class BackendHealthService {
   }
 
   public checkHealth(): void {
-    if (this.connectivity.online()) this.manualCheck.next();
+    if (this.isBrowser && this.connectivity.online()) this.manualCheck.next();
   }
 }

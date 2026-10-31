@@ -2,12 +2,13 @@ import {
   Component,
   ElementRef,
   ViewChild,
-  AfterViewInit,
+  afterNextRender,
   OnDestroy,
   HostListener,
   inject,
+  PLATFORM_ID,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { TranslationService } from '@/shared/services/translation.service';
 import { AVATAR_URLS } from '@/assets/cloudinaryUrl';
 import { AboutShaderService } from '../services/about-shader.service';
@@ -19,7 +20,7 @@ import { AboutShaderService } from '../services/about-shader.service';
   templateUrl: '../templates/about.component.html',
   providers: [AboutShaderService],
 })
-export class AboutComponent implements AfterViewInit, OnDestroy {
+export class AboutComponent implements OnDestroy {
   @ViewChild('bgCanvas', { static: true })
   private canvasRef!: ElementRef<HTMLCanvasElement>;
 
@@ -28,6 +29,7 @@ export class AboutComponent implements AfterViewInit, OnDestroy {
 
   public readonly avatarUrls = AVATAR_URLS;
   public i18n = inject(TranslationService);
+  private platformId = inject(PLATFORM_ID);
   private shaderService = inject(AboutShaderService);
 
   public isCvOpen = false;
@@ -35,11 +37,12 @@ export class AboutComponent implements AfterViewInit, OnDestroy {
   public zoomLevel = 1.0;
   private badgePreviousOverflow = '';
 
-  ngAfterViewInit(): void {
-    this.shaderService.init(this.canvasRef.nativeElement);
+  constructor() {
+    afterNextRender(() => this.shaderService.init(this.canvasRef.nativeElement));
   }
 
   ngOnDestroy(): void {
+    if (!isPlatformBrowser(this.platformId)) return;
     if (this.badgeDialogRef.nativeElement.open) {
       this.closeBadgeViewer();
     }

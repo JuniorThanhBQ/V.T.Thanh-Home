@@ -26,7 +26,16 @@
               }
             ],
             "styles": ["src/styles.css"],
-            "scripts": ["src/site-bootstrap.js"]
+            "scripts": ["src/site-bootstrap.js"],
+            "server": "src/main.server.ts",
+            "outputMode": "server",
+            "security": {
+              "allowedHosts": []
+            },
+            "ssr": {
+              "entry": "src/server.ts"
+            },
+            "externalDependencies": ["jsdom"]
           },
           "configurations": {
             "production": {

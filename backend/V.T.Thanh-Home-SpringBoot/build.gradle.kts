@@ -52,6 +52,16 @@ dependencies {
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
+configurations.named("checkstyle") {
+    exclude(group = "com.google.collections", module = "google-collections")
+    resolutionStrategy.eachDependency {
+        if (requested.group == "com.google.guava" && requested.name == "guava") {
+            useVersion("33.7.2-jre")
+            because("Remediates CVE-2026-102554 in the Checkstyle dependency graph")
+        }
+    }
+}
+
 configurations.all {
     resolutionStrategy.eachDependency {
         if (requested.group == "tools.jackson.core" || requested.group == "tools.jackson") {

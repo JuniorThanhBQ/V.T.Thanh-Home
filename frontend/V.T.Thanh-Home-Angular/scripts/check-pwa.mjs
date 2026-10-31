@@ -17,6 +17,8 @@ const prefetched = new Set(
     .flatMap((group) => group.urls),
 );
 
+if (workerManifest.navigationRequestStrategy !== 'freshness')
+  failures.push('Online navigation must reach SSR');
 if (workerManifest.index !== '/index.html') failures.push('Incorrect navigation shell');
 if (workerManifest.dataGroups.length) failures.push('Online API data must not be cached');
 if (workerManifest.assetGroups.some((group) => group.patterns.length))
@@ -77,7 +79,9 @@ for (const file of workerFiles) {
       ? Buffer.concat([packaged, await workerRevisionSuffix(output)])
       : packaged;
   if (!emitted.equals(expected))
-    failures.push(`Worker differs from its verified Angular package and deployment revision: ${file}`);
+    failures.push(
+      `Worker differs from its verified Angular package and deployment revision: ${file}`,
+    );
   if (workerManifest.hashTable['/' + file])
     failures.push(`Worker should not cache itself: ${file}`);
 }

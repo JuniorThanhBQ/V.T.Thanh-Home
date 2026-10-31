@@ -90,5 +90,5 @@
     "!/actuator$",
     "!/actuator/**"
   ],
-  "navigationRequestStrategy": "performance"
+  "navigationRequestStrategy": "freshness"
 }

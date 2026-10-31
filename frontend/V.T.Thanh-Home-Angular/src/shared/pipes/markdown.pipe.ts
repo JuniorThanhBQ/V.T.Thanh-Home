@@ -1,12 +1,16 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import { Pipe, PipeTransform, InjectionToken, inject } from '@angular/core';
 import { marked } from 'marked';
 import DOMPurify from 'dompurify';
+
+export const MARKDOWN_PURIFIER = new InjectionToken<typeof DOMPurify>('MARKDOWN_PURIFIER');
 
 @Pipe({
   name: 'markdown',
   standalone: true,
 })
 export class MarkdownPipe implements PipeTransform {
+  private readonly purifier = inject(MARKDOWN_PURIFIER, { optional: true }) ?? DOMPurify;
+
   constructor() {
     marked.setOptions({
       gfm: true,
@@ -15,11 +19,11 @@ export class MarkdownPipe implements PipeTransform {
   }
 
   transform(value: string | null | undefined): string {
-    if (!value || typeof window === 'undefined' || !DOMPurify.isSupported) {
+    if (!value || !this.purifier.isSupported) {
       return '';
     }
     const rawHtml = marked.parse(value, { async: false }) as string;
-    return DOMPurify.sanitize(rawHtml, {
+    return this.purifier.sanitize(rawHtml, {
       ALLOWED_TAGS: [
         'p',
         'br',

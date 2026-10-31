@@ -11,6 +11,7 @@ assert.equal(transformed.error, null, JSON.stringify(transformed.error));
 assert.equal(config.buildCommand, 'npm run build');
 assert.equal(config.outputDirectory, 'dist/V.T.Thanh-Home-Angular/browser');
 assert.equal(config.installCommand, undefined);
+assert.equal(config.functions['api/ssr.mjs'].includeFiles, 'dist/V.T.Thanh-Home-Angular/**');
 assert.equal(pkg.engines.node, '24.x');
 const matches = (rule, pathname) => new RegExp(sourceToRegex(rule.source).src).test(pathname); // nosemgrep: javascript.lang.security.audit.detect-non-literal-regexp.detect-non-literal-regexp
 const headersFor = (pathname) => {
@@ -21,8 +22,8 @@ const headersFor = (pathname) => {
   }
   return headers;
 };
-const spa = config.rewrites.filter((rule) => rule.destination === '/index.html');
-assert.equal(spa.length, 1, 'Expected a single SPA fallback');
+const spa = config.rewrites.filter((rule) => rule.destination === '/api/ssr');
+assert.equal(spa.length, 1, 'Expected a single SSR handler');
 const metadata = [
   '/ngsw-worker.js',
   '/ngsw.json',
@@ -72,7 +73,7 @@ for (const pathname of [
   assert.equal(
     matches(spa[0], pathname),
     false,
-    `SPA fallback intercepts a file or backend path: ${pathname}`,
+    `SSR handler intercepts a file or backend path: ${pathname}`,
   );
 }
 let navigations = 0;

@@ -157,6 +157,7 @@ export class HeaderComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
+    if (typeof document === 'undefined') return;
     document.body.style.overflow = '';
   }
 }

@@ -1,4 +1,4 @@
-import { Routes, Route, UrlSegment } from '@angular/router';
+import { Routes, Route } from '@angular/router';
 
 const coreRoutes: Route[] = [
   {
@@ -33,24 +33,10 @@ const coreRoutes: Route[] = [
   },
 ];
 
-const SUPPORTED_PREFIX_LANGS = new Set(['en', 'de', 'fr', 'ja', 'zh', 'es', 'ru', 'kr']);
+const SUPPORTED_PREFIX_LANGS = ['en', 'de', 'fr', 'ja', 'zh', 'es', 'ru', 'kr'];
 
 export const routes: Routes = [
-  {
-    matcher: (segments: UrlSegment[]) => {
-      if (segments.length > 0 && SUPPORTED_PREFIX_LANGS.has(segments[0].path)) {
-        return {
-          consumed: [segments[0]],
-          posParams: { lang: segments[0] },
-        };
-      }
-      return null;
-    },
-    children: coreRoutes,
-  },
+  ...SUPPORTED_PREFIX_LANGS.map((lang) => ({ path: lang, children: coreRoutes })),
   ...coreRoutes,
-  {
-    path: '**',
-    redirectTo: '',
-  },
+  { path: '**', redirectTo: '' },
 ];

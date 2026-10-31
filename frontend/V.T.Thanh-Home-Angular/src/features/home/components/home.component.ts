@@ -1,4 +1,11 @@
-import { Component, ElementRef, ViewChild, AfterViewInit, OnDestroy, inject } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  ViewChild,
+  OnDestroy,
+  afterNextRender,
+  inject,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HomeShaderService } from '@/features/home/services/home-shader.service';
 import { TranslationService } from '@/shared/services/translation.service';
@@ -10,14 +17,16 @@ import { TranslationService } from '@/shared/services/translation.service';
   templateUrl: '../templates/home.component.html',
   providers: [HomeShaderService],
 })
-export class HomeComponent implements AfterViewInit, OnDestroy {
+export class HomeComponent implements OnDestroy {
   @ViewChild('bgCanvas', { static: true })
   private canvasRef!: ElementRef<HTMLCanvasElement>;
   private shaderService = inject(HomeShaderService);
   public i18n = inject(TranslationService);
 
-  ngAfterViewInit(): void {
-    this.shaderService.init(this.canvasRef.nativeElement);
+  constructor() {
+    afterNextRender(() => {
+      this.shaderService.init(this.canvasRef.nativeElement);
+    });
   }
 
   ngOnDestroy(): void {

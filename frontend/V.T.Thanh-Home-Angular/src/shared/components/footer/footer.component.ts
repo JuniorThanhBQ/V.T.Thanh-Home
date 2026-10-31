@@ -1,4 +1,4 @@
-import { Component, inject, signal, computed, DestroyRef } from '@angular/core';
+import { Component, inject, signal, computed, DestroyRef, afterNextRender } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { toObservable, takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { catchError, of, switchMap, timeout } from 'rxjs';
@@ -29,9 +29,9 @@ export class FooterComponent {
   public i18n = inject(TranslationService);
   public health = inject(BackendHealthService);
   public readonly pwa = inject(PwaLifecycleService);
-  public currentYear = new Date().getFullYear();
+  public currentYear = new Date().getUTCFullYear();
   private destroyRef = inject(DestroyRef);
-  public currentTime = signal(new Date());
+  public currentTime = signal<Date | null>(null);
   public readonly viewersCount = signal<number | null>(null);
   private readonly http = inject(HttpClient);
 
@@ -53,27 +53,31 @@ export class FooterComponent {
   });
 
   constructor() {
-    toObservable(this.health.connectivity.online)
-      .pipe(
-        switchMap((online) =>
-          online
-            ? this.http.get<{ viewers: number }>('/api/viewers').pipe(
-                timeout(10000),
-                catchError(() => of(null)),
-              )
-            : of(null),
-        ),
-        takeUntilDestroyed(this.destroyRef),
-      )
-      .subscribe((data) =>
-        this.viewersCount.set(typeof data?.viewers === 'number' ? data.viewers : null),
-      );
-    const timerId = setInterval(() => {
+    const online = toObservable(this.health.connectivity.online);
+    afterNextRender(() => {
       this.currentTime.set(new Date());
-    }, 1000);
+      online
+        .pipe(
+          switchMap((online) =>
+            online
+              ? this.http.get<{ viewers: number }>('/api/viewers').pipe(
+                  timeout(10000),
+                  catchError(() => of(null)),
+                )
+              : of(null),
+          ),
+          takeUntilDestroyed(this.destroyRef),
+        )
+        .subscribe((data) =>
+          this.viewersCount.set(typeof data?.viewers === 'number' ? data.viewers : null),
+        );
+      const timerId = setInterval(() => {
+        this.currentTime.set(new Date());
+      }, 1000);
 
-    this.destroyRef.onDestroy(() => {
-      clearInterval(timerId);
+      this.destroyRef.onDestroy(() => {
+        clearInterval(timerId);
+      });
     });
   }
 }

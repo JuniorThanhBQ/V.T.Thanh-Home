@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, output, signal } from '@angular/core';
+import { Component, afterNextRender, OnDestroy, output, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule],
   templateUrl: '../templates/blog.load.component.html',
 })
-export class BlogLoadComponent implements OnInit, OnDestroy {
+export class BlogLoadComponent implements OnDestroy {
   public retry = output<void>();
 
   public secondsElapsed = signal(0);
@@ -21,18 +21,20 @@ export class BlogLoadComponent implements OnInit, OnDestroy {
     'Fetching cinematic chapters...',
   ];
 
-  ngOnInit(): void {
-    this.timerId = setInterval(() => {
-      this.secondsElapsed.update((value) => value + 1);
+  constructor() {
+    afterNextRender(() => {
+      this.timerId = setInterval(() => {
+        this.secondsElapsed.update((value) => value + 1);
 
-      if (this.secondsElapsed() > 35) {
-        this.currentStageIndex.set(3);
-      } else if (this.secondsElapsed() > 20) {
-        this.currentStageIndex.set(2);
-      } else if (this.secondsElapsed() > 5) {
-        this.currentStageIndex.set(1);
-      }
-    }, 1000);
+        if (this.secondsElapsed() > 35) {
+          this.currentStageIndex.set(3);
+        } else if (this.secondsElapsed() > 20) {
+          this.currentStageIndex.set(2);
+        } else if (this.secondsElapsed() > 5) {
+          this.currentStageIndex.set(1);
+        }
+      }, 1000);
+    });
   }
 
   ngOnDestroy(): void {

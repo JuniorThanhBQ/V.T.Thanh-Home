@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of, switchMap, timeout } from 'rxjs';
+import { Observable, throwError, of, switchMap, timeout } from 'rxjs';
 import { ConnectivityService } from './connectivity.service';
 
 interface TurnstileApi {
@@ -16,6 +16,8 @@ export class TurnstileService {
   private script?: Promise<TurnstileApi>;
 
   public verify(action: 'contact' | 'chat'): Observable<string | undefined> {
+    if (typeof window === 'undefined')
+      return throwError(() => new Error('Security verification requires a browser'));
     return this.http.get<{ turnstileSiteKey: string }>('/api/v1/security/config').pipe(
       timeout(60000),
       switchMap((config) =>

@@ -124,6 +124,7 @@ export class ChatbotComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
+    if (typeof document === 'undefined') return;
     this.pendingWork.chatDraft.set(false);
     document.body.style.overflow = '';
   }
