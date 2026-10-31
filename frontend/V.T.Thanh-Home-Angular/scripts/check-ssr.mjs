@@ -1,7 +1,17 @@
+import { createHash } from 'node:crypto';
+import { readFile } from 'node:fs/promises';
 import assert from 'node:assert/strict';
 import { createServer } from 'node:http';
 import { once } from 'node:events';
 
+const hosting = JSON.parse(await readFile(new URL('../vercel.json', import.meta.url), 'utf8'));
+const policy = hosting.headers
+  .flatMap((rule) => rule.headers)
+  .find((header) => header.key.toLowerCase() === 'content-security-policy').value;
+const scriptPolicy = policy
+  .split(';')
+  .find((directive) => directive.trim().startsWith('script-src '));
+assert.ok(!scriptPolicy.includes("'unsafe-inline'"));
 const backendRequests = [];
 const backend = createServer((request, response) => {
   backendRequests.push({ method: request.method, url: request.url });
@@ -40,6 +50,14 @@ try {
       const response = await fetch(origin + path, { signal: AbortSignal.timeout(15000) });
       const html = await response.text();
       assert.equal(response.status, 200, path);
+      for (const match of html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/g)) {
+        if (/\bsrc=/.test(match[1]) || /type="application\/(?:ld\+)?json"/.test(match[1])) continue;
+        const hash = createHash('sha256').update(match[2]).digest('base64');
+        assert.ok(
+          scriptPolicy.includes(`'sha256-${hash}'`),
+          `${path}: CSP blocks generated inline script ${hash}`,
+        );
+      }
       assert.ok(html.includes(`<${component}`), `${path}: missing public content`);
       assert.ok(html.includes('ngh='), `${path}: missing hydration state`);
       assert.ok(

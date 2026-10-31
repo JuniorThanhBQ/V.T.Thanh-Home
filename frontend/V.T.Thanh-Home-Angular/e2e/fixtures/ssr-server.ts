@@ -1,3 +1,4 @@
+import { readFile } from 'node:fs/promises';
 import { pathToFileURL } from 'node:url';
 import { resolve } from 'node:path';
 import { createServer } from 'node:http';
@@ -36,7 +37,16 @@ export async function startSsrServer() {
   const { reqHandler } = await import(
     pathToFileURL(resolve('dist/V.T.Thanh-Home-Angular/server/server.mjs')).href
   );
-  const server = createServer(reqHandler);
+  const hosting = JSON.parse(await readFile(resolve('vercel.json'), 'utf8'));
+  const policy = hosting.headers
+    .flatMap((rule: { headers: { key: string; value: string }[] }) => rule.headers)
+    .find(
+      (header: { key: string }) => header.key.toLowerCase() === 'content-security-policy',
+    ).value;
+  const server = createServer((request, response) => {
+    response.setHeader('Content-Security-Policy', policy);
+    reqHandler(request, response);
+  });
   server.listen(0, '127.0.0.1');
   await once(server, 'listening');
   const address = server.address();

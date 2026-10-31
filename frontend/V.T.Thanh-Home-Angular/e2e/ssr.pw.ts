@@ -82,3 +82,50 @@ test('keeps public SSR content usable when the backend is unavailable', async ({
     'unavailable',
   );
 });
+
+test('allows Angular replay scripts while blocking unapproved inline scripts', async ({
+  page,
+  ssr,
+}) => {
+  await page.addInitScript(() => {
+    const scope = window as unknown as Window & { cspViolations: string[] };
+    scope.cspViolations = [];
+    document.addEventListener('securitypolicyviolation', (event) => {
+      if (event.effectiveDirective.startsWith('script-src'))
+        scope.cspViolations.push(event.blockedURI);
+    });
+  });
+  for (const route of ['/de', '/de/about', '/de/contact']) {
+    await page.goto(ssr.origin + route);
+    await expect(page.locator('html')).toHaveAttribute('lang', 'de');
+    await expect
+      .poll(() =>
+        page.evaluate(
+          () => typeof (window as Window & { __jsaction_bootstrap?: unknown }).__jsaction_bootstrap,
+        ),
+      )
+      .toBe('function');
+    expect(
+      await page.evaluate(
+        () => (window as unknown as Window & { cspViolations: string[] }).cspViolations,
+      ),
+    ).toEqual([]);
+  }
+  await page.evaluate(() => {
+    const script = document.createElement('script');
+    script.textContent = 'window.unapprovedInlineExecuted = true';
+    document.body.appendChild(script);
+  });
+  await expect
+    .poll(() =>
+      page.evaluate(
+        () => (window as unknown as Window & { cspViolations: string[] }).cspViolations,
+      ),
+    )
+    .toContain('inline');
+  expect(
+    await page.evaluate(
+      () => (window as Window & { unapprovedInlineExecuted?: boolean }).unapprovedInlineExecuted,
+    ),
+  ).toBeUndefined();
+});
