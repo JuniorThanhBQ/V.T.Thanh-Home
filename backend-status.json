@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
   "label": "backend",
-  "message": "Unreachable",
-  "color": "red"
+  "message": "200 OK",
+  "color": "brightgreen"
 }
