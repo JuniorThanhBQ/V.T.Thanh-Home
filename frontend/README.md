@@ -2,7 +2,7 @@
 
 ## WHAT
 
-The frontend is an Angular **22.2.3** standalone application, version **3.1.2** in [package.json](V.T.Thanh-Home-Angular/package.json). The manifest declares TypeScript `~6.0.2`, RxJS `~7.8.0`, Tailwind CSS 4, Three.js, Marked, and DOMPurify. Use Node.js 24.x with its bundled npm in CI. Vercel selects npm automatically from the committed lockfile and platform configuration; no custom Install Command override should be set in the Vercel dashboard. Use the lockfile with `npm ci` for reproducible dependency installation.
+The frontend is an Angular **22.2.3** standalone application, version **3.2.0** in [package.json](V.T.Thanh-Home-Angular/package.json). The manifest declares TypeScript `~6.0.2`, RxJS `~7.8.0`, Tailwind CSS 4, Three.js, Marked, and DOMPurify. Use Node.js 24.x with its bundled npm in CI. Vercel selects npm automatically from the committed lockfile and platform configuration; no custom Install Command override should be set in the Vercel dashboard. Use the lockfile with `npm ci` for reproducible dependency installation.
 
 Angular uses same-origin `/api/v1/...` URLs for visitor registration, chat, blogs, contacts, and admin operations. Projects render six static entries with their existing i18n labels; the public project component does not call the project API. Administrator project records are managed independently.
 
@@ -97,3 +97,21 @@ Publish a compatible Spring Boot release first or together with the frontend. Ve
 After changing the Render hostname, update API and Actuator rewrite destinations and review the CSP connection allowlist. After changing the public frontend domain, update canonical/alternate URL generation, backend CORS origins, and Turnstile hostnames. Change all nine dictionaries when adding or revising shared UI text.
 
 The repository's hourly GitHub health workflow is separate from browser polling. Its backend probe currently allows only 45 seconds, so the repository badge and browser readiness state can temporarily differ during startup. The image vulnerability badge reports the published Docker Hub image and does not measure runtime health.
+
+## Streaming chat
+
+### WHAT
+
+The chat uses a same-origin POST to `/api/v1/chat/message/stream` and renders incremental SSE content in one assistant message. Closing the chat cancels its active subscription and restores the pending prompt. Interrupted partial replies retain an error indication.
+
+### WHY
+
+Angular HttpClient preserves the existing XSRF and connectivity interceptors. Generation stays on Render, with no additional Vercel chat function.
+
+### HOW
+
+Text download events feed a cumulative-response SSE parser that handles split frames and Unicode. UI updates are batched over 40 milliseconds. Requests have a 20-second event inactivity timeout and a 60-second total deadline after registration/Turnstile; the backend sends heartbeats and closes earlier. Only `done` confirms the persisted answer. Retrying an unconfirmed prompt retains its request ID to recover a completed answer without duplicate generation. A failed record can regenerate on explicit retry. Markdown remains sanitized and automatic scrolling occurs only near the bottom.
+
+### WHEN
+
+Deploy a backend supporting the streaming endpoint first. Verify the deployed proxy flushes deltas before completion and check installed-PWA behavior. Streaming does not make a sleeping Render service immediately ready.

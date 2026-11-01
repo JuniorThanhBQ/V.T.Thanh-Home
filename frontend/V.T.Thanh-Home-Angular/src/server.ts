@@ -6,6 +6,7 @@ import {
 } from '@angular/ssr/node';
 import express from 'express';
 import { join } from 'node:path';
+import { pipeline } from 'node:stream/promises';
 
 const browserDistFolder = join(import.meta.dirname, '../browser');
 
@@ -28,6 +29,11 @@ app.use(
   ['/api/v1', '/actuator'],
   express.raw({ type: () => true, limit: '1mb' }),
   async (req, res, next) => {
+    const controller = new AbortController();
+    const disconnect = () => {
+      if (!res.writableFinished) controller.abort();
+    };
+    res.once('close', disconnect);
     try {
       const origin =
         process.env['SSR_BACKEND_ORIGIN'] || 'https://vtthanh-backend-latest.onrender.com';
@@ -66,19 +72,44 @@ app.use(
         method: req.method,
         headers,
         body: ['GET', 'HEAD'].includes(req.method) ? undefined : req.body,
-        signal: AbortSignal.timeout(65000),
+        signal: AbortSignal.any([controller.signal, AbortSignal.timeout(65000)]),
         redirect: 'manual',
       });
       res.status(response.status);
-      res.setHeader('Cache-Control', 'private, no-store');
+      res.setHeader('Cache-Control', 'private, no-store, no-transform');
       const type = response.headers.get('content-type');
       if (type) res.setHeader('Content-Type', type);
       const cookies = response.headers.getSetCookie();
       if (cookies.length) res.setHeader('Set-Cookie', cookies);
-      // nosemgrep: javascript.express.security.audit.xss.direct-response-write.direct-response-write
-      res.send(Buffer.from(await response.arrayBuffer()));
+      for (const name of ['x-accel-buffering', 'retry-after', 'allow', 'content-disposition']) {
+        const value = response.headers.get(name);
+        if (value) res.setHeader(name, value);
+      }
+      if (!response.body) {
+        res.end();
+        return;
+      }
+      res.flushHeaders();
+      const reader = response.body.getReader();
+      await pipeline(async function* () {
+        try {
+          for (;;) {
+            const chunk = await reader.read();
+            if (chunk.done) return;
+            yield chunk.value;
+          }
+        } finally {
+          await reader.cancel();
+          reader.releaseLock();
+        }
+      }, res);
     } catch (error) {
-      next(error);
+      if (res.destroyed) return;
+      if (res.headersSent) res.destroy(error instanceof Error ? error : undefined);
+      else next(error);
+    } finally {
+      res.off('close', disconnect);
+      controller.abort();
     }
   },
 );

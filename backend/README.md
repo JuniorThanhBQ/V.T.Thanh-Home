@@ -2,7 +2,7 @@
 
 ## WHAT
 
-The backend release version is **1.0.2**. It uses Spring Boot **4.1.1**, JDK **25**, Spring MVC, Spring Security, Spring Data JPA, PostgreSQL, and Flyway. Virtual threads are enabled. The Gradle wrapper specifies **9.8.1**; the application builds as `app.jar`. Dependency versions and overrides are defined in [build.gradle.kts](V.T.Thanh-Home-SpringBoot/build.gradle.kts).
+The backend release version is **2.0.0**. It uses Spring Boot **4.1.1**, JDK **25**, Spring MVC, Spring Security, Spring Data JPA, PostgreSQL, and Flyway. Virtual threads are enabled. The Gradle wrapper specifies **9.8.1**; the application builds as `app.jar`. Dependency versions and overrides are defined in [build.gradle.kts](V.T.Thanh-Home-SpringBoot/build.gradle.kts).
 
 The API serves visitor registration, session-owned Groq chat, published projects and blogs, contact submissions, and administrator operations. Angular uses relative URLs under `/api/v1`. Its development server and Vercel forward those requests to Spring Boot. The browser keeps a server session cookie; visitor credentials are not stored in browser storage. The public Angular project page currently displays six static projects independently of the project API.
 
@@ -116,3 +116,21 @@ Deploy compatible backend and frontend releases together when changing API contr
 The frontend's standby message gives a two-minute startup estimate; it is not a readiness guarantee. Its health polling allows up to 120 seconds per request. The separate hourly GitHub health probe currently times out after 45 seconds, so a cold start can produce an `Unreachable` badge even while startup is still progressing.
 
 The hourly health workflow also scans the published `juniorthanh09/vtthanh-backend:latest` image for `linux/amd64` with Docker Scout. `DOCKER_USERNAME` and `DOCKER_TOKEN` Actions secrets are required. The README badge reports Critical/High/Medium/Low/Unspecified counts or `unavailable`; it describes the published image rather than proving which digest is deployed. See the [frontend guide](../frontend/README.md) for browser-side readiness behavior.
+
+## Streaming chat
+
+### WHAT
+
+`POST /api/v1/chat/message/stream` accepts the same JSON fields as `/message` and returns `text/event-stream`. The JSON endpoint remains available. The streaming endpoint emits `start` with `requestId`, `delta` with `text`, `done` with the persisted `messageId`, `reply`, and `timestamp`, or `error` with a sanitized HTTP-style `status`. A connection ending without `done` is unconfirmed.
+
+### WHY
+
+Short per-answer streams fit the existing same-origin session/XSRF architecture and Vercel external rewrites. Streaming improves delivery after generation begins; Render cold starts still require readiness handling.
+
+### HOW
+
+The backend uses managed virtual-thread workers, at most two open streams, the shared two-generation limit, ten-second comment heartbeats, and a fifty-second stream deadline. Disconnects and deadlines request worker cancellation; provider reads retain a finite timeout. Complete answers and usage are stored in a short transaction before `done`; partial answers are not successful history. Retrying the same input/request ID replays completed output or reuses a failed record; processing requests conflict. Interrupted-record recovery uses the latest update time so a retried old record is not immediately expired.
+
+### WHEN
+
+Deploy the backend before the streaming frontend. Verify incremental delivery through the deployed Vercel rewrite, cookies, XSRF, Turnstile, cold starts, cancellation, and retry behavior. Local tests do not establish CDN flush behavior. Keep the entire stream below Vercel's documented 120-second external proxy timeout; heartbeats do not extend that limit.

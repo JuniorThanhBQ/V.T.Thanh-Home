@@ -86,15 +86,31 @@ export async function startPwaServer() {
               message: 'Accepted',
               submittedAt: new Date().toISOString(),
             });
-        } else if (url.pathname === '/api/v1/chat/message') {
+        } else if (url.pathname === '/api/v1/chat/message/stream') {
           state.chats.push(body);
           if (state.holdChat) heldOperations.push(response);
-          else
-            json(response, {
-              messageId: 1,
-              reply: 'Fixture reply',
-              timestamp: new Date().toISOString(),
+          else {
+            response.writeHead(200, {
+              'Content-Type': 'text/event-stream',
+              'Cache-Control': 'no-store',
             });
+            response.write(
+              'event: start\ndata: ' + JSON.stringify({ requestId: body.requestId }) + '\n\n',
+            );
+            response.write('event: delta\ndata: {"text":"Fixture "}\n\n');
+            setTimeout(() => {
+              if (response.destroyed) return;
+              response.end(
+                'event: done\ndata: ' +
+                  JSON.stringify({
+                    messageId: 1,
+                    reply: 'Fixture reply',
+                    timestamp: new Date().toISOString(),
+                  }) +
+                  '\n\n',
+              );
+            }, 100);
+          }
         } else if (url.pathname === '/api/v1/blogs') {
           state.blogRequests++;
           json(response, [

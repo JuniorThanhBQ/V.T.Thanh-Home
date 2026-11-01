@@ -11,6 +11,7 @@ export const API_ENDPOINTS = {
   chat: {
     session: '/api/v1/chat/session',
     message: '/api/v1/chat/message',
+    stream: '/api/v1/chat/message/stream',
     history: '/api/v1/chat/history',
   },
   admin: {

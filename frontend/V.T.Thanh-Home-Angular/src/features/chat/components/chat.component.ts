@@ -86,6 +86,17 @@ export class ChatbotComponent implements OnDestroy {
       const failed = this.chatService.failedMessage();
       if (failed && !this.messageInput.trim()) this.messageInput = failed;
     });
+    effect(() => {
+      this.chatService.messages();
+      const container = this.messageContainer?.nativeElement;
+      if (
+        this.isOpen &&
+        container &&
+        container.scrollHeight - container.scrollTop - container.clientHeight < 120
+      ) {
+        this.scrollToBottom();
+      }
+    });
   }
 
   public openChat(): void {
@@ -103,6 +114,7 @@ export class ChatbotComponent implements OnDestroy {
 
   public closeChat(): void {
     if (!this.isOpen) return;
+    this.chatService.cancel();
     this.isOpen = false;
     document.body.style.overflow = this.previousOverflow;
     afterNextRender(
@@ -146,6 +158,7 @@ export class ChatbotComponent implements OnDestroy {
 
   ngOnDestroy(): void {
     if (typeof document === 'undefined') return;
+    this.chatService.cancel();
     this.pendingWork.chatDraft.set(false);
     if (this.isOpen) document.body.style.overflow = this.previousOverflow;
   }

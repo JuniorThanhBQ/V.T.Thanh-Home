@@ -56,6 +56,15 @@ public class ChatService {
     }
 
     public ChatMessageResponse sendMessage(ChatMessageRequest request, Long visitorId, String token) {
+        return sendMessage(request, visitorId, token, null);
+    }
+
+    public void validateStream(ChatMessageRequest request, Long visitorId, String token) {
+        validateMessage(request);
+        transactions.executeWithoutResult(tx -> ownedSession(token, visitorId));
+    }
+
+    private void validateMessage(ChatMessageRequest request) {
         if (request == null || request.message() == null || request.message().isBlank()
                 || request.message().trim().length() > 1000) {
             throw new IllegalArgumentException("Message must contain between 1 and 1000 characters");
@@ -63,6 +72,10 @@ public class ChatService {
         if (request.requestId() == null || !request.requestId().matches("[a-zA-Z0-9_-]{1,64}")) {
             throw new IllegalArgumentException("A valid request ID is required");
         }
+    }
+
+    public ChatMessageResponse sendMessage(ChatMessageRequest request, Long visitorId, String token, java.util.function.Consumer<String> delta) {
+        validateMessage(request);
         if (!activeVisitors.add(visitorId)) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "A message is already in progress");
         }
@@ -84,7 +97,14 @@ public class ChatService {
             }
             GroqChatClient.LlmResult result = violation
                     ? new GroqChatClient.LlmResult("I can help with questions about Thanh's portfolio, skills and projects.", 0, 0, "policy")
-                    : client.generateResponse(prompts.buildSystemPrompt(), work.history(), text);
+                    : delta == null ? client.generateResponse(prompts.buildSystemPrompt(), work.history(), text)
+                    : client.streamResponse(prompts.buildSystemPrompt(), work.history(), text, delta);
+            if (Thread.currentThread().isInterrupted()) {
+                throw new java.util.concurrent.CancellationException();
+            }
+            if (violation && delta != null) {
+                delta.accept(result.content());
+            }
             Work current = work;
             return transactions.execute(tx -> {
                 ChatMessage message = messages.findById(current.messageId()).orElseThrow();
@@ -128,12 +148,14 @@ public class ChatService {
         var existing = messages.findByChatSessionAndRequestId(session, request.requestId());
         if (existing.isPresent()) {
             ChatMessage prior = existing.get();
-            if (!prior.getInput().equals(request.message().trim()) || !"COMPLETED".equals(prior.getStatus())) {
+            if (!prior.getInput().equals(request.message().trim()) || "PROCESSING".equals(prior.getStatus())) {
                 throw new ResponseStatusException(HttpStatus.CONFLICT, "Request ID already used");
             }
-            return new Work(prior.getId(), List.of(), response(prior));
+            if ("COMPLETED".equals(prior.getStatus())) {
+                return new Work(prior.getId(), List.of(), response(prior));
+            }
         }
-        if (messages.countByChatSession(session) >= 60) {
+        if (existing.isEmpty() && messages.countByChatSession(session) >= 60) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Conversation limit reached. Start a new session.");
         }
         List<ChatHistoryItemResponse> history = new ArrayList<>(messages.findHistoryByChatSessionAndStatus(session, "COMPLETED", PageRequest.of(0, 3)));
@@ -143,7 +165,7 @@ public class ChatService {
             context.add(Map.of("role", "user", "content", prior.input()));
             context.add(Map.of("role", "assistant", "content", prior.output()));
         }
-        ChatMessage message = new ChatMessage(session, request.message().trim(), "");
+        ChatMessage message = existing.orElseGet(() -> new ChatMessage(session, request.message().trim(), ""));
         message.setRequestId(request.requestId());
         message.setStatus("PROCESSING");
         messages.saveAndFlush(message);

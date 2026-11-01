@@ -188,4 +188,58 @@ class ChatIntegrationTest {
                 .andExpect(status().isForbidden());
         verifyNoInteractions(client);
     }
+
+    @Test
+    void streamsDeltasThenPersistsBeforeDoneAndReplaysWithoutGeneration() throws Exception {
+        when(client.streamResponse(anyString(), anyList(), anyString(), any())).thenAnswer(invocation -> {
+            assertThat(TransactionSynchronizationManager.isActualTransactionActive()).isFalse();
+            java.util.function.Consumer<String> delta = invocation.getArgument(3);
+            delta.accept("Hello ");
+            delta.accept("Thanh");
+            return new GroqChatClient.LlmResult("Hello Thanh", 18, 20, "test-provider");
+        });
+        String body = "{\"message\":\"Tell me about Thanh\",\"requestId\":\"stream-success\"}";
+        for (int attempt = 0; attempt < 2; attempt++) {
+            var pending = mvc.perform(post("/api/v1/chat/message/stream").session(owner).with(csrf())
+                    .contentType(MediaType.APPLICATION_JSON).content(body))
+                    .andExpect(request().asyncStarted()).andReturn();
+            pending.getAsyncResult(5000);
+            var result = mvc.perform(asyncDispatch(pending)).andExpect(status().isOk()).andReturn();
+            String stream = result.getResponse().getContentAsString();
+            assertThat(stream).contains("event:start", "event:done", "Hello Thanh");
+            if (attempt == 0) {
+                assertThat(stream).contains("event:delta", "Hello ");
+            }
+            assertThat(messages.findAll()).hasSize(1);
+            assertThat(messages.findAll().getFirst().getStatus()).isEqualTo("COMPLETED");
+        }
+        verify(client, times(1)).streamResponse(anyString(), anyList(), anyString(), any());
+    }
+
+    @Test
+    void interruptedProviderCanRetrySameRequestWithoutDuplicateMessage() throws Exception {
+        when(client.streamResponse(anyString(), anyList(), anyString(), any()))
+                .thenThrow(new org.springframework.web.client.ResourceAccessException("interrupted"))
+                .thenReturn(new GroqChatClient.LlmResult("Recovered", 1, 1, "test-provider"));
+        String body = "{\"message\":\"Tell me about Thanh\",\"requestId\":\"stream-retry\"}";
+        for (int attempt = 0; attempt < 2; attempt++) {
+            var pending = mvc.perform(post("/api/v1/chat/message/stream").session(owner).with(csrf())
+                    .contentType(MediaType.APPLICATION_JSON).content(body)).andReturn();
+            pending.getAsyncResult(5000);
+            String stream = mvc.perform(asyncDispatch(pending)).andReturn().getResponse().getContentAsString();
+            assertThat(stream).contains(attempt == 0 ? "event:error" : "event:done");
+            assertThat(messages.findAll()).hasSize(1);
+            assertThat(messages.findAll().getFirst().getStatus()).isEqualTo(attempt == 0 ? "FAILED" : "COMPLETED");
+        }
+    }
+
+    @Test
+    void streamStillRequiresCsrfAndVisitorRegistration() throws Exception {
+        mvc.perform(post("/api/v1/chat/message/stream").session(owner)
+                .contentType(MediaType.APPLICATION_JSON).content("{}"))
+                .andExpect(status().isForbidden());
+        mvc.perform(post("/api/v1/chat/message/stream").with(csrf())
+                .contentType(MediaType.APPLICATION_JSON).content("{}"))
+                .andExpect(status().isUnauthorized());
+    }
 }

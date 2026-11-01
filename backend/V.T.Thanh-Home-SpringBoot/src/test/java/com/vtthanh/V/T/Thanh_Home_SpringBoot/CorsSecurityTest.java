@@ -24,7 +24,6 @@ import java.util.List;
 import java.util.Map;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.not;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.options;
@@ -151,7 +150,18 @@ class CorsSecurityTest {
                         .contentType(MediaType.APPLICATION_JSON).content("{}"))
                 .andExpect(status().isForbidden());
 
-        mockMvc.perform(post("/api/v1/visitors").with(csrf().asHeader())
+        var bootstrap = mockMvc.perform(get("/api/v1/security/csrf")
+                        .header(HttpHeaders.ORIGIN, FRONTEND_ORIGIN))
+                .andExpect(status().isOk()).andReturn();
+        var cookie = bootstrap.getResponse().getCookie("XSRF-TOKEN");
+        org.assertj.core.api.Assertions.assertThat(cookie).isNotNull();
+        mockMvc.perform(post("/api/v1/visitors").cookie(cookie)
+                        .header("X-XSRF-TOKEN", "invalid")
+                        .header(HttpHeaders.ORIGIN, FRONTEND_ORIGIN)
+                        .contentType(MediaType.APPLICATION_JSON).content("{}"))
+                .andExpect(status().isForbidden());
+        mockMvc.perform(post("/api/v1/visitors").cookie(cookie)
+                        .header("X-XSRF-TOKEN", cookie.getValue())
                         .header(HttpHeaders.ORIGIN, FRONTEND_ORIGIN)
                         .contentType(MediaType.APPLICATION_JSON).content("{}"))
                 .andExpect(status().isOk());
@@ -180,6 +190,11 @@ class CorsSecurityTest {
 
     @RestController
     static class ProbeController {
+        @GetMapping("/api/v1/security/csrf")
+        Map<String, String> csrfToken(org.springframework.security.web.csrf.CsrfToken token) {
+            return Map.of("token", token.getToken());
+        }
+
         @PostMapping("/api/v1/visitors")
         Map<String, Boolean> register() {
             return Map.of("registered", true);

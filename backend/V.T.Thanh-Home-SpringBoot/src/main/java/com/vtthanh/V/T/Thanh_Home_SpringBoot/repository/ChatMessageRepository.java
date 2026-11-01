@@ -17,7 +17,7 @@ import org.springframework.data.repository.query.Param;
 public interface ChatMessageRepository extends JpaRepository<ChatMessage, Long> {
 
     @Modifying
-    @Query("update ChatMessage m set m.status = 'FAILED' where m.status = 'PROCESSING' and m.createdDate < :cutoff")
+    @Query("update ChatMessage m set m.status = 'FAILED' where m.status = 'PROCESSING' and m.updatedDate < :cutoff")
     int expireProcessing(@Param("cutoff") Instant cutoff);
 
     Optional<ChatMessage> findByChatSessionAndRequestId(ChatSession session, String requestId);

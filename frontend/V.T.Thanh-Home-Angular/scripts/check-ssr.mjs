@@ -13,7 +13,22 @@ const scriptPolicy = policy
   .find((directive) => directive.trim().startsWith('script-src '));
 assert.ok(!scriptPolicy.includes("'unsafe-inline'"));
 const backendRequests = [];
+let finishStream;
+let streamClosed;
 const backend = createServer((request, response) => {
+  if (request.url === '/api/v1/chat/message/stream') {
+    assert.equal(request.headers.cookie, 'session=fixture');
+    assert.equal(request.headers['x-xsrf-token'], 'fixture-token');
+    response.writeHead(200, {
+      'Content-Type': 'text/event-stream',
+      'Set-Cookie': 'session=fixture; HttpOnly; Path=/',
+      'X-Accel-Buffering': 'no',
+    });
+    response.write('event: delta\ndata: {"text":"first"}\n\n');
+    finishStream = () => response.end('event: done\ndata: {"reply":"complete"}\n\n');
+    response.once('close', () => streamClosed?.());
+    return;
+  }
   backendRequests.push({ method: request.method, url: request.url });
   response.setHeader('Content-Type', 'application/json');
   response.end(
@@ -36,6 +51,44 @@ server.listen(0, '127.0.0.1');
 await once(server, 'listening');
 const origin = `http://127.0.0.1:${server.address().port}`;
 try {
+  const streamOptions = {
+    method: 'POST',
+    headers: { cookie: 'session=fixture', 'x-xsrf-token': 'fixture-token' },
+    body: '{}',
+    signal: AbortSignal.timeout(5000),
+  };
+  const streamed = await fetch(origin + '/api/v1/chat/message/stream', streamOptions);
+  assert.equal(streamed.status, 200);
+  assert.equal(streamed.headers.get('x-accel-buffering'), 'no');
+  assert.ok(streamed.headers.get('set-cookie').includes('HttpOnly'));
+  assert.ok(streamed.headers.get('cache-control').includes('no-transform'));
+  const reader = streamed.body.getReader();
+  const first = await reader.read();
+  assert.ok(new TextDecoder().decode(first.value).includes('first'));
+  assert.equal(first.done, false);
+  finishStream();
+  let remaining = '';
+  for (;;) {
+    const chunk = await reader.read();
+    if (chunk.done) break;
+    remaining += new TextDecoder().decode(chunk.value);
+  }
+  assert.ok(remaining.includes('event: done'));
+  const aborted = new AbortController();
+  const pending = await fetch(origin + '/api/v1/chat/message/stream', {
+    ...streamOptions,
+    signal: AbortSignal.any([aborted.signal, AbortSignal.timeout(5000)]),
+  });
+  await pending.body.getReader().read();
+  await new Promise((resolve, reject) => {
+    const deadline = setTimeout(() => reject(new Error('Upstream was not cancelled')), 3000);
+    streamClosed = () => {
+      clearTimeout(deadline);
+      resolve();
+    };
+    aborted.abort();
+  });
+  console.log('SSR proxy streamed before completion and cancelled upstream on disconnect.');
   let routes = 0;
   for (const lang of ['', 'en', 'de', 'fr', 'ja', 'zh', 'es', 'ru', 'kr']) {
     const prefix = lang ? `/${lang}` : '';

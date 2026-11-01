@@ -124,22 +124,27 @@ describe('Interrupted delivery', () => {
     });
   });
 
-  it('restores failed chat text and reuses the request ID only after explicit retry', () => {
+  it('restores failed chat text and reuses the request ID only after explicit retry', async () => {
     const service = TestBed.inject(ChatComponentService);
     service.sendMessage('Test message');
-    const first = http.expectOne('/api/v1/chat/message');
+    const first = http.expectOne('/api/v1/chat/message/stream');
     const id = first.request.body.requestId;
     window.dispatchEvent(new Event('offline'));
     expect(first.cancelled).toBe(true);
     expect(service.failedMessage()).toBe('Test message');
     expect(service.isSending()).toBe(false);
     window.dispatchEvent(new Event('online'));
-    http.expectNone('/api/v1/chat/message');
+    http.expectNone('/api/v1/chat/message/stream');
     service.sendMessage('Test message');
-    const retry = http.expectOne('/api/v1/chat/message');
+    const retry = http.expectOne('/api/v1/chat/message/stream');
     expect(retry.request.body.requestId).toBe(id);
     expect(service.messages().filter((message) => message.sender === 'user')).toHaveLength(1);
-    retry.flush({ messageId: 1, reply: 'Received', timestamp: new Date().toISOString() });
+    retry.flush(
+      'event: done\ndata: ' +
+        JSON.stringify({ messageId: 1, reply: 'Received', timestamp: new Date().toISOString() }) +
+        '\n\n',
+    );
+    await new Promise((resolve) => setTimeout(resolve, 70));
     expect(service.failedMessage()).toBeNull();
     expect(service.isSending()).toBe(false);
   });

@@ -37,6 +37,14 @@ public class GroqChatClient {
     }
 
     public LlmResult generateResponse(String systemPrompt, List<Map<String, String>> conversationHistory, String userMessage) {
+        return generate(systemPrompt, conversationHistory, userMessage, null);
+    }
+
+    public LlmResult streamResponse(String systemPrompt, List<Map<String, String>> history, String message, java.util.function.Consumer<String> delta) {
+        return generate(systemPrompt, history, message, delta);
+    }
+
+    private LlmResult generate(String systemPrompt, List<Map<String, String>> conversationHistory, String userMessage, java.util.function.Consumer<String> delta) {
         if (!keyProvider.hasKeys()) {
             throw new ServiceUnavailableException("The assistant is temporarily unavailable. Please use the contact form.");
         }
@@ -68,7 +76,7 @@ public class GroqChatClient {
                 "messages", messages,
                 "temperature", 0.3,
                 "max_completion_tokens", 1200,
-                "stream", false
+                "stream", delta != null
         ));
         if (model.startsWith("openai/gpt-oss")) {
             requestBody.put("reasoning_effort", "low");
@@ -76,6 +84,21 @@ public class GroqChatClient {
 
         long start = System.nanoTime();
 
+        if (delta != null) {
+            return keyProvider.executeWithKeyRotation(apiKey -> restClient.post()
+                    .uri(GROQ_URL)
+                    .header("Authorization", "Bearer " + apiKey)
+                    .accept(MediaType.TEXT_EVENT_STREAM)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body(requestBody)
+                    .exchange((request, response) -> {
+                        if (response.getStatusCode().isError()) {
+                            throw org.springframework.web.client.HttpClientErrorException.create(
+                                    response.getStatusCode(), "Provider rejected request", response.getHeaders(), new byte[0], null);
+                        }
+                        return readStream(response.getBody(), delta, model, start);
+                    }));
+        }
         return keyProvider.executeWithKeyRotation(apiKey -> {
             @SuppressWarnings("unchecked")
             Map<String, Object> response = restClient.post()
@@ -118,4 +141,55 @@ public class GroqChatClient {
             return new LlmResult(content, tokensUsed, latency, model);
         });
     }
+    static LlmResult readStream(java.io.InputStream input, java.util.function.Consumer<String> delta, String model, long start) throws java.io.IOException {
+        var mapper = new tools.jackson.databind.json.JsonMapper();
+        var text = new StringBuilder();
+        var data = new StringBuilder();
+        int tokens = 0;
+        try (var reader = new java.io.BufferedReader(new java.io.InputStreamReader(input, java.nio.charset.StandardCharsets.UTF_8))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                if (Thread.currentThread().isInterrupted()) {
+                    throw new java.io.InterruptedIOException();
+                }
+                if (line.length() > 65536) {
+                    throw new java.io.IOException("Provider event too large");
+                }
+                if (line.startsWith("data:")) {
+                    if (!data.isEmpty()) {
+                        data.append('\n');
+                    }
+                    data.append(line.substring(5).stripLeading());
+                    if (data.length() > 65536) {
+                        throw new java.io.IOException("Provider event too large");
+                    }
+                } else if (line.isEmpty() && !data.isEmpty()) {
+                    String payload = data.toString();
+                    data.setLength(0);
+                    if ("[DONE]".equals(payload)) {
+                        if (text.isEmpty() || text.toString().isBlank()) {
+                            throw new java.io.IOException("Empty provider response");
+                        }
+                        return new LlmResult(text.toString(), tokens, (System.nanoTime() - start) / 1_000_000, model);
+                    }
+                    var event = mapper.readTree(payload);
+                    if (event.has("error")) {
+                        throw new java.io.IOException("Provider stream failed");
+                    }
+                    var content = event.path("choices").path(0).path("delta").path("content");
+                    if (content.isString()) {
+                        String chunk = content.asString();
+                        if (text.length() + chunk.length() > 20000) {
+                            throw new java.io.IOException("Provider response too large");
+                        }
+                        text.append(chunk);
+                        delta.accept(chunk);
+                    }
+                    tokens = event.path("x_groq").path("usage").path("total_tokens").asInt(tokens);
+                }
+            }
+        }
+        throw new java.io.IOException("Provider stream ended before completion");
+    }
+
 }
