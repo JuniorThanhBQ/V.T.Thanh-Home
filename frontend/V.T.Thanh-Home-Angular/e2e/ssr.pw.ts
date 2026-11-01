@@ -21,7 +21,7 @@ test.describe('initial rendering on refresh', () => {
     { saved: null, system: 'dark', expected: 'dark' },
     { saved: 'blocked', system: 'dark', expected: 'dark' },
   ] as const) {
-    test(`paints the ${scenario.expected} loader before Angular with ${scenario.saved ?? 'system'} preference`, async ({
+    test(`reveals ${scenario.expected} server content before Angular with ${scenario.saved ?? 'system'} preference`, async ({
       page,
       context,
       ssr,
@@ -77,7 +77,7 @@ test.describe('initial rendering on refresh', () => {
               const bottom = top + (viewport?.height ?? innerHeight);
               return rect.top <= top + 1 && rect.bottom >= bottom - 1;
             }),
-          ).toBe(true);
+          ).toBe(false);
         } finally {
           releaseMain();
         }

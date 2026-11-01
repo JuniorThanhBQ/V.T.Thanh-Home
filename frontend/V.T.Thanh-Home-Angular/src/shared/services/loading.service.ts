@@ -4,12 +4,12 @@ import { Injectable, PLATFORM_ID, DestroyRef, inject, signal } from '@angular/co
 @Injectable({ providedIn: 'root' })
 export class LoadingService {
   private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
-  public readonly isLoading = signal<boolean>(true);
+  public readonly isLoading = signal<boolean>(this.isBrowser);
   public readonly loadingText = signal<string>('Syncing Core Systems');
 
   private inflightCount = signal<number>(0);
   private startTime = performance.now();
-  private readonly minDuration = 1000;
+  private readonly minDuration = 800;
   private readonly maxTimeout = 4000;
   private timeoutHandle: ReturnType<typeof setTimeout> | undefined;
 

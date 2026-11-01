@@ -131,6 +131,7 @@ export class TranslationService {
       this.transferState.remove(stateKey);
       this.dictionary.set(flatMap);
       this.dictionaryLanguage = lang;
+      this.loading.hide();
       return;
     }
     const version = ++this.requestVersion;

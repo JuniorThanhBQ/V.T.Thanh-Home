@@ -133,6 +133,8 @@
             >
               <img
                 [src]="posts[activePostIndex].heroImage"
+                fetchpriority="high"
+                decoding="async"
                 [alt]="posts[activePostIndex].title"
                 class="w-full h-full object-cover"
               />

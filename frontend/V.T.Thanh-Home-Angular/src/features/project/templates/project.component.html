@@ -28,6 +28,8 @@
           >
             <img
               [src]="flagshipProject.imageUrl"
+              fetchpriority="high"
+              decoding="async"
               [alt]="i18n.t('projects.items.' + flagshipProject.id + '.title')"
               class="w-full h-full object-contain max-h-[380px] transition-transform duration-700 ease-out group-hover:scale-105"
             />
@@ -137,6 +139,8 @@
             >
               <img
                 [src]="project.imageUrl"
+                loading="lazy"
+                decoding="async"
                 [alt]="i18n.t('projects.items.' + project.id + '.title')"
                 class="max-w-full max-h-full object-contain rounded-xl group-hover:scale-105 transition-transform duration-500"
               />
@@ -232,6 +236,8 @@
             >
               <img
                 [src]="project.imageUrl"
+                loading="lazy"
+                decoding="async"
                 [alt]="i18n.t('projects.items.' + project.id + '.title')"
                 class="max-w-full max-h-full object-cover rounded-xl group-hover:scale-105 transition-transform duration-500"
               />
