@@ -197,6 +197,8 @@ test('retains drafts and delivery identifiers without automatically replaying in
   );
   await expect(page.locator('[formControlName="firstName"]')).toHaveValue('');
   await page.locator('app-chatbot > div button').first().click();
+  await expect(page.locator('app-chatbot aside')).toHaveJSProperty('inert', false);
+  await expect(page.locator('#chat-message')).toBeEditable();
   await page.locator('#chat-message').fill('Preserve this chat message');
   await page
     .locator('app-chatbot')

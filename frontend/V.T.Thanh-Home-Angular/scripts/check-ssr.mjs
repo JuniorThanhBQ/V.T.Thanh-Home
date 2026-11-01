@@ -3,6 +3,7 @@ import { readFile } from 'node:fs/promises';
 import assert from 'node:assert/strict';
 import { createServer } from 'node:http';
 import { once } from 'node:events';
+import { JSDOM } from 'jsdom';
 
 const hosting = JSON.parse(await readFile(new URL('../vercel.json', import.meta.url), 'utf8'));
 const policy = hosting.headers
@@ -103,9 +104,12 @@ try {
       const response = await fetch(origin + path, { signal: AbortSignal.timeout(15000) });
       const html = await response.text();
       assert.equal(response.status, 200, path);
-      for (const match of html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi)) {
-        if (/\bsrc=/.test(match[1]) || /type="application\/(?:ld\+)?json"/.test(match[1])) continue;
-        const hash = createHash('sha256').update(match[2]).digest('base64');
+      const dom = new JSDOM(html);
+      for (const script of dom.window.document.querySelectorAll('script')) {
+        const type = (script.getAttribute('type') || '').trim().toLowerCase();
+        if (script.hasAttribute('src') || type === 'application/json' || type === 'application/ld+json')
+          continue;
+        const hash = createHash('sha256').update(script.textContent ?? '').digest('base64');
         assert.ok(
           scriptPolicy.includes(`'sha256-${hash}'`),
           `${path}: CSP blocks generated inline script ${hash}`,
