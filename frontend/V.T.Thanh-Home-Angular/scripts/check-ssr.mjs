@@ -50,7 +50,7 @@ try {
       const response = await fetch(origin + path, { signal: AbortSignal.timeout(15000) });
       const html = await response.text();
       assert.equal(response.status, 200, path);
-      for (const match of html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/g)) {
+      for (const match of html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi)) {
         if (/\bsrc=/.test(match[1]) || /type="application\/(?:ld\+)?json"/.test(match[1])) continue;
         const hash = createHash('sha256').update(match[2]).digest('base64');
         assert.ok(

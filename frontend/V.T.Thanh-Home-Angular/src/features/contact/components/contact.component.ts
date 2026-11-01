@@ -87,12 +87,12 @@ export class ContactComponent {
     }
 
     const payload = {
-      firstName: SecurityValidators.sanitizeString(this.contactForm.value.firstName),
-      lastName: SecurityValidators.sanitizeString(this.contactForm.value.lastName || ''),
+      firstName: this.contactForm.value.firstName,
+      lastName: this.contactForm.value.lastName || '',
       phone: this.contactForm.value.phone || '',
       email: this.contactForm.value.email.trim(),
-      service: SecurityValidators.sanitizeString(this.contactForm.value.service || ''),
-      message: SecurityValidators.sanitizeString(this.contactForm.value.message),
+      service: this.contactForm.value.service || '',
+      message: this.contactForm.value.message,
     };
 
     this.submitFailed = false;

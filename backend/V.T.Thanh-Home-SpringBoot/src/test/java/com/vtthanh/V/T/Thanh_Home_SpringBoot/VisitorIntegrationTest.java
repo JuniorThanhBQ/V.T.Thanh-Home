@@ -38,6 +38,15 @@ class VisitorIntegrationTest {
         var bootstrap = mvc.perform(get("/api/v1/security/csrf")).andExpect(status().isOk()).andReturn();
         Cookie cookie = bootstrap.getResponse().getCookie("XSRF-TOKEN");
         assertThat(cookie).isNotNull();
+        assertThat(cookie.isHttpOnly()).isFalse();
+        mvc.perform(get("/api/v1/security/csrf").cookie(cookie))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.token").isNotEmpty())
+                .andExpect(jsonPath("$.token").value(org.hamcrest.Matchers.not(cookie.getValue())))
+                .andExpect(content().string(org.hamcrest.Matchers.not(bootstrap.getResponse().getContentAsString())));
+        mvc.perform(post("/api/v1/visitors").cookie(cookie).header("X-XSRF-TOKEN", "invalid-token")
+                .contentType(MediaType.APPLICATION_JSON).content("{}"))
+                .andExpect(status().isForbidden());
         MockHttpSession session = new MockHttpSession();
         long initial = visitors.count();
         mvc.perform(post("/api/v1/visitors").session(session).cookie(cookie).header("X-XSRF-TOKEN", cookie.getValue())
