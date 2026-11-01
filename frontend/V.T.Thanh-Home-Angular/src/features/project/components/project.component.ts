@@ -35,7 +35,7 @@ export class ProjectComponent implements OnDestroy {
   public readonly defaultProjects: ProjectItem[] = [
     {
       id: 'aijmc',
-      imageUrl: '/canva/AIJ-modified_1_xzw6dh.png',
+      imageUrl: '/canva/AIJ-modified_1_xzw6dh.webp',
       techStack: [
         'FastAPI 0.139+',
         'Next.js 16.2+',
@@ -51,7 +51,7 @@ export class ProjectComponent implements OnDestroy {
     },
     {
       id: 'aijmc_jpra',
-      imageUrl: '/canva/AIJ_1_-modified_1_afzibo.png',
+      imageUrl: '/canva/AIJ_1_-modified_1_afzibo.webp',
       techStack: [
         'Python',
         'Streamlit',

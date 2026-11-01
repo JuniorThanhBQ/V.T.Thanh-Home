@@ -69,7 +69,7 @@ test('prepares every resource before readiness and opens portfolio routes offlin
 }, testInfo) => {
   pwaServer.state.holdAsset = true;
   await page.goto(pwaServer.origin + '/en');
-  await expect.poll(() => pwaServer.state.heldAssets).toBeGreaterThan(0);
+  await expect.poll(() => pwaServer.state.heldAssets, { timeout: 45000 }).toBeGreaterThan(0);
   await expect(page.locator('app-footer > footer')).not.toHaveAttribute(
     'data-pwa-readiness',
     'ready',

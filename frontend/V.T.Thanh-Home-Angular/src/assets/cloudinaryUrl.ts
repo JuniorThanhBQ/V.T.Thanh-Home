@@ -16,11 +16,11 @@ export const AVATAR_URLS = {
   linkedin: `/canva/linkedin-logo-linkedin-symbol-linkedin-icon-free-free-vector-removebg-preview_rjzexl.png`,
   cv_picture_one: `/canva/1788869795561_tzooyq.png`,
   cv_picture_two: `/canva/1788869795561_zviovw.png`,
-  contact_page_background: `/canva/Chibi_cagv9g.jpg`,
-  erm_project_banner: `/canva/Orange_and_Cream_Illustrative_Learning_English_Presentation_mwjyen.png`,
-  sport_field_project_banner: `/canva/Purple_Red_and_White_Illustrated_Sports_Presentation_xevkzf.png`,
-  ai_indicator_project_banner: `/canva/AIWritingIndicator_1_zb1c9k.png`,
-  mbms_project_banner: `/canva/Blue_and_White_Illustration_Medical_Health_Care_Presentation_1_vawbdq.png`,
+  contact_page_background: `/canva/Chibi_cagv9g.webp`,
+  erm_project_banner: `/canva/Orange_and_Cream_Illustrative_Learning_English_Presentation_mwjyen.webp`,
+  sport_field_project_banner: `/canva/Purple_Red_and_White_Illustrated_Sports_Presentation_xevkzf.webp`,
+  ai_indicator_project_banner: `/canva/AIWritingIndicator_1_zb1c9k.webp`,
+  mbms_project_banner: `/canva/Blue_and_White_Illustration_Medical_Health_Care_Presentation_1_vawbdq.webp`,
   about_badge: `/canva/tweenframe-com__slideshow_4_wemzxw.webp`,
 };
 

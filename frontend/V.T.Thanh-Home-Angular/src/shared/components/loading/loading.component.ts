@@ -20,7 +20,7 @@ export class LoadingComponent implements OnDestroy {
   public isLoading = input<boolean>(true);
   public i18n = inject(TranslationService);
   public progress = signal<number>(1);
-  public curtainLifted = signal<boolean>(false);
+  public curtainLifted = signal<boolean>(true);
   private readonly browserReady = signal(false);
   private liftTimer: ReturnType<typeof setTimeout> | undefined;
   private animationFrameId: number | undefined;

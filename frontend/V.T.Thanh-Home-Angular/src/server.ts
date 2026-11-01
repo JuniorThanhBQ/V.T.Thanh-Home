@@ -5,7 +5,9 @@ import {
   writeResponseToNodeResponse,
 } from '@angular/ssr/node';
 import express from 'express';
+import compression from 'compression';
 import { join } from 'node:path';
+import { constants } from 'node:zlib';
 import { pipeline } from 'node:stream/promises';
 
 const browserDistFolder = join(import.meta.dirname, '../browser');
@@ -112,6 +114,12 @@ app.use(
       controller.abort();
     }
   },
+);
+
+app.use(
+  compression({
+    brotli: { params: { [constants.BROTLI_PARAM_QUALITY]: 4 } },
+  }),
 );
 
 app.get('/api/viewers', (_req, res) => res.json({ viewers: null }));

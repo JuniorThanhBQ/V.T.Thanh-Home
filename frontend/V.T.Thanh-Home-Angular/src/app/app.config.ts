@@ -22,7 +22,7 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideServiceWorker('ngsw-worker.js', {
       enabled: !isDevMode(),
-      registrationStrategy: 'registerImmediately',
+      registrationStrategy: 'registerWithDelay:30000',
       updateViaCache: 'none',
     }),
     { provide: ErrorHandler, useValue: Sentry.createErrorHandler() },
