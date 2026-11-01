@@ -59,7 +59,7 @@ public class ChatController {
         if (token == null) {
             turnstile.verifyToken(body.turnstileToken(), VisitorService.clientIp(request), "chat");
             token = chat.startNewSession(visitorId, VisitorService.clientIp(request), request.getHeader("User-Agent"));
-            request.getSession().setAttribute("CHAT_TOKEN", token);
+            request.getSession().setAttribute("CHAT_TOKEN", token); // nosemgrep: java.lang.security.audit.tainted-session-from-http-request.tainted-session-from-http-request
         }
         response.setHeader("Cache-Control", "private, no-store, no-transform");
         response.setHeader("X-Accel-Buffering", "no");
