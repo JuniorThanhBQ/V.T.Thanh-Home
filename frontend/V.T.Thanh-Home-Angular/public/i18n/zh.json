@@ -201,6 +201,9 @@
     }
   },
   "chat": {
+    "progress_connecting": "正在建立连接",
+    "progress_preparing": "正在准备对话",
+    "progress_generating": "助手正在推理",
     "unavailable": "功能暂不可用",
     "open_tooltip": "打开虚拟助手",
     "close_button": "关闭虚拟助手",
@@ -224,8 +227,8 @@
     "offline": "当前离线",
     "online": "在线服务可用",
     "unavailable": "在线服务不可用",
-    "checking": "正在检查在线服务…",
-    "ready_checking": "正在准备离线访问…",
+    "checking": "正在检查在线服务",
+    "ready_checking": "正在准备离线访问",
     "ready_ready": "可离线使用",
     "ready_incomplete": "离线准备尚未完成",
     "ready_unsupported": "当前会话无法使用离线模式",

@@ -201,6 +201,9 @@
     }
   },
   "chat": {
+    "progress_connecting": "Đang thiết lập kết nối",
+    "progress_preparing": "Đang chuẩn bị hội thoại",
+    "progress_generating": "Trợ lý đang suy luận",
     "unavailable": "Chức năng hiện đang bị tạm khóa",
     "open_tooltip": "Mở trợ lý ảo",
     "close_button": "Đóng trợ lý ảo",
@@ -224,8 +227,8 @@
     "offline": "Bạn đang ngoại tuyến",
     "online": "Dịch vụ trực tuyến sẵn sàng",
     "unavailable": "Dịch vụ trực tuyến chưa khả dụng",
-    "checking": "Đang kiểm tra dịch vụ…",
-    "ready_checking": "Đang chuẩn bị truy cập ngoại tuyến…",
+    "checking": "Đang kiểm tra dịch vụ",
+    "ready_checking": "Đang chuẩn bị truy cập ngoại tuyến",
     "ready_ready": "Sẵn sàng ngoại tuyến",
     "ready_incomplete": "Chưa chuẩn bị xong chế độ ngoại tuyến",
     "ready_unsupported": "Chế độ ngoại tuyến không khả dụng trong phiên này",

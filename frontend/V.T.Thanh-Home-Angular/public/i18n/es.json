@@ -201,6 +201,9 @@
     }
   },
   "chat": {
+    "progress_connecting": "Conectando",
+    "progress_preparing": "Preparando la conversación",
+    "progress_generating": "El asistente está razonando",
     "unavailable": "Funciones actualmente bloqueadas",
     "open_tooltip": "Abrir asistente virtual",
     "close_button": "Cerrar asistente virtual",
@@ -224,8 +227,8 @@
     "offline": "Sin conexión",
     "online": "Servicios en línea disponibles",
     "unavailable": "Servicios en línea no disponibles",
-    "checking": "Comprobando servicios…",
-    "ready_checking": "Preparando acceso sin conexión…",
+    "checking": "Comprobando servicios",
+    "ready_checking": "Preparando acceso sin conexión",
     "ready_ready": "Disponible sin conexión",
     "ready_incomplete": "Preparación sin conexión incompleta",
     "ready_unsupported": "El modo sin conexión no está disponible en esta sesión",

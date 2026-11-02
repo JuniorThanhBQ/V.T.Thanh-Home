@@ -201,6 +201,9 @@
     }
   },
   "chat": {
+    "progress_connecting": "연결 중",
+    "progress_preparing": "대화를 준비하고 있습니다",
+    "progress_generating": "도우미가 추론 중입니다",
     "unavailable": "현재 이 기능을 사용할 수 없습니다",
     "open_tooltip": "가상 비서 열기",
     "close_button": "가상 비서 닫기",
@@ -224,8 +227,8 @@
     "offline": "오프라인 상태입니다",
     "online": "온라인 서비스를 사용할 수 있습니다",
     "unavailable": "온라인 서비스를 사용할 수 없습니다",
-    "checking": "온라인 서비스 확인 중…",
-    "ready_checking": "오프라인 사용 준비 중…",
+    "checking": "온라인 서비스 확인 중",
+    "ready_checking": "오프라인 사용 준비 중",
     "ready_ready": "오프라인 사용 가능",
     "ready_incomplete": "오프라인 준비가 완료되지 않았습니다",
     "ready_unsupported": "이 세션에서는 오프라인 모드를 사용할 수 없습니다",

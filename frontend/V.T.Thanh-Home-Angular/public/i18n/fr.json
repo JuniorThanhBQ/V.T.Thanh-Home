@@ -201,6 +201,9 @@
     }
   },
   "chat": {
+    "progress_connecting": "Connexion en cours",
+    "progress_preparing": "Préparation de la conversation",
+    "progress_generating": "L’assistant réfléchit",
     "unavailable": "La fonction est temporairement indisponible",
     "open_tooltip": "Ouvrir l'assistant virtuel",
     "close_button": "Fermer l'assistant virtuel",
@@ -224,8 +227,8 @@
     "offline": "Vous êtes hors ligne",
     "online": "Services en ligne disponibles",
     "unavailable": "Services en ligne indisponibles",
-    "checking": "Vérification des services…",
-    "ready_checking": "Préparation de l’accès hors ligne…",
+    "checking": "Vérification des services",
+    "ready_checking": "Préparation de l’accès hors ligne",
     "ready_ready": "Disponible hors ligne",
     "ready_incomplete": "Préparation hors ligne incomplète",
     "ready_unsupported": "Mode hors ligne indisponible dans cette session",

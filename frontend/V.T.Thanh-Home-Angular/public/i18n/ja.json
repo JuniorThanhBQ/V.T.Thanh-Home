@@ -201,6 +201,9 @@
     }
   },
   "chat": {
+    "progress_connecting": "接続しています",
+    "progress_preparing": "会話を準備しています",
+    "progress_generating": "アシスタントが推論しています",
     "unavailable": "機能は現在一時的にご利用いただけません",
     "open_tooltip": "バーチャルアシスタントを開く",
     "close_button": "バーチャルアシスタントを閉じる",
@@ -224,8 +227,8 @@
     "offline": "オフラインです",
     "online": "オンラインサービスを利用できます",
     "unavailable": "オンラインサービスを利用できません",
-    "checking": "サービスを確認中…",
-    "ready_checking": "オフライン利用を準備中…",
+    "checking": "サービスを確認中",
+    "ready_checking": "オフライン利用を準備中",
     "ready_ready": "オフラインで利用可能",
     "ready_incomplete": "オフラインの準備が未完了です",
     "ready_unsupported": "このセッションではオフライン機能を利用できません",

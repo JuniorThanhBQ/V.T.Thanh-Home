@@ -201,6 +201,9 @@
     }
   },
   "chat": {
+    "progress_connecting": "Connecting",
+    "progress_preparing": "Preparing the conversation",
+    "progress_generating": "The assistant is reasoning",
     "unavailable": "This feature is temporarily unavailable.",
     "open_tooltip": "Open Virtual Assistant",
     "close_button": "Close Virtual Assistant",
@@ -224,8 +227,8 @@
     "offline": "You are offline",
     "online": "Online services available",
     "unavailable": "Online services unavailable",
-    "checking": "Checking online services…",
-    "ready_checking": "Preparing offline access…",
+    "checking": "Checking online services",
+    "ready_checking": "Preparing offline access",
     "ready_ready": "Available offline",
     "ready_incomplete": "Offline preparation incomplete",
     "ready_unsupported": "Offline mode is unavailable in this session",

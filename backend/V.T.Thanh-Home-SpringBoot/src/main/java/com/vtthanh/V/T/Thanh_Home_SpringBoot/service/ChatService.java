@@ -75,6 +75,10 @@ public class ChatService {
     }
 
     public ChatMessageResponse sendMessage(ChatMessageRequest request, Long visitorId, String token, java.util.function.Consumer<String> delta) {
+        return sendMessage(request, visitorId, token, delta, stage -> { });
+    }
+
+    public ChatMessageResponse sendMessage(ChatMessageRequest request, Long visitorId, String token, java.util.function.Consumer<String> delta, java.util.function.Consumer<String> status) {
         validateMessage(request);
         if (!activeVisitors.add(visitorId)) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "A message is already in progress");
@@ -85,6 +89,7 @@ public class ChatService {
         }
         Work work = null;
         try {
+            status.accept("preparing");
             work = transactions.execute(tx -> prepare(request, visitorId, token));
             if (work.completed() != null) {
                 return work.completed();
@@ -94,6 +99,7 @@ public class ChatService {
             boolean violation = prompts.detectPotentialViolation(text);
             if (!violation) {
                 reserveGeneration();
+                status.accept("generating");
             }
             GroqChatClient.LlmResult result = violation
                     ? new GroqChatClient.LlmResult("I can help with questions about Thanh's portfolio, skills and projects.", 0, 0, "policy")

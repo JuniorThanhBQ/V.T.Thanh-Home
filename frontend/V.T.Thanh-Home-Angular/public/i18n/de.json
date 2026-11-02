@@ -201,6 +201,9 @@
     }
   },
   "chat": {
+    "progress_connecting": "Verbindung wird hergestellt",
+    "progress_preparing": "Gespräch wird vorbereitet",
+    "progress_generating": "Der Assistent denkt nach",
     "unavailable": "Die Funktion ist vorübergehend nicht verfügbar",
     "open_tooltip": "Virtuellen Assistenten öffnen",
     "close_button": "Virtuellen Assistenten schließen",
@@ -224,8 +227,8 @@
     "offline": "Sie sind offline",
     "online": "Onlinedienste verfügbar",
     "unavailable": "Onlinedienste nicht verfügbar",
-    "checking": "Onlinedienste werden geprüft…",
-    "ready_checking": "Offlinezugriff wird vorbereitet…",
+    "checking": "Onlinedienste werden geprüft",
+    "ready_checking": "Offlinezugriff wird vorbereitet",
     "ready_ready": "Offline verfügbar",
     "ready_incomplete": "Offlinevorbereitung unvollständig",
     "ready_unsupported": "Offlinemodus ist in dieser Sitzung nicht verfügbar",
