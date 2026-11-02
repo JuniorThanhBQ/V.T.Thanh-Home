@@ -2,7 +2,7 @@
   "app": {
     "title": "Site personnel",
     "Author": "Van Trung Thanh",
-    "version": "Version 3.2.1",
+    "version": "Version 3.3.0",
     "copyright": "Tous droits réservés",
     "backend_health_up": "Serveur en ligne",
     "backend_health_standby": "Démarrage du serveur (durée estimée : 2 minutes)",
@@ -201,6 +201,24 @@
     }
   },
   "chat": {
+    "voice_record": "Dicter un message",
+    "voice_stop_recording": "Arrêter la dictée",
+    "voice_listen": "Écouter",
+    "voice_initializing": "Préparation de la voix…",
+    "voice_retry": "Échec de lecture. Réessayer?",
+    "voice_stop": "Arrêter la lecture",
+    "voice_listening": "Écoute en cours…",
+    "voice_processing": "Finalisation de la dictée…",
+    "voice_speaking": "Lecture de la réponse…",
+    "voice_permission": "Accès au microphone refusé. Autorisez-le dans les paramètres du navigateur.",
+    "voice_microphone": "Aucun microphone disponible.",
+    "voice_no_speech": "Aucune parole détectée. Réessayez.",
+    "voice_input_error": "Échec de la reconnaissance vocale. Saisissez le texte ou réessayez.",
+    "voice_output_error": "Échec de la lecture. Réessayez.",
+    "voice_input_unavailable": "La saisie vocale est indisponible dans ce navigateur. Vous pouvez saisir votre message.",
+    "voice_output_unavailable": "La lecture vocale est indisponible dans ce navigateur.",
+    "voice_language_unavailable": "Aucune voix disponible pour cette langue sur votre appareil.",
+    "voice_empty": "Cette réponse ne contient aucun texte à lire.",
     "progress_connecting": "Connexion en cours",
     "progress_preparing": "Préparation de la conversation",
     "progress_generating": "L’assistant réfléchit",
@@ -212,13 +230,13 @@
     "greeting": "Bonjour ! Je suis l’assistant virtuel de Van Trung Thanh. Comment puis-je vous aider aujourd’hui ?",
     "suggested_topics_title": "Sujets suggérés",
     "topics": {
-      "tech_stack": "Quelles compétences techniques ai-je actuellement ?",
-      "projects": "Découvrir les projets principaux",
-      "contact": "Comment puis-je prendre contact ?"
+      "tech_stack": "Quelles sont les compétences techniques actuelles de V.T.Thành ?",
+      "projects": "Découvrir les projets phares",
+      "contact": "Comment contacter V.T.Thành ?"
     },
-    "input_placeholder": "Posez-moi une question...",
+    "input_placeholder": "Posez une question à V.T.Thành",
     "send_button": "Envoyer le message",
-    "disclaimer": "⚠️ Ce contenu est généré par une intelligence artificielle. Les réponses ne constituent aucun conseil juridique, financier, médical ou personnel. Le propriétaire du site décline toute responsabilité concernant les décisions prises ou les conséquences résultant de l'utilisation de ce chatbot. Veuillez l'utiliser avec discernement.",
+    "disclaimer": "⚠️ Ce contenu est généré par une IA. Le propriétaire du site décline toute responsabilité concernant les décisions ou conséquences résultant de l’utilisation de ce chatbot. Veuillez l’utiliser avec discernement. Le son utilisé pour la reconnaissance vocale peut être envoyé au fournisseur du navigateur.",
     "connection_error": "L’assistant est temporairement indisponible. Réessayez ou utilisez le formulaire de contact.",
     "rate_limited": "Trop de messages. Veuillez patienter avant de réessayer."
   },

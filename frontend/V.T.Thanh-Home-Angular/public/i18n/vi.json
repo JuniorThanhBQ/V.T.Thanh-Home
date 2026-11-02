@@ -2,7 +2,7 @@
   "app": {
     "title": "Website cá nhân",
     "Author": "Văn Trung Thành",
-    "version": "Phiên bản 3.2.1",
+    "version": "Phiên bản 3.3.0",
     "copyright": "Bảo lưu mọi quyền",
     "backend_health_up": "Server đang hoạt động",
     "backend_health_standby": "Đang khởi động Server (ETA: 2 phút)",
@@ -201,6 +201,24 @@
     }
   },
   "chat": {
+    "voice_record": "Nhập bằng giọng nói",
+    "voice_stop_recording": "Dừng nhập giọng nói",
+    "voice_listen": "Nghe",
+    "voice_initializing": "Đang khởi tạo giọng đọc",
+    "voice_retry": "Phát thất bại. Thử lại?",
+    "voice_stop": "Dừng phát",
+    "voice_listening": "Đang lắng nghe…",
+    "voice_processing": "Đang hoàn tất nhận dạng…",
+    "voice_speaking": "Đang đọc câu trả lời…",
+    "voice_permission": "Quyền dùng micrô bị từ chối. Hãy cho phép trong cài đặt trình duyệt.",
+    "voice_microphone": "Không tìm thấy micrô.",
+    "voice_no_speech": "Không phát hiện giọng nói. Vui lòng thử lại.",
+    "voice_input_error": "Nhận dạng giọng nói thất bại. Hãy nhập văn bản hoặc thử lại.",
+    "voice_output_error": "Phát âm thanh thất bại. Vui lòng thử lại.",
+    "voice_input_unavailable": "Trình duyệt không hỗ trợ nhập giọng nói. Bạn có thể nhập văn bản.",
+    "voice_output_unavailable": "Trình duyệt không hỗ trợ đọc văn bản.",
+    "voice_language_unavailable": "Thiết bị không có giọng đọc cho ngôn ngữ này.",
+    "voice_empty": "Câu trả lời không có nội dung phù hợp để đọc.",
     "progress_connecting": "Đang thiết lập kết nối",
     "progress_preparing": "Đang chuẩn bị hội thoại",
     "progress_generating": "Trợ lý đang suy luận",
@@ -212,13 +230,13 @@
     "greeting": "Xin chào! Mình là trợ lý ảo của Văn Trung Thành. Mình có thể hỗ trợ gì cho bạn hôm nay?",
     "suggested_topics_title": "Chủ đề gợi ý",
     "topics": {
-      "tech_stack": "Những kỹ năng technical mà mình hiện có?",
+      "tech_stack": "Những kỹ năng technical mà V.T.Thành hiện có?",
       "projects": "Khám phá các dự án nổi bật",
-      "contact": "Làm thế nào để liên hệ với tôi?"
+      "contact": "Làm thế nào để liên hệ với V.T.Thành?"
     },
-    "input_placeholder": "Đặt câu hỏi cho mình...",
+    "input_placeholder": "Đặt câu hỏi cho V.T.Thành",
     "send_button": "Gửi tin nhắn",
-    "disclaimer": "⚠️ Nội dung được tạo bởi AI. Phản hồi không cấu thành bất kỳ lời khuyên nào về mặt pháp lý, tài chính, y tế hay đời sống. Chủ sở hữu website không chịu trách nhiệm cho các quyết định hoặc hệ quả phát sinh từ việc sử dụng chatbot này. Vui lòng cân nhắc khi sử dụng.",
+    "disclaimer": "⚠️ Nội dung được tạo bởi AI, chủ sở hữu website không chịu trách nhiệm cho các quyết định hoặc hệ quả phát sinh từ việc sử dụng chatbot này, vui lòng cân nhắc khi sử dụng. Đồng thời, chức năng nhận dạng giọng nói có thể được gửi tới nhà cung cấp trình duyệt.",
     "connection_error": "Trợ lý tạm thời không khả dụng. Vui lòng thử lại hoặc sử dụng biểu mẫu liên hệ.",
     "rate_limited": "Bạn gửi tin nhắn quá nhanh. Vui lòng đợi rồi thử lại."
   },

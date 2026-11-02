@@ -19,11 +19,14 @@ import { BackendHealthService } from '@/shared/services/backend-health.service';
 import { MarkdownPipe } from '@/shared/pipes/markdown.pipe';
 import { ChatComponentService } from '../services/chat-component.service';
 import { PendingWorkService } from '@/shared/services/pending-work.service';
+import { AssistantVoiceService } from '../services/assistant-voice.service';
+import { ChatSpeechService } from '../services/chat-speech.service';
 
 @Component({
   selector: 'app-chatbot',
   standalone: true,
   imports: [CommonModule, FormsModule, MarkdownPipe],
+  providers: [ChatSpeechService, AssistantVoiceService],
   templateUrl: '../templates/chat-components.html',
 })
 export class ChatbotComponent implements OnDestroy {
@@ -31,6 +34,8 @@ export class ChatbotComponent implements OnDestroy {
   public theme = inject(ThemeService);
   public health = inject(BackendHealthService);
   public chatService = inject(ChatComponentService);
+  public speech = inject(ChatSpeechService);
+  public voice = inject(AssistantVoiceService);
   private readonly pendingWork = inject(PendingWorkService);
 
   @ViewChild('messageContainer') private messageContainer?: ElementRef<HTMLDivElement>;
@@ -82,6 +87,18 @@ export class ChatbotComponent implements OnDestroy {
   ];
 
   constructor() {
+    afterNextRender(() => this.speech.initialize());
+    effect(() => {
+      this.i18n.currentLang();
+      this.speech.reset();
+      this.voice.stop();
+    });
+    effect(() => {
+      if (this.chatService.isSending()) {
+        this.speech.reset();
+        this.voice.stop();
+      }
+    });
     effect(() => {
       const failed = this.chatService.failedMessage();
       if (failed && !this.messageInput.trim()) this.messageInput = failed;
@@ -114,6 +131,8 @@ export class ChatbotComponent implements OnDestroy {
 
   public closeChat(): void {
     if (!this.isOpen) return;
+    this.speech.reset();
+    this.voice.stop();
     this.chatService.cancel();
     this.isOpen = false;
     document.body.style.overflow = this.previousOverflow;
@@ -133,6 +152,7 @@ export class ChatbotComponent implements OnDestroy {
   }
 
   public sendMessage(): void {
+    if (this.speech.listening()) return;
     if (!this.health.available()) {
       return;
     }
@@ -143,6 +163,27 @@ export class ChatbotComponent implements OnDestroy {
     this.chatService.sendMessage(trimmed);
     this.messageInput = '';
     this.scrollToBottom();
+  }
+
+  public toggleMicrophone(): void {
+    if (this.speech.listening()) {
+      this.speech.stopListening();
+      return;
+    }
+    if (!this.health.available() || this.chatService.isSending()) return;
+    this.voice.stop();
+    this.speech.startListening(this.i18n.currentLang(), this.messageInput, (text) => {
+      this.messageInput = text;
+    });
+  }
+
+  public togglePlayback(id: string): void {
+    if (this.voice.speakingId() === id) {
+      this.voice.stop();
+      return;
+    }
+    if (this.chatService.isSending() || this.speech.listening()) return;
+    this.voice.speak(id);
   }
 
   private scrollToBottom(): void {
@@ -157,6 +198,8 @@ export class ChatbotComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.speech.reset();
+    this.voice.stop();
     if (typeof document === 'undefined') return;
     this.chatService.cancel();
     this.pendingWork.chatDraft.set(false);

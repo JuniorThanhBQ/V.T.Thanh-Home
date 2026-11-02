@@ -2,7 +2,7 @@
   "app": {
     "title": "个人网站",
     "Author": "文忠诚",
-    "version": "版本 3.2.1",
+    "version": "版本 3.3.0",
     "copyright": "保留所有权利",
     "backend_health_up": "服务器运行中。",
     "backend_health_standby": "正在启动服务器（预计耗时：2分钟）",
@@ -201,6 +201,24 @@
     }
   },
   "chat": {
+    "voice_record": "语音输入",
+    "voice_stop_recording": "停止语音输入",
+    "voice_listen": "朗读",
+    "voice_initializing": "正在准备语音…",
+    "voice_retry": "播放失败. 重试?",
+    "voice_stop": "停止播放",
+    "voice_listening": "正在聆听…",
+    "voice_processing": "正在完成识别…",
+    "voice_speaking": "正在朗读回复…",
+    "voice_permission": "麦克风权限被拒绝。请在浏览器设置中允许。",
+    "voice_microphone": "没有可用的麦克风。",
+    "voice_no_speech": "未检测到语音，请重试。",
+    "voice_input_error": "语音识别失败，请输入文字或重试。",
+    "voice_output_error": "播放失败，请重试。",
+    "voice_input_unavailable": "此浏览器不支持语音输入，请输入文字。",
+    "voice_output_unavailable": "此浏览器不支持语音播放。",
+    "voice_language_unavailable": "设备上没有此语言的可用语音。",
+    "voice_empty": "此回复没有可朗读的内容。",
     "progress_connecting": "正在建立连接",
     "progress_preparing": "正在准备对话",
     "progress_generating": "助手正在推理",
@@ -212,13 +230,13 @@
     "greeting": "你好！我是文忠诚的虚拟助手。今天有什么可以帮助你的吗？",
     "suggested_topics_title": "推荐主题",
     "topics": {
-      "tech_stack": "我目前具备哪些技术技能？",
-      "projects": "探索代表性项目",
-      "contact": "如何与我联系？"
+      "tech_stack": "V.T.Thành目前具备哪些技术技能？",
+      "projects": "探索精选项目",
+      "contact": "如何联系V.T.Thành？"
     },
-    "input_placeholder": "向我提问...",
+    "input_placeholder": "向V.T.Thành提问",
     "send_button": "发送消息",
-    "disclaimer": "⚠️ 此内容由人工智能生成。相关回复不构成任何法律、财务、医疗或生活方面的建议。对于因使用本聊天机器人而作出的决定或产生的后果，网站所有者不承担任何责任。请谨慎参考和使用。",
+    "disclaimer": "⚠️ 此内容由人工智能生成。网站所有者不对使用此聊天机器人所作的决定或产生的后果承担责任，请谨慎使用。用于语音识别的音频可能会发送给浏览器提供商。",
     "connection_error": "助手暂时不可用，请重试或使用联系表单。",
     "rate_limited": "消息过多，请稍后重试。"
   },

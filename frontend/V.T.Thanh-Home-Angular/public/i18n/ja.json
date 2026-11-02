@@ -2,7 +2,7 @@
   "app": {
     "title": "個人サイト",
     "Author": "キスネ・カネルド",
-    "version": "バージョン 3.2.1",
+    "version": "バージョン 3.3.0",
     "copyright": "無断転載を禁じます",
     "backend_health_up": "サーバー稼働中。",
     "backend_health_standby": "サーバーを起動中（所要時間の目安：2分）",
@@ -201,6 +201,24 @@
     }
   },
   "chat": {
+    "voice_record": "音声で入力",
+    "voice_stop_recording": "音声入力を停止",
+    "voice_listen": "読み上げ",
+    "voice_initializing": "音声を準備中…",
+    "voice_retry": "再生失敗. 再試行?",
+    "voice_stop": "再生を停止",
+    "voice_listening": "聞き取り中…",
+    "voice_processing": "音声認識を完了中…",
+    "voice_speaking": "回答を読み上げ中…",
+    "voice_permission": "マイクの使用が拒否されました。ブラウザの設定で許可してください。",
+    "voice_microphone": "マイクを利用できません。",
+    "voice_no_speech": "音声を検出できませんでした。再試行してください。",
+    "voice_input_error": "音声認識に失敗しました。文字入力するか再試行してください。",
+    "voice_output_error": "再生に失敗しました。再試行してください。",
+    "voice_input_unavailable": "このブラウザでは音声入力を利用できません。文字で入力してください。",
+    "voice_output_unavailable": "このブラウザでは読み上げを利用できません。",
+    "voice_language_unavailable": "この言語の音声が端末にありません。",
+    "voice_empty": "読み上げ可能な内容がありません。",
     "progress_connecting": "接続しています",
     "progress_preparing": "会話を準備しています",
     "progress_generating": "アシスタントが推論しています",
@@ -212,13 +230,13 @@
     "greeting": "こんにちは！キスネ・カネルドのバーチャルアシスタントです。今日はどのようなお手伝いができますか？",
     "suggested_topics_title": "おすすめのトピック",
     "topics": {
-      "tech_stack": "私が現在持っている技術的なスキルは何ですか？",
-      "projects": "主なプロジェクトを見る",
-      "contact": "どのように連絡できますか？"
+      "tech_stack": "V.T.Thànhは現在どのような技術スキルを持っていますか？",
+      "projects": "注目のプロジェクトを見る",
+      "contact": "V.T.Thànhに連絡するにはどうすればよいですか？"
     },
-    "input_placeholder": "質問を入力してください...",
+    "input_placeholder": "V.T.Thànhに質問する",
     "send_button": "メッセージを送信",
-    "disclaimer": "⚠️ このコンテンツはAIによって生成されています。回答は、法律、金融、医療、または生活に関する助言を構成するものではありません。このチャットボットの利用に基づく判断や、その結果について、ウェブサイトの所有者は一切の責任を負いません。内容を十分にご検討のうえでご利用ください。",
+    "disclaimer": "⚠️ このコンテンツはAIによって生成されています。このチャットボットの利用に基づく判断やその結果について、ウェブサイトの所有者は責任を負いません。十分にご検討のうえでご利用ください。音声認識に使用される音声は、ブラウザ提供元に送信される場合があります。",
     "connection_error": "アシスタントは一時的に利用できません。再試行するか、お問い合わせフォームをご利用ください。",
     "rate_limited": "メッセージが多すぎます。しばらく待ってから再試行してください。"
   },

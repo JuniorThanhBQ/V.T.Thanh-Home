@@ -103,8 +103,8 @@ public class ChatService {
             }
             GroqChatClient.LlmResult result = violation
                     ? new GroqChatClient.LlmResult("I can help with questions about Thanh's portfolio, skills and projects.", 0, 0, "policy")
-                    : delta == null ? client.generateResponse(prompts.buildSystemPrompt(), work.history(), text)
-                    : client.streamResponse(prompts.buildSystemPrompt(), work.history(), text, delta);
+                    : delta == null ? client.generateResponse(prompts.buildSystemPrompt(request.language()), work.history(), text)
+                    : client.streamResponse(prompts.buildSystemPrompt(request.language()), work.history(), text, delta);
             if (Thread.currentThread().isInterrupted()) {
                 throw new java.util.concurrent.CancellationException();
             }
@@ -146,6 +146,19 @@ public class ChatService {
             List<ChatHistoryItemResponse> history = new ArrayList<>(messages.findHistoryByChatSessionAndStatus(session, "COMPLETED", PageRequest.of(0, 50)));
             Collections.reverse(history);
             return List.copyOf(history);
+        });
+    }
+
+    public String speechReply(String token, Long visitorId, String requestId) {
+        if (requestId == null || !requestId.matches("[a-zA-Z0-9_-]{1,64}")) {
+            throw new IllegalArgumentException("Invalid request ID");
+        }
+        return transactions.execute(tx -> {
+            var session = ownedSession(token, visitorId);
+            var message = messages.findByChatSessionAndRequestId(session, requestId)
+                    .filter(item -> "COMPLETED".equals(item.getStatus()))
+                    .orElseThrow(() -> new ResourceNotFoundException("Reply not found"));
+            return message.getOutput();
         });
     }
 

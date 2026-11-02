@@ -80,6 +80,7 @@ export class ChatComponentService {
 
     const payload = {
       message: trimmed,
+      language: this.i18n.currentLang(),
       requestId,
     };
 

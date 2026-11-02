@@ -2,7 +2,7 @@
   "app": {
     "title": "개인 웹사이트",
     "Author": "문중성",
-    "version": "버전 3.2.1",
+    "version": "버전 3.3.0",
     "copyright": "모든 권리 보유.",
     "backend_health_up": "서버 정상 작동 중",
     "backend_health_standby": "서버 시작 중 (예상 소요 시간: 2분)",
@@ -201,6 +201,24 @@
     }
   },
   "chat": {
+    "voice_record": "음성 입력",
+    "voice_stop_recording": "음성 입력 중지",
+    "voice_listen": "듣기",
+    "voice_initializing": "음성 준비 중…",
+    "voice_retry": "재생 실패. 다시 시도?",
+    "voice_stop": "재생 중지",
+    "voice_listening": "듣고 있습니다…",
+    "voice_processing": "음성 인식을 마치는 중…",
+    "voice_speaking": "답변을 읽고 있습니다…",
+    "voice_permission": "마이크 권한이 거부되었습니다. 브라우저 설정에서 허용하세요.",
+    "voice_microphone": "사용 가능한 마이크가 없습니다.",
+    "voice_no_speech": "음성이 감지되지 않았습니다. 다시 시도하세요.",
+    "voice_input_error": "음성 인식에 실패했습니다. 직접 입력하거나 다시 시도하세요.",
+    "voice_output_error": "재생에 실패했습니다. 다시 시도하세요.",
+    "voice_input_unavailable": "이 브라우저에서는 음성 입력을 사용할 수 없습니다. 직접 입력하세요.",
+    "voice_output_unavailable": "이 브라우저에서는 음성 재생을 사용할 수 없습니다.",
+    "voice_language_unavailable": "기기에 이 언어의 음성이 없습니다.",
+    "voice_empty": "읽을 수 있는 내용이 없습니다.",
     "progress_connecting": "연결 중",
     "progress_preparing": "대화를 준비하고 있습니다",
     "progress_generating": "도우미가 추론 중입니다",
@@ -212,13 +230,13 @@
     "greeting": "안녕하세요! 저는 반 쭝 타인의 가상 비서입니다. 오늘 무엇을 도와드릴까요?",
     "suggested_topics_title": "주제 제안",
     "topics": {
-      "tech_stack": "제가 현재 갖추고 있는 기술 역량은 무엇인가요?",
-      "projects": "대박 프로젝트들 탐색",
-      "contact": "어떻게 연락을 취할까요?"
+      "tech_stack": "V.T.Thành은 현재 어떤 기술 역량을 갖추고 있나요?",
+      "projects": "주요 프로젝트 살펴보기",
+      "contact": "V.T.Thành에게 어떻게 연락할 수 있나요?"
     },
-    "input_placeholder": "질문을 입력해 주세요...",
+    "input_placeholder": "V.T.Thành에게 질문하기",
     "send_button": "쪽지 보내기",
-    "disclaimer": "⚠️ AI 생성. 피드백은 법률적, 금융적, 의학적 또는 개인 생활에 대한 어떠한 조언도 아닙니다. 웹사이트 소유자는 이 챗봇을 사용하여 발생하는 결정이나 결과에 대해 책임을지지 않습니다. 사용 시 주의를 요합니다.",
+    "disclaimer": "⚠️ 이 콘텐츠는 AI가 생성했습니다. 웹사이트 소유자는 이 챗봇 사용에 따른 결정이나 결과에 책임을 지지 않습니다. 신중하게 이용해 주세요. 음성 인식에 사용되는 오디오는 브라우저 제공업체로 전송될 수 있습니다.",
     "connection_error": "현재 도우미를 이용할 수 없습니다. 다시 시도하거나 문의 양식을 이용해 주세요.",
     "rate_limited": "메시지가 너무 많습니다. 잠시 후 다시 시도해 주세요."
   },

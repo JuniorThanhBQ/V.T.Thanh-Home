@@ -164,6 +164,55 @@
               class="p-3.5 rounded-xl rounded-tl-xs bg-slate-100/70 dark:bg-slate-900/60 text-slate-800 dark:text-slate-100 text-[12px] leading-relaxed border border-slate-200/70 dark:border-slate-800/60 shadow-xs backdrop-blur-sm chat-markdown-content"
               [innerHTML]="msg.text | markdown"
             ></div>
+            @if (msg.state === 'completed') {
+              <button
+                type="button"
+                (click)="togglePlayback(msg.id)"
+                [disabled]="chatService.isSending() || speech.listening()"
+                [attr.aria-pressed]="voice.speakingId() === msg.id"
+                [attr.aria-busy]="voice.initializingId() === msg.id"
+                [attr.title]="
+                  voice.failedId() === msg.id ? i18n.t('chat.voice_output_error') : null
+                "
+                class="mt-1.5 inline-flex items-center gap-1.5 rounded-xl border border-slate-200/70 dark:border-slate-800/60 bg-slate-100/70 dark:bg-slate-900/60 px-2.5 py-1.5 text-[11px] text-slate-800 dark:text-slate-100 shadow-xs backdrop-blur-sm transition-colors hover:bg-slate-200/70 dark:hover:bg-slate-800/60 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="h-3.5 w-3.5 shrink-0"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  [class.animate-spin]="voice.initializingId() === msg.id"
+                  [class.motion-reduce:animate-none]="voice.initializingId() === msg.id"
+                >
+                  @if (voice.initializingId() === msg.id) {
+                    <path d="M12 3a9 9 0 1 1-9 9"></path>
+                  } @else if (voice.failedId() === msg.id) {
+                    <path d="M3 11a9 9 0 1 1 2.6 7M3 4v7h7"></path>
+                  } @else if (voice.speakingId() === msg.id) {
+                    <path d="M9 5v14M15 5v14"></path>
+                  } @else {
+                    <path d="m8 5 11 7-11 7Z"></path>
+                  }
+                </svg>
+                <span aria-live="polite">
+                  {{
+                    i18n.t(
+                      voice.initializingId() === msg.id
+                        ? 'chat.voice_initializing'
+                        : voice.failedId() === msg.id
+                          ? 'chat.voice_retry'
+                          : voice.speakingId() === msg.id
+                            ? 'chat.voice_stop'
+                            : 'chat.voice_listen'
+                    )
+                  }}
+                </span>
+              </button>
+            }
             <span class="text-[9px] font-mono text-slate-500 dark:text-slate-400 mt-1 ml-1">
               {{ msg.time }}
             </span>
@@ -186,7 +235,7 @@
           <span
             role="status"
             aria-live="polite"
-            class="text-[12px] text-slate-600 dark:text-slate-300"
+            class="text-[12px] text-slate-500 dark:text-sky-100"
           >
             {{ i18n.t(statusKey) }}
           </span>
@@ -208,19 +257,44 @@
         maxlength="1000"
         [(ngModel)]="messageInput"
         (keydown.enter)="sendMessage()"
-        [disabled]="!health.available() || chatService.isSending()"
+        [disabled]="!health.available() || chatService.isSending() || speech.listening()"
         [placeholder]="inputPlaceholder()"
         class="flex-1 px-3.5 py-2.5 rounded-lg bg-white/70 dark:bg-slate-900/70 border border-slate-300/70 dark:border-slate-700/60 text-xs font-mono text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-sky-500 dark:focus:border-sky-400 focus:bg-white dark:focus:bg-slate-950 backdrop-blur-xs transition-all disabled:opacity-60 disabled:cursor-not-allowed"
         [class.text-center]="!health.available()"
         [class.placeholder:text-center]="!health.available()"
       />
       @if (health.available()) {
+        @if (speech.recognitionSupported()) {
+          <button
+            type="button"
+            (click)="toggleMicrophone()"
+            [disabled]="chatService.isSending()"
+            [attr.aria-label]="
+              i18n.t(speech.listening() ? 'chat.voice_stop_recording' : 'chat.voice_record')
+            "
+            [attr.aria-pressed]="speech.listening()"
+            class="w-9 h-9 shrink-0 rounded-lg border border-slate-300 dark:border-slate-700 text-sky-700 dark:text-sky-400 cursor-pointer focus-visible:outline-2 disabled:opacity-50"
+            [class.bg-rose-100]="speech.listening()"
+          >
+            <svg
+              aria-hidden="true"
+              class="w-4 h-4 mx-auto"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <rect x="9" y="2" width="6" height="12" rx="3"></rect>
+              <path d="M5 10v2a7 7 0 0 0 14 0v-2M12 19v3M8 22h8"></path>
+            </svg>
+          </button>
+        }
         <button
           type="button"
           (click)="sendMessage()"
           class="w-9 h-9 rounded-lg bg-sky-600 hover:bg-sky-500 text-white flex items-center justify-center transition-colors shadow-md shadow-sky-600/30 shrink-0 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
           [attr.aria-label]="i18n.t('chat.send_button')"
-          [disabled]="!messageInput.trim() || chatService.isSending()"
+          [disabled]="!messageInput.trim() || chatService.isSending() || speech.listening()"
         >
           <svg
             class="w-4 h-4 -rotate-45 ml-0.5"
@@ -237,6 +311,12 @@
         </button>
       }
     </div>
+
+    @if (!speech.recognitionSupported()) {
+      <p class="text-[10px] text-slate-500 dark:text-slate-400">
+        {{ i18n.t('chat.voice_input_unavailable') }}
+      </p>
+    }
 
     <p
       class="text-[8px] text-slate-500 dark:text-slate-400/80 font-mono leading-relaxed text-center px-1"

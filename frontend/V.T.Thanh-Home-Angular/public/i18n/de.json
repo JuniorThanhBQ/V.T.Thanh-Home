@@ -2,7 +2,7 @@
   "app": {
     "title": "Persönliche Website",
     "Author": "Van Trung Thanh",
-    "version": "Version 3.2.1",
+    "version": "Version 3.3.0",
     "copyright": "Alle Rechte vorbehalten",
     "backend_health_up": "Server online",
     "backend_health_standby": "Server wird gestartet (voraussichtlich 2 Minuten)",
@@ -201,6 +201,24 @@
     }
   },
   "chat": {
+    "voice_record": "Nachricht diktieren",
+    "voice_stop_recording": "Diktat beenden",
+    "voice_listen": "Anhören",
+    "voice_initializing": "Sprachausgabe wird vorbereitet…",
+    "voice_retry": "Wiedergabe fehlgeschlagen. Erneut versuchen?",
+    "voice_stop": "Wiedergabe stoppen",
+    "voice_listening": "Hört zu…",
+    "voice_processing": "Diktat wird abgeschlossen…",
+    "voice_speaking": "Antwort wird vorgelesen…",
+    "voice_permission": "Mikrofonzugriff verweigert. Bitte in den Browsereinstellungen erlauben.",
+    "voice_microphone": "Kein Mikrofon verfügbar.",
+    "voice_no_speech": "Keine Sprache erkannt. Bitte erneut versuchen.",
+    "voice_input_error": "Spracherkennung fehlgeschlagen. Bitte tippen oder erneut versuchen.",
+    "voice_output_error": "Wiedergabe fehlgeschlagen. Bitte erneut versuchen.",
+    "voice_input_unavailable": "Spracheingabe ist in diesem Browser nicht verfügbar. Bitte tippen Sie Ihre Nachricht.",
+    "voice_output_unavailable": "Sprachausgabe ist in diesem Browser nicht verfügbar.",
+    "voice_language_unavailable": "Auf Ihrem Gerät ist keine Stimme für diese Sprache verfügbar.",
+    "voice_empty": "Diese Antwort enthält keinen vorlesbaren Text.",
     "progress_connecting": "Verbindung wird hergestellt",
     "progress_preparing": "Gespräch wird vorbereitet",
     "progress_generating": "Der Assistent denkt nach",
@@ -212,13 +230,13 @@
     "greeting": "Hallo! Ich bin die virtuelle Assistentenversion von Van Trung Thanh. Wie kann ich Ihnen heute helfen?",
     "suggested_topics_title": "Vorgeschlagene Themen",
     "topics": {
-      "tech_stack": "Welche technischen Fähigkeiten habe ich derzeit?",
+      "tech_stack": "Welche technischen Fähigkeiten hat V.T.Thành derzeit?",
       "projects": "Ausgewählte Projekte entdecken",
-      "contact": "Wie kann ich Kontakt aufnehmen?"
+      "contact": "Wie kann ich V.T.Thành kontaktieren?"
     },
-    "input_placeholder": "Stellen Sie mir eine Frage...",
+    "input_placeholder": "Stellen Sie V.T.Thành eine Frage",
     "send_button": "Nachricht senden",
-    "disclaimer": "⚠️ Dieser Inhalt wurde von KI erstellt. Die Antworten stellen keine rechtliche, finanzielle, medizinische oder persönliche Beratung dar. Der Betreiber dieser Website übernimmt keine Verantwortung für Entscheidungen oder Folgen, die sich aus der Nutzung dieses Chatbots ergeben. Bitte verwenden Sie ihn mit Bedacht.",
+    "disclaimer": "⚠️ Dieser Inhalt wurde von KI erstellt. Der Websitebetreiber übernimmt keine Verantwortung für Entscheidungen oder Folgen, die sich aus der Nutzung dieses Chatbots ergeben. Bitte verwenden Sie ihn mit Bedacht. Audiodaten zur Spracherkennung können an den Browseranbieter gesendet werden.",
     "connection_error": "Der Assistent ist vorübergehend nicht verfügbar. Bitte versuchen Sie es erneut oder nutzen Sie das Kontaktformular.",
     "rate_limited": "Zu viele Nachrichten. Bitte warten Sie, bevor Sie es erneut versuchen."
   },
