@@ -1,0 +1,43 @@
+name: Auto Release
+
+on:
+  pull_request_target:
+    types: [closed]
+  schedule:
+    - cron: "7,22,37,52 * * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: auto-release-v4
+  cancel-in-progress: false
+
+permissions: {}
+
+jobs:
+  release:
+    name: Publish author-based v4 releases
+    if: >-
+      github.event_name != 'pull_request_target' ||
+      (github.event.pull_request.merged == true &&
+       github.event.pull_request.base.ref == github.event.repository.default_branch &&
+       contains(fromJSON('["dependabot[bot]", "JuniorThanhBQ"]'), github.event.pull_request.user.login))
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      actions: read
+      contents: write
+      pull-requests: read
+    steps:
+      - name: Checkout trusted default branch
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          persist-credentials: false
+          sparse-checkout: scripts/ci
+
+      - name: Create tags and GitHub releases
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3
+        with:
+          script: |
+            const release = require('./scripts/ci/auto-release.cjs');
+            await release({ github, context, core });
