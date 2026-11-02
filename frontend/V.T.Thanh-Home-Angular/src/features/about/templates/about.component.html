@@ -1,18 +1,24 @@
 <div
-  class="relative w-full overflow-hidden bg-white dark:bg-[#070e17] transition-colors duration-500"
+  class="relative w-full min-h-[calc(100dvh-16rem)] flex flex-col justify-center overflow-hidden bg-white dark:bg-[#070e17] transition-colors duration-500"
 >
   <canvas #bgCanvas class="fixed inset-0 w-full h-full pointer-events-none z-0"></canvas>
 
-  <div class="relative z-10 max-w-6xl mx-auto pt-10 sm:pt-16 md:pt-24 pb-14 sm:pb-20 px-4 sm:px-6">
-    <div class="grid grid-cols-1 md:grid-cols-10 gap-8 lg:gap-12 items-center">
-      <div class="md:col-span-7 text-left select-none order-2 md:order-1">
+  <div
+    class="relative z-10 w-full max-w-7xl mx-auto py-[clamp(1.5rem,5dvh,4rem)] px-4 sm:px-6 my-24"
+  >
+    <div
+      class="grid grid-cols-1 xl:grid-cols-10 [@media(min-width:1024px)_and_(hover:hover)_and_(pointer:fine)]:grid-cols-10 gap-8 xl:gap-12 [@media(min-width:1024px)_and_(hover:hover)_and_(pointer:fine)]:gap-12 items-center"
+    >
+      <div
+        class="min-w-0 xl:col-span-7 [@media(min-width:1024px)_and_(hover:hover)_and_(pointer:fine)]:col-span-7 text-left select-none order-2 xl:order-1 [@media(min-width:1024px)_and_(hover:hover)_and_(pointer:fine)]:order-1"
+      >
         <span
           class="text-[11px] sm:text-xs uppercase tracking-[0.2em] sm:tracking-[0.3em] font-mono text-slate-600 dark:text-slate-400 mb-2 block"
         >
           {{ i18n.t('about.hero.tag') }}
         </span>
         <h1
-          class="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight text-slate-900 dark:text-slate-100 leading-tight"
+          class="text-3xl sm:text-5xl xl:text-6xl [@media(min-width:1024px)_and_(hover:hover)_and_(pointer:fine)]:text-6xl font-black tracking-tight text-slate-900 dark:text-slate-100 leading-tight"
         >
           {{ i18n.t('about.hero.title') }}
         </h1>
@@ -91,7 +97,9 @@
         </div>
       </div>
 
-      <div class="md:col-span-3 flex justify-center md:justify-end order-1 md:order-2">
+      <div
+        class="min-w-0 xl:col-span-3 [@media(min-width:1024px)_and_(hover:hover)_and_(pointer:fine)]:col-span-3 flex justify-center xl:justify-end [@media(min-width:1024px)_and_(hover:hover)_and_(pointer:fine)]:justify-end order-1 xl:order-2 [@media(min-width:1024px)_and_(hover:hover)_and_(pointer:fine)]:order-2"
+      >
         <div
           class="relative group cursor-pointer focus:outline-none"
           (click)="openCvViewer()"
@@ -106,7 +114,7 @@
           <img
             [src]="avatarUrls.avatar"
             alt="V.T.Thanh Avatar"
-            class="relative w-40 h-40 sm:w-52 sm:h-52 md:w-60 md:h-60 rounded-full object-cover shadow-2xl ring-4 ring-slate-200/70 dark:ring-slate-800/80 group-hover:scale-[1.02] transition-transform duration-300"
+            class="relative w-40 h-40 sm:w-52 sm:h-52 xl:w-60 [@media(min-width:1024px)_and_(hover:hover)_and_(pointer:fine)]:w-60 xl:h-60 [@media(min-width:1024px)_and_(hover:hover)_and_(pointer:fine)]:h-60 rounded-full object-cover shadow-2xl ring-4 ring-slate-200/70 dark:ring-slate-800/80 group-hover:scale-[1.02] transition-transform duration-300"
           />
           <div
             class="absolute inset-0 rounded-full bg-slate-950/45 opacity-90 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center backdrop-blur-[2px]"
@@ -165,45 +173,50 @@
     aria-label="Curriculum Vitae"
     (close)="onCvViewerClosed()"
     (cancel)="$event.preventDefault(); closeCvViewer()"
-    class="fixed inset-0 m-0 h-full w-full max-h-none max-w-none border-0 bg-transparent p-2.5 sm:p-4 lg:p-6 backdrop:bg-slate-950/80 backdrop:backdrop-blur-xl open:flex open:items-center open:justify-center"
+    class="fixed inset-0 m-0 h-full w-full max-h-none max-w-none border-0 bg-transparent p-2.5 sm:p-4 xl:p-6 [@media(min-width:1024px)_and_(hover:hover)_and_(pointer:fine)]:p-6 backdrop:bg-slate-950/80 backdrop:backdrop-blur-xl open:flex open:items-center open:justify-center"
   >
     @if (isCvOpen) {
       <div
-        class="relative z-10 w-full max-w-7xl h-[94dvh] flex flex-col lg:flex-row gap-4 lg:gap-6 bg-white/95 dark:bg-[#090f19]/95 border border-slate-200/70 dark:border-slate-800/80 rounded-2xl lg:rounded-3xl p-3.5 sm:p-5 lg:p-6 shadow-2xl overflow-y-auto lg:overflow-hidden"
+        class="relative z-10 w-full max-w-7xl h-[94dvh] flex flex-col xl:flex-row [@media(min-width:1024px)_and_(hover:hover)_and_(pointer:fine)]:flex-row gap-4 xl:gap-6 [@media(min-width:1024px)_and_(hover:hover)_and_(pointer:fine)]:gap-6 bg-white/95 dark:bg-[#090f19]/95 border border-slate-200/70 dark:border-slate-800/80 rounded-2xl xl:rounded-3xl [@media(min-width:1024px)_and_(hover:hover)_and_(pointer:fine)]:rounded-3xl p-3.5 sm:p-5 xl:p-6 [@media(min-width:1024px)_and_(hover:hover)_and_(pointer:fine)]:p-6 shadow-2xl overflow-y-auto xl:overflow-hidden [@media(min-width:1024px)_and_(hover:hover)_and_(pointer:fine)]:overflow-hidden"
       >
         <div class="flex-1 flex flex-col min-w-0">
           <div
-            class="flex flex-wrap sm:flex-nowrap items-center justify-between gap-2 pb-3 sm:pb-4 border-b border-slate-200/60 dark:border-slate-800/60"
+            class="hidden md:flex md:flex-row md:flex-nowrap items-center justify-center md:justify-between gap-2 pb-3 sm:pb-4 border-b border-slate-200/60 dark:border-slate-800/60"
           >
-            <div class="flex items-center gap-1.5 sm:gap-2">
-              <button
-                type="button"
-                (click)="prevPage()"
-                [disabled]="currentPage === 1"
-                class="px-2.5 py-1.5 sm:px-3 sm:py-1.5 rounded-lg text-xs font-mono font-medium border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0c121c] text-slate-700 dark:text-slate-300 disabled:opacity-40 hover:bg-slate-100 dark:hover:bg-[#172e42]/60 transition-colors cursor-pointer"
-              >
-                {{ i18n.t('about.cv.prev') }}
-              </button>
-              <span
-                class="text-xs font-mono text-slate-500 dark:text-slate-400 px-1 sm:px-2 shrink-0"
-              >
-                {{ i18n.t('about.cv.page') }} {{ currentPage }} / 2
-              </span>
-              <button
-                type="button"
-                (click)="nextPage()"
-                [disabled]="currentPage === 2"
-                class="px-2.5 py-1.5 sm:px-3 sm:py-1.5 rounded-lg text-xs font-mono font-medium border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0c121c] text-slate-700 dark:text-slate-300 disabled:opacity-40 hover:bg-slate-100 dark:hover:bg-[#172e42]/60 transition-colors cursor-pointer"
-              >
-                {{ i18n.t('about.cv.next') }}
-              </button>
+            <ng-template #cvPageNavigation>
+              <div class="flex items-center justify-center gap-1.5 sm:gap-2">
+                <button
+                  type="button"
+                  (click)="prevPage()"
+                  [disabled]="currentPage === 1"
+                  class="px-2.5 py-1.5 sm:px-3 sm:py-1.5 rounded-lg text-xs font-mono font-medium border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0c121c] text-slate-700 dark:text-slate-300 disabled:opacity-40 hover:bg-slate-100 dark:hover:bg-[#172e42]/60 transition-colors cursor-pointer"
+                >
+                  {{ i18n.t('about.cv.prev') }}
+                </button>
+                <span
+                  class="text-xs font-mono text-slate-500 dark:text-slate-400 px-1 sm:px-2 shrink-0"
+                >
+                  {{ i18n.t('about.cv.page') }} {{ currentPage }} / 2
+                </span>
+                <button
+                  type="button"
+                  (click)="nextPage()"
+                  [disabled]="currentPage === 2"
+                  class="px-2.5 py-1.5 sm:px-3 sm:py-1.5 rounded-lg text-xs font-mono font-medium border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0c121c] text-slate-700 dark:text-slate-300 disabled:opacity-40 hover:bg-slate-100 dark:hover:bg-[#172e42]/60 transition-colors cursor-pointer"
+                >
+                  {{ i18n.t('about.cv.next') }}
+                </button>
+              </div>
+            </ng-template>
+            <div class="hidden md:block">
+              <ng-container [ngTemplateOutlet]="cvPageNavigation" />
             </div>
 
-            <div class="flex items-center gap-1.5 sm:gap-2 ml-auto">
+            <div class="flex flex-wrap justify-center items-center gap-1.5 sm:gap-2 md:ml-auto">
               <button
                 type="button"
                 (click)="toggleZoom()"
-                class="px-2.5 py-1.5 sm:px-3 sm:py-1.5 rounded-lg text-xs font-mono font-medium border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0c121c] text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[#172e42]/60 transition-colors cursor-pointer"
+                class="hidden md:inline-block px-2.5 py-1.5 sm:px-3 sm:py-1.5 rounded-lg text-xs font-mono font-medium border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0c121c] text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[#172e42]/60 transition-colors cursor-pointer"
               >
                 {{ zoomLevel > 1 ? i18n.t('about.cv.reset_zoom') : i18n.t('about.cv.zoom_in') }}
               </button>
@@ -211,14 +224,14 @@
                 [href]="currentPage === 1 ? avatarUrls.cv_picture_one : avatarUrls.cv_picture_two"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="px-2.5 py-1.5 sm:px-3 sm:py-1.5 rounded-lg text-xs font-mono font-medium border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0c121c] text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[#172e42]/60 transition-colors"
+                class="hidden md:inline-block px-2.5 py-1.5 sm:px-3 sm:py-1.5 rounded-lg text-xs font-mono font-medium border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0c121c] text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[#172e42]/60 transition-colors"
               >
                 {{ i18n.t('about.cv.open_original') }}
               </a>
               <button
                 type="button"
                 (click)="closeCvViewer()"
-                class="lg:hidden p-1.5 rounded-lg text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-colors cursor-pointer"
+                class="hidden md:inline-flex xl:hidden [@media(min-width:1024px)_and_(hover:hover)_and_(pointer:fine)]:hidden p-1.5 rounded-lg text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-colors cursor-pointer"
                 aria-label="Close CV Viewer"
               >
                 <svg
@@ -238,7 +251,7 @@
           </div>
 
           <div
-            class="flex-1 relative overflow-auto flex justify-center p-2 sm:p-4 lg:p-6 bg-slate-100/50 dark:bg-black/40 rounded-xl my-2.5 sm:my-3 min-h-[350px] sm:min-h-[440px]"
+            class="flex-1 relative overflow-auto flex justify-center p-2 sm:p-4 xl:p-6 [@media(min-width:1024px)_and_(hover:hover)_and_(pointer:fine)]:p-6 bg-slate-100/50 dark:bg-black/40 rounded-xl my-2.5 sm:my-3 min-h-[350px] sm:min-h-[440px]"
             [class.items-center]="zoomLevel === 1"
             [class.items-start]="zoomLevel > 1"
           >
@@ -251,14 +264,17 @@
               <img
                 [src]="currentPage === 1 ? avatarUrls.cv_picture_one : avatarUrls.cv_picture_two"
                 alt="Curriculum Vitae Page"
-                class="max-h-[50vh] sm:max-h-[60vh] lg:max-h-[72vh] w-auto object-contain rounded shadow-2xl border border-slate-200/50 dark:border-slate-800/80 select-none"
+                class="max-h-[50vh] sm:max-h-[60vh] xl:max-h-[72vh] [@media(min-width:1024px)_and_(hover:hover)_and_(pointer:fine)]:max-h-[72vh] w-auto object-contain rounded shadow-2xl border border-slate-200/50 dark:border-slate-800/80 select-none"
               />
             </div>
+          </div>
+          <div class="md:hidden">
+            <ng-container [ngTemplateOutlet]="cvPageNavigation" />
           </div>
         </div>
 
         <div
-          class="w-full lg:w-96 flex flex-col justify-between border-t lg:border-t-0 lg:border-l border-slate-200/60 dark:border-slate-800/60 pt-4 lg:pt-0 lg:pl-6 shrink-0"
+          class="w-full xl:w-96 [@media(min-width:1024px)_and_(hover:hover)_and_(pointer:fine)]:w-96 flex flex-col justify-between border-t xl:border-t-0 [@media(min-width:1024px)_and_(hover:hover)_and_(pointer:fine)]:border-t-0 xl:border-l [@media(min-width:1024px)_and_(hover:hover)_and_(pointer:fine)]:border-l border-slate-200/60 dark:border-slate-800/60 pt-4 xl:pt-0 [@media(min-width:1024px)_and_(hover:hover)_and_(pointer:fine)]:pt-0 xl:pl-6 [@media(min-width:1024px)_and_(hover:hover)_and_(pointer:fine)]:pl-6 shrink-0"
         >
           <div>
             <div class="flex items-center justify-between pb-3 sm:pb-4">
@@ -281,7 +297,7 @@
               <button
                 type="button"
                 (click)="closeCvViewer()"
-                class="hidden lg:flex p-2 rounded-xl text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-colors cursor-pointer"
+                class="hidden xl:flex [@media(min-width:1024px)_and_(hover:hover)_and_(pointer:fine)]:flex p-2 rounded-xl text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-colors cursor-pointer"
                 aria-label="Close CV Viewer"
               >
                 <svg

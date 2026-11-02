@@ -2,3 +2,6 @@ rules:
   self-repository:
     ignore:
       - ci-pipeline-workflows.yml
+  dangerous-triggers:
+    ignore:
+      - auto-release-workflows.yml

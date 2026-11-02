@@ -81,7 +81,7 @@ describe('Interrupted delivery', () => {
         },
         { provide: TurnstileService, useValue: { verify: () => of(undefined) } },
         { provide: BackendHealthService, useValue: { available: signal(true) } },
-        { provide: TranslationService, useValue: { t: (key: string) => key } },
+        { provide: TranslationService, useValue: { t: (key: string) => key, currentLang: signal('en') } },
       ],
     });
     http = TestBed.inject(HttpTestingController);

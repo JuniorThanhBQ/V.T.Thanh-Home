@@ -1,8 +1,7 @@
 {
   "app": {
-    "title": "Sitio web personal",
     "Author": "Van Trung Thanh",
-    "version": "Versión 3.2.1",
+    "version": "Versión 4.0.0",
     "copyright": "Reservar todos los derechos",
     "backend_health_up": "Servidor en línea",
     "backend_health_standby": "Iniciando el servidor (tiempo estimado: 2 minutos)",
@@ -87,7 +86,7 @@
       "additional_label": "Ámbito de expansión",
       "additional_content": "Investigación de Agentic Coding",
       "connect_linkedin": "Conectar a través de LinkedIn",
-      "return_portfolio": "Volver al Portfolio",
+      "return_portfolio": "Volver al sitio web",
       "overall": "Evaluación de habilidades",
       "overall_content": "7 / 10"
     }
@@ -113,32 +112,27 @@
       "aijmc_jpra": {
         "title": "AIJMC-JPRA: Evaluación de la fiabilidad de ofertas de empleo",
         "category": "Investigación científica expansiva",
-        "summary": "Investigación científica según la norma IEEE Conference revela fraude en los empleos y verifica su autenticidad.",
-        "description": "Módulo de clasificación binaria para evaluar la confiabilidad de los anuncios de empleo a través del URL; integración del agente PydanticAI que combina el acceso web en tiempo real con Playwright para verificar pruebas, calcular la tasa de confiabilidad y elaborar argumentos detallados."
+        "summary": "Investigación científica según la norma IEEE Conference revela fraude en los empleos y verifica su autenticidad."
       },
       "mbms": {
         "title": "Medical Booking Management System (MBMS)",
         "category": "Gestión de citas en tiempo real",
-        "summary": "Plataforma de gestión y reserva de citas médicas en línea para consultorios, desarrollada siguiendo el modelo PWA y Aplicativo Nativo.",
-        "description": "Solución digital de procesos de cita médica en hospitales; optimización del experiencia paciente y médico según el método de desarrollo orientado a IA (AIDD) y Scrum, contenedoresizados."
+        "summary": "Plataforma de gestión y reserva de citas médicas en línea para consultorios, desarrollada siguiendo el modelo PWA y Aplicativo Nativo."
       },
       "ai_writing_indicator": {
         "title": "Detector de textos generados por IA",
         "category": "Machine Learning y Lenguaje Natural",
-        "summary": "Model de aprendizaje máquina binario para la detección de texto vietnamita creado por inteligencia artificial o escrita por un periodista.",
-        "description": "Se investiga y entrena un pipeline de PLN especializado en vietnamita para distinguir con precisión los artículos escritos por personas de los textos generados por modelos de lenguaje grandes (LLM), y verificar la originalidad en la publicación digital."
+        "summary": "Model de aprendizaje máquina binario para la detección de texto vietnamita creado por inteligencia artificial o escrita por un periodista."
       },
       "elearning_lcms": {
         "title": "Sistema de gestión de recursos educativos digitales (ERM)",
         "category": "Educación y Gestión de Contenido Educativo",
-        "summary": "Sistema ERM completo de gestión, almacenamiento y reutilización de recursos de aprendizaje digital en Django REST Framework y React Native.",
-        "description": "Arquitectura backend para el procesamiento de contenido educativo digital que combina base de datos MySQL, autenticación con tokens OAuth2, cuadro de control para administradores y personalización de sugerencias de documentos de aprendizaje mediante Google GenAI."
+        "summary": "Sistema ERM completo de gestión, almacenamiento y reutilización de recursos de aprendizaje digital en Django REST Framework y React Native."
       },
       "sports_field_booking": {
         "title": "Aplicación para reservar y gestionar instalaciones deportivas",
         "category": "Deportes y Pruebas de Software",
-        "summary": "El sistema permite a los usuarios y administradores reservar y gestionar canchas de fútbol, bádminton y tenis en horarios determinados.",
-        "description": "Aplicación web desarrollada con Flask y MySQL para buscar y reservar instalaciones deportivas en tiempo real. Aplica un riguroso proceso de pruebas unitarias, de integración, de sistema y de aceptación mediante Selenium 3."
+        "summary": "El sistema permite a los usuarios y administradores reservar y gestionar canchas de fútbol, bádminton y tenis en horarios determinados."
       }
     }
   },
@@ -147,21 +141,17 @@
     "title": "Diario propio",
     "subtitle": "Quiero que el AI pueda ayudarme a perseguir mis sueños y pasiones, no para robar o reemplazar esos sueños míos. Inspirado en Joanna Maciejewska.",
     "chapter_label": "Capítulo",
-    "journal_label": "Diario",
     "actions": {
       "back_to_journal": "Volver a Diario",
-      "return_to_journal": "← Volver al Diario",
       "open_story": "LEER EL ARTÍCULO",
       "previous": "← Anterior",
       "next": "Página siguiente →",
-      "go_to_story": "Entrar en el artículo",
-      "retry": "Reintentar"
+      "go_to_story": "Entrar en el artículo"
     },
     "empty": {
       "title": "No hay artículos",
       "description": "Todavía no se ha publicado ningún artículo. Puede que se deba a un error del backend o a que me ha dado pereza escribir. Vuelve a visitarme más tarde, por favor."
-    },
-    "load_error": "No se pudo cargar el blog. Inténtalo de nuevo."
+    }
   },
   "contact": {
     "info": {
@@ -201,6 +191,23 @@
     }
   },
   "chat": {
+    "voice_record": "Dictar un mensaje",
+    "voice_stop_recording": "Detener dictado",
+    "voice_listen": "Escuchar",
+    "voice_initializing": "Preparando la voz…",
+    "voice_retry": "Error de reproducción. Reintentar?",
+    "voice_stop": "Detener audio",
+    "voice_listening": "Escuchando…",
+    "voice_processing": "Finalizando dictado…",
+    "voice_permission": "Permiso del micrófono denegado. Actívelo en la configuración del navegador.",
+    "voice_microphone": "No hay micrófono disponible.",
+    "voice_no_speech": "No se detectó voz. Inténtelo de nuevo.",
+    "voice_input_error": "Falló el reconocimiento de voz. Escriba o inténtelo de nuevo.",
+    "voice_output_error": "Falló la reproducción. Inténtelo de nuevo.",
+    "voice_input_unavailable": "La entrada de voz no está disponible en este navegador. Puede escribir su mensaje.",
+    "progress_connecting": "Conectando",
+    "progress_preparing": "Preparando la conversación",
+    "progress_generating": "El asistente está razonando",
     "unavailable": "Funciones actualmente bloqueadas",
     "open_tooltip": "Abrir asistente virtual",
     "close_button": "Cerrar asistente virtual",
@@ -209,32 +216,27 @@
     "greeting": "¡Hola! Soy el asistente virtual de Van Trung Thanh. ¿En qué puedo ayudarte hoy?",
     "suggested_topics_title": "Tema sugerido",
     "topics": {
-      "tech_stack": "¿Qué habilidades técnicas tengo actualmente?",
-      "projects": "Descubra los proyectos destacados",
-      "contact": "Cómo puedo contactarte?"
+      "tech_stack": "¿Qué habilidades técnicas tiene V.T.Thành actualmente?",
+      "projects": "Explorar los proyectos destacados",
+      "contact": "¿Cómo puedo contactar con V.T.Thành?"
     },
-    "input_placeholder": "Hazme una pregunta...",
+    "input_placeholder": "Hazle una pregunta a V.T.Thành",
     "send_button": "Enviar mensaje",
-    "disclaimer": "⚠️ Contenido generado por AI. Respuestas no constituyen ninguna recomendación legal, financiera, médica o de vida. Propietario del sitio web no se responsabiliza de decisiones o consecuencias que surjan de la utilización de este chatbot. Considerar cuidadosamente su uso.",
+    "disclaimer": "⚠️ Este contenido es generado por IA. El propietario del sitio web no se responsabiliza de las decisiones o consecuencias derivadas del uso de este chatbot. Úselo con prudencia. El audio utilizado para el reconocimiento de voz puede enviarse al proveedor del navegador.",
     "connection_error": "El asistente no está disponible temporalmente. Inténtalo de nuevo o utiliza el formulario de contacto.",
     "rate_limited": "Demasiados mensajes. Espera antes de volver a intentarlo."
   },
   "pwa": {
     "label": "Estado de la aplicación",
     "offline": "Sin conexión",
-    "online": "Servicios en línea disponibles",
     "unavailable": "Servicios en línea no disponibles",
-    "checking": "Comprobando servicios…",
-    "ready_checking": "Preparando acceso sin conexión…",
+    "checking": "Comprobando servicios",
+    "ready_checking": "Preparando acceso sin conexión",
     "ready_ready": "Disponible sin conexión",
     "ready_incomplete": "Preparación sin conexión incompleta",
     "ready_unsupported": "El modo sin conexión no está disponible en esta sesión",
     "retry": "Reintentar",
     "install": "Instalar aplicación",
-    "installed": "Instalada",
-    "install_help": "Cómo instalar",
-    "install_browser": "Windows y Android: selecciona Instalar aplicación en el menú de Chrome o Edge.",
-    "install_safari": "Mac: usa Chrome o Edge, o Safari → Compartir → Añadir al Dock en macOS 14 o posterior.",
     "portfolio_available": "Inicio, Acerca de y Proyectos funcionan sin conexión al finalizar la preparación.",
     "install_failed": "No se pudo iniciar la instalación. Prueba el menú del navegador.",
     "recovery": "Esta versión necesita recargarse. Conéctate primero.",
@@ -244,7 +246,6 @@
     "update_failed": "Falló la comprobación o descarga. La aplicación actual permanece abierta.",
     "blog_notice": "Conéctate a los servicios en línea para leer el diario.",
     "contact_notice": "El envío necesita servicios en línea. El borrador permanece en esta pestaña hasta salir o recargar.",
-    "chat_notice": "El chat necesita servicios en línea. Los mensajes no se reenviarán automáticamente.",
     "send_failed": "La entrega no está confirmada. El borrador se conserva; conéctate y reintenta manualmente."
   }
 }

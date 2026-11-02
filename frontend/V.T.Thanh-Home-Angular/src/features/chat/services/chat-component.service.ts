@@ -48,6 +48,7 @@ export class ChatComponentService {
   private active?: Subscription;
   private pendingRequest?: { text: string; id: string };
   public readonly failedMessage = signal<string | null>(null);
+  public readonly statusKey = signal<string | null>(null);
 
   public readonly messages = signal<ChatMessageUI[]>([]);
   public readonly isSending = this.pendingWork.chatSending;
@@ -75,9 +76,11 @@ export class ChatComponentService {
       list.some((message) => message.id === userMsg.id) ? list : [...list, userMsg],
     );
     this.isSending.set(true);
+    this.statusKey.set('chat.progress_connecting');
 
     const payload = {
       message: trimmed,
+      language: this.i18n.currentLang(),
       requestId,
     };
 
@@ -134,7 +137,10 @@ export class ChatComponentService {
             ),
         ),
         this.connectivity.requireOnline(),
-        finalize(() => this.isSending.set(false)),
+        finalize(() => {
+          this.isSending.set(false);
+          this.statusKey.set(null);
+        }),
       )
       .subscribe({
         next: (event) => {
@@ -149,8 +155,14 @@ export class ChatComponentService {
             for (const frame of parser.read(text)) {
               const data = frame.data as Record<string, unknown>;
               if (frame.event === 'start') this.conversationReady = true;
+              if (frame.event === 'status' && !reply) {
+                const stage = data['stage'];
+                if (stage === 'preparing' || stage === 'generating')
+                  this.statusKey.set(`chat.progress_${stage}`);
+              }
               if (frame.event === 'delta') {
                 if (typeof data['text'] !== 'string') throw new Error('Invalid delta');
+                if (data['text']) this.statusKey.set(null);
                 update(reply + data['text']);
               }
               if (frame.event === 'done') {

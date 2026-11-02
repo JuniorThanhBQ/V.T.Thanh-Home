@@ -4,9 +4,11 @@
   class="border-t border-slate-200 dark:border-slate-800 bg-white/85 dark:bg-slate-900/75 backdrop-blur-md py-4 sm:py-3.5 text-xs text-slate-600 dark:text-slate-400 transition-colors duration-300"
 >
   <div
-    class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-2.5 sm:gap-2"
+    class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col xl:flex-row [@media(min-width:1024px)_and_(hover:hover)_and_(pointer:fine)]:flex-row items-center justify-between gap-3 xl:gap-6 [@media(min-width:1024px)_and_(hover:hover)_and_(pointer:fine)]:gap-6"
   >
-    <div class="animate-stagger-item text-center md:text-left text-[11px] sm:text-xs">
+    <div
+      class="animate-stagger-item text-center xl:text-left [@media(min-width:1024px)_and_(hover:hover)_and_(pointer:fine)]:text-left text-[11px] sm:text-xs"
+    >
       © {{ currentYear }}
       <span class="font-semibold text-slate-800 dark:text-slate-200">{{
         i18n.t('app.Author')
@@ -15,10 +17,10 @@
     </div>
 
     <div
-      class="animate-stagger-item flex flex-wrap items-center justify-center md:justify-end gap-x-2.5 gap-y-1 text-[11px] sm:text-xs text-slate-500 dark:text-slate-400"
+      class="animate-stagger-item flex flex-wrap items-center justify-center xl:justify-end [@media(min-width:1024px)_and_(hover:hover)_and_(pointer:fine)]:justify-end gap-x-2 xl:gap-x-4 gap-y-2 text-[11px] sm:text-xs text-slate-500 dark:text-slate-400"
     >
       <span
-        class="inline-flex items-center gap-1.5 font-mono text-slate-700 dark:text-slate-300"
+        class="inline-flex items-center gap-1.5 font-mono text-slate-700 dark:text-slate-300 whitespace-nowrap"
         [attr.title]="
           health.lastChecked()
             ? healthStatusText() + ' (' + (health.lastChecked() | date: 'HH:mm:ss') + ')'
@@ -42,13 +44,19 @@
         }}</span>
       </span>
 
-      <span class="text-slate-300 dark:text-slate-700 select-none">|</span>
+      <span
+        class="hidden xl:inline [@media(min-width:1024px)_and_(hover:hover)_and_(pointer:fine)]:inline text-slate-300 dark:text-slate-700 select-none"
+        >|</span
+      >
 
-      <span class="font-mono text-slate-700 dark:text-slate-300 tabular-nums">
+      <span class="font-mono text-slate-700 dark:text-slate-300 tabular-nums whitespace-nowrap">
         {{ currentTime() ? (currentTime() | date: timeFormat() : '+0700') : '---' }} (UTC+7)
       </span>
 
-      <span class="text-slate-300 dark:text-slate-700 select-none">|</span>
+      <span
+        class="hidden xl:inline [@media(min-width:1024px)_and_(hover:hover)_and_(pointer:fine)]:inline text-slate-300 dark:text-slate-700 select-none"
+        >|</span
+      >
 
       <span class="inline-flex items-center gap-1 font-mono text-slate-700 dark:text-slate-300">
         <svg
@@ -73,13 +81,19 @@
         {{ viewersCount() !== null ? viewersCount() : '---' }}
       </span>
 
-      <span class="text-slate-300 dark:text-slate-700 select-none">|</span>
+      <span
+        class="hidden xl:inline [@media(min-width:1024px)_and_(hover:hover)_and_(pointer:fine)]:inline text-slate-300 dark:text-slate-700 select-none"
+        >|</span
+      >
 
-      <span class="font-mono text-slate-700 dark:text-slate-300">
+      <span class="font-mono text-slate-700 dark:text-slate-300 whitespace-nowrap">
         {{ i18n.t('app.version') }}
       </span>
 
-      <span class="text-slate-300 dark:text-slate-700 select-none">|</span>
+      <span
+        class="hidden xl:inline [@media(min-width:1024px)_and_(hover:hover)_and_(pointer:fine)]:inline text-slate-300 dark:text-slate-700 select-none"
+        >|</span
+      >
 
       <a
         href="https://www.dmca.com/Protection/Status.aspx?ID=86fd9370-93d9-4b72-81db-0d5609db3396&amp;refurl=https%3A%2F%2Fvtthanh-home-angular.vercel.app%2F"

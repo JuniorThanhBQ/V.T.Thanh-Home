@@ -24,7 +24,10 @@ describe('Streaming chat service', () => {
         provideHttpClientTesting(),
         { provide: VisitorService, useValue: { ensureRegistered: () => of(true) } },
         { provide: TurnstileService, useValue: { verify: () => of('challenge') } },
-        { provide: TranslationService, useValue: { t: (key: string) => key } },
+        {
+          provide: TranslationService,
+          useValue: { t: (key: string) => key, currentLang: signal('en') },
+        },
         { provide: BackendHealthService, useValue: { available: () => true } },
         {
           provide: ConnectivityService,
@@ -42,10 +45,54 @@ describe('Streaming chat service', () => {
     TestBed.resetTestingModule();
   });
 
+  it('sends the current website language after a language switch', () => {
+    const i18n = TestBed.inject(TranslationService);
+    i18n.currentLang.set('ja');
+    service.sendMessage('OK');
+    const request = http.expectOne('/api/v1/chat/message/stream');
+    expect(request.request.body.language).toBe('ja');
+    expect(request.request.body.message).toBe('OK');
+    service.cancel();
+  });
+
+  it('shows live status until the first answer text and clears it on cancellation', async () => {
+    service.sendMessage('Hello');
+    expect(service.statusKey()).toBe('chat.progress_connecting');
+    const request = http.expectOne('/api/v1/chat/message/stream');
+    let partial = 'event: start\ndata: {}\n\nevent: status\ndata: {"stage":"preparing"}\n\n';
+    request.event({
+      type: HttpEventType.DownloadProgress,
+      loaded: partial.length,
+      partialText: partial,
+    });
+    await tick();
+    expect(service.statusKey()).toBe('chat.progress_preparing');
+    partial += 'event: status\ndata: {"stage":"generating"}\n\n';
+    request.event({
+      type: HttpEventType.DownloadProgress,
+      loaded: partial.length,
+      partialText: partial,
+    });
+    await tick();
+    expect(service.statusKey()).toBe('chat.progress_generating');
+    partial += 'event: delta\ndata: {"text":"Hi"}\n\n';
+    request.event({
+      type: HttpEventType.DownloadProgress,
+      loaded: partial.length,
+      partialText: partial,
+    });
+    await tick();
+    expect(service.statusKey()).toBeNull();
+    expect(service.messages()[1].text).toBe('Hi');
+    service.cancel();
+    expect(service.statusKey()).toBeNull();
+  });
+
   it('renders a delta before completion and replaces it with the persisted answer', async () => {
     service.sendMessage('Hello');
     const request = http.expectOne('/api/v1/chat/message/stream');
     expect(request.request.reportDownloadProgress).toBe(true);
+    expect(request.request.body.language).toBe('en');
     const partial = 'event: start\ndata: {}\n\nevent: delta\ndata: {"text":"Hi"}\n\n';
     request.event({
       type: HttpEventType.DownloadProgress,

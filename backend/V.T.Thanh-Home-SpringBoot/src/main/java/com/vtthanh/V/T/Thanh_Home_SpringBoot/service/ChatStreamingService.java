@@ -35,6 +35,11 @@ public class ChatStreamingService {
                         throw new CancellationException();
                     }
                     send(emitter, "delta", Map.of("text", text));
+                }, stage -> {
+                    if (stopped.get()) {
+                        throw new CancellationException();
+                    }
+                    send(emitter, "status", Map.of("stage", stage));
                 });
                 if (!stopped.get()) {
                     send(emitter, "done", result);

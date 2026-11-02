@@ -134,3 +134,15 @@ The backend uses managed virtual-thread workers, at most two open streams, the s
 ### WHEN
 
 Deploy the backend before the streaming frontend. Verify incremental delivery through the deployed Vercel rewrite, cookies, XSRF, Turnstile, cold starts, cancellation, and retry behavior. Local tests do not establish CDN flush behavior. Keep the entire stream below Vercel's documented 120-second external proxy timeout; heartbeats do not extend that limit.
+
+## Gemini assistant speech
+
+Assistant audio uses `gemini-3.8-flash-lite-tts` through the backend. Browser Web Speech still handles microphone dictation. Set `GEMINI_API_KEY` in the backend environment as one key or a JSON-style array of keys, matching the repository-root `.env.example`. Both Compose configurations forward it. Direct Spring execution requires exporting these variables; Spring does not load `.env` automatically.
+
+Optional settings are `GEMINI_TTS_MODEL` (default `gemini-3.8-flash-lite-tts`), `GEMINI_TTS_VOICE` (default `Kore`, a multilingual preset), and `GEMINI_TTS_DAILY_LIMIT` (default 100 provider generations per UTC day per running instance). Model availability and free quota depend on the Google project. Keys in the same project share quota; HTTP 429 does not trigger key cycling. Authentication failures try at most one additional key. Credentials must only be set on Render, never in the Vercel browser bundle.
+
+`POST /api/v1/chat/speech/{requestId}` requires the existing visitor session and CSRF token. It reads only completed replies from that visitor's active conversation. Gemini reads the reply in its original language, independent of the website language. Replies above 5,000 cleaned characters cannot be synthesized. Audio is returned as WAV; the browser can stop playback or cancel its pending request. Cancellation does not guarantee that an already-started provider request is unbilled. A maximum of four audio responses are cached in process memory for ten minutes; restarts clear both the cache and daily counter. Concurrent generation is limited to one request per instance.
+
+Current pricing: https://ai.google.dev/gemini-api/docs/pricing
+
+Speech provider HTTP 429 is returned as `RATE_LIMITED` with a retry delay. The backend observes Google RetryInfo (or a 60-second fallback) before making another provider request; cached audio remains playable. Safe backend logs identify the model, upstream HTTP status, and key slot without recording keys, reply text, or provider response bodies. Project quotas are separate from `GEMINI_TTS_DAILY_LIMIT`; raising that application limit does not raise Google quota.

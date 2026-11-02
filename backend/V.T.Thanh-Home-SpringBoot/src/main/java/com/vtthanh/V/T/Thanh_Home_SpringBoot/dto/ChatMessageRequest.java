@@ -5,8 +5,13 @@ import com.fasterxml.jackson.annotation.JsonAnySetter;
 public record ChatMessageRequest(
     String message,
     String requestId,
-    String turnstileToken
+    String turnstileToken,
+    String language
 ) {
+    public ChatMessageRequest(String message, String requestId, String turnstileToken) {
+        this(message, requestId, turnstileToken, null);
+    }
+
     @JsonAnySetter
     public void rejectConversationSelector(String name, Object value) {
         if ("sessionToken".equals(name)) {

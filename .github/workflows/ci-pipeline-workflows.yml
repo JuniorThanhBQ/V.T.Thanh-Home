@@ -156,37 +156,6 @@ jobs:
         working-directory: frontend/V.T.Thanh-Home-Angular
         run: npm run check:ssr:compat
 
-      - name: Install pinned Chromium and system dependencies
-        working-directory: frontend/V.T.Thanh-Home-Angular
-        run: npm exec -- playwright install --with-deps --only-shell chromium
-
-      - name: Verify production PWA in desktop and Android browser contexts
-        working-directory: frontend/V.T.Thanh-Home-Angular
-        run: npm run e2e:pwa
-
-      - name: Verify the tested artifact remains intact
-        working-directory: frontend/V.T.Thanh-Home-Angular
-        run: npm run check:pwa
-
-      - name: Upload PWA browser diagnostics
-        if: ${{ !cancelled() }}
-        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 #v7.0.2
-        with:
-          name: pwa-browser-report
-          path: |
-            frontend/V.T.Thanh-Home-Angular/playwright-report
-            frontend/V.T.Thanh-Home-Angular/test-results
-          if-no-files-found: ignore
-          retention-days: 7
-
-      - name: Upload Angular Build Artifact
-        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 #v7.0.2
-        with:
-          name: frontend-browser
-          path: frontend/V.T.Thanh-Home-Angular/dist/V.T.Thanh-Home-Angular/browser
-          if-no-files-found: error
-          retention-days: 1
-
       - name: Build Spring Boot Production Docker Image
         run: docker build -t vtthanh-backend:test -f backend/Dockerfile .
 

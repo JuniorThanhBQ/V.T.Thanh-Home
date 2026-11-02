@@ -53,7 +53,7 @@ export class BackendHealthService {
               return this.http
                 .get<ActuatorHealthResponse>(buildApiUrl(API_ENDPOINTS.actuator.health))
                 .pipe(
-                  timeout(15000),
+                  timeout(120000),
                   catchError(() => of({ status: 'DOWN' })),
                   tap(() => this.checking.set(false)),
                 );
