@@ -118,8 +118,8 @@ public class GeminiSpeechService {
             byte[] audio = null;
             for (var part : parts) {
                 var data = part.path("inlineData");
-                String mime = data.path("mimeType").asText("");
-                String encoded = data.path("data").asText("");
+                String mime = data.path("mimeType").asString("");
+                String encoded = data.path("data").asString("");
                 if (encoded.isEmpty()) {
                     continue;
                 }
@@ -161,10 +161,10 @@ public class GeminiSpeechService {
         try {
             var error = new tools.jackson.databind.json.JsonMapper().readTree(body).path("error");
             for (var detail : error.path("details")) {
-                if (!"type.googleapis.com/google.rpc.RetryInfo".equals(detail.path("@type").asText(""))) {
+                if (!"type.googleapis.com/google.rpc.RetryInfo".equals(detail.path("@type").asString(""))) {
                     continue;
                 }
-                String delay = detail.path("retryDelay").asText("");
+                String delay = detail.path("retryDelay").asString("");
                 if (delay.matches("[0-9]+(\\.[0-9]+)?s")) {
                     double seconds = Double.parseDouble(delay.substring(0, delay.length() - 1));
                     return (long) Math.ceil(Math.max(1, Math.min(86400, seconds)) * 1000);

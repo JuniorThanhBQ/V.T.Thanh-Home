@@ -1,8 +1,7 @@
 {
   "app": {
-    "title": "个人网站",
     "Author": "文忠诚",
-    "version": "版本 3.3.0",
+    "version": "版本 4.0.0",
     "copyright": "保留所有权利",
     "backend_health_up": "服务器运行中。",
     "backend_health_standby": "正在启动服务器（预计耗时：2分钟）",
@@ -87,7 +86,7 @@
       "additional_label": "扩展领域",
       "additional_content": "智能体编程研究",
       "connect_linkedin": "通过 LinkedIn 建立联系",
-      "return_portfolio": "返回作品集",
+      "return_portfolio": "返回网站",
       "overall": "能力自我评估",
       "overall_content": "7 / 10"
     }
@@ -113,32 +112,27 @@
       "aijmc_jpra": {
         "title": "AIJMC-JPRA：招聘信息可信度评估",
         "category": "扩展科学研究",
-        "summary": "按照 IEEE 学术会议标准开展的科学研究项目，旨在识别欺诈性招聘信息并验证其真实性。",
-        "description": "二分类模型通过招聘信息的 URL 评估其可信度。系统集成 PydanticAI 智能体与 Playwright 实时网页检索功能，对相关证据进行交叉核验、计算可信度评分，并生成详细的判断依据。"
+        "summary": "按照 IEEE 学术会议标准开展的科学研究项目，旨在识别欺诈性招聘信息并验证其真实性。"
       },
       "mbms": {
         "title": "Medical Booking Management System (MBMS)",
         "category": "实时医疗预约管理",
-        "summary": "面向诊所的在线医疗预约与管理平台，采用渐进式 Web 应用（PWA）和原生应用形式开发。",
-        "description": "为医疗机构提供数字化诊疗预约流程的解决方案。项目通过 AI 驱动开发（AIDD）和 Scrum 优化患者与医生的使用体验，并使用 Docker 完成整体容器化部署。"
+        "summary": "面向诊所的在线医疗预约与管理平台，采用渐进式 Web 应用（PWA）和原生应用形式开发。"
       },
       "ai_writing_indicator": {
         "title": "AI 生成文本检测工具",
         "category": "机器学习与自然语言处理",
-        "summary": "一种二分类机器学习模型，用于检测新闻领域中的越南语文本是由生成式人工智能生成，还是由人类撰写。",
-        "description": "研究并训练面向越南语的专用自然语言处理（NLP）流水线，以准确区分人类撰写的新闻文章与大型语言模型（LLM）生成的内容，为数字出版领域的内容原创性审核提供技术支持。"
+        "summary": "一种二分类机器学习模型，用于检测新闻领域中的越南语文本是由生成式人工智能生成，还是由人类撰写。"
       },
       "elearning_lcms": {
         "title": "数字学习资源管理系统（ERM）",
         "category": "教育科技与教学内容管理",
-        "summary": "基于 Django REST Framework 和 React Native 构建的综合性 ERM 系统，支持数字学习资源的管理、存储和重复利用。",
-        "description": "后端架构通过 MySQL 数据库处理数字学习内容，并提供基于 OAuth2 令牌的访问权限控制、面向管理员的统计仪表板，以及 Google GenAI 集成，为用户提供个性化的学习资料推荐。"
+        "summary": "基于 Django REST Framework 和 React Native 构建的综合性 ERM 系统，支持数字学习资源的管理、存储和重复利用。"
       },
       "sports_field_booking": {
         "title": "体育场地预约与管理应用",
         "category": "体育服务与软件测试",
-        "summary": "支持用户或管理员按照指定时段预约和管理足球场、羽毛球场与网球场的系统。",
-        "description": "基于 Flask 和 MySQL 构建的 Web 应用，支持实时搜索与预约体育场地。项目采用严格的质量保证流程，并使用 Selenium 3 完成单元测试、集成测试、系统测试和验收测试。"
+        "summary": "支持用户或管理员按照指定时段预约和管理足球场、羽毛球场与网球场的系统。"
       }
     }
   },
@@ -147,21 +141,17 @@
     "title": "我的日志",
     "subtitle": "我希望 AI 能帮助我追逐自己的梦想和热爱，而不是夺走或取代它们。灵感来自 Joanna Maciejewska。",
     "chapter_label": "章节",
-    "journal_label": "日志",
     "actions": {
       "back_to_journal": "← 返回日志",
-      "return_to_journal": "← 回到日志",
       "open_story": "阅读文章",
       "previous": "← 上一页",
       "next": "下一页 →",
-      "go_to_story": "前往文章",
-      "retry": "重试"
+      "go_to_story": "前往文章"
     },
     "empty": {
       "title": "暂无文章",
       "description": "目前还没有发布任何文章。这可能是后端出现了错误，也可能只是我懒得写文章。请稍后再来看看。"
-    },
-    "load_error": "无法加载博客，请重试。"
+    }
   },
   "contact": {
     "info": {
@@ -209,16 +199,12 @@
     "voice_stop": "停止播放",
     "voice_listening": "正在聆听…",
     "voice_processing": "正在完成识别…",
-    "voice_speaking": "正在朗读回复…",
     "voice_permission": "麦克风权限被拒绝。请在浏览器设置中允许。",
     "voice_microphone": "没有可用的麦克风。",
     "voice_no_speech": "未检测到语音，请重试。",
     "voice_input_error": "语音识别失败，请输入文字或重试。",
     "voice_output_error": "播放失败，请重试。",
     "voice_input_unavailable": "此浏览器不支持语音输入，请输入文字。",
-    "voice_output_unavailable": "此浏览器不支持语音播放。",
-    "voice_language_unavailable": "设备上没有此语言的可用语音。",
-    "voice_empty": "此回复没有可朗读的内容。",
     "progress_connecting": "正在建立连接",
     "progress_preparing": "正在准备对话",
     "progress_generating": "助手正在推理",
@@ -243,7 +229,6 @@
   "pwa": {
     "label": "应用状态",
     "offline": "当前离线",
-    "online": "在线服务可用",
     "unavailable": "在线服务不可用",
     "checking": "正在检查在线服务",
     "ready_checking": "正在准备离线访问",
@@ -252,10 +237,6 @@
     "ready_unsupported": "当前会话无法使用离线模式",
     "retry": "重试",
     "install": "安装应用",
-    "installed": "已安装",
-    "install_help": "安装方法",
-    "install_browser": "Windows 和 Android：在 Chrome 或 Edge 菜单中选择“安装应用”。",
-    "install_safari": "Mac：使用 Chrome 或 Edge，或在 macOS 14 及以上系统中选择 Safari → 共享 → 添加到程序坞。",
     "portfolio_available": "准备完成后，首页、关于和项目页面可离线使用。",
     "install_failed": "无法开始安装，请尝试浏览器菜单。",
     "recovery": "此应用版本需要重新加载，请先连接网络。",
@@ -265,7 +246,6 @@
     "update_failed": "更新检查或下载失败，当前应用仍保持打开。",
     "blog_notice": "请连接在线服务以阅读日志。",
     "contact_notice": "发送需要在线服务。离开或重新加载此标签页前，草稿会保留在这里。",
-    "chat_notice": "聊天需要在线服务，不会自动重新发送消息。",
     "send_failed": "尚未确认送达。草稿已保留，请联网后手动重试。"
   }
 }

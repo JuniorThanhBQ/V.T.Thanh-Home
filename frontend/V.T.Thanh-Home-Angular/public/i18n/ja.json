@@ -1,8 +1,7 @@
 {
   "app": {
-    "title": "個人サイト",
     "Author": "キスネ・カネルド",
-    "version": "バージョン 3.3.0",
+    "version": "バージョン 4.0.0",
     "copyright": "無断転載を禁じます",
     "backend_health_up": "サーバー稼働中。",
     "backend_health_standby": "サーバーを起動中（所要時間の目安：2分）",
@@ -87,7 +86,7 @@
       "additional_label": "拡張分野",
       "additional_content": "Agentic Codingの研究",
       "connect_linkedin": "LinkedInでつながる",
-      "return_portfolio": "ポートフォリオに戻る",
+      "return_portfolio": "ウェブサイトに戻る",
       "overall": "スキルの自己評価",
       "overall_content": "7 / 10"
     }
@@ -113,32 +112,27 @@
       "aijmc_jpra": {
         "title": "AIJMC-JPRA：求人情報の信頼性評価",
         "category": "発展的な科学研究",
-        "summary": "IEEE国際会議の論文形式に準拠し、詐欺的な求人情報の検出と信頼性の検証を目的とした科学研究プロジェクトです。",
-        "description": "求人情報のURLをもとに、二値分類モデルで信頼性を評価します。PydanticAIエージェントとPlaywrightによるリアルタイムのウェブ検索を組み合わせ、証拠の照合、信頼度の算出、詳細な判断理由の生成を行います。"
+        "summary": "IEEE国際会議の論文形式に準拠し、詐欺的な求人情報の検出と信頼性の検証を目的とした科学研究プロジェクトです。"
       },
       "mbms": {
         "title": "Medical Booking Management System (MBMS)",
         "category": "リアルタイム診療予約管理",
-        "summary": "クリニック向けのオンライン診療予約・管理プラットフォームで、PWAとネイティブアプリとして開発されています。",
-        "description": "医療機関における診療予約業務をデジタル化するソリューションです。AI駆動開発（AIDD）とScrumを活用して患者と医師の利用体験を最適化し、Dockerによる完全なコンテナ化環境でデプロイします。"
+        "summary": "クリニック向けのオンライン診療予約・管理プラットフォームで、PWAとネイティブアプリとして開発されています。"
       },
       "ai_writing_indicator": {
         "title": "AI生成文章の検出ツール",
         "category": "機械学習と自然言語処理",
-        "summary": "ベトナム語の報道文章が生成AIによって作成されたものか、人間によって書かれたものかを判定する二値分類の機械学習モデルです。",
-        "description": "ベトナム語に特化した自然言語処理（NLP）パイプラインを研究・学習させ、人間が執筆したニュース記事と大規模言語モデル（LLM）が生成した文章を正確に識別します。デジタル出版におけるコンテンツの独自性確認を支援します。"
+        "summary": "ベトナム語の報道文章が生成AIによって作成されたものか、人間によって書かれたものかを判定する二値分類の機械学習モデルです。"
       },
       "elearning_lcms": {
         "title": "デジタル学習教材管理システム（ERM）",
         "category": "教育テクノロジーと教材管理",
-        "summary": "Django REST FrameworkとReact Nativeを基盤として、デジタル学習教材の管理・保存・再利用を実現する包括的なERMシステムです。",
-        "description": "MySQLデータベースを使用してデジタル学習コンテンツを処理するバックエンドアーキテクチャです。OAuth2トークンによるアクセス権限管理、管理者向け統計ダッシュボード、Google GenAIを活用した個別の学習教材推薦機能を備えています。"
+        "summary": "Django REST FrameworkとReact Nativeを基盤として、デジタル学習教材の管理・保存・再利用を実現する包括的なERMシステムです。"
       },
       "sports_field_booking": {
         "title": "スポーツ施設予約・管理アプリケーション",
         "category": "スポーツとソフトウェアテスト",
-        "summary": "ユーザーまたは管理者が、サッカー、バドミントン、テニスの施設を指定した時間帯ごとに予約・管理できるシステムです。",
-        "description": "FlaskとMySQLで構築されたウェブアプリケーションで、スポーツ施設のリアルタイム検索と予約を提供します。Selenium 3を使用し、単体テスト、結合テスト、システムテスト、受け入れテストまでの厳格な品質保証プロセスを実施しています。"
+        "summary": "ユーザーまたは管理者が、サッカー、バドミントン、テニスの施設を指定した時間帯ごとに予約・管理できるシステムです。"
       }
     }
   },
@@ -147,21 +141,17 @@
     "title": "私の日記",
     "subtitle": "私は、AIに自分の夢や情熱を奪われたり置き換えられたりするのではなく、それらを追い続ける手助けをしてほしいと思っています。Joanna Maciejewskaの言葉に着想を得ました。",
     "chapter_label": "章",
-    "journal_label": "日記",
     "actions": {
       "back_to_journal": "← 日記に戻る",
-      "return_to_journal": "← 日記へ戻る",
       "open_story": "記事を読む",
       "previous": "← 前のページ",
       "next": "次のページ →",
-      "go_to_story": "記事へ移動",
-      "retry": "再試行"
+      "go_to_story": "記事へ移動"
     },
     "empty": {
       "title": "記事がありません",
       "description": "まだ記事が公開されていません。バックエンドのエラーか、私が記事を書くのを怠けている可能性があります。しばらくしてから、もう一度お越しください。"
-    },
-    "load_error": "ブログを読み込めませんでした。もう一度お試しください。"
+    }
   },
   "contact": {
     "info": {
@@ -209,16 +199,12 @@
     "voice_stop": "再生を停止",
     "voice_listening": "聞き取り中…",
     "voice_processing": "音声認識を完了中…",
-    "voice_speaking": "回答を読み上げ中…",
     "voice_permission": "マイクの使用が拒否されました。ブラウザの設定で許可してください。",
     "voice_microphone": "マイクを利用できません。",
     "voice_no_speech": "音声を検出できませんでした。再試行してください。",
     "voice_input_error": "音声認識に失敗しました。文字入力するか再試行してください。",
     "voice_output_error": "再生に失敗しました。再試行してください。",
     "voice_input_unavailable": "このブラウザでは音声入力を利用できません。文字で入力してください。",
-    "voice_output_unavailable": "このブラウザでは読み上げを利用できません。",
-    "voice_language_unavailable": "この言語の音声が端末にありません。",
-    "voice_empty": "読み上げ可能な内容がありません。",
     "progress_connecting": "接続しています",
     "progress_preparing": "会話を準備しています",
     "progress_generating": "アシスタントが推論しています",
@@ -243,7 +229,6 @@
   "pwa": {
     "label": "アプリの状態",
     "offline": "オフラインです",
-    "online": "オンラインサービスを利用できます",
     "unavailable": "オンラインサービスを利用できません",
     "checking": "サービスを確認中",
     "ready_checking": "オフライン利用を準備中",
@@ -252,10 +237,6 @@
     "ready_unsupported": "このセッションではオフライン機能を利用できません",
     "retry": "再試行",
     "install": "アプリをインストール",
-    "installed": "インストール済み",
-    "install_help": "インストール方法",
-    "install_browser": "Windows・Android：Chrome または Edge のメニューから「アプリをインストール」を選んでください。",
-    "install_safari": "Mac：Chrome・Edge、または macOS 14 以降の Safari → 共有 → Dock に追加を使ってください。",
     "portfolio_available": "準備が完了すると、ホーム・プロフィール・プロジェクトをオフラインで利用できます。",
     "install_failed": "インストールを開始できません。ブラウザーのメニューをお試しください。",
     "recovery": "このバージョンは再読み込みが必要です。先にネットワークへ接続してください。",
@@ -265,7 +246,6 @@
     "update_failed": "更新の確認またはダウンロードに失敗しました。現在のアプリは開いたままです。",
     "blog_notice": "日記を読むにはオンラインサービスに接続してください。",
     "contact_notice": "送信にはオンラインサービスが必要です。下書きは、このタブから移動するか再読み込みするまで保持されます。",
-    "chat_notice": "チャットにはオンラインサービスが必要です。メッセージを自動で再送しません。",
     "send_failed": "配信を確認できません。下書きは保持されています。接続後、手動で再試行してください。"
   }
 }

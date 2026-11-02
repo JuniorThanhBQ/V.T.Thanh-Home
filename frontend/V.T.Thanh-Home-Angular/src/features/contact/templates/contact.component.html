@@ -2,7 +2,7 @@
   class="relative w-full min-h-[calc(100vh-4.5rem)] flex items-center justify-center select-none"
 >
   <div
-    class="relative w-full max-w-7xl min-h-[85vh] rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl flex items-center justify-center p-6 sm:p-10 lg:p-14 border border-slate-200/80 dark:border-slate-800/80"
+    class="relative w-full max-w-7xl min-h-[85vh] rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl flex items-center justify-center p-6 sm:p-10 xl:p-14 [@media(min-width:1024px)_and_(hover:hover)_and_(pointer:fine)]:p-14 border border-slate-200/80 dark:border-slate-800/80"
   >
     <img
       [src]="avatarUrls.contact_page_background"
@@ -13,16 +13,18 @@
     />
 
     <div
-      class="absolute inset-0 bg-slate-950/55 dark:bg-[#070e17]/10 pointer-events-none z-0"
+      class="absolute inset-0 bg-slate-950/65 md:bg-slate-950/55 dark:bg-[#070e17]/20 md:dark:bg-[#070e17]/10 pointer-events-none z-0"
     ></div>
     <div
       class="absolute inset-0 bg-gradient-to-t dark:from-slate-950/95 dark:via-slate-950/50 dark:to-slate-950/75 pointer-events-none z-0"
     ></div>
 
     <div
-      class="relative z-10 w-full max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-10 gap-10 lg:gap-14 items-center"
+      class="relative z-10 w-full max-w-6xl mx-auto grid grid-cols-1 xl:grid-cols-10 [@media(min-width:1024px)_and_(hover:hover)_and_(pointer:fine)]:grid-cols-10 gap-10 xl:gap-14 [@media(min-width:1024px)_and_(hover:hover)_and_(pointer:fine)]:gap-14 items-center"
     >
-      <div class="lg:col-span-5 text-left text-white space-y-8">
+      <div
+        class="xl:col-span-5 [@media(min-width:1024px)_and_(hover:hover)_and_(pointer:fine)]:col-span-5 text-left text-white space-y-8"
+      >
         <div>
           <h1
             class="text-3xl sm:text-4xl font-extrabold tracking-tight text-white leading-tight dark:text-sky-300"
@@ -144,7 +146,9 @@
         </div>
       </div>
 
-      <div class="lg:col-span-5">
+      <div
+        class="hidden md:block xl:col-span-5 [@media(min-width:1024px)_and_(hover:hover)_and_(pointer:fine)]:col-span-5"
+      >
         <form
           [formGroup]="contactForm"
           (ngSubmit)="onSubmit()"

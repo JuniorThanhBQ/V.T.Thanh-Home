@@ -1,8 +1,7 @@
 {
   "app": {
-    "title": "Persönliche Website",
     "Author": "Van Trung Thanh",
-    "version": "Version 3.3.0",
+    "version": "Version 4.0.0",
     "copyright": "Alle Rechte vorbehalten",
     "backend_health_up": "Server online",
     "backend_health_standby": "Server wird gestartet (voraussichtlich 2 Minuten)",
@@ -87,7 +86,7 @@
       "additional_label": "Erweiterter Bereich",
       "additional_content": "Forschung zu Agentic Coding",
       "connect_linkedin": "Auf LinkedIn vernetzen",
-      "return_portfolio": "Zurück zum Portfolio",
+      "return_portfolio": "Zurück zur Website",
       "overall": "Selbsteinschätzung der Fähigkeiten",
       "overall_content": "7 / 10"
     }
@@ -113,32 +112,27 @@
       "aijmc_jpra": {
         "title": "AIJMC-JPRA: Bewertung der Vertrauenswürdigkeit von Stellenanzeigen",
         "category": "Erweiterte wissenschaftliche Forschung",
-        "summary": "Eine wissenschaftliche Untersuchung nach dem IEEE-Konferenzstandard zur Erkennung betrügerischer Stellenanzeigen und zur Überprüfung ihrer Authentizität.",
-        "description": "Ein binäres Klassifikationsmodell bewertet die Vertrauenswürdigkeit einer Stellenanzeige anhand ihrer URL. Ein PydanticAI-Agent wird mit einer Echtzeit-Websuche über Playwright kombiniert, um Nachweise abzugleichen, einen Vertrauenswert zu berechnen und eine ausführliche Begründung zu erstellen."
+        "summary": "Eine wissenschaftliche Untersuchung nach dem IEEE-Konferenzstandard zur Erkennung betrügerischer Stellenanzeigen und zur Überprüfung ihrer Authentizität."
       },
       "mbms": {
         "title": "Medical Booking Management System (MBMS)",
         "category": "Medizinische Terminverwaltung in Echtzeit",
-        "summary": "Eine Plattform zur Verwaltung und Online-Buchung medizinischer Termine für Kliniken, die als PWA und native App entwickelt wurde.",
-        "description": "Eine Lösung zur Digitalisierung der medizinischen Terminbuchung in Gesundheitseinrichtungen. Die Benutzererfahrung für Patienten und Ärzte wird mithilfe KI-orientierter Entwicklung (AIDD) und Scrum optimiert. Die vollständige Bereitstellung erfolgt containerisiert über Docker."
+        "summary": "Eine Plattform zur Verwaltung und Online-Buchung medizinischer Termine für Kliniken, die als PWA und native App entwickelt wurde."
       },
       "ai_writing_indicator": {
         "title": "Erkennung KI-generierter Texte",
         "category": "Maschinelles Lernen und Verarbeitung natürlicher Sprache",
-        "summary": "Ein binäres Klassifikationsmodell, das erkennt, ob vietnamesische journalistische Texte von generativer künstlicher Intelligenz oder von Menschen verfasst wurden.",
-        "description": "Eine speziell auf Vietnamesisch ausgerichtete NLP-Pipeline wird erforscht und trainiert, um von Menschen verfasste Artikel zuverlässig von Inhalten zu unterscheiden, die durch große Sprachmodelle (LLMs) erzeugt wurden. Das System unterstützt die Prüfung der Originalität digitaler Veröffentlichungen."
+        "summary": "Ein binäres Klassifikationsmodell, das erkennt, ob vietnamesische journalistische Texte von generativer künstlicher Intelligenz oder von Menschen verfasst wurden."
       },
       "elearning_lcms": {
         "title": "System zur Verwaltung digitaler Lernressourcen (ERM)",
         "category": "Bildungstechnologie und Verwaltung von Lerninhalten",
-        "summary": "Ein umfassendes ERM-System zur Verwaltung, Speicherung und Wiederverwendung digitaler Lernressourcen auf Basis von Django REST Framework und React Native.",
-        "description": "Die Backend-Architektur verarbeitet digitale Lerninhalte mithilfe einer MySQL-Datenbank. Das System bietet OAuth2-Token-basierte Zugriffskontrolle, ein statistisches Administrations-Dashboard und eine Integration von Google GenAI zur personalisierten Empfehlung von Lernmaterialien."
+        "summary": "Ein umfassendes ERM-System zur Verwaltung, Speicherung und Wiederverwendung digitaler Lernressourcen auf Basis von Django REST Framework und React Native."
       },
       "sports_field_booking": {
         "title": "Anwendung zur Buchung und Verwaltung von Sportplätzen",
         "category": "Sport und Softwaretests",
-        "summary": "Ein System, mit dem Benutzer und Administratoren Fußball-, Badminton- und Tennisplätze für bestimmte Zeitfenster buchen und verwalten können.",
-        "description": "Eine mit Flask und MySQL entwickelte Webanwendung zur Echtzeitsuche und Buchung von Sportplätzen. Das Projekt verwendet einen umfassenden Qualitätssicherungsprozess mit Unit-, Integrations-, System- und Abnahmetests unter Verwendung von Selenium 3."
+        "summary": "Ein System, mit dem Benutzer und Administratoren Fußball-, Badminton- und Tennisplätze für bestimmte Zeitfenster buchen und verwalten können."
       }
     }
   },
@@ -147,21 +141,17 @@
     "title": "Mein Tagebuch",
     "subtitle": "Ich möchte, dass KI mir hilft, meine Träume und Leidenschaften zu verfolgen, anstatt sie mir wegzunehmen oder zu ersetzen. Inspiriert von Joanna Maciejewska.",
     "chapter_label": "Kapitel",
-    "journal_label": "Tagebuch",
     "actions": {
       "back_to_journal": "← Zurück zum Tagebuch",
-      "return_to_journal": "← Zum Tagebuch zurückkehren",
       "open_story": "BEITRAG LESEN",
       "previous": "← Vorherige Seite",
       "next": "Nächste Seite →",
-      "go_to_story": "Zum Beitrag",
-      "retry": "Erneut versuchen"
+      "go_to_story": "Zum Beitrag"
     },
     "empty": {
       "title": "Keine Beiträge vorhanden",
       "description": "Es wurden noch keine Beiträge veröffentlicht. Möglicherweise liegt ein Backend-Fehler vor oder ich war einfach zu faul, etwas zu schreiben. Bitte schauen Sie später noch einmal vorbei."
-    },
-    "load_error": "Das Journal konnte nicht geladen werden. Bitte versuchen Sie es erneut."
+    }
   },
   "contact": {
     "info": {
@@ -209,16 +199,12 @@
     "voice_stop": "Wiedergabe stoppen",
     "voice_listening": "Hört zu…",
     "voice_processing": "Diktat wird abgeschlossen…",
-    "voice_speaking": "Antwort wird vorgelesen…",
     "voice_permission": "Mikrofonzugriff verweigert. Bitte in den Browsereinstellungen erlauben.",
     "voice_microphone": "Kein Mikrofon verfügbar.",
     "voice_no_speech": "Keine Sprache erkannt. Bitte erneut versuchen.",
     "voice_input_error": "Spracherkennung fehlgeschlagen. Bitte tippen oder erneut versuchen.",
     "voice_output_error": "Wiedergabe fehlgeschlagen. Bitte erneut versuchen.",
     "voice_input_unavailable": "Spracheingabe ist in diesem Browser nicht verfügbar. Bitte tippen Sie Ihre Nachricht.",
-    "voice_output_unavailable": "Sprachausgabe ist in diesem Browser nicht verfügbar.",
-    "voice_language_unavailable": "Auf Ihrem Gerät ist keine Stimme für diese Sprache verfügbar.",
-    "voice_empty": "Diese Antwort enthält keinen vorlesbaren Text.",
     "progress_connecting": "Verbindung wird hergestellt",
     "progress_preparing": "Gespräch wird vorbereitet",
     "progress_generating": "Der Assistent denkt nach",
@@ -243,7 +229,6 @@
   "pwa": {
     "label": "App-Status",
     "offline": "Sie sind offline",
-    "online": "Onlinedienste verfügbar",
     "unavailable": "Onlinedienste nicht verfügbar",
     "checking": "Onlinedienste werden geprüft",
     "ready_checking": "Offlinezugriff wird vorbereitet",
@@ -252,10 +237,6 @@
     "ready_unsupported": "Offlinemodus ist in dieser Sitzung nicht verfügbar",
     "retry": "Erneut versuchen",
     "install": "App installieren",
-    "installed": "Installiert",
-    "install_help": "Installationshilfe",
-    "install_browser": "Windows und Android: Im Menü von Chrome oder Edge App installieren auswählen.",
-    "install_safari": "Mac: Chrome oder Edge verwenden, oder Safari → Teilen → Zum Dock hinzufügen ab macOS 14.",
     "portfolio_available": "Startseite, Über mich und Projekte funktionieren nach der Vorbereitung offline.",
     "install_failed": "Installation konnte nicht gestartet werden. Versuchen Sie es im Browsermenü.",
     "recovery": "Diese App-Version muss neu geladen werden. Stellen Sie zuerst eine Verbindung her.",
@@ -265,7 +246,6 @@
     "update_failed": "Updateprüfung oder Download fehlgeschlagen. Die aktuelle App bleibt geöffnet.",
     "blog_notice": "Verbinden Sie sich mit den Onlinediensten, um das Journal zu lesen.",
     "contact_notice": "Zum Senden sind Onlinedienste erforderlich. Der Entwurf bleibt bis zum Verlassen oder Neuladen in diesem Tab.",
-    "chat_notice": "Chat benötigt Onlinedienste. Nachrichten werden nicht automatisch erneut gesendet.",
     "send_failed": "Zustellung nicht bestätigt. Ihr Entwurf bleibt erhalten; verbinden Sie sich und versuchen Sie es manuell erneut."
   }
 }

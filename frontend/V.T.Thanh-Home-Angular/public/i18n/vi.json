@@ -1,8 +1,7 @@
 {
   "app": {
-    "title": "Website cá nhân",
     "Author": "Văn Trung Thành",
-    "version": "Phiên bản 3.3.0",
+    "version": "Phiên bản 4.0.0",
     "copyright": "Bảo lưu mọi quyền",
     "backend_health_up": "Server đang hoạt động",
     "backend_health_standby": "Đang khởi động Server (ETA: 2 phút)",
@@ -87,7 +86,7 @@
       "additional_label": "Lĩnh vực mở rộng",
       "additional_content": "Nghiên cứu Agentic Coding",
       "connect_linkedin": "Kết nối qua LinkedIn",
-      "return_portfolio": "Quay lại Portfolio",
+      "return_portfolio": "Quay lại Website",
       "overall": "Tự đánh giá năng lực",
       "overall_content": "7 / 10"
     }
@@ -113,32 +112,27 @@
       "aijmc_jpra": {
         "title": "AIJMC - JPRA: Đánh giá độ tin cậy tin tuyển dụng",
         "category": "Nghiên cứu khoa học mở rộng",
-        "summary": "Nghiên cứu khoa học theo chuẩn IEEE Conference nhằm mục đích phát hiện các tin tuyển dụng gian lận và kiểm chứng tính xác thực.",
-        "description": "Mô hình phân loại nhị phân đánh giá độ tin cậy của bài đăng tuyển dụng qua URL; tích hợp PydanticAI Agent kết hợp truy xuất web thời gian thực bằng Playwright để đối soát bằng chứng, tính toán tỷ lệ tin cậy và lập luận chi tiết."
+        "summary": "Nghiên cứu khoa học theo chuẩn IEEE Conference nhằm mục đích phát hiện các tin tuyển dụng gian lận và kiểm chứng tính xác thực."
       },
       "mbms": {
         "title": "Medical Booking Management System (MBMS)",
         "category": "Quản lý đặt Lịch Thời Gian Thực",
-        "summary": "Nền tảng quản lý và đặt lịch khám bệnh trực tuyến với phạm vi nghiệp vụ phòng khám nhỏ, phát triển theo mô hình PWA và Native App.",
-        "description": "Giải pháp số hóa quy trình đặt hẹn khám chữa bệnh tại các cơ sở y tế; tối ưu hóa trải nghiệm bệnh nhân và bác sĩ theo phương pháp phát triển định hướng AI (AIDD) và Scrum, đóng gói triển khai hoàn chỉnh qua Docker."
+        "summary": "Nền tảng quản lý và đặt lịch khám bệnh trực tuyến với phạm vi nghiệp vụ phòng khám nhỏ, phát triển theo mô hình PWA và Native App."
       },
       "ai_writing_indicator": {
         "title": "Công cụ nhận diện văn bản tạo sinh bởi AI",
         "category": "Machine Learning và Xử lý Ngôn ngữ Tự nhiên",
-        "summary": "Mô hình học máy phân loại nhị phân phát hiện văn bản tiếng Việt do trí tuệ nhân tạo tạo sinh hay người viết trong lĩnh vực báo chí.",
-        "description": "Nghiên cứu và huấn luyện pipeline NLP chuyên biệt cho tiếng Việt nhằm phân biệt chính xác bài báo do con người chắp bút hay do các mô hình ngôn ngữ lớn (LLM) tổng hợp, phục vụ kiểm định tính nguyên bản trong xuất bản số."
+        "summary": "Mô hình học máy phân loại nhị phân phát hiện văn bản tiếng Việt do trí tuệ nhân tạo tạo sinh hay người viết trong lĩnh vực báo chí."
       },
       "elearning_lcms": {
         "title": "Hệ thống quản lý học liệu số (ERM)",
         "category": "EdTech và Quản Lý Nội Dung Giáo Dục",
-        "summary": "Hệ thống ERM toàn diện quản lý, lưu trữ và tái sử dụng tài nguyên học tập số trên nền tảng Django REST Framework và React Native.",
-        "description": "Kiến trúc backend xử lý nội dung học tập số kết hợp cơ sở dữ liệu MySQL, bảo mật phân quyền token OAuth2, bảng điều khiển thống kê cho quản trị viên và tích hợp Google GenAI cá nhân hóa đề xuất tài liệu học tập."
+        "summary": "Hệ thống ERM toàn diện quản lý, lưu trữ và tái sử dụng tài nguyên học tập số trên nền tảng Django REST Framework và React Native."
       },
       "sports_field_booking": {
         "title": "Ứng dụng đặt và quản lý sân thể thao",
         "category": "Thể Thao và Kiểm thử Phần Mềm",
-        "summary": "Hệ thống cho phép người dùng hoặc quản trị đặt và quản lý sân bóng đá, cầu lông, tennis theo khung giờ nhất định.",
-        "description": "Ứng dụng web xây dựng bằng Flask và MySQL phục vụ tìm kiếm và đặt lịch sân thể thao thời gian thực; áp dụng quy trình kiểm thử chất lượng nghiêm ngặt từ Unit, Integration, System đến Acceptance Testing sử dụng Selenium 3."
+        "summary": "Hệ thống cho phép người dùng hoặc quản trị đặt và quản lý sân bóng đá, cầu lông, tennis theo khung giờ nhất định."
       }
     }
   },
@@ -147,21 +141,17 @@
     "title": "Nhật ký của mình",
     "subtitle": "Tôi muốn AI có thể giúp tôi theo đuổi ước mơ và đam mê, chứ không phải cướp hoặc thay thế những ước mơ đó của tôi. Cảm hứng từ Joanna Maciejewska.",
     "chapter_label": "Chương",
-    "journal_label": "Nhật ký",
     "actions": {
       "back_to_journal": "← Quay lại Nhật ký",
-      "return_to_journal": "← Trở về Nhật ký",
       "open_story": "ĐỌC BÀI VIẾT",
       "previous": "← Trang trước",
       "next": "Trang sau →",
-      "go_to_story": "Đến bài viết",
-      "retry": "Thử lại"
+      "go_to_story": "Đến bài viết"
     },
     "empty": {
       "title": "Không có bài viết",
       "description": "Chưa có bài viết nào được xuất bản, có thể là do lỗi backend hoặc mình bị lười viết bài. Vui lòng quay lại sau nhen."
-    },
-    "load_error": "Không thể tải bài viết. Vui lòng thử lại."
+    }
   },
   "contact": {
     "info": {
@@ -209,16 +199,12 @@
     "voice_stop": "Dừng phát",
     "voice_listening": "Đang lắng nghe…",
     "voice_processing": "Đang hoàn tất nhận dạng…",
-    "voice_speaking": "Đang đọc câu trả lời…",
     "voice_permission": "Quyền dùng micrô bị từ chối. Hãy cho phép trong cài đặt trình duyệt.",
     "voice_microphone": "Không tìm thấy micrô.",
     "voice_no_speech": "Không phát hiện giọng nói. Vui lòng thử lại.",
     "voice_input_error": "Nhận dạng giọng nói thất bại. Hãy nhập văn bản hoặc thử lại.",
     "voice_output_error": "Phát âm thanh thất bại. Vui lòng thử lại.",
     "voice_input_unavailable": "Trình duyệt không hỗ trợ nhập giọng nói. Bạn có thể nhập văn bản.",
-    "voice_output_unavailable": "Trình duyệt không hỗ trợ đọc văn bản.",
-    "voice_language_unavailable": "Thiết bị không có giọng đọc cho ngôn ngữ này.",
-    "voice_empty": "Câu trả lời không có nội dung phù hợp để đọc.",
     "progress_connecting": "Đang thiết lập kết nối",
     "progress_preparing": "Đang chuẩn bị hội thoại",
     "progress_generating": "Trợ lý đang suy luận",
@@ -243,7 +229,6 @@
   "pwa": {
     "label": "Trạng thái ứng dụng",
     "offline": "Bạn đang ngoại tuyến",
-    "online": "Dịch vụ trực tuyến sẵn sàng",
     "unavailable": "Dịch vụ trực tuyến chưa khả dụng",
     "checking": "Đang kiểm tra dịch vụ",
     "ready_checking": "Đang chuẩn bị truy cập ngoại tuyến",
@@ -252,10 +237,6 @@
     "ready_unsupported": "Chế độ ngoại tuyến không khả dụng trong phiên này",
     "retry": "Thử lại",
     "install": "Cài ứng dụng",
-    "installed": "Đã cài đặt",
-    "install_help": "Cách cài đặt",
-    "install_browser": "Windows và Android: chọn Cài ứng dụng trong menu Chrome hoặc Edge.",
-    "install_safari": "Mac: dùng Chrome hoặc Edge, hoặc Safari → Chia sẻ → Thêm vào Dock trên macOS 14 trở lên.",
     "portfolio_available": "Trang chủ, Giới thiệu và Dự án dùng được ngoại tuyến sau khi chuẩn bị xong.",
     "install_failed": "Không thể bắt đầu cài đặt. Hãy thử menu trình duyệt.",
     "recovery": "Phiên bản này cần tải lại. Hãy kết nối mạng trước.",
@@ -265,7 +246,6 @@
     "update_failed": "Không thể kiểm tra hoặc tải bản cập nhật. Ứng dụng hiện tại vẫn mở.",
     "blog_notice": "Kết nối dịch vụ trực tuyến để đọc nhật ký.",
     "contact_notice": "Gửi tin cần dịch vụ trực tuyến. Bản nháp được giữ trong thẻ này cho đến khi bạn rời đi hoặc tải lại.",
-    "chat_notice": "Trò chuyện cần dịch vụ trực tuyến. Tin nhắn không tự động được gửi lại.",
     "send_failed": "Chưa xác nhận được việc gửi. Bản nháp được giữ lại; hãy kết nối và tự thử lại."
   }
 }

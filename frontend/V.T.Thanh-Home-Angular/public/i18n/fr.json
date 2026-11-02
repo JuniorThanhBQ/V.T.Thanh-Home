@@ -1,8 +1,7 @@
 {
   "app": {
-    "title": "Site personnel",
     "Author": "Van Trung Thanh",
-    "version": "Version 3.3.0",
+    "version": "Version 4.0.0",
     "copyright": "Tous droits réservés",
     "backend_health_up": "Serveur en ligne",
     "backend_health_standby": "Démarrage du serveur (durée estimée : 2 minutes)",
@@ -87,7 +86,7 @@
       "additional_label": "Domaine complémentaire",
       "additional_content": "Recherche sur l'Agentic Coding",
       "connect_linkedin": "Se connecter sur LinkedIn",
-      "return_portfolio": "Retourner au portfolio",
+      "return_portfolio": "Retourner au site web",
       "overall": "Auto-évaluation des compétences",
       "overall_content": "7 / 10"
     }
@@ -113,32 +112,27 @@
       "aijmc_jpra": {
         "title": "AIJMC-JPRA : évaluation de la fiabilité des offres d'emploi",
         "category": "Recherche scientifique approfondie",
-        "summary": "Un projet de recherche scientifique conforme aux normes des conférences IEEE pour détecter les offres d'emploi frauduleuses et vérifier leur authenticité.",
-        "description": "Un modèle de classification binaire évalue la fiabilité d'une offre d'emploi à partir de son URL. Il intègre un agent PydanticAI à une recherche web en temps réel avec Playwright afin de recouper les preuves, calculer un indice de confiance et produire un raisonnement détaillé."
+        "summary": "Un projet de recherche scientifique conforme aux normes des conférences IEEE pour détecter les offres d'emploi frauduleuses et vérifier leur authenticité."
       },
       "mbms": {
         "title": "Medical Booking Management System (MBMS)",
         "category": "Gestion des rendez-vous médicaux en temps réel",
-        "summary": "Une plateforme de gestion et de réservation en ligne des rendez-vous médicaux destinée aux cliniques, développée sous forme de PWA et d'application native.",
-        "description": "Une solution permettant de numériser le processus de prise de rendez-vous médicaux dans les établissements de santé. Elle optimise l'expérience des patients et des médecins grâce au développement piloté par l'IA (AIDD) et à Scrum, avec un déploiement entièrement conteneurisé au moyen de Docker."
+        "summary": "Une plateforme de gestion et de réservation en ligne des rendez-vous médicaux destinée aux cliniques, développée sous forme de PWA et d'application native."
       },
       "ai_writing_indicator": {
         "title": "Détecteur de textes générés par l'IA",
         "category": "Apprentissage automatique et traitement automatique du langage naturel",
-        "summary": "Un modèle de classification binaire fondé sur l'apprentissage automatique qui détermine si un texte journalistique vietnamien a été généré par une intelligence artificielle ou rédigé par une personne.",
-        "description": "Un pipeline de traitement automatique du langage naturel spécialement conçu pour le vietnamien est étudié et entraîné afin de distinguer avec précision les articles rédigés par des humains des contenus synthétisés par de grands modèles de langage (LLM), contribuant ainsi à la vérification de l'originalité dans l'édition numérique."
+        "summary": "Un modèle de classification binaire fondé sur l'apprentissage automatique qui détermine si un texte journalistique vietnamien a été généré par une intelligence artificielle ou rédigé par une personne."
       },
       "elearning_lcms": {
         "title": "Système de gestion des ressources pédagogiques numériques (ERM)",
         "category": "Technologies éducatives et gestion des contenus pédagogiques",
-        "summary": "Un système ERM complet destiné à gérer, stocker et réutiliser des ressources pédagogiques numériques, développé avec Django REST Framework et React Native.",
-        "description": "L'architecture backend traite les contenus pédagogiques numériques au moyen d'une base de données MySQL. Elle intègre un contrôle d'accès par jetons OAuth2, un tableau de bord statistique destiné aux administrateurs et Google GenAI pour fournir des recommandations personnalisées de ressources pédagogiques."
+        "summary": "Un système ERM complet destiné à gérer, stocker et réutiliser des ressources pédagogiques numériques, développé avec Django REST Framework et React Native."
       },
       "sports_field_booking": {
         "title": "Application de réservation et de gestion de terrains de sport",
         "category": "Sport et tests logiciels",
-        "summary": "Un système permettant aux utilisateurs et aux administrateurs de réserver et de gérer des terrains de football, de badminton et de tennis selon des créneaux horaires déterminés.",
-        "description": "Une application web développée avec Flask et MySQL pour rechercher et réserver des terrains de sport en temps réel. Elle applique un processus rigoureux d'assurance qualité comprenant des tests unitaires, d'intégration, système et d'acceptation avec Selenium 3."
+        "summary": "Un système permettant aux utilisateurs et aux administrateurs de réserver et de gérer des terrains de football, de badminton et de tennis selon des créneaux horaires déterminés."
       }
     }
   },
@@ -147,21 +141,17 @@
     "title": "Mon journal",
     "subtitle": "Je veux que l'IA m'aide à poursuivre mes rêves et mes passions, et non qu'elle me les vole ou les remplace. Inspiré par Joanna Maciejewska.",
     "chapter_label": "Chapitre",
-    "journal_label": "Journal",
     "actions": {
       "back_to_journal": "← Retour au journal",
-      "return_to_journal": "← Revenir au journal",
       "open_story": "LIRE L'ARTICLE",
       "previous": "← Page précédente",
       "next": "Page suivante →",
-      "go_to_story": "Accéder à l'article",
-      "retry": "Réessayer"
+      "go_to_story": "Accéder à l'article"
     },
     "empty": {
       "title": "Aucun article",
       "description": "Aucun article n'a encore été publié. Cela peut être dû à une erreur du backend ou au fait que j'ai été trop paresseux pour écrire. Veuillez revenir plus tard."
-    },
-    "load_error": "Impossible de charger le journal. Veuillez réessayer."
+    }
   },
   "contact": {
     "info": {
@@ -209,16 +199,12 @@
     "voice_stop": "Arrêter la lecture",
     "voice_listening": "Écoute en cours…",
     "voice_processing": "Finalisation de la dictée…",
-    "voice_speaking": "Lecture de la réponse…",
     "voice_permission": "Accès au microphone refusé. Autorisez-le dans les paramètres du navigateur.",
     "voice_microphone": "Aucun microphone disponible.",
     "voice_no_speech": "Aucune parole détectée. Réessayez.",
     "voice_input_error": "Échec de la reconnaissance vocale. Saisissez le texte ou réessayez.",
     "voice_output_error": "Échec de la lecture. Réessayez.",
     "voice_input_unavailable": "La saisie vocale est indisponible dans ce navigateur. Vous pouvez saisir votre message.",
-    "voice_output_unavailable": "La lecture vocale est indisponible dans ce navigateur.",
-    "voice_language_unavailable": "Aucune voix disponible pour cette langue sur votre appareil.",
-    "voice_empty": "Cette réponse ne contient aucun texte à lire.",
     "progress_connecting": "Connexion en cours",
     "progress_preparing": "Préparation de la conversation",
     "progress_generating": "L’assistant réfléchit",
@@ -243,7 +229,6 @@
   "pwa": {
     "label": "État de l’application",
     "offline": "Vous êtes hors ligne",
-    "online": "Services en ligne disponibles",
     "unavailable": "Services en ligne indisponibles",
     "checking": "Vérification des services",
     "ready_checking": "Préparation de l’accès hors ligne",
@@ -252,10 +237,6 @@
     "ready_unsupported": "Mode hors ligne indisponible dans cette session",
     "retry": "Réessayer",
     "install": "Installer l’application",
-    "installed": "Installée",
-    "install_help": "Comment installer",
-    "install_browser": "Windows et Android : choisissez Installer l’application dans le menu de Chrome ou Edge.",
-    "install_safari": "Mac : utilisez Chrome ou Edge, ou Safari → Partager → Ajouter au Dock sur macOS 14 ou ultérieur.",
     "portfolio_available": "Accueil, À propos et Projets fonctionnent hors ligne après la préparation.",
     "install_failed": "Impossible de lancer l’installation. Essayez le menu du navigateur.",
     "recovery": "Cette version doit être rechargée. Reconnectez-vous d’abord.",
@@ -265,7 +246,6 @@
     "update_failed": "La vérification ou le téléchargement a échoué. L’application actuelle reste ouverte.",
     "blog_notice": "Connectez-vous aux services en ligne pour lire le journal.",
     "contact_notice": "L’envoi nécessite les services en ligne. Le brouillon reste dans cet onglet jusqu’à sa fermeture ou son rechargement.",
-    "chat_notice": "Le chat nécessite les services en ligne. Aucun message ne sera renvoyé automatiquement.",
     "send_failed": "Livraison non confirmée. Votre brouillon est conservé ; reconnectez-vous et réessayez manuellement."
   }
 }
