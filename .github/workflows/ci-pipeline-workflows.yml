@@ -21,12 +21,13 @@ jobs:
       pull-requests: read
     outputs:
       backend: ${{ steps.filter.outputs.backend }}
+      frontend: ${{ steps.filter.outputs.frontend }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
-      - name: Check for backend modifications
+      - name: Check for modified paths
         id: filter
         uses: dorny/paths-filter@ceb8a2b8f2d89434be7ff52d3de7ec3738c5cc9d # v4.0.3
         with:
@@ -35,6 +36,9 @@ jobs:
               - 'backend/V.T.Thanh-Home-SpringBoot/**'
               - 'backend/Dockerfile'
               - 'backend/Dockerfile.dockerignore'
+            frontend:
+              - 'frontend/V.T.Thanh-Home-Angular/**'
+              - '.vercel/**'
   gitleaks:
     name: "Secret Leak Detection"
     runs-on: ubuntu-latest
@@ -218,3 +222,14 @@ jobs:
     secrets:
       DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
       DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
+
+  deploy-frontend:
+    name: "Deploy Frontend to Vercel"
+    needs: [security-deep-scan, changes, deploy]
+    if: always() && github.ref == 'refs/heads/main' && github.event_name == 'push' && (needs.changes.outputs.frontend == 'true' || needs.changes.outputs.backend == 'true') && needs.security-deep-scan.result == 'success' && (needs.deploy.result == 'success' || needs.deploy.result == 'skipped')
+    uses: ./.github/workflows/deploy-frontend-workflows.yml
+    secrets:
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+      SENTRY_DSN: ${{ secrets.SENTRY_DSN }}

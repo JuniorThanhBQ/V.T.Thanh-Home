@@ -1,0 +1,10 @@
+title = "V.T.Thanh Project Secret Scanning"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Generated dependencies, internal tool caches, and scan output"
+paths = [
+    '''(^|/)(node_modules|\.gradle|\.angular|\.venv|\.agents|\.codex|\.codegraph[^/]*|dist|build|target|reports)(/|$)''',
+]
