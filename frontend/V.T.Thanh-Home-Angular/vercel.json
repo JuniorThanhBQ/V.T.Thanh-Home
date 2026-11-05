@@ -1,6 +1,6 @@
 {
     "$schema": "https://openapi.vercel.sh/vercel.json",
-    "ignoreCommand": "bash -c \u0027if [ -n \"$VERCEL_GIT_PREVIOUS_SHA\" ]; then git diff --quiet \"$VERCEL_GIT_PREVIOUS_SHA\" \"$VERCEL_GIT_COMMIT_SHA\" -- .; else exit 1; fi\u0027",
+    "ignoreCommand": "bash -c \u0027if [ \"$VERCEL_GIT_COMMIT_REF\" = \"vercel-production\" ]; then exit 0; elif [ -n \"$VERCEL_GIT_PREVIOUS_SHA\" ]; then git diff --quiet \"$VERCEL_GIT_PREVIOUS_SHA\" \"$VERCEL_GIT_COMMIT_SHA\" -- .; else exit 1; fi\u0027",
     "cleanUrls": false,
     "trailingSlash": false,
     "headers": [
@@ -29,7 +29,7 @@
                 },
                 {
                     "key": "Permissions-Policy",
-                    "value": "camera=(), microphone=(self), geolocation=(), browsing-topics=()"
+                    "value": "camera=(), microphone=(self), geolocation=(), browsing-topics=(), run-ad-auction=(), join-ad-interest-group=(), private-aggregation=(), attribution-reporting=()"
                 },
                 {
                     "key": "Cross-Origin-Opener-Policy",

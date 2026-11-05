@@ -18,14 +18,17 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.security.SecureRandom;
 
 @Service
 public class AdminAuthService {
 
     private static final Logger log = LoggerFactory.getLogger(AdminAuthService.class);
+    private static final SecureRandom SECURE_RANDOM = new SecureRandom();
 
     private final AdminAccountRepository adminAccountRepository;
     private final PasswordEncoder passwordEncoder;
+    private final String dummyPasswordHash;
     private final LoginRateLimiterService rateLimiterService;
 
     public AdminAuthService(
@@ -35,6 +38,8 @@ public class AdminAuthService {
     ) {
         this.adminAccountRepository = adminAccountRepository;
         this.passwordEncoder = passwordEncoder;
+        String dummyPassword = Long.toHexString(SECURE_RANDOM.nextLong());
+        this.dummyPasswordHash = passwordEncoder.encode(dummyPassword);
         this.rateLimiterService = rateLimiterService;
     }
 
@@ -53,7 +58,10 @@ public class AdminAuthService {
         AdminAccount admin = adminAccountRepository.findByUsername(username)
                 .orElse(null);
 
-        if (admin == null || !admin.isActive() || !passwordEncoder.matches(password, admin.getPasswordHash())) {
+        boolean active = admin != null && admin.isActive();
+        String passwordHash = active ? admin.getPasswordHash() : dummyPasswordHash;
+        boolean passwordMatches = passwordEncoder.matches(password, passwordHash);
+        if (!active || !passwordMatches) {
             log.warn("Administrator authentication failed");
             throw new BadCredentialsException("Invalid credentials");
         }

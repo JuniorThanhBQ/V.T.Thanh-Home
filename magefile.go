@@ -21,6 +21,10 @@ func AppAudit() error {
 	return run("bash", "scripts/app-security-audit.sh")
 }
 
+func AppSecurity() error {
+	return run("uv", "run", "python", "scripts/security/scan.py", "--with-ai")
+}
+
 func BackendLockfile() error {
 	return run("bash", "scripts/app-backend-lockfile.sh")
 }

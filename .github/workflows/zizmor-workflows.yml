@@ -6,8 +6,6 @@ on:
   pull_request:
     paths:
       - ".github/workflows/**"
-      - "action.yml"
-      - "action.yaml"
   schedule:
     - cron: "30 2 * * 1"
 

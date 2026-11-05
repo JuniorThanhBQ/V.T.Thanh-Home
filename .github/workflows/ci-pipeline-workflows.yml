@@ -21,12 +21,13 @@ jobs:
       pull-requests: read
     outputs:
       backend: ${{ steps.filter.outputs.backend }}
+      frontend: ${{ steps.filter.outputs.frontend }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
-      - name: Check for backend modifications
+      - name: Check for modified paths
         id: filter
         uses: dorny/paths-filter@ceb8a2b8f2d89434be7ff52d3de7ec3738c5cc9d # v4.0.3
         with:
@@ -35,6 +36,9 @@ jobs:
               - 'backend/V.T.Thanh-Home-SpringBoot/**'
               - 'backend/Dockerfile'
               - 'backend/Dockerfile.dockerignore'
+            frontend:
+              - 'frontend/V.T.Thanh-Home-Angular/**'
+              - '.vercel/**'
   gitleaks:
     name: "Secret Leak Detection"
     runs-on: ubuntu-latest
@@ -156,20 +160,6 @@ jobs:
         working-directory: frontend/V.T.Thanh-Home-Angular
         run: npm run check:ssr:compat
 
-      - name: Build Spring Boot Production Docker Image
-        run: docker build -t vtthanh-backend:test -f backend/Dockerfile .
-
-      - name: Save Docker Image Artifact for Deep Scan
-        run: |
-          docker save vtthanh-backend:test -o /tmp/vtthanh-backend.tar
-
-      - name: Upload Image Artifact
-        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 #v7.0.2
-        with:
-          name: backend-docker-image
-          path: /tmp/vtthanh-backend.tar
-          retention-days: 1
-
   security-deep-scan:
     name: "Deep Security Scan"
     needs: [build-check]
@@ -185,30 +175,20 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Download Built Backend Docker Image
-        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 #v8.0.2
-        with:
-          name: backend-docker-image
-          path: /tmp
-
-      - name: Load Docker Image into Runner Daemon
-        run: docker load -i /tmp/vtthanh-backend.tar
-
-      - name: Run Trivy Deep Image Vulnerability Scan
+      - name: Run Trivy Filesystem Vulnerability Scan
         uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
         with:
-          image-ref: "vtthanh-backend:test"
-          scan-type: "image"
-          severity: "HIGH,CRITICAL"
+          scan-type: "fs"
+          severity: "MEDIUM,HIGH,CRITICAL"
           format: "sarif"
-          output: "trivy-image-results.sarif"
+          output: "trivy-fs-results.sarif"
 
-      - name: Upload Trivy Image SARIF
+      - name: Upload Trivy SARIF
         if: always()
         uses: github/codeql-action/upload-sarif@9b3254085494b55a0f7c4c2b3d2d52cc712ce370 # v4.39.1
         with:
-          sarif_file: "trivy-image-results.sarif"
-          category: "trivy-docker-image"
+          sarif_file: "trivy-fs-results.sarif"
+          category: "trivy-fs"
 
   deploy:
     name: "Deploy Backend Image"
@@ -218,3 +198,20 @@ jobs:
     secrets:
       DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
       DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
+
+  deploy-frontend:
+    name: "Deploy Frontend to Vercel"
+    needs: [security-deep-scan, changes, deploy]
+    if: always() && github.ref == 'refs/heads/main' && github.event_name == 'push' && (needs.changes.outputs.frontend == 'true' || needs.changes.outputs.backend == 'true') && needs.security-deep-scan.result == 'success' && (needs.deploy.result == 'success' || needs.deploy.result == 'skipped')
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout the approved commit
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - name: Advance Vercel production branch
+        run: git push origin HEAD:refs/heads/vercel-production
