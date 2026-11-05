@@ -278,7 +278,7 @@ def main():
                 "--scanners",
                 "vuln,misconfig",
                 "--severity",
-                "HIGH,CRITICAL",
+                "MEDIUM,HIGH,CRITICAL",
                 "--exit-code",
                 "1",
                 "--timeout",
