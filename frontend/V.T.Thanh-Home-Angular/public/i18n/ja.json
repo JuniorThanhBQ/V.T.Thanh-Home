@@ -1,7 +1,7 @@
 {
   "app": {
     "Author": "キスネ・カネルド",
-    "version": "バージョン 4.0.0",
+    "version": "バージョン 4.2.0",
     "copyright": "無断転載を禁じます",
     "backend_health_up": "サーバー稼働中。",
     "backend_health_standby": "サーバーを起動中（所要時間の目安：2分）",

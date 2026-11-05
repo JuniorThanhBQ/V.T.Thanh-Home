@@ -203,9 +203,15 @@ jobs:
     name: "Deploy Frontend to Vercel"
     needs: [security-deep-scan, changes, deploy]
     if: always() && github.ref == 'refs/heads/main' && github.event_name == 'push' && (needs.changes.outputs.frontend == 'true' || needs.changes.outputs.backend == 'true') && needs.security-deep-scan.result == 'success' && (needs.deploy.result == 'success' || needs.deploy.result == 'skipped')
-    uses: ./.github/workflows/deploy-frontend-workflows.yml
-    secrets:
-      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-      SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout the approved commit
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - name: Advance Vercel production branch
+        run: git push origin HEAD:refs/heads/vercel-production

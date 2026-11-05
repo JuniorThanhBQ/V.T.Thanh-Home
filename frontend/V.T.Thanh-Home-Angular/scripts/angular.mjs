@@ -17,12 +17,18 @@ if (args[0] === 'build' || args[0] === 'serve') {
     }
   }
   if (!dsn?.trim()) {
-    console.error('Unset variable SENTRY_DSN. Set it in the environment or the Angular project .env file.');
+    console.error(
+      'Unset variable SENTRY_DSN. Set it in the environment or the Angular project .env file.',
+    );
     process.exit(1);
   }
   try {
     const url = new URL(dsn);
-    if (!['https:', 'http:'].includes(url.protocol) || !url.username || !/^\/\d+$/.test(url.pathname)) {
+    if (
+      !['https:', 'http:'].includes(url.protocol) ||
+      !url.username ||
+      !/^\/\d+$/.test(url.pathname)
+    ) {
       throw new Error('Invalid DSN');
     }
   } catch {
@@ -30,6 +36,11 @@ if (args[0] === 'build' || args[0] === 'serve') {
     process.exit(1);
   }
   args.push('--define', `process.env.SENTRY_DSN=${JSON.stringify(dsn)}`);
+  const observabilityConfig = process.env.VERCEL_OBSERVABILITY_CLIENT_CONFIG ?? '';
+  args.push(
+    '--define',
+    `process.env.VERCEL_OBSERVABILITY_CLIENT_CONFIG=${JSON.stringify(observabilityConfig)}`,
+  );
 }
 
 const result = spawnSync(process.execPath, [cli, ...args], {

@@ -1,7 +1,0 @@
-{
-  "name": "vercel-deployment-tooling",
-  "private": true,
-  "dependencies": {
-    "vercel": "65.11.0"
-  }
-}
