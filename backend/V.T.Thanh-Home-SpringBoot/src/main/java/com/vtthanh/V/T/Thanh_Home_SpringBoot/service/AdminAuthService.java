@@ -18,12 +18,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
+import java.security.SecureRandom;
 
 @Service
 public class AdminAuthService {
 
     private static final Logger log = LoggerFactory.getLogger(AdminAuthService.class);
+    private static final SecureRandom SECURE_RANDOM = new SecureRandom();
 
     private final AdminAccountRepository adminAccountRepository;
     private final PasswordEncoder passwordEncoder;
@@ -37,7 +38,7 @@ public class AdminAuthService {
     ) {
         this.adminAccountRepository = adminAccountRepository;
         this.passwordEncoder = passwordEncoder;
-        String dummyPassword = Long.toHexString(ThreadLocalRandom.current().nextLong());
+        String dummyPassword = Long.toHexString(SECURE_RANDOM.nextLong());
         this.dummyPasswordHash = passwordEncoder.encode(dummyPassword);
         this.rateLimiterService = rateLimiterService;
     }
