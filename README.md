@@ -48,6 +48,9 @@ Rebuilding my personal home website from the ground up using Angular 22 and Spri
 8. DMCA Protected Explanation: [DMCA-PROTECTED](docs/license/dmca-protected.md)
 9. Security scan and cloudflare Radar: [URL Radar](https://radar.cloudflare.com/scan)
 
+
+</div>
+
 ## IV. Website Status
 
 [![Website Status](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/JuniorThanhBQ/V.T.Thanh-Home/badges/status.json)](https://www.juniorthanh.id.vn/)
@@ -56,9 +59,12 @@ Rebuilding my personal home website from the ground up using Angular 22 and Spri
 [![Cloudflare Security](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/JuniorThanhBQ/V.T.Thanh-Home/badges/cloudflare-status.json&logo=cloudflare&logoColor=white)](https://radar.cloudflare.com/scan)
 [![Backend Image Vulnerabilities](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2FJuniorThanhBQ%2FV.T.Thanh-Home%2Fbadges%2Fimage-vulnerabilities.json&logo=docker&logoColor=white)](https://hub.docker.com/r/juniorthanh09/vtthanh-backend/tags)
 
+<div align="justify">
+
 The image vulnerability badge reports image-level Critical (C), High (H), Medium (M), and Low (L) findings for the published `backend:latest` image on `linux/amd64`, plus Unspecified (U) when Scout includes it. Package-level counts are excluded. A failed scan or an unrecognized report displays `unavailable`.
 
 </div>
+
 
 ## V. Contact Information and Important Note
 
