@@ -1,7 +1,7 @@
 {
   "app": {
     "Author": "Van Trung Thanh",
-    "version": "Version 4.2.0",
+    "version": "Version 4.3.0",
     "copyright": "All rights reserved",
     "backend_health_up": "Server online",
     "backend_health_standby": "Starting server (ETA: 2 minutes)",
@@ -247,5 +247,12 @@
     "blog_notice": "Connect to online services to read the journal.",
     "contact_notice": "Sending requires online services. Your draft stays in this tab until you leave or reload it.",
     "send_failed": "Delivery is unconfirmed. Your draft is retained; reconnect and retry manually."
+  },
+  "privacy": {
+    "cookie_title": "Privacy and Cookie Preferences",
+    "cookie_desc": "This website use necessary cookies for session security and anti-bot verification. With your consent, the website can enable privacy-friendly performance telemetry to improve our site.",
+    "accept_all": "Accept All",
+    "essential_only": "Essential Only",
+    "cookie_settings": "Cookie Preferences"
   }
 }

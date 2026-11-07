@@ -1,7 +1,7 @@
 {
   "app": {
     "Author": "Van Trung Thanh",
-    "version": "Version 4.2.0",
+    "version": "Version 4.3.0",
     "copyright": "Tous droits réservés",
     "backend_health_up": "Serveur en ligne",
     "backend_health_standby": "Démarrage du serveur (durée estimée : 2 minutes)",
@@ -247,5 +247,12 @@
     "blog_notice": "Connectez-vous aux services en ligne pour lire le journal.",
     "contact_notice": "L’envoi nécessite les services en ligne. Le brouillon reste dans cet onglet jusqu’à sa fermeture ou son rechargement.",
     "send_failed": "Livraison non confirmée. Votre brouillon est conservé ; reconnectez-vous et réessayez manuellement."
+  },
+  "privacy": {
+    "cookie_title": "Confidentialité et préférences de cookies",
+    "cookie_desc": "Ce site web utilise des cookies nécessaires à la sécurité des sessions et à la protection contre les bots. Avec votre consentement, le site peut activer des mesures de performance respectueuses de la vie privée pour optimiser nos services.",
+    "accept_all": "Tout accepter",
+    "essential_only": "Essentiels uniquement",
+    "cookie_settings": "Préférences de cookies"
   }
 }
