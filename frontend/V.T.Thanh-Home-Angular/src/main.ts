@@ -1,8 +1,6 @@
 import { bootstrapApplication } from '@angular/platform-browser';
 import { isDevMode } from '@angular/core';
 import * as Sentry from '@sentry/angular';
-import { injectSpeedInsights } from '@vercel/speed-insights';
-import { inject as injectAnalytics } from '@vercel/analytics';
 import { appConfig } from './app/app.config';
 import { App } from './app/app';
 
@@ -58,12 +56,6 @@ initializeTelemetry(() =>
   }),
 );
 
-if (!['localhost', '127.0.0.1'].includes(location.hostname)) {
-  initializeTelemetry(() => injectAnalytics({}, process.env.VERCEL_OBSERVABILITY_CLIENT_CONFIG));
-  initializeTelemetry(() =>
-    injectSpeedInsights({}, process.env.VERCEL_OBSERVABILITY_CLIENT_CONFIG),
-  );
-}
 bootstrapApplication(App, appConfig).catch((err) => {
   console.error(err);
   initializeTelemetry(() => Sentry.captureException(err));

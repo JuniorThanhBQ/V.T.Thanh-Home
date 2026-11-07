@@ -1,7 +1,7 @@
 {
   "app": {
     "Author": "Van Trung Thanh",
-    "version": "Versión 4.2.0",
+    "version": "Versión 4.3.0",
     "copyright": "Reservar todos los derechos",
     "backend_health_up": "Servidor en línea",
     "backend_health_standby": "Iniciando el servidor (tiempo estimado: 2 minutos)",
@@ -247,5 +247,12 @@
     "blog_notice": "Conéctate a los servicios en línea para leer el diario.",
     "contact_notice": "El envío necesita servicios en línea. El borrador permanece en esta pestaña hasta salir o recargar.",
     "send_failed": "La entrega no está confirmada. El borrador se conserva; conéctate y reintenta manualmente."
+  },
+  "privacy": {
+    "cookie_title": "Privacidad y preferencias de cookies",
+    "cookie_desc": "Este sitio web utiliza cookies necesarias para la seguridad de la sesión y la prevención de bots. Con su consentimiento, el sitio web puede habilitar mediciones de rendimiento que respetan la privacidad para optimizar nuestro sitio.",
+    "accept_all": "Aceptar todo",
+    "essential_only": "Solo esenciales",
+    "cookie_settings": "Preferencias de cookies"
   }
 }

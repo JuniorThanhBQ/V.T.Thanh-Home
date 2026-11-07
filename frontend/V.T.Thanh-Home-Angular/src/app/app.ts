@@ -13,6 +13,7 @@ import { ChatbotComponent } from '@/features/chat/components/chat.component';
 import { VisitorService } from '@/shared/services/visitor.service';
 import { PwaStatusComponent } from '@/shared/components/pwa-status/pwa-status.component';
 import { PwaLifecycleService } from '@/shared/services/pwa-lifecycle.service';
+import { CookieConsentComponent } from '@/shared/components/cookie-consent/cookie-consent.component';
 
 @Component({
   imports: [
@@ -23,6 +24,7 @@ import { PwaLifecycleService } from '@/shared/services/pwa-lifecycle.service';
     ColorWipeComponent,
     ChatbotComponent,
     PwaStatusComponent,
+    CookieConsentComponent,
   ],
   selector: 'app-root',
   styleUrl: './app.css',

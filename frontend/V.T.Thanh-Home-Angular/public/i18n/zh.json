@@ -1,7 +1,7 @@
 {
   "app": {
     "Author": "文忠诚",
-    "version": "版本 4.2.0",
+    "version": "版本 4.3.0",
     "copyright": "保留所有权利",
     "backend_health_up": "服务器运行中。",
     "backend_health_standby": "正在启动服务器（预计耗时：2分钟）",
@@ -247,5 +247,12 @@
     "blog_notice": "请连接在线服务以阅读日志。",
     "contact_notice": "发送需要在线服务。离开或重新加载此标签页前，草稿会保留在这里。",
     "send_failed": "尚未确认送达。草稿已保留，请联网后手动重试。"
+  },
+  "privacy": {
+    "cookie_title": "隐私与 Cookie 偏好设置",
+    "cookie_desc": "本网站使用必要的 Cookie 以确保会话安全和防护网络机器人。在获得您的许可后，网站可以启用注重隐私的性能遥测以优化网站体验。",
+    "accept_all": "全部接受",
+    "essential_only": "仅必要 Cookie",
+    "cookie_settings": "Cookie 偏好设置"
   }
 }

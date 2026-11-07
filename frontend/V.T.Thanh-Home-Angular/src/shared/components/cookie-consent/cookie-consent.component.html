@@ -1,0 +1,55 @@
+@if (consent.isBannerVisible()) {
+  <div
+    role="region"
+    aria-label="Privacy & Cookie Preferences"
+    class="fixed inset-x-0 bottom-0 sm:inset-x-auto sm:right-4 sm:bottom-4 sm:max-w-sm z-50 p-3.5 sm:p-4 rounded-none sm:rounded-2xl bg-white/95 dark:bg-slate-900/95 text-slate-800 dark:text-slate-100 border-t sm:border border-slate-200 dark:border-slate-800 shadow-2xl backdrop-blur-xl pb-[max(0.875rem,env(safe-area-inset-bottom,0px))] sm:pb-4 transition-all duration-300"
+  >
+    <div class="flex items-center justify-between gap-2 mb-1.5">
+      <div class="flex items-center gap-1.5 min-w-0">
+        <h2
+          class="text-xs font-semibold tracking-tight text-slate-900 dark:text-slate-100 truncate"
+        >
+          {{ titleText() }}
+        </h2>
+      </div>
+      @if (consent.hasDecided()) {
+        <button
+          type="button"
+          (click)="consent.closeBanner()"
+          aria-label="Close"
+          class="p-1 -mr-1 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition cursor-pointer shrink-0"
+        >
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+      }
+    </div>
+
+    <p class="text-[11px] sm:text-xs text-slate-600 dark:text-slate-300 leading-relaxed mb-3">
+      {{ descriptionText() }}
+    </p>
+
+    <div class="grid grid-cols-2 gap-2">
+      <button
+        type="button"
+        (click)="consent.acceptAll()"
+        class="w-full py-2 sm:py-1.5 px-2.5 rounded-xl bg-slate-800 dark:bg-sky-600 hover:bg-slate-700 dark:hover:bg-sky-500 active:bg-sky-700 active:scale-[0.98] text-white font-medium text-xs sm:text-[11px] shadow-sm transition-all cursor-pointer text-center focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500"
+      >
+        {{ acceptText() }}
+      </button>
+      <button
+        type="button"
+        (click)="consent.declineNonEssential()"
+        class="w-full py-2 sm:py-1.5 px-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 active:bg-slate-300 active:scale-[0.98] dark:bg-slate-800 dark:hover:bg-slate-700 dark:active:bg-slate-600 text-slate-700 dark:text-slate-200 font-medium text-xs sm:text-[11px] border border-slate-200 dark:border-slate-700 transition-all cursor-pointer text-center focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-400"
+      >
+        {{ declineText() }}
+      </button>
+    </div>
+  </div>
+}

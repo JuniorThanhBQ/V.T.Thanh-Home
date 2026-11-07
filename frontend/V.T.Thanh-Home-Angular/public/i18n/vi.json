@@ -1,7 +1,7 @@
 {
   "app": {
     "Author": "Văn Trung Thành",
-    "version": "Phiên bản 4.2.0",
+    "version": "Phiên bản 4.3.0",
     "copyright": "Bảo lưu mọi quyền",
     "backend_health_up": "Server đang hoạt động",
     "backend_health_standby": "Đang khởi động Server (ETA: 2 phút)",
@@ -247,5 +247,12 @@
     "blog_notice": "Kết nối dịch vụ trực tuyến để đọc nhật ký.",
     "contact_notice": "Gửi tin cần dịch vụ trực tuyến. Bản nháp được giữ trong thẻ này cho đến khi bạn rời đi hoặc tải lại.",
     "send_failed": "Chưa xác nhận được việc gửi. Bản nháp được giữ lại; hãy kết nối và tự thử lại."
+  },
+  "privacy": {
+    "cookie_title": "Quyền riêng tư và Cookie",
+    "cookie_desc": "Trang web này sử dụng cookie thiết yếu cho bảo mật phiên làm việc và chống bot. Với sự đồng ý của bạn, website có thể kích hoạt đo lường hiệu năng ẩn danh để tối ưu trang web.",
+    "accept_all": "Chấp nhận tất cả",
+    "essential_only": "Chỉ cookie thiết yếu",
+    "cookie_settings": "Tùy chọn Cookie"
   }
 }
