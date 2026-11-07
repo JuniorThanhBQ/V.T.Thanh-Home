@@ -212,6 +212,7 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: ${{ github.sha }}
+          fetch-depth: 0
           persist-credentials: true
       - name: Advance Vercel production branch
-        run: git push origin HEAD:refs/heads/vercel-production
+        run: git push --force origin HEAD:refs/heads/vercel-production

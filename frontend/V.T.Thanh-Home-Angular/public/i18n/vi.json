@@ -1,7 +1,7 @@
 {
   "app": {
     "Author": "Văn Trung Thành",
-    "version": "Phiên bản 4.3.0",
+    "version": "Phiên bản 4.3.1",
     "copyright": "Bảo lưu mọi quyền",
     "backend_health_up": "Server đang hoạt động",
     "backend_health_standby": "Đang khởi động Server (ETA: 2 phút)",
