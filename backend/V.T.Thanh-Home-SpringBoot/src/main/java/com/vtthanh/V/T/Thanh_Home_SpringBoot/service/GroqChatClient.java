@@ -79,7 +79,7 @@ public class GroqChatClient {
                 "stream", delta != null
         ));
         if (model.startsWith("openai/gpt-oss")) {
-            requestBody.put("reasoning_effort", "low");
+            requestBody.put("reasoning_effort", "medium");
         }
 
         long start = System.nanoTime();

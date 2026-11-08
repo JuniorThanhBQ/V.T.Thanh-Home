@@ -36,6 +36,7 @@ class ChatIntegrationTest {
     @Autowired private ChatSessionRepository sessions;
     @Autowired private LogChatHistoryRepository logs;
     @MockitoBean private GroqChatClient client;
+    @MockitoBean private GeminiSpeechService speech;
     private MockMvc mvc;
     private MockHttpSession owner;
 
@@ -241,5 +242,37 @@ class ChatIntegrationTest {
         mvc.perform(post("/api/v1/chat/message/stream").with(csrf())
                 .contentType(MediaType.APPLICATION_JSON).content("{}"))
                 .andExpect(status().isUnauthorized());
+    }
+
+    @Test
+    void speechStreamRequiresCsrfAndAnOwnedCompletedReply() throws Exception {
+        send("{\"message\":\"Hello\",\"requestId\":\"owned-speech\"}", owner);
+        String path = "/api/v1/chat/speech/owned-speech/stream";
+        MockHttpSession other = visitor();
+        other.setAttribute("CHAT_TOKEN", owner.getAttribute("CHAT_TOKEN"));
+        mvc.perform(post(path).session(owner)).andExpect(status().isForbidden());
+        mvc.perform(post(path).with(csrf())).andExpect(status().isUnauthorized());
+        mvc.perform(post(path).session(other).with(csrf())).andExpect(status().isNotFound());
+        var message = messages.findAll().getFirst();
+        message.setStatus("PROCESSING");
+        messages.save(message);
+        mvc.perform(post(path).session(owner).with(csrf())).andExpect(status().isNotFound());
+        verifyNoInteractions(speech);
+        message.setStatus("COMPLETED");
+        messages.save(message);
+        doAnswer(invocation -> {
+            java.util.function.Consumer<byte[]> output = invocation.getArgument(2);
+            output.accept(new byte[] {0, 1, 2, 3});
+            return null;
+        }).when(speech).stream(anyString(), anyString(), any());
+        var pending = mvc.perform(post(path).session(owner).with(csrf())
+                .accept(MediaType.TEXT_EVENT_STREAM, MediaType.APPLICATION_JSON))
+                .andExpect(request().asyncStarted()).andReturn();
+        pending.getAsyncResult(5000);
+        var result = mvc.perform(asyncDispatch(pending)).andExpect(status().isOk())
+                .andExpect(header().string("Cache-Control", "private, no-store, no-transform")).andReturn();
+        assertThat(result.getResponse().getContentAsString())
+                .contains("\"type\":\"start\"", "\"type\":\"audio\"", "\"data\":\"AAECAw==\"", "\"type\":\"done\"");
+        verify(speech).stream(anyString(), eq(message.getOutput()), any());
     }
 }
