@@ -32,7 +32,13 @@ export const appConfig: ApplicationConfig = {
     }),
     provideRouter(
       routes,
-      withViewTransitions(),
+      withViewTransitions({
+        skipInitialTransition: true,
+        onViewTransitionCreated: (info) => {
+          info.transition.ready.catch(() => undefined);
+          info.transition.finished.catch(() => undefined);
+        },
+      }),
       withInMemoryScrolling({ scrollPositionRestoration: 'enabled' }),
     ),
     provideHttpClient(withInterceptors([connectivityInterceptor, loadingInterceptor])),
