@@ -41,6 +41,7 @@ export async function startPwaServer() {
     holdChat: false,
     contacts: [] as { idempotencyKey: string }[],
     chats: [] as { requestId: string }[],
+    speech: [] as { requestId: string; xsrf: string | undefined; disconnected: boolean }[],
     healthRequests: 0,
     blogRequests: 0,
     heldAssets: 0,
@@ -111,6 +112,24 @@ export async function startPwaServer() {
               );
             }, 100);
           }
+        } else if (/^\/api\/v1\/chat\/speech\/[^/]+\/stream$/.test(url.pathname)) {
+          const entry = {
+            requestId: url.pathname.split('/').at(-2)!,
+            xsrf: request.headers['x-xsrf-token']?.toString(),
+            disconnected: false,
+          };
+          state.speech.push(entry);
+          response.once('close', () => { entry.disconnected = !response.writableEnded; });
+          response.writeHead(200, {
+            'Content-Type': 'text/event-stream',
+            'Cache-Control': 'private, no-store',
+          });
+          const pcm = Buffer.alloc(5760);
+          for (let i = 0; i < pcm.length / 2; i++) {
+            pcm.writeInt16LE(Math.round(1500 * Math.sin(2 * Math.PI * 440 * i / 24000)), i * 2);
+          }
+          response.write('data: {"type":"start","format":"s16le","rate":24000,"channels":1}\n\n');
+          response.write('data: ' + JSON.stringify({ type: 'audio', seq: 0, data: pcm.toString('base64') }) + '\n\n');
         } else if (url.pathname === '/api/v1/blogs') {
           state.blogRequests++;
           json(response, [

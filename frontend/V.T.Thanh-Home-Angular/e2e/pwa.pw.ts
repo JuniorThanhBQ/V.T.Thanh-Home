@@ -222,6 +222,42 @@ test('retains drafts and delivery identifiers without automatically replaying in
   await expect(page.locator('#chat-message')).toHaveValue('');
 });
 
+test('plays completed reply audio before the stream ends and stops it on chat close', async ({
+  page,
+  context,
+  pwaServer,
+}) => {
+  pwaServer.state.healthy = true;
+  await context.addCookies([{ name: 'XSRF-TOKEN', value: 'speech-csrf', url: pwaServer.origin }]);
+  await page.addInitScript(() => {
+    const start = AudioBufferSourceNode.prototype.start;
+    AudioBufferSourceNode.prototype.start = function (when, offset, duration) {
+      performance.mark('test-speech-source-start');
+      start.call(this, when, offset, duration);
+    };
+  });
+  await page.goto(pwaServer.origin + '/en');
+  await settled(page);
+  await connection(page, 'Online services available');
+  const chat = page.locator('app-chatbot');
+  await chat.locator('div button').first().click();
+  await chat.locator('#chat-message').fill('What does Thanh build?');
+  await chat.getByRole('button', { name: 'Send Message', exact: true }).click();
+  await expect(chat.getByText('Fixture reply')).toBeVisible();
+  const voice = chat.locator('button[aria-busy][aria-pressed]');
+  await voice.click();
+  await expect(voice).toHaveAttribute('aria-pressed', 'true');
+  await expect(voice).toHaveAttribute('aria-busy', 'false');
+  expect(await page.evaluate(() => performance.getEntriesByName('test-speech-source-start').length)).toBe(1);
+  expect(pwaServer.state.speech).toEqual([{
+    requestId: pwaServer.state.chats[0].requestId,
+    xsrf: 'speech-csrf',
+    disconnected: false,
+  }]);
+  await chat.locator('aside').getByRole('button', { name: 'Close Virtual Assistant' }).click();
+  await expect.poll(() => pwaServer.state.speech[0].disconnected).toBe(true);
+});
+
 test('hides journal content offline and refreshes it on reconnection', async ({
   page,
   context,

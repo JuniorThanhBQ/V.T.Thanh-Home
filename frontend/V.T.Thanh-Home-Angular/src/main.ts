@@ -43,6 +43,7 @@ initializeTelemetry(() =>
       };
     },
     environment: isDevMode() ? 'development' : 'production',
+    ignoreErrors: [/Transition was aborted because of invalid state/i, /Document hidden/i],
     integrations: [Sentry.browserTracingIntegration()],
     tracesSampleRate: 0.1,
     tracePropagationTargets: [/^\/api\/v1(?:\/|$)/, /^\/actuator(?:\/|$)/],
