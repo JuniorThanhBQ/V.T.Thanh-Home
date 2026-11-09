@@ -3,7 +3,7 @@ plugins {
 	id("org.springframework.boot") version "4.1.2"
 	id("io.spring.dependency-management") version "1.1.7"
 	id("com.diffplug.spotless") version "8.10.4"
-	id("com.autonomousapps.dependency-analysis") version "3.19.2"
+	id("com.autonomousapps.dependency-analysis") version "3.20.1"
 	checkstyle
 }
 
@@ -38,7 +38,7 @@ repositories {
 extra["tomcat.version"] = "11.0.25"
 
 dependencies {
-	implementation("io.sentry:sentry-spring-boot-4-starter:8.61.1")
+	implementation("io.sentry:sentry-spring-boot-4-starter:8.62.0")
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-webmvc")
